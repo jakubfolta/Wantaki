@@ -1,0 +1,12 @@
+body {
+  font-family: 'Yusei Magic', sans-serif;
+  font-size: $default-font-size;
+  color: $color-primary;
+  background-color: $color-secondary;
+}
+
+.page-heading {
+  font-size: $huge-font-size;
+  text-transform: uppercase;
+  letter-spacing: .4rem;
+}
