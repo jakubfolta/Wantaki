@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+
 import Layout from './containers/Layout/Layout';
 import Home from './containers/Pages/Home';
+import Items from './containers/Pages/Items';
+
 
 class App extends Component {
 
@@ -8,7 +12,11 @@ class App extends Component {
     return (
       <div>
         <Layout>
-          <Home />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/items" component={Items} />
+            <Redirect to="/" />
+          </Switch>
         </Layout>
       </div>
     );
