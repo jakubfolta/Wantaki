@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
+import NavigationItems from '../../components/Navigation/NavigationItems';
+
 class Layout extends Component {
   state = {
 
@@ -9,6 +11,9 @@ class Layout extends Component {
 
     return (
     <Fragment>
+      <header className="header">
+        <NavigationItems />
+      </header>
       <main className="layout">
         {this.props.children}
       </main>

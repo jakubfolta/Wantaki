@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Layout from './containers/Layout/Layout';
 import Home from './containers/Pages/Home';
 import Items from './containers/Pages/Items';
+// import Auth from './container/Pages/Auth';
 
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/items" component={Items} />
+            {/* <Route path="/auth" component={Auth}  /> */}
             <Redirect to="/" />
           </Switch>
         </Layout>
