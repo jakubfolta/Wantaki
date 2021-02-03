@@ -4,6 +4,9 @@ import NavigationItem from './NavigationItem';
 const NavigationItems = () => (
   <nav className="navigation">
     <ul className="navigation_list">
+      <NavigationItem link="/">
+        Home
+      </NavigationItem>
       <NavigationItem link="/auth">
         Log In / Sign Up
       </NavigationItem>
@@ -11,7 +14,7 @@ const NavigationItems = () => (
         Logout
       </NavigationItem>
       <NavigationItem link="/items">
-      Items
+        Items
       </NavigationItem>
     </ul>
   </nav>
