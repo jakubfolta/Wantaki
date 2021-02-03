@@ -6,7 +6,10 @@
   box-sizing: inherit;
 }
 
-html { font-size: 62.5%; }
+html {
+  font-size: 62.5%;
+  -webkit-tap-highlight-color: transparent;
+}
 body { box-sizing: border-box; }
 
 ::selection {

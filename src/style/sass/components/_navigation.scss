@@ -10,9 +10,14 @@
 
   }
 
-  &_link {
+  &_link:link,
+  &_link:visited {
     text-decoration: none;
     color: $color-tertiary;
 
+    &:active {
+      color: $color-primary;
+
+    }
   }
 }
