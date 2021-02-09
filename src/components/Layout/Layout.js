@@ -1,25 +1,20 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 
 import NavigationItems from '../../components/Navigation/NavigationItems';
 
-class Layout extends Component {
-  state = {
-
-  }
-
-  render() {
-
-    return (
+const Layout = props => {
+  return (
     <Fragment>
       <header className="header">
         <NavigationItems />
       </header>
       <main className="layout">
-        {this.props.children}
+        <section className="section">
+          {props.children}
+        </section>
       </main>
     </Fragment>
-    )
-  }
+  );
 }
 
 export default Layout;

@@ -8,7 +8,7 @@ const NavigationItems = () => (
         Home
       </NavigationItem>
       <NavigationItem link="/auth">
-        Log In / Sign Up
+        Authenticate
       </NavigationItem>
       <NavigationItem link="/logout">
         Logout

@@ -1,0 +1,26 @@
+.button {
+  font-family: inherit;
+  font-size: $medium-font-size;
+  font-weight: bold;
+  margin: 1rem 0;
+  padding: 0 1rem;
+  border: 2px solid $color-primary;
+  cursor: pointer;
+
+  &:focus { outline: none; }
+  &:active {
+    transform: translateY(2px);
+    transition: all .2s linear;
+  }
+
+  &:disabled {
+    background-color: hsl(337, 3%, 50%);
+    border: 2px solid transparent;
+  }
+  // transition: transform .2s linear;
+
+  // &:hover {
+  //   transform: translateY(-2px);
+  //   transition: transform .2s linear;
+  // }
+}

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const Items = () => {
   return (
-    <section className="section">
+    <Fragment>
       <h1 className="page-heading">Your desired items</h1>
-    </section>
-  )
+    </Fragment>
+  );
 }
 
 export default Items;
