@@ -33,7 +33,7 @@ class Auth extends Component {
 
   submitHandler = e => {
     e.preventDefault();
-    this.setState({loading: true})
+    this.setState({loading: true, error: ''})
 
     const authData = {
       email: this.state.form.email.value,
@@ -53,7 +53,7 @@ class Auth extends Component {
         this.setState({loading: false, token: token, userId: userId})
       })
       .catch( err => {
-        const errMessage = err;
+        const errMessage = err.response.data.error.message;
 
         this.setState({loading: false, error: errMessage})
       })
@@ -106,7 +106,8 @@ class Auth extends Component {
 
   render() {
     const form = this.state.form;
-    let error = this.state.loading ? <div style={{backgroundColor: 'yellow', color: 'red', width: '100%', height: '100%'}}>Error</div> : null;
+    let error = this.state.error ? <div style={{backgroundColor: 'yellow', color: 'red', fontStyle: 'bold'}}>{this.state.error}</div> : null;
+
     return (
       <Fragment>
         {error}
