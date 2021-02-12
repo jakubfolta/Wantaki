@@ -27,26 +27,36 @@ class Auth extends Component {
     validForm: false,
     loading: false,
     token: null,
-    userId: null
+    userId: null,
+    error: ''
   }
 
   submitHandler = e => {
     e.preventDefault();
+    this.setState({loading: true})
+
     const authData = {
       email: this.state.form.email.value,
-      password: this.state.form.password.value
+      password: this.state.form.password.value,
+      returnSecureToken: true
     }
 
-    axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDi3D7k7mvZB32yiGh9J7HWGWVdmw5n2vw', authData)
+    let url = this.state.signUp
+      ? 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDi3D7k7mvZB32yiGh9J7HWGWVdmw5n2vw'
+      : 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDi3D7k7mvZB32yiGh9J7HWGWVdmw5n2vw';
+
+    axios.post(url, authData)
       .then( response => {
-        console.log(response)
+        const token = response.data.idToken;
+        const userId = response.data.localId
 
+        this.setState({loading: false, token: token, userId: userId})
       })
-      // const response = response
       .catch( err => {
-        console.log(err)
-      })
+        const errMessage = err;
 
+        this.setState({loading: false, error: errMessage})
+      })
   }
 
   onSwitchAuthModeHandler = () => {
@@ -96,8 +106,10 @@ class Auth extends Component {
 
   render() {
     const form = this.state.form;
+    let error = this.state.loading ? <div style={{backgroundColor: 'yellow', color: 'red', width: '100%', height: '100%'}}>Error</div> : null;
     return (
       <Fragment>
+        {error}
         <AuthForm
         onSubmit={this.submitHandler}
         emailValue={form.email.value}
