@@ -1,18 +1,30 @@
 .form {
-  &_group {
-    margin: 2rem 0;
-  }
+  &_group { margin: 1rem 0; }
 
   &_login,
-  &_password,
-  &_login:focus,
-  &_password:focus {
+  &_password {
     font-family: 'Yusei Magic', sans-serif;
     padding: 0 1rem;
     border: 2px solid transparent;
-    outline: none;
+
+    &-label {
+      display: block;
+      text-align: left;
+      transform: translate(1rem, .5rem);
+      font-size: $small-font-size;
+      color: $color-tertiary;
+      opacity: 1;
+      transition: all .3s linear;
+    }
+
+    &:focus { outline: none; }
   }
 
+  &_login:placeholder-shown + &_login-label,
+  &_password:placeholder-shown + &_password-label {
+    transform: translate(1rem, -2rem);
+    opacity: 0;
+  }
 
   &_login--valid,
   &_password--valid {

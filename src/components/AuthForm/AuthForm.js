@@ -33,6 +33,7 @@ const AuthForm = props => {
             autoComplete="off"
             value={props.emailValue}
             onChange={props.onChange} />
+          <label className="form_login-label" htmlFor="email">Email</label>
         </div>
         <div className="form_group">
           <input
@@ -42,6 +43,7 @@ const AuthForm = props => {
             placeholder="Password"
             value={props.passwordValue}
             onChange={props.onChange} />
+          <label className="form_password-label" htmlFor="password">Password</label>
         </div>
         <Button
           disabled={props.formIsValid}>{props.signUp ? "Sign Up" : "Sign In"}</Button>
