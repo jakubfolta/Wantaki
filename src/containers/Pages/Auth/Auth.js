@@ -12,7 +12,8 @@ class Auth extends Component {
         validation: {
           required: true,
           isEmail: true
-        }
+        },
+        touched: false
       },
       password: {
         value: "",
@@ -20,7 +21,8 @@ class Auth extends Component {
         validation: {
           required: true,
           minLength: 8
-        }
+        },
+        touched: false
       }
     },
     signUp: true,
@@ -92,7 +94,8 @@ class Auth extends Component {
       [e.target.id]: {
         ...this.state.form[e.target.id],
         value: e.target.value,
-        validity: this.checkValidity(e.target.value, this.state.form[e.target.id].validation)
+        validity: this.checkValidity(e.target.value, this.state.form[e.target.id].validation),
+        touched: true
       }
     };
 
@@ -115,7 +118,11 @@ class Auth extends Component {
         onSubmit={this.submitHandler}
         emailValue={form.email.value}
         passwordValue={form.password.value}
+        emailValid={form.email.validity}
+        passwordValid={form.password.validity}
         onChange={e => this.onChangeHandler(e)}
+        emailTouched={form.email.touched}
+        passwordTouched={form.password.touched}
         switch={this.onSwitchAuthModeHandler}
         signUp={this.state.signUp}
         formIsValid={!this.state.validForm} />

@@ -1,0 +1,30 @@
+.form {
+  &_group {
+    margin: 2rem 0;
+  }
+
+  &_login,
+  &_password,
+  &_login:focus,
+  &_password:focus {
+    font-family: 'Yusei Magic', sans-serif;
+    padding: 0 1rem;
+    border: 2px solid transparent;
+    outline: none;
+  }
+
+
+  &_login--valid,
+  &_password--valid {
+    border: 2px solid $color-primary;
+    background-color: lighten($color-primary, 50%);
+  }
+
+  &_login--invalid,
+  &_password--invalid {
+    border: 2px solid $color-warning;
+    background-color: lighten($color-warning, 50%);
+  }
+}
+
+

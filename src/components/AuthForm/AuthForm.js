@@ -3,6 +3,21 @@ import React, { Fragment } from 'react';
 import Button from '../UI/Button';
 
 const AuthForm = props => {
+  let emailInput = ['form_login'];
+  if (props.emailTouched && props.emailValid) {
+    emailInput.push('form_login--valid')
+  }
+  if (props.emailTouched && !props.emailValid) {
+    emailInput.push('form_login--invalid')
+  }
+
+  let passwordInput = ['form_password'];
+  if (props.passwordTouched && props.passwordValid) {
+    passwordInput.push('form_password--valid')
+  }
+  if (props.passwordTouched && !props.passwordValid) {
+    passwordInput.push('form_password--invalid')
+  }
 
   return (
     <Fragment>
@@ -11,7 +26,7 @@ const AuthForm = props => {
         onSubmit={props.onSubmit}>
         <div className="form_group">
           <input
-            className="form_login"
+            className={emailInput.join(' ')}
             type="text"
             id="email"
             placeholder="Email"
@@ -21,7 +36,7 @@ const AuthForm = props => {
         </div>
         <div className="form_group">
           <input
-            className="form_password"
+            className={passwordInput.join(' ')}
             type="password"
             id="password"
             placeholder="Password"

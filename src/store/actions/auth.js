@@ -7,7 +7,7 @@ export const authStart = () => {
 }
 
 export const authSuccess = (token, userId, expireTime) => {
-
+  
 }
 
 export const authFail = error => {
