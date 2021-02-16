@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import * as authActions from './store/actions';
 
 import Layout from './components/Layout/Layout';
 import Home from './containers/Pages/Home';
@@ -10,6 +11,9 @@ import Logout from './containers/Pages/Auth/Logout/Logout';
 
 
 class App extends Component {
+  componentDidMount() {
+
+  }
 
   render() {
     let routes = this.props.isAuthenticated
