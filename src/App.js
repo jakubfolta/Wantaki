@@ -12,7 +12,7 @@ import Logout from './containers/Pages/Auth/Logout/Logout';
 
 class App extends Component {
   componentDidMount() {
-
+    this.props.onCheckAuthState();
   }
 
   render() {
@@ -44,4 +44,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    onCheckAuthState: () => dispatch(authActions.checkAuthState())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
