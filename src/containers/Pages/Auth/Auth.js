@@ -35,30 +35,7 @@ class Auth extends Component {
 
   submitHandler = e => {
     e.preventDefault();
-    this.setState({loading: true, error: ''})
 
-    const authData = {
-      email: this.state.form.email.value,
-      password: this.state.form.password.value,
-      returnSecureToken: true
-    }
-
-    let url = this.state.signUp
-      ? 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDi3D7k7mvZB32yiGh9J7HWGWVdmw5n2vw'
-      : 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDi3D7k7mvZB32yiGh9J7HWGWVdmw5n2vw';
-
-    axios.post(url, authData)
-      .then( response => {
-        const token = response.data.idToken;
-        const userId = response.data.localId
-
-        this.setState({loading: false, token: token, userId: userId})
-      })
-      .catch( err => {
-        const errMessage = err.response.data.error.message;
-
-        this.setState({loading: false, error: errMessage})
-      })
   }
 
   onSwitchAuthModeHandler = () => {
