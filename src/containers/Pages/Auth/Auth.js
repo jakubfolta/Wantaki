@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
 import AuthForm from '../../../components/AuthForm/AuthForm';
+import * as authActions from '../../../store/actions';
 
 class Auth extends Component {
   state = {
@@ -26,16 +27,12 @@ class Auth extends Component {
       }
     },
     signUp: true,
-    validForm: false,
-    loading: false,
-    token: null,
-    userId: null,
-    error: ''
+    validForm: false
   }
 
   submitHandler = e => {
     e.preventDefault();
-
+    this.props.onAuthHandler(this.state.form.email.value, this.state.form.password.value, this.state.signUp);
   }
 
   onSwitchAuthModeHandler = () => {
@@ -86,7 +83,7 @@ class Auth extends Component {
 
   render() {
     const form = this.state.form;
-    let error = this.state.error ? <div style={{backgroundColor: 'yellow', color: 'red', fontStyle: 'bold'}}>{this.state.error}</div> : null;
+    let error = this.props.error ? <div style={{backgroundColor: 'yellow', color: 'red', fontStyle: 'bold'}}>{this.props.error}</div> : null;
 
     return (
       <Fragment>
@@ -108,7 +105,19 @@ class Auth extends Component {
   }
 }
 
-export default Auth;
+const mapStateToProps = state => {
+  return {
+    error: state.error
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuthHandler: (email, password, type) => dispatch(authActions.auth(email, password, type))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
 
 
 

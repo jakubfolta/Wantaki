@@ -1,23 +1,35 @@
 import React from 'react';
 import NavigationItem from './NavigationItem';
+import { connect } from 'react-redux';
 
-const NavigationItems = () => (
+const NavigationItems = props => (
   <nav className="navigation">
     <ul className="navigation_list">
       <NavigationItem link="/">
         Home
       </NavigationItem>
-      <NavigationItem link="/auth">
-        Authenticate
-      </NavigationItem>
-      <NavigationItem link="/logout">
-        Logout
-      </NavigationItem>
-      <NavigationItem link="/items">
-        Items
-      </NavigationItem>
+
+      {props.isAuthenticated
+        ? <NavigationItem link="/logout">
+          Logout
+        </NavigationItem>
+        : <NavigationItem link="/auth">
+          Authenticate
+        </NavigationItem>}
+
+      {props.isAuthenticated
+        ?<NavigationItem link="/items">
+          Items
+        </NavigationItem>
+        : null}
     </ul>
   </nav>
 )
 
-export default NavigationItems;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.token !== null
+  };
+};
+
+export default connect(mapStateToProps)(NavigationItems);

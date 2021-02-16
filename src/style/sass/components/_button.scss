@@ -7,7 +7,10 @@
   border: 2px solid $color-primary;
   cursor: pointer;
 
-  &:focus { outline: none; }
+  &:focus {
+    outline: none;
+    background-color: $color-primary;
+  }
   &:active {
     transform: translateY(2px);
     transition: all .2s linear;
