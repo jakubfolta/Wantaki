@@ -4,14 +4,16 @@
   &_login,
   &_password {
     font-family: 'Yusei Magic', sans-serif;
-    padding: 0 1rem;
+    font-size: $medium-font-size;
+    padding: 1rem 2rem;
     border: 2px solid transparent;
 
     &-label {
       display: block;
       text-align: left;
-      transform: translate(1rem, .5rem);
-      font-size: $small-font-size;
+      transform: translate(2.2rem, .5rem);
+      font-family: 'Yusei Magic', sans-serif;
+      font-size: $medium-font-size;
       color: $color-tertiary;
       opacity: 1;
       transition: all .3s linear;
@@ -22,7 +24,7 @@
 
   &_login:placeholder-shown + &_login-label,
   &_password:placeholder-shown + &_password-label {
-    transform: translate(1rem, -2rem);
+    transform: translate(2.2rem, -2rem);
     opacity: 0;
   }
 
