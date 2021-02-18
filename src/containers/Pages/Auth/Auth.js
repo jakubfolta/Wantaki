@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import AuthForm from '../../../components/AuthForm/AuthForm';
 import * as authActions from '../../../store/actions';
+import { updateObject } from '../../../shared/utility';
 
 class Auth extends Component {
   state = {
@@ -63,15 +64,14 @@ class Auth extends Component {
   }
 
   onChangeHandler = (e) => {
-    const updatedForm = {
-      ...this.state.form,
-      [e.target.id]: {
-        ...this.state.form[e.target.id],
-        value: e.target.value,
-        validity: this.checkValidity(e.target.value, this.state.form[e.target.id].validation),
-        touched: true
-      }
-    };
+    const updatedFormElement = updateObject(this.state.form[e.target.id], {
+      value: e.target.value,
+      validity: this.checkValidity(e.target.value, this.state.form[e.target.id].validation),
+      touched: true
+    });
+    const updatedForm = updateObject(this.state.form, {
+      [e.target.id]: updatedFormElement
+    });
 
     let formIsValid = true;
     for (let el in updatedForm) {
