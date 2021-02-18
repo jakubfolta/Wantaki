@@ -1,11 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Component } from 'react';
 
-const Items = () => {
-  return (
-    <Fragment>
-      <h1 className="page-heading">Your desired items</h1>
-    </Fragment>
-  );
+class Items extends Component {
+  state = {
+    items: []
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <h1 className="page-heading">Your future items</h1>
+      </Fragment>
+    );
+  }
 }
 
 export default Items;

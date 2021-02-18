@@ -25,6 +25,8 @@ class App extends Component {
       </Switch>
       : <Switch>
         <Route path="/" exact component={Home} />
+        {/* "items" available for development purposes */}
+        <Route path="/items" component={Items} />
         <Route path="/auth" component={Auth}  />
         <Redirect to="/" />
       </Switch>

@@ -12,16 +12,18 @@ const NavigationItems = props => (
       {props.isAuthenticated
         ? <NavigationItem link="/logout">
           Logout
-        </NavigationItem>
+          </NavigationItem>
         : <NavigationItem link="/auth">
           Authenticate
-        </NavigationItem>}
+          </NavigationItem>}
 
-      {props.isAuthenticated
-        ?<NavigationItem link="/items">
-          Items
-        </NavigationItem>
-        : null}
+          {/* "items" available for development purposes */}
+          <NavigationItem link="/items">
+            Items
+          </NavigationItem>
+      {/* {props.isAuthenticated
+        ?
+        : null} */}
     </ul>
   </nav>
 )
