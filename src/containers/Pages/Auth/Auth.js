@@ -87,19 +87,21 @@ class Auth extends Component {
 
     return (
       <Fragment>
-        {error}
-        <AuthForm
-        onSubmit={this.submitHandler}
-        emailValue={form.email.value}
-        passwordValue={form.password.value}
-        emailValid={form.email.validity}
-        passwordValid={form.password.validity}
-        onChange={e => this.onChangeHandler(e)}
-        emailTouched={form.email.touched}
-        passwordTouched={form.password.touched}
-        switch={this.onSwitchAuthModeHandler}
-        signUp={this.state.signUp}
-        formIsValid={!this.state.validForm} />
+        <section className="section">
+          {error}
+          <AuthForm
+            onSubmit={this.submitHandler}
+            emailValue={form.email.value}
+            passwordValue={form.password.value}
+            emailValid={form.email.validity}
+            passwordValid={form.password.validity}
+            onChange={e => this.onChangeHandler(e)}
+            emailTouched={form.email.touched}
+            passwordTouched={form.password.touched}
+            switch={this.onSwitchAuthModeHandler}
+            signUp={this.state.signUp}
+            formIsValid={!this.state.validForm} />
+        </section>
       </Fragment>
     );
   }

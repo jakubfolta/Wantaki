@@ -1,0 +1,24 @@
+.items-form {
+  width: 100%;
+  &_group { margin: 1rem 0; }
+
+  &_label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    color: $color-tertiary;
+    text-transform: capitalize;
+  }
+
+  &_input,
+  &_textarea {
+    font-family: 'Yusei Magic', sans-serif;
+    font-size: $default-font-size;
+    padding: 1rem 2rem;
+    margin-top: .5rem;
+  }
+
+  &_textarea {
+
+  }
+}

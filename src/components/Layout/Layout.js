@@ -9,9 +9,7 @@ const Layout = props => {
         <NavigationItems />
       </header>
       <main className="layout">
-        <section className="section">
-          {props.children}
-        </section>
+        {props.children}
       </main>
     </Fragment>
   );

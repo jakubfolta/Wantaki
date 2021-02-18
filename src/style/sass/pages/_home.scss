@@ -1,8 +1,17 @@
 .section {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
   text-align: center;
+  width: 100%;
+
+  &--items {
+    position: static;
+    transform: translate(0);
+  }
 }
