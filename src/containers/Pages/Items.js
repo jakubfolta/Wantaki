@@ -28,7 +28,7 @@ class Items extends Component {
       description: {
         type: 'textarea',
         value: '',
-        placeholder: 'Turbo engine V-4x8, yellow V-spoiler, cybernitro implemented.',
+        placeholder: 'Turbo engine V-4x8, Arasaka spoiler, cybernitro, flying module.',
         label: "Additional description",
         valid: true
       }
@@ -97,14 +97,14 @@ class Items extends Component {
 
           <Button
             disabled={!this.state.formIsValid}
-            >Save future gift</Button>
+            >Save Future Gift </Button>
       </form>
     );
 
     return (
       <Fragment>
         <section className="section section--items">
-          <h1 className="page-heading">Your future items</h1>
+          <h1 className="page-heading">Add new items</h1>
           {newItemForm}
         </section>
       </Fragment>
