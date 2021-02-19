@@ -6,11 +6,17 @@ import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import App from './App';
-import reducer from './store/reducers/auth';
+import authReducer from './store/reducers/auth';
+import newItemReducer from './store/reducers/items';
+
+const rootReducer = combineReducers({
+    auth: authReducer,
+    items: newItemReducer
+});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <React.StrictMode>

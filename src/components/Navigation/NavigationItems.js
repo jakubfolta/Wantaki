@@ -30,7 +30,7 @@ const NavigationItems = props => (
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.token !== null
+    isAuthenticated: state.auth.token !== null
   };
 };
 

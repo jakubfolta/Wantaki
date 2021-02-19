@@ -2,7 +2,10 @@ import React, { Fragment, Component } from 'react';
 
 import Input from '../../components/UI/Input';
 import Button from '../../components/UI/Button';
+import Spinner from '../../components/UI/Spinner';
+import * as itemsActions from '../../store/actions';
 import { updateObject } from '../../shared/utility';
+import { connect } from 'react-redux';
 
 class Items extends Component {
   state = {
@@ -35,6 +38,20 @@ class Items extends Component {
     },
     formIsValid: false,
     items: []
+  }
+
+  newItemHandler = e => {
+    e.preventDefault();
+
+    const token = this.props.token;
+    const itemData = {
+      userId: this.props.userId,
+      name: this.state.newItemForm.name.value,
+      link: this.state.newItemForm.link.value,
+      description: this.state.newItemForm.description.value
+    }
+
+    this.props.onAddNewItem(itemData, token);
   }
 
   checkValidity = (value, rules) => {
@@ -81,10 +98,11 @@ class Items extends Component {
       })
     }
 
-    const newItemForm = (
-      <form
-        onSubmit={this.newItemHandler}
-        className="items-form">
+    let newItemForm = this.props.loading ? <Spinner /> :
+      (
+        <form
+          onSubmit={this.newItemHandler}
+          className="items-form">
           {formElements.map( el =>
             <Input
               key={el.id}
@@ -95,11 +113,13 @@ class Items extends Component {
               label={el.configuration.label}
               valid={el.configuration.valid} /> )}
 
-          <Button
-            disabled={!this.state.formIsValid}
-            >Save Future Gift </Button>
-      </form>
-    );
+            <Button
+              disabled={!this.state.formIsValid}
+              btnType="pulse"
+              >Save Future Gift </Button>
+        </form>
+      )
+
 
     return (
       <Fragment>
@@ -112,4 +132,18 @@ class Items extends Component {
   }
 }
 
-export default Items;
+const mapStateToProps = state => {
+  return {
+    loading: state.items.loading,
+    token: state.auth.token,
+    userId: state.auth.userId
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Items);

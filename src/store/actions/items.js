@@ -10,9 +10,10 @@ export const newItemStart = () => {
 export const newItemSuccess = (item, id) => {
   const newItem = {
     ...item,
-    userId: id
+    itemId: id
   }
-  
+  console.log(newItem);
+
   return {
     type: actions.NEW_ITEM_SUCCESS,
     item: newItem
@@ -30,14 +31,14 @@ export const newItem = (item, token) => {
   return dispatch => {
     dispatch(newItemStart());
 
-    axios.post('https://what-i-desire-default-rtdb.firebaseio.com/items.json?auth=' + token, item)
+    axios.post('https://what-i-desire-default-rtdb.firebaseio.com/items.son?auth=' + token, item)
       .then(response => {
         console.log(response);
-        // newItemSuccess()
+        dispatch(newItemSuccess(item, response.data.name));
       })
       .catch(error => {
-        const errMessage = error.response.data.error;
-        newItemFail(errMessage);
+        const errMessage = error.response;
+        dispatch(newItemFail(errMessage));
       })
   }
 };

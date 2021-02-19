@@ -3,3 +3,7 @@ export {
   auth,
   checkAuthState
 } from './auth';
+
+export {
+  newItem
+} from './items';

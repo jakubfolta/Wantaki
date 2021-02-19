@@ -7,7 +7,6 @@
   border: 2px solid $color-primary;
   cursor: pointer;
   box-shadow: 0 0 .5rem 2px hsl(131, 100%, 45%), 0 0 1rem 2px hsl(131, 100%, 45%);
-  animation: scaleUp 1s linear infinite;
 
   &:focus {
     outline: none;
@@ -31,4 +30,8 @@
   //   transform: translateY(-2px);
   //   transition: transform .2s linear;
   // }
+}
+
+.pulse {
+  animation: scaleUp 1s linear infinite;
 }
