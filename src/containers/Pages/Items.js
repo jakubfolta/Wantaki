@@ -81,29 +81,31 @@ class Items extends Component {
       })
     }
 
-    const newItemData = formElements.map( el => (
-      <Input
-        key={el.id}
-        type={el.configuration.type}
-        change={(e) => this.onChangeHandler(e, el.id)}
-        value={el.configuration.value}
-        placeholder={el.configuration.placeholder}
-        label={el.configuration.label}
-        valid={el.configuration.valid} />
-    ));
+    const newItemForm = (
+      <form
+        onSubmit={this.newItemHandler}
+        className="items-form">
+          {formElements.map( el =>
+            <Input
+              key={el.id}
+              type={el.configuration.type}
+              change={(e) => this.onChangeHandler(e, el.id)}
+              value={el.configuration.value}
+              placeholder={el.configuration.placeholder}
+              label={el.configuration.label}
+              valid={el.configuration.valid} /> )}
 
-
+          <Button
+            disabled={!this.state.formIsValid}
+            >Save future gift</Button>
+      </form>
+    );
 
     return (
       <Fragment>
         <section className="section section--items">
           <h1 className="page-heading">Your future items</h1>
-          <form
-            onSubmit={this.newItemHandler}
-            className="items-form">
-            {newItemData}
-
-          </form>
+          {newItemForm}
         </section>
       </Fragment>
     );

@@ -8,6 +8,6 @@ body {
 .page-heading {
   font-family: 'Yusei Magic', sans-serif;
   font-size: $huge-font-size;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: .2rem;
 }

@@ -16,9 +16,12 @@
     font-size: $default-font-size;
     padding: 1rem 2rem;
     margin-top: .5rem;
-  }
+    cursor: pointer;
+    border: none;
 
-  &_textarea {
-
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 .5rem 2px hsl(131, 100%, 45%), 0 0 1rem 2px hsl(131, 100%, 45%);
+    }
   }
 }

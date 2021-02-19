@@ -6,6 +6,8 @@
   padding: 1rem 2rem;
   border: 2px solid $color-primary;
   cursor: pointer;
+  box-shadow: 0 0 .5rem 2px hsl(131, 100%, 45%), 0 0 1rem 2px hsl(131, 100%, 45%);
+  animation: scaleUp 2s linear infinite;
 
   &:focus {
     outline: none;
@@ -20,6 +22,8 @@
   &:disabled {
     background-color: hsl(337, 3%, 50%);
     border: 2px solid transparent;
+    box-shadow: none;
+    animation: none;
   }
   // transition: transform .2s linear;
 

@@ -14,7 +14,7 @@ const NavigationItems = props => (
           Logout
           </NavigationItem>
         : <NavigationItem link="/auth">
-          Authenticate
+          Sign In
           </NavigationItem>}
 
           {/* "items" available for development purposes */}
