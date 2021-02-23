@@ -39,6 +39,23 @@ export const logout = () => {
   };
 };
 
+export const initError = () => {
+  return {
+    type: actions.AUTH_INIT_ERROR
+  };
+};
+
+export const checkAuthErrorState = error => {
+  return dispatch => {
+    if (error) {
+      dispatch(initError())
+    }
+    else {
+      return
+    }
+  };
+};
+
 export const auth = (email, password, type, path) => {
   return dispatch => {
     dispatch(authStart());

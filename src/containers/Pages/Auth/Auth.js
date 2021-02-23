@@ -32,6 +32,10 @@ class Auth extends Component {
     validForm: false
   }
 
+  componentDidMount() {
+    this.props.onCheckErrorState(this.props.error);
+  }
+
   submitHandler = e => {
     e.preventDefault();
     this.props.onAuthHandler(this.state.form.email.value, this.state.form.password.value, this.state.signUp);
@@ -65,7 +69,7 @@ class Auth extends Component {
 
   render() {
     const form = this.state.form;
-    let error = this.props.error ? <div style={{backgroundColor: 'yellow', color: 'red', fontStyle: 'bold'}}>{this.props.error}</div> : null;
+    let error = this.props.error ? <div className="error">{this.props.error}</div> : null;
     let redirectPath = this.props.isAuthenticated ? <Redirect to='/items'/> : null;
 
     return (
@@ -100,7 +104,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuthHandler: (email, password, type) => dispatch(authActions.auth(email, password, type))
+    onAuthHandler: (email, password, type) => dispatch(authActions.auth(email, password, type)),
+    onCheckErrorState: (error) => dispatch(authActions.checkAuthErrorState(error))
   };
 }
 

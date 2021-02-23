@@ -11,3 +11,11 @@ body {
   text-transform: capitalize;
   letter-spacing: .2rem;
 }
+
+.error {
+  border: 4px solid $color-warning;
+  padding: .5rem 1rem;
+  color: $color-white;
+  font-size: $big-font-size;
+  font-weight: bold;
+}

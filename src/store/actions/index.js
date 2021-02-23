@@ -1,9 +1,11 @@
 export {
   logout,
   auth,
-  checkAuthState
+  checkAuthState,
+  checkAuthErrorState
 } from './auth';
 
 export {
-  newItem
+  newItem,
+  checkItemsErrorState
 } from './items';

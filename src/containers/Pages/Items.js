@@ -40,6 +40,10 @@ class Items extends Component {
     items: []
   }
 
+  componentDidMount() {
+    this.props.onCheckErrorState(this.props.error);
+  }
+
   newItemHandler = e => {
     e.preventDefault();
 
@@ -74,6 +78,7 @@ class Items extends Component {
   render() {
     const form = this.state.newItemForm;
     const formElements = [];
+    let error = this.props.error ? <div className="error">{this.props.error}</div> : null;
 
     for (let el in form) {
       formElements.push({
@@ -104,11 +109,11 @@ class Items extends Component {
         </form>
       )
 
-
     return (
       <Fragment>
         <section className="section section--items">
           <h1 className="page-heading">Add new items</h1>
+          {error}
           {newItemForm}
         </section>
       </Fragment>
@@ -120,13 +125,15 @@ const mapStateToProps = state => {
   return {
     loading: state.items.loading,
     token: state.auth.token,
-    userId: state.auth.userId
+    userId: state.auth.userId,
+    error: state.items.error
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token))
+    onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token)),
+    onCheckErrorState: (error) => dispatch(itemsActions.checkItemsErrorState(error))
   }
 }
 

@@ -27,6 +27,23 @@ export const newItemFail = error => {
   };
 };
 
+export const initError = () => {
+  return {
+    type: actions.ITEMS_INIT_ERROR
+  }
+}
+
+export const checkItemsErrorState = error => {
+  return dispatch => {
+    if (error) {
+      dispatch(initError())
+    }
+    else {
+      return
+    }
+  }
+}
+
 export const newItem = (item, token) => {
   return dispatch => {
     dispatch(newItemStart());
@@ -37,7 +54,7 @@ export const newItem = (item, token) => {
         dispatch(newItemSuccess(item, response.data.name));
       })
       .catch(error => {
-        const errMessage = error.response;
+        const errMessage = error.response.data.error;
         dispatch(newItemFail(errMessage));
       })
   }
