@@ -4,7 +4,7 @@ import Input from '../../components/UI/Input';
 import Button from '../../components/UI/Button';
 import Spinner from '../../components/UI/Spinner';
 import * as itemsActions from '../../store/actions';
-import { updateObject } from '../../shared/utility';
+import { updateObject, checkValidity } from '../../shared/utility';
 import { connect } from 'react-redux';
 
 class Items extends Component {
@@ -31,7 +31,7 @@ class Items extends Component {
       description: {
         type: 'textarea',
         value: '',
-        placeholder: 'Turbo engine V-4x8, Arasaka spoiler, cybernitro, flying module.',
+        placeholder: 'Turbo engine V-4x8, Arasaka spoiler, cybernitro.',
         label: "Additional description",
         valid: true
       }
@@ -54,26 +54,10 @@ class Items extends Component {
     this.props.onAddNewItem(itemData, token);
   }
 
-  checkValidity = (value, rules) => {
-    let valid = true;
-
-    if (!rules) {
-      return valid;
-    }
-    if (rules.required) {
-      valid = value.trim() !== '' && valid;
-    }
-    if (rules.minLength) {
-      valid = value.trim().length >= rules.minLength && valid;
-    }
-
-    return valid;
-  }
-
   onChangeHandler = (e, id) => {
     const updatedElement = updateObject(this.state.newItemForm[id], {
       value: e.target.value,
-      valid: this.checkValidity(e.target.value, this.state.newItemForm[id].rules),
+      valid: checkValidity(e.target.value, this.state.newItemForm[id].rules),
     });
     const updatedForm = updateObject(this.state.newItemForm, {
       [id]: updatedElement

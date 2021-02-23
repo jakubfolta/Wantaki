@@ -31,7 +31,7 @@ export const newItem = (item, token) => {
   return dispatch => {
     dispatch(newItemStart());
 
-    axios.post('https://what-i-desire-default-rtdb.firebaseio.com/items.son?auth=' + token, item)
+    axios.post('https://what-i-desire-default-rtdb.firebaseio.com/items.json?auth=' + token, item)
       .then(response => {
         console.log(response);
         dispatch(newItemSuccess(item, response.data.name));

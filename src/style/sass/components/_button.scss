@@ -4,9 +4,10 @@
   font-weight: bold;
   margin: 1rem 0;
   padding: 1rem 2rem;
-  border: 2px solid $color-primary;
   cursor: pointer;
+  border: 2px solid $color-primary;
   box-shadow: 0 0 .5rem 2px hsl(131, 100%, 45%), 0 0 1rem 2px hsl(131, 100%, 45%);
+  transition: all .2s linear;
 
   &:focus {
     outline: none;
@@ -21,7 +22,7 @@
   &:disabled {
     background-color: hsl(337, 3%, 50%);
     border: 2px solid transparent;
-    box-shadow: none;
+    box-shadow: 0 0 0 1.5rem transparent;
     animation: none;
   }
   // transition: transform .2s linear;
@@ -34,4 +35,5 @@
 
 .pulse {
   animation: scaleUp 1s linear infinite;
+  transition: all .2s linear;
 }

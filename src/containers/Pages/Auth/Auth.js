@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import AuthForm from '../../../components/AuthForm/AuthForm';
 import * as authActions from '../../../store/actions';
-import { updateObject } from '../../../shared/utility';
+import { updateObject, checkValidity } from '../../../shared/utility';
 
 class Auth extends Component {
   state = {
@@ -44,29 +44,10 @@ class Auth extends Component {
     })
   }
 
-  checkValidity = (value, rules) => {
-    let isValid = false;
-
-    if (rules.required) {
-      isValid = value.trim() !== '';
-    }
-
-    if (rules.minLength) {
-      isValid = value.trim().length >= rules.minLength;
-    }
-
-    if (rules.isEmail) {
-      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-      isValid = pattern.test(value);
-    }
-
-    return isValid
-  }
-
   onChangeHandler = (e) => {
     const updatedFormElement = updateObject(this.state.form[e.target.id], {
       value: e.target.value,
-      validity: this.checkValidity(e.target.value, this.state.form[e.target.id].validation),
+      validity: checkValidity(e.target.value, this.state.form[e.target.id].validation),
       touched: true
     });
     const updatedForm = updateObject(this.state.form, {
