@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import AuthForm from '../../../components/AuthForm/AuthForm';
 import * as authActions from '../../../store/actions';
@@ -65,6 +66,7 @@ class Auth extends Component {
   render() {
     const form = this.state.form;
     let error = this.props.error ? <div style={{backgroundColor: 'yellow', color: 'red', fontStyle: 'bold'}}>{this.props.error}</div> : null;
+    let redirectPath = this.props.isAuthenticated ? <Redirect to='/items'/> : null;
 
     return (
       <Fragment>
@@ -83,6 +85,7 @@ class Auth extends Component {
             signUp={this.state.signUp}
             formIsValid={!this.state.validForm} />
         </section>
+        {redirectPath}
       </Fragment>
     );
   }
@@ -90,7 +93,8 @@ class Auth extends Component {
 
 const mapStateToProps = state => {
   return {
-    error: state.auth.error
+    error: state.auth.error,
+    isAuthenticated: state.auth.token !== null
   }
 }
 

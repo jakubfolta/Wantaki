@@ -13,15 +13,15 @@ const authStart = (state, action) => {
 }
 
 const authSuccess = (state, action) => {
-  return updateObject(state, {loading: false, token: action.token, userId: action.userId})
+  return updateObject(state, {loading: false, token: action.token, userId: action.userId});
 }
 
 const authFail = (state, action) => {
-  return updateObject(state, {loading: false, error: action.error})
+  return updateObject(state, {loading: false, error: action.error});
 }
 
 const authLogout = (state, action) => {
-  return updateObject(state, {token: null, userId: null})
+  return updateObject(state, {token: null, userId: null});
 }
 
 const reducer = (state = initialState, action) => {

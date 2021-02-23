@@ -19,15 +19,16 @@ class App extends Component {
     let routes = this.props.isAuthenticated
       ? <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/items" component={Items} />
+        <Route path="/auth" component={Auth}  />
         <Route path="/logout" component={Logout}  />
+        <Route path="/items" component={Items} />
         <Redirect to="/" />
       </Switch>
       : <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/auth" component={Auth}  />
         {/* "items" available for development purposes */}
         <Route path="/items" component={Items} />
-        <Route path="/auth" component={Auth}  />
         <Redirect to="/" />
       </Switch>
 

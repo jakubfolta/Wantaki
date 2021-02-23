@@ -39,7 +39,7 @@ export const logout = () => {
   };
 };
 
-export const auth = (email, password, type) => {
+export const auth = (email, password, type, path) => {
   return dispatch => {
     dispatch(authStart());
 
