@@ -81,6 +81,7 @@ class Items extends Component {
   render() {
     const form = this.state.newItemForm;
     const formElements = [];
+    let items = null;
     let error = this.props.error ? <div className="error">{this.props.error}</div> : null;
 
     for (let el in form) {
@@ -112,22 +113,31 @@ class Items extends Component {
         </form>
       )
 
+      if (this.props.items.length > 0) {
+        if (this.props.loadingItems) {
+          items = <Spinner />;
+        }
+        else {
+          items = (
+            <ListItems>
+              {this.props.items.map(el =>
+                <ListItem
+                  link={el.link}
+                  name={el.name}
+                  description={el.description} />
+              )}
+            </ListItems>
+          );
+        }
+      }
+
     return (
       <Fragment>
         <section className="section section--items">
           <h1 className="page-heading">Add new items</h1>
           {error}
           {newItemForm}
-          <ListItems>
-            <ListItem
-              link="https://www.amazon.co.uk/"
-              name="Displate"
-              description="csdcdscc  fdsv re vfdv df gvxrds" />
-            <ListItem
-              link="https://www.amazon.co.uk/"
-              name="Displated"
-              description="csdcdscvsds" />
-          </ListItems>
+          {items}
         </section>
       </Fragment>
     );
@@ -136,10 +146,12 @@ class Items extends Component {
 
 const mapStateToProps = state => {
   return {
+    items: state.items.items,
+    error: state.items.error,
     loading: state.items.loading,
+    loadingItems: state.items.loadingItems,
     token: state.auth.token,
-    userId: state.auth.userId,
-    error: state.items.error
+    userId: state.auth.userId
   };
 };
 
