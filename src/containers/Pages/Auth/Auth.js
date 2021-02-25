@@ -99,15 +99,15 @@ const mapStateToProps = state => {
   return {
     error: state.auth.error,
     isAuthenticated: state.auth.token !== null
-  }
-}
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     onAuthHandler: (email, password, type) => dispatch(authActions.auth(email, password, type)),
     onCheckErrorState: (error) => dispatch(authActions.checkAuthErrorState(error))
   };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);
 

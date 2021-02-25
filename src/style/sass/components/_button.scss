@@ -9,13 +9,13 @@
   box-shadow: 0 0 .5rem 2px hsl(131, 100%, 45%), 0 0 1rem 2px hsl(131, 100%, 45%);
   transition: all .2s linear;
 
-  &:focus {
+  &:focus,
+  &:active {
     outline: none;
     background-color: $color-primary;
   }
   &:active {
     transform: translateY(2px);
-    background-color: $color-primary;
     transition: all .2s linear;
   }
 
@@ -36,4 +36,31 @@
 .pulse {
   animation: scaleUp 1s linear infinite;
   transition: all .2s linear;
+}
+
+.delete,
+.edit {
+  font-size: $small-font-size;
+  padding: .5rem 1rem;
+  box-shadow: 0 0 0 1.5rem transparent;
+  border: 2px solid transparent;
+
+  &:focus,
+  &:active { background-color: $color-white; }
+}
+
+.delete {
+  &:focus,
+  &:active {
+    box-shadow: 0 0 .5rem 2px hsl(0, 100%, 40%), 0 0 1rem 2px hsl(0, 100%, 40%);
+    border: 2px solid $color-warning;
+   }
+}
+
+.edit {
+  &:focus,
+  &:active {
+    box-shadow: 0 0 .5rem 2px hsl(45, 82%, 50%), 0 0 1rem 2px hsl(45, 82%, 50%);
+    border: 2px solid $color-change;
+  }
 }

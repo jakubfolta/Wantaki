@@ -7,5 +7,6 @@ export {
 
 export {
   newItem,
-  checkItemsErrorState
+  checkItemsErrorState,
+  fetchItems
 } from './items';

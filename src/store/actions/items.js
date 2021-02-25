@@ -50,7 +50,6 @@ export const newItem = (item, token) => {
 
     axios.post('https://what-i-desire-default-rtdb.firebaseio.com/items.json?auth=' + token, item)
       .then(response => {
-        console.log(response);
         dispatch(newItemSuccess(item, response.data.name));
       })
       .catch(error => {
@@ -59,3 +58,76 @@ export const newItem = (item, token) => {
       })
   }
 };
+
+// Fetching items from firebase
+export const fetchItemsStart = () => {
+  return {
+    type: actions.FETCH_ITEMS_START
+  }
+}
+
+export const fetchItemsSuccess = items => {
+  return {
+    type: actions.FETCH_ITEMS_SUCCESS,
+    items: items
+  }
+}
+
+export const fetchItemsFail = error => {
+  return {
+    type: actions.FETCH_ITEMS_FAIL,
+    error: error
+  }
+}
+
+export const fetchItems = userId => {
+  return dispatch => {
+    dispatch(fetchItemsStart());
+
+    const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
+
+    axios.get('https://what-i-desire-default-rtdb.firebaseio.com/items.json' + queryParams)
+      .then(response => {
+        console.log(response);
+        const fetchedItems = [];
+
+        for (let el in response.data) {
+          console.log(response.data[el]);
+          fetchedItems.push(response.data[el]);
+        }
+        dispatch(fetchItemsSuccess(fetchedItems));
+      })
+      .catch(error => {
+        const messError = error.response.data.error;
+        dispatch(fetchItemsFail(messError));
+      })
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

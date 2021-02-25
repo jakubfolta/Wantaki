@@ -1,0 +1,44 @@
+.list {
+  list-style: none;
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
+  width: 100%;
+
+  &_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-group {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 70%;
+
+      &:last-child { flex: 0 1 20%; }
+    }
+
+    &-link:link,
+    &-link:visited {
+      text-decoration: none;
+      color: $color-primary;
+      font-family: 'Yusei Magic', sans-serif;
+      letter-spacing: 2px;
+      padding: .5rem 1rem;
+      box-shadow: 0 0 0 1.5rem transparent;
+      border: 2px solid transparent;
+      transition: all .2s linear;
+
+      &:focus,
+      &:active {
+        outline: none;
+        border: 2px solid $color-primary;
+        box-shadow: 0 0 .5rem 2px hsl(131, 100%, 45%), 0 0 1rem 2px hsl(131, 100%, 45%);
+       }
+    }
+
+    &-description {
+      color: $color-tertiary;
+      font-size: $small-font-size;
+    }
+  }
+}

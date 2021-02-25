@@ -1,11 +1,14 @@
 import React, { Fragment, Component } from 'react';
+import * as itemsActions from '../../store/actions';
+import { updateObject, checkValidity } from '../../shared/utility';
+import { connect } from 'react-redux';
 
 import Input from '../../components/UI/Input';
 import Button from '../../components/UI/Button';
 import Spinner from '../../components/UI/Spinner';
-import * as itemsActions from '../../store/actions';
-import { updateObject, checkValidity } from '../../shared/utility';
-import { connect } from 'react-redux';
+import ListItems from '../../components/ListItems/ListItems';
+import ListItem from '../../components/ListItems/ListItem/ListItem';
+
 
 class Items extends Component {
   state = {
@@ -36,12 +39,12 @@ class Items extends Component {
         valid: true
       }
     },
-    formIsValid: false,
-    items: []
+    formIsValid: false
   }
 
   componentDidMount() {
     this.props.onCheckErrorState(this.props.error);
+    this.props.onFetchItems(this.props.userId);
   }
 
   newItemHandler = e => {
@@ -115,6 +118,16 @@ class Items extends Component {
           <h1 className="page-heading">Add new items</h1>
           {error}
           {newItemForm}
+          <ListItems>
+            <ListItem
+              link="https://www.amazon.co.uk/"
+              name="Displate"
+              description="csdcdscc  fdsv re vfdv df gvxrds" />
+            <ListItem
+              link="https://www.amazon.co.uk/"
+              name="Displated"
+              description="csdcdscvsds" />
+          </ListItems>
         </section>
       </Fragment>
     );
@@ -127,14 +140,15 @@ const mapStateToProps = state => {
     token: state.auth.token,
     userId: state.auth.userId,
     error: state.items.error
-  }
-}
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token)),
-    onCheckErrorState: (error) => dispatch(itemsActions.checkItemsErrorState(error))
-  }
-}
+    onCheckErrorState: error => dispatch(itemsActions.checkItemsErrorState(error)),
+    onFetchItems: userId => dispatch(itemsActions.fetchItems(userId))
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Items);
