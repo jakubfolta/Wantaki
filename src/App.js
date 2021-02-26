@@ -22,6 +22,7 @@ class App extends Component {
     let routes = this.props.isAuthenticated
       ? <Switch>
         <Route path="/" exact component={Home} />
+        {/* /auth available to apply redirect after log in */}
         <Route path="/auth" render={() => authSuspense}  />
         <Route path="/logout" component={Logout}  />
         <Route path="/items" render={() => itemsSuspense} />
@@ -30,8 +31,6 @@ class App extends Component {
       : <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/auth" render={() => authSuspense}  />
-        {/* "items" available for development purposes */}
-        <Route path="/items" render={() => itemsSuspense} />
         <Redirect to="/" />
       </Switch>
 

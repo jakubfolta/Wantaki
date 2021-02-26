@@ -17,13 +17,11 @@ const NavigationItems = props => (
           Sign In
           </NavigationItem>}
 
-          {/* "items" available for development purposes */}
-          <NavigationItem link="/items">
-            Items
-          </NavigationItem>
-      {/* {props.isAuthenticated
-        ?
-        : null} */}
+      {props.isAuthenticated
+        ? <NavigationItem link="/items">
+          Items
+        </NavigationItem>
+        : null}
     </ul>
   </nav>
 )

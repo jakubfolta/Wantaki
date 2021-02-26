@@ -61,7 +61,8 @@ class Items extends Component {
       userId: this.props.userId,
       name: this.state.newItemForm.name.value,
       link: this.state.newItemForm.link.value,
-      description: this.state.newItemForm.description.value
+      description: this.state.newItemForm.description.value,
+      timestamp: Date.now()
     }
 
     this.props.onAddNewItem(itemData, token);

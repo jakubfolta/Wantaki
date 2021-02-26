@@ -89,15 +89,25 @@ export const fetchItems = userId => {
     axios.get('https://what-i-desire-default-rtdb.firebaseio.com/items.json' + queryParams)
       .then(response => {
         let items = [];
+        let timestampsArray = [];
+        let sortedItems = []
 
         for (let el in response.data) {
           items.push({
             ...response.data[el],
             id: el
           })
+          timestampsArray.push(response.data[el].timestamp);
+        }
+        timestampsArray.sort().reverse();
+
+// Sort items descending due to creation time
+        for (let number in timestampsArray) {
+          let itemIndex = items.findIndex(el => el.timestamp === timestampsArray[number]);
+          sortedItems.push(items[itemIndex]);
         }
 
-        dispatch(fetchItemsSuccess(items));
+        dispatch(fetchItemsSuccess(sortedItems));
       })
       .catch(error => {
         dispatch(fetchItemsFail(error));
