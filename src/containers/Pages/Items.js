@@ -47,6 +47,12 @@ class Items extends Component {
     this.props.onFetchItems(this.props.userId);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.loading === true) {
+      this.props.onFetchItems(this.props.userId);
+    }
+  }
+
   newItemHandler = e => {
     e.preventDefault();
 
@@ -59,6 +65,21 @@ class Items extends Component {
     }
 
     this.props.onAddNewItem(itemData, token);
+    this.resetValues();
+  }
+
+  resetValues = () => {
+    const initialName = updateObject(this.state.newItemForm.name, { value: '' });
+    const initialLink = updateObject(this.state.newItemForm.link, { value: '' });
+    const initialDescription = updateObject(this.state.newItemForm.description, { value: '' });
+
+    const initialInputs = updateObject(this.state.newItemForm, {
+      name: initialName,
+      link: initialLink,
+      description: initialDescription
+    });
+
+    this.setState({newItemForm: initialInputs, formIsValid: false});
   }
 
   onChangeHandler = (e, id) => {
@@ -82,7 +103,13 @@ class Items extends Component {
     const form = this.state.newItemForm;
     const formElements = [];
     let items = null;
-    let error = this.props.error ? <div className="error">{this.props.error}</div> : null;
+
+    let error = this.props.error
+      ? <div className="error">{this.props.error}</div>
+      : null;
+    let fetchingError = this.props.fetchingError
+      ? <div className="error">{this.props.fetchingError}</div>
+      : null;
 
     for (let el in form) {
       formElements.push({
@@ -91,6 +118,7 @@ class Items extends Component {
       })
     }
 
+// Create "Add item" form
     let newItemForm = this.props.loading ? <Spinner /> :
       (
         <form
@@ -113,23 +141,25 @@ class Items extends Component {
         </form>
       )
 
-      if (this.props.items.length > 0) {
-        if (this.props.loadingItems) {
-          items = <Spinner />;
-        }
-        else {
-          items = (
-            <ListItems>
-              {this.props.items.map(el =>
-                <ListItem
-                  link={el.link}
-                  name={el.name}
-                  description={el.description} />
-              )}
-            </ListItems>
-          );
-        }
+// Create fetched items list
+    if (this.props.items.length > 0) {
+      if (this.props.loadingItems) {
+        items = <Spinner />;
       }
+      else {
+        items = (
+          <ListItems>
+            {this.props.items.map(el =>
+              <ListItem
+                key={el.id}
+                link={el.link}
+                name={el.name}
+                description={el.description} />
+            )}
+          </ListItems>
+        );
+      }
+    }
 
     return (
       <Fragment>
@@ -137,6 +167,7 @@ class Items extends Component {
           <h1 className="page-heading">Add new items</h1>
           {error}
           {newItemForm}
+          {fetchingError}
           {items}
         </section>
       </Fragment>
@@ -148,6 +179,7 @@ const mapStateToProps = state => {
   return {
     items: state.items.items,
     error: state.items.error,
+    fetchingError: state.items.fetchingError,
     loading: state.items.loading,
     loadingItems: state.items.loadingItems,
     token: state.auth.token,

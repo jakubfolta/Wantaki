@@ -4,10 +4,12 @@ import { updateObject } from '../../shared/utility';
 const initialState = {
   items: [],
   error: null,
+  fetchingError: null,
   loading: false,
   loadingItems: false
 };
 
+// Add new item to firebase
 const newItemStart = (state, action) => {
   return updateObject(state, {
     error: false,
@@ -16,10 +18,7 @@ const newItemStart = (state, action) => {
 };
 
 const newItemSuccess = (state, action) => {
-  return updateObject(state, {
-    // items: state.items.concat(action.item),
-    loading: false
-  });
+  return updateObject(state, { loading: false });
 };
 
 const newItemFail = (state, action) => {
@@ -35,7 +34,10 @@ const initError = (state, action) => {
 
 // Fetching items from firebase
 const fetchItemsStart = (state, action) => {
-  return updateObject(state, {loadingItems: true})
+  return updateObject(state, {
+    loadingItems: true,
+    fetchingError: null
+  });
 };
 
 const fetchItemsSuccess = (state, action) => {
@@ -46,7 +48,10 @@ const fetchItemsSuccess = (state, action) => {
 };
 
 const fetchItemsFail = (state, action) => {
-  return updateObject(state, {loadingItems: false})
+  return updateObject(state, {
+    loadingItems: false,
+    fetchingError: action.error
+  })
 };
 
 const reducer = (state = initialState, action) => {

@@ -1,6 +1,7 @@
 import * as actions from './actionTypes';
 import axios from 'axios';
 
+// Add new item to firebase
 export const newItemStart = () => {
   return {
     type: actions.NEW_ITEM_START
@@ -30,8 +31,8 @@ export const newItemFail = error => {
 export const initError = () => {
   return {
     type: actions.ITEMS_INIT_ERROR
-  }
-}
+  };
+};
 
 export const checkItemsErrorState = error => {
   return dispatch => {
@@ -41,8 +42,8 @@ export const checkItemsErrorState = error => {
     else {
       return
     }
-  }
-}
+  };
+};
 
 export const newItem = (item, token) => {
   return dispatch => {
@@ -50,7 +51,7 @@ export const newItem = (item, token) => {
 
     axios.post('https://what-i-desire-default-rtdb.firebaseio.com/items.json?auth=' + token, item)
       .then(response => {
-        dispatch(newItemSuccess(item, response.data.name));
+        dispatch(newItemSuccess());
       })
       .catch(error => {
         const errMessage = error.response.data.error;
@@ -63,15 +64,15 @@ export const newItem = (item, token) => {
 export const fetchItemsStart = () => {
   return {
     type: actions.FETCH_ITEMS_START
-  }
-}
+  };
+};
 
 export const fetchItemsSuccess = items => {
   return {
     type: actions.FETCH_ITEMS_SUCCESS,
     items: items
-  }
-}
+  };
+};
 
 export const fetchItemsFail = error => {
   return {
@@ -85,21 +86,21 @@ export const fetchItems = userId => {
     dispatch(fetchItemsStart());
 
     const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
-
     axios.get('https://what-i-desire-default-rtdb.firebaseio.com/items.json' + queryParams)
       .then(response => {
-        console.log(response);
-        const fetchedItems = [];
+        let items = [];
 
         for (let el in response.data) {
-          console.log(response.data[el]);
-          fetchedItems.push(response.data[el]);
+          items.push({
+            ...response.data[el],
+            id: el
+          })
         }
-        dispatch(fetchItemsSuccess(fetchedItems));
+
+        dispatch(fetchItemsSuccess(items));
       })
       .catch(error => {
-        const messError = error.response.data.error;
-        dispatch(fetchItemsFail(messError));
+        dispatch(fetchItemsFail(error));
       })
   }
 }
@@ -131,3 +132,88 @@ export const fetchItems = userId => {
 
 
 
+
+
+
+
+
+
+
+
+
+// export const fetchItemsStart = () => {
+//   return {
+//     type: actions.FETCH_ITEMS_START
+//   };
+// };
+//
+// export const fetchItemsSuccess = items => {
+//   return {
+//     type: actions.FETCH_ITEMS_SUCCESS,
+//     items: items
+//   };
+// };
+//
+// export const fetchItemsFail = error => {
+//   return {
+//     type: actions.FETCH_ITEMS_FAIL,
+//     error: error
+//   };
+// };
+//
+// export const fetchItems = userId => {
+//   return dispatch => {
+//     dispatch(fetchItemsStart());
+//
+//     const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
+//
+//     axios.get('https://what-i-desire-default-rtdb.firebaseio.com/items.json' + queryParams)
+//       .then(response => {
+//         console.log(response);
+//         const fetchedItems = [];
+//
+//         for (let el in response.data) {
+//           console.log(response.data[el]);
+//           fetchedItems.push({
+//             ...response.data[el],
+//             id: el
+//           });
+//         }
+//
+//         dispatch(fetchItemsSuccess(fetchedItems));
+//       })
+//       .catch(error => {
+//         const messError = error.response.data.error;
+//         console.log(messError);
+//         dispatch(fetchItemsFail(messError));
+//       })
+//   };
+// };
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
