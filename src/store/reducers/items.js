@@ -5,8 +5,10 @@ const initialState = {
   items: [],
   error: null,
   fetchingError: null,
+  deletingError: null,
   loading: false,
-  loadingItems: false
+  loadingItems: false,
+  loadingDelete: false
 };
 
 // Add new item to firebase
@@ -51,7 +53,26 @@ const fetchItemsFail = (state, action) => {
   return updateObject(state, {
     loadingItems: false,
     fetchingError: action.error
-  })
+  });
+};
+
+// Deleting item from firebase
+const deleteItemStart = (state, action) => {
+  return updateObject(state, {
+    loadingDelete: true,
+    deletingError: null
+  });
+};
+
+const deleteItemSuccess = (state, action) => {
+  return updateObject(state, {loadingDelete: false});
+};
+
+const deleteItemFail = (state, action) => {
+  return updateObject(state, {
+    loadingDelete: false,
+    deletingError: action.error
+  });
 };
 
 const reducer = (state = initialState, action) => {
@@ -64,6 +85,10 @@ const reducer = (state = initialState, action) => {
     case actions.FETCH_ITEMS_START: return fetchItemsStart(state, action);
     case actions.FETCH_ITEMS_SUCCESS: return fetchItemsSuccess(state, action);
     case actions.FETCH_ITEMS_FAIL: return fetchItemsFail(state, action);
+
+    case actions.DELETE_ITEM_START: return deleteItemStart(state, action);
+    case actions.DELETE_ITEM_SUCCESS: return deleteItemSuccess(state, action);
+    case actions.DELETE_ITEM_FAIL: return deleteItemFail(state, action);
     default: return state;
   };
 };

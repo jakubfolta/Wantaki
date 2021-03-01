@@ -116,3 +116,40 @@ export const fetchItems = userId => {
   }
 }
 
+// Deleting item from firebase
+export const deleteItemStart = () => {
+  return {
+    type: actions.DELETE_ITEM_START
+  }
+}
+
+export const deleteItemSuccess = () => {
+  return {
+    type: actions.DELETE_ITEM_SUCCESS
+  }
+}
+
+export const deleteItemFail = error => {
+  return {
+    type: actions.DELETE_ITEM_FAIL,
+    error: error
+  }
+}
+
+export const deleteItem = (id, token) => {
+  return dispatch => {
+    dispatch(deleteItemStart());
+
+    const queryParams = id + '.json?auth=' + token;
+    axios.delete('https://what-i-desire-default-rtdb.firebaseio.com/items/' + queryParams)
+      .then(response => {
+        console.log(response);
+
+        dispatch(deleteItemSuccess());
+      })
+      .catch(error => {
+        const errMessage = error.response.data.error;
+        dispatch(deleteItemFail(errMessage));
+      })
+  }
+}
