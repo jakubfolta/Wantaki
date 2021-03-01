@@ -45,6 +45,27 @@ class Items extends Component {
   componentDidMount() {
     this.props.onCheckErrorState(this.props.error);
     this.props.onFetchItems(this.props.userId);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // this.props.onFetchItems(this.props.userId);
   }
 
   componentDidUpdate(prevProps) {
@@ -193,6 +214,16 @@ const mapDispatchToProps = dispatch => {
     onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token)),
     onCheckErrorState: error => dispatch(itemsActions.checkItemsErrorState(error)),
     onFetchItems: userId => dispatch(itemsActions.fetchItems(userId))
+
+
+
+
+
+
+
+
+
+    // onFetchItems: userId => dispatch(itemsActions.fetchItems(userId))
   };
 };
 
