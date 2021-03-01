@@ -48,7 +48,6 @@ class Items extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('UPDATE');
     if (prevProps.loading === true) {
       this.props.onFetchItems(this.props.userId);
     }
@@ -144,7 +143,7 @@ class Items extends Component {
       )
 
 // Create fetched items list
-   if (this.props.loadingItems) {
+    if (this.props.loadingItems) {
       items = <Spinner />;
     } else if (this.props.items.length > 0) {
         items = (
