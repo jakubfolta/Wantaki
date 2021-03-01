@@ -100,9 +100,9 @@ class Items extends Component {
     this.setState({newItemForm: updatedForm, formIsValid: valid});
   }
 
-  onDeleteItemHandler = e => {
-    this.props.onDeleteItem(e.target.key, this.props.token);
-    console.log(e.target.key);
+  onDeleteItemHandler = (e, id) => {
+    this.props.onDeleteItem(id, this.props.token);
+    console.log(id);
   }
 
   render() {
@@ -159,7 +159,7 @@ class Items extends Component {
                 link={el.link}
                 name={el.name}
                 description={el.description}
-                delete={(e) => this.onDeleteItemHandler(e)} />
+                delete={(e) => this.onDeleteItemHandler(e, el.id)} />
             )}
           </ListItems>
         );

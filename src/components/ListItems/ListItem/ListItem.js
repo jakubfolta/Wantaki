@@ -19,8 +19,6 @@ const ListItem = props => (
       <Button
         btnType="edit"
         clicked={props.edit}>Edit</Button>
-      {/* <button className="list_item-button--delete" type="button">Delete</button>
-      <button className="list_item-button--edit" type="button">Delete</button> */}
     </div>
   </li>
 )
