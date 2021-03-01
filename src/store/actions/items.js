@@ -84,7 +84,6 @@ export const fetchItemsFail = error => {
 export const fetchItems = userId => {
   return dispatch => {
     dispatch(fetchItemsStart());
-    console.log('fetch start');
 
     const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
     axios.get('https://what-i-desire-default-rtdb.firebaseio.com/items.json' + queryParams)
@@ -108,7 +107,6 @@ export const fetchItems = userId => {
           sortedItems.push(items[itemIndex]);
         }
         dispatch(fetchItemsSuccess(sortedItems));
-        console.log('fetch success');
       })
 
       .catch(error => {

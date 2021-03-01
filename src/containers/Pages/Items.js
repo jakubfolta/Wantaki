@@ -161,8 +161,6 @@ class Items extends Component {
         items = null;
     }
 
-
-
     return (
       <Fragment>
         <section className="section section--items">
