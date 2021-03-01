@@ -100,8 +100,9 @@ class Items extends Component {
     this.setState({newItemForm: updatedForm, formIsValid: valid});
   }
 
-  onDeleteItemHandler = (e, token) => {
-    
+  onDeleteItemHandler = e => {
+    this.props.onDeleteItem(e.target.key, this.props.token);
+    console.log(e.target.key);
   }
 
   render() {
@@ -196,7 +197,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token)),
     onCheckErrorState: error => dispatch(itemsActions.checkItemsErrorState(error)),
-    onFetchItems: userId => dispatch(itemsActions.fetchItems(userId))
+    onFetchItems: userId => dispatch(itemsActions.fetchItems(userId)),
+    onDeleteItem: (id, token) => dispatch(itemsActions.deleteItem(id, token))
   };
 };
 
