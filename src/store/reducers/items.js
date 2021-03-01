@@ -51,43 +51,8 @@ const fetchItemsFail = (state, action) => {
   return updateObject(state, {
     loadingItems: false,
     fetchingError: action.error
-  });
+  })
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const fetchItemsStart = (state, action) => {
-//   return updateObject(state, {
-//     loadingItems: true,
-//     fetchingError: null
-//   });
-// };
-//
-// const fetchItemsSuccess = (state, action) => {
-//   return updateObject(state, {
-//     loadingItems: false,
-//     items: action.items
-//   });
-// };
-//
-// const fetchItemsFail = (state, action) => {
-//   return updateObject(state, {
-//     loadingItems: false,
-//     fetchingError: action.error
-//   })
-// };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -99,16 +64,6 @@ const reducer = (state = initialState, action) => {
     case actions.FETCH_ITEMS_START: return fetchItemsStart(state, action);
     case actions.FETCH_ITEMS_SUCCESS: return fetchItemsSuccess(state, action);
     case actions.FETCH_ITEMS_FAIL: return fetchItemsFail(state, action);
-
-
-
-
-
-
-
-    // case actions.FETCH_ITEMS_START: return fetchItemsStart(state, action);
-    // case actions.FETCH_ITEMS_SUCCESS: return fetchItemsSuccess(state, action);
-    // case actions.FETCH_ITEMS_FAIL: return fetchItemsFail(state, action);
     default: return state;
   };
 };

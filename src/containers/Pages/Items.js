@@ -124,7 +124,7 @@ class Items extends Component {
   render() {
     const form = this.state.newItemForm;
     const formElements = [];
-    let items = null;
+    let items;
 
     let error = this.props.error
       ? <div className="error">{this.props.error}</div>
@@ -164,11 +164,12 @@ class Items extends Component {
       )
 
 // Create fetched items list
-    if (this.props.items.length > 0) {
-      if (this.props.loadingItems) {
-        items = <Spinner />;
-      }
-      else {
+    if (!this.props.items) {
+      items = null;
+    } else if (this.props.items.length > 0) {
+        if (this.props.loadingItems) {
+          items = <Spinner />;
+      } else {
         items = (
           <ListItems>
             {this.props.items.map(el =>
@@ -182,6 +183,8 @@ class Items extends Component {
         );
       }
     }
+
+
 
     return (
       <Fragment>
@@ -214,16 +217,6 @@ const mapDispatchToProps = dispatch => {
     onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token)),
     onCheckErrorState: error => dispatch(itemsActions.checkItemsErrorState(error)),
     onFetchItems: userId => dispatch(itemsActions.fetchItems(userId))
-
-
-
-
-
-
-
-
-
-    // onFetchItems: userId => dispatch(itemsActions.fetchItems(userId))
   };
 };
 

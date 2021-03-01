@@ -86,7 +86,7 @@ export const fetchItems = userId => {
     dispatch(fetchItemsStart());
 
     const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
-    axios.get('https://what-i-desire-default-rtdb.firebaseio.com/items.json' + queryParams)
+    axios.get('https://what-i-desire-default-rtdb.firebaseio.com/itms.json' + queryParams)
       .then(response => {
         let items = [];
         let timestampsArray = [];
@@ -102,128 +102,17 @@ export const fetchItems = userId => {
         timestampsArray.sort().reverse();
 
 // Sort items descending due to creation time
-        for (let number in timestampsArray) {
-          let itemIndex = items.findIndex(el => el.timestamp === timestampsArray[number]);
+        for (let number of timestampsArray) {
+          let itemIndex = items.findIndex(el => el.timestamp === number);
           sortedItems.push(items[itemIndex]);
         }
-
         dispatch(fetchItemsSuccess(sortedItems));
       })
+
       .catch(error => {
-        dispatch(fetchItemsFail(error));
+        const errMessage = error.response.data.error
+        dispatch(fetchItemsFail(errMessage));
       })
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// export const fetchItemsStart = () => {
-//   return {
-//     type: actions.FETCH_ITEMS_START
-//   };
-// };
-//
-// export const fetchItemsSuccess = items => {
-//   return {
-//     type: actions.FETCH_ITEMS_SUCCESS,
-//     items: items
-//   };
-// };
-//
-// export const fetchItemsFail = error => {
-//   return {
-//     type: actions.FETCH_ITEMS_FAIL,
-//     error: error
-//   };
-// };
-//
-// export const fetchItems = userId => {
-//   return dispatch => {
-//     dispatch(fetchItemsStart());
-//
-//     const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
-//
-//     axios.get('https://what-i-desire-default-rtdb.firebaseio.com/items.json' + queryParams)
-//       .then(response => {
-//         console.log(response);
-//         const fetchedItems = [];
-//
-//         for (let el in response.data) {
-//           console.log(response.data[el]);
-//           fetchedItems.push({
-//             ...response.data[el],
-//             id: el
-//           });
-//         }
-//
-//         dispatch(fetchItemsSuccess(fetchedItems));
-//       })
-//       .catch(error => {
-//         const messError = error.response.data.error;
-//         console.log(messError);
-//         dispatch(fetchItemsFail(messError));
-//       })
-//   };
-// };
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
