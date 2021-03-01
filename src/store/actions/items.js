@@ -57,7 +57,7 @@ export const newItem = (item, token) => {
         const errMessage = error.response.data.error;
         dispatch(newItemFail(errMessage));
       })
-  }
+  };
 };
 
 // Fetching items from firebase
@@ -78,15 +78,16 @@ export const fetchItemsFail = error => {
   return {
     type: actions.FETCH_ITEMS_FAIL,
     error: error
-  }
-}
+  };
+};
 
 export const fetchItems = userId => {
   return dispatch => {
     dispatch(fetchItemsStart());
+    console.log('fetch start');
 
     const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
-    axios.get('https://what-i-desire-default-rtdb.firebaseio.com/itms.json' + queryParams)
+    axios.get('https://what-i-desire-default-rtdb.firebaseio.com/items.json' + queryParams)
       .then(response => {
         let items = [];
         let timestampsArray = [];
@@ -107,10 +108,11 @@ export const fetchItems = userId => {
           sortedItems.push(items[itemIndex]);
         }
         dispatch(fetchItemsSuccess(sortedItems));
+        console.log('fetch success');
       })
 
       .catch(error => {
-        const errMessage = error.response.data.error
+        const errMessage = error.response.data.error;
         dispatch(fetchItemsFail(errMessage));
       })
   }

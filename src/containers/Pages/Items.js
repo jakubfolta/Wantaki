@@ -45,30 +45,10 @@ class Items extends Component {
   componentDidMount() {
     this.props.onCheckErrorState(this.props.error);
     this.props.onFetchItems(this.props.userId);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // this.props.onFetchItems(this.props.userId);
   }
 
   componentDidUpdate(prevProps) {
+    console.log('UPDATE');
     if (prevProps.loading === true) {
       this.props.onFetchItems(this.props.userId);
     }
@@ -164,12 +144,9 @@ class Items extends Component {
       )
 
 // Create fetched items list
-    if (!this.props.items) {
-      items = null;
+   if (this.props.loadingItems) {
+      items = <Spinner />;
     } else if (this.props.items.length > 0) {
-        if (this.props.loadingItems) {
-          items = <Spinner />;
-      } else {
         items = (
           <ListItems>
             {this.props.items.map(el =>
@@ -181,7 +158,8 @@ class Items extends Component {
             )}
           </ListItems>
         );
-      }
+    } else {
+        items = null;
     }
 
 
