@@ -9,5 +9,6 @@ export {
   newItem,
   checkItemsErrorState,
   fetchItems,
-  deleteItem
+  deleteItem,
+  editItem
 } from './items';

@@ -113,29 +113,29 @@ export const fetchItems = userId => {
         const errMessage = error.response.data.error;
         dispatch(fetchItemsFail(errMessage));
       })
-  }
-}
+  };
+};
 
-// Deleting item from firebase
+// Deleting item from firebase and redux state
 export const deleteItemStart = () => {
   return {
     type: actions.DELETE_ITEM_START
-  }
-}
+  };
+};
 
 export const deleteItemSuccess = items => {
   return {
     type: actions.DELETE_ITEM_SUCCESS,
     items: items
-  }
-}
+  };
+};
 
 export const deleteItemFail = error => {
   return {
     type: actions.DELETE_ITEM_FAIL,
     error: error
-  }
-}
+  };
+};
 
 export const deleteItem = (id, token, items) => {
   return dispatch => {
@@ -153,5 +153,34 @@ export const deleteItem = (id, token, items) => {
         const errMessage = error.response.data.error;
         dispatch(deleteItemFail(errMessage));
       })
-  }
-}
+  };
+};
+
+// Edit list item
+export const editItemStart = () => {
+  return {
+    type: actions.EDIT_ITEM_START
+  };
+};
+
+export const editItemSuccess = items => {
+  return {
+    type: actions.EDIT_ITEM_SUCCESS,
+    items: items
+  };
+};
+
+export const editItemFail = error => {
+  return {
+    type: actions.EDIT_ITEM_FAIL,
+    error: error
+  };
+};
+
+export const editItem = () => {
+  return dispatch => {
+    dispatch(editItemStart());
+
+    
+  };
+};
