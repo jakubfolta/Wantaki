@@ -123,9 +123,10 @@ export const deleteItemStart = () => {
   }
 }
 
-export const deleteItemSuccess = () => {
+export const deleteItemSuccess = items => {
   return {
-    type: actions.DELETE_ITEM_SUCCESS
+    type: actions.DELETE_ITEM_SUCCESS,
+    items: items
   }
 }
 
@@ -136,7 +137,7 @@ export const deleteItemFail = error => {
   }
 }
 
-export const deleteItem = (id, token) => {
+export const deleteItem = (id, token, items) => {
   return dispatch => {
     dispatch(deleteItemStart());
 
@@ -144,8 +145,9 @@ export const deleteItem = (id, token) => {
     axios.delete('https://what-i-desire-default-rtdb.firebaseio.com/items/' + queryParams)
       .then(response => {
         console.log(response);
-
-        dispatch(deleteItemSuccess());
+        items = items.filter(el => el.id !== id);
+        console.log(items);
+        dispatch(deleteItemSuccess(items));
       })
       .catch(error => {
         const errMessage = error.response.data.error;

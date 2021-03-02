@@ -7,8 +7,7 @@ const initialState = {
   fetchingError: null,
   deletingError: null,
   loading: false,
-  loadingItems: false,
-  loadingDelete: false
+  loadingItems: false
 };
 
 // Add new item to firebase
@@ -59,18 +58,21 @@ const fetchItemsFail = (state, action) => {
 // Deleting item from firebase
 const deleteItemStart = (state, action) => {
   return updateObject(state, {
-    loadingDelete: true,
+    loadingItems: true,
     deletingError: null
   });
 };
 
 const deleteItemSuccess = (state, action) => {
-  return updateObject(state, {loadingDelete: false});
+  return updateObject(state, {
+    loadingItems: false,
+    items: action.items
+  });
 };
 
 const deleteItemFail = (state, action) => {
   return updateObject(state, {
-    loadingDelete: false,
+    loadingItems: false,
     deletingError: action.error
   });
 };

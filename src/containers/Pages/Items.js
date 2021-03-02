@@ -44,7 +44,11 @@ class Items extends Component {
 
   componentDidMount() {
     this.props.onCheckErrorState(this.props.error);
-    this.props.onFetchItems(this.props.userId);
+
+// Fetch items from firebase only when there are none in redux state
+    if (!this.props.items.length > 0) {
+      this.props.onFetchItems(this.props.userId);
+    } else { return }
   }
 
   componentDidUpdate(prevProps) {
@@ -100,8 +104,8 @@ class Items extends Component {
     this.setState({newItemForm: updatedForm, formIsValid: valid});
   }
 
-  onDeleteItemHandler = (e, id) => {
-    this.props.onDeleteItem(id, this.props.token);
+  onDeleteItemHandler = id => {
+    this.props.onDeleteItem(id, this.props.token, this.props.items);
     console.log(id);
   }
 
@@ -159,7 +163,7 @@ class Items extends Component {
                 link={el.link}
                 name={el.name}
                 description={el.description}
-                delete={(e) => this.onDeleteItemHandler(e, el.id)} />
+                delete={() => this.onDeleteItemHandler(el.id)} />
             )}
           </ListItems>
         );
@@ -198,7 +202,7 @@ const mapDispatchToProps = dispatch => {
     onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token)),
     onCheckErrorState: error => dispatch(itemsActions.checkItemsErrorState(error)),
     onFetchItems: userId => dispatch(itemsActions.fetchItems(userId)),
-    onDeleteItem: (id, token) => dispatch(itemsActions.deleteItem(id, token))
+    onDeleteItem: (id, token, items) => dispatch(itemsActions.deleteItem(id, token, items))
   };
 };
 
