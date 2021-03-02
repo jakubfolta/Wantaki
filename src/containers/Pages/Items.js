@@ -115,6 +115,19 @@ class Items extends Component {
     const item = this.props.items.find(el => el.id === id);
     console.log(item);
 
+    const updatedName = updateObject(this.state.newItemForm.name, {
+       value: item.name});
+    const updatedLink = updateObject(this.state.newItemForm.link, {
+       value: item.link});
+    const updatedDescription = updateObject(this.state.newItemForm.description, {
+       value: item.description});
+
+    const updatedForm = updateObject(this.state.newItemForm, {
+      name: updatedName,
+      link: updatedLink,
+      description: updatedDescription});
+
+    this.setState({newItemForm: updatedForm});
   }
 
   render() {
