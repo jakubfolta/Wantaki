@@ -8,6 +8,7 @@ const Input = props => {
       inputElement = <input
         onChange={props.change}
         className="items-form_input"
+        id={props.focusId}
         value={props.value}
         placeholder={props.placeholder} />;
       break;

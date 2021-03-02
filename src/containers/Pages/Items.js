@@ -15,6 +15,7 @@ class Items extends Component {
     newItemForm: {
       name: {
         type: 'text',
+        id: 'nameInput',
         value: '',
         placeholder: 'Quadra Type-66 "Javelina"',
         label: "What you desire ? *",
@@ -109,6 +110,13 @@ class Items extends Component {
     console.log(id);
   }
 
+  onEditItemHandler = id => {
+    document.getElementById('nameInput').focus();
+    const item = this.props.items.find(el => el.id === id);
+    console.log(item);
+
+  }
+
   render() {
     const form = this.state.newItemForm;
     const formElements = [];
@@ -138,6 +146,7 @@ class Items extends Component {
             <Input
               key={el.id}
               type={el.configuration.type}
+              focusId={el.configuration.id}
               change={(e) => this.onChangeHandler(e, el.id)}
               value={el.configuration.value}
               placeholder={el.configuration.placeholder}
@@ -163,7 +172,8 @@ class Items extends Component {
                 link={el.link}
                 name={el.name}
                 description={el.description}
-                delete={() => this.onDeleteItemHandler(el.id)} />
+                delete={() => this.onDeleteItemHandler(el.id)}
+                edit={() => this.onEditItemHandler(el.id)} />
             )}
           </ListItems>
         );
