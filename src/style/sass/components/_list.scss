@@ -12,9 +12,10 @@
     &-group {
       display: flex;
       flex-direction: column;
-      flex: 0 0 70%;
+      flex: 1 0 70%;
 
-      &:last-child { flex: 0 1 20%; }
+      &:first-child { margin: 0 1rem; }
+      &:last-child { flex: 0 1 0; }
     }
 
     &-link:link,

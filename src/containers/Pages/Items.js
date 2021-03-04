@@ -67,7 +67,8 @@ class Items extends Component {
       name: this.state.newItemForm.name.value,
       link: this.state.newItemForm.link.value,
       description: this.state.newItemForm.description.value,
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      editMode: false
     }
 
     this.props.onAddNewItem(itemData, token);
@@ -127,7 +128,13 @@ class Items extends Component {
       link: updatedLink,
       description: updatedDescription});
 
-    this.setState({newItemForm: updatedForm});
+    this.setState(prevState => {
+      return {
+        newItemForm: updatedForm,
+        formIsValid: true,
+        editMode: !prevState.editMode/////////
+      }
+    });
   }
 
   render() {
@@ -184,9 +191,16 @@ class Items extends Component {
                 key={el.id}
                 link={el.link}
                 name={el.name}
-                description={el.description}
-                delete={() => this.onDeleteItemHandler(el.id)}
-                edit={() => this.onEditItemHandler(el.id)} />
+                description={el.description}>
+
+                <Button
+                  btnType="delete"
+                  clicked={() => this.onDeleteItemHandler(el.id)}>Delete</Button>
+                <Button
+                  btnType="edit"
+                  clicked={() => this.onEditItemHandler(el.id)}>
+                  {this.state.editMode ? 'Edit' : 'Cancel'}</Button>
+              </ListItem>
             )}
           </ListItems>
         );

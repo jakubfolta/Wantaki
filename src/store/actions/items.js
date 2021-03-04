@@ -8,16 +8,10 @@ export const newItemStart = () => {
   };
 };
 
-export const newItemSuccess = (item, id) => {
-  const newItem = {
-    ...item,
-    itemId: id
-  }
-  console.log(newItem);
-
+export const newItemSuccess = item => {
   return {
     type: actions.NEW_ITEM_SUCCESS,
-    item: newItem
+    item: item
   };
 };
 
@@ -181,6 +175,6 @@ export const editItem = () => {
   return dispatch => {
     dispatch(editItemStart());
 
-    
+
   };
 };
