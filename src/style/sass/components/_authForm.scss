@@ -6,7 +6,6 @@
     font-family: 'Yusei Magic', sans-serif;
     font-size: $medium-font-size;
     padding: 1rem 2rem;
-    border: 2px solid transparent;
 
     &-label {
       display: block;
@@ -19,7 +18,11 @@
       transition: all .3s linear;
     }
 
-    &:focus { outline: none; }
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 .5rem 2px hsl(131, 100%, 45%), 0 0 1rem 2px hsl(131, 100%, 45%);
+      transition: all .2s linear;
+    }
   }
 
   &_login:placeholder-shown + &_login-label,
@@ -29,15 +32,19 @@
   }
 
   &_login--valid,
-  &_password--valid {
-    border: 2px solid $color-primary;
-    background-color: lighten($color-primary, 50%);
+  &_login--valid:focus,
+  &_password--valid,
+  &_password--valid:focus {
+      background-color: lighten($color-primary, 50%);
+      box-shadow: 0 0 .5rem 2px hsl(131, 100%, 45%), 0 0 1rem 2px hsl(131, 100%, 45%);
   }
 
   &_login--invalid,
-  &_password--invalid {
-    border: 2px solid $color-warning;
-    background-color: lighten($color-warning, 50%);
+  &_login--invalid:focus,
+  &_password--invalid,
+  &_password--invalid:focus {
+      background-color: lighten($color-warning, 50%);
+      box-shadow: 0 0 .5rem 2px hsl(0, 100%, 40%), 0 0 1rem 2px hsl(0, 100%, 40%);
   }
 }
 

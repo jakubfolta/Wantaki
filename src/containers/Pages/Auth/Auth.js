@@ -33,6 +33,7 @@ class Auth extends Component {
   }
 
   componentDidMount() {
+    document.getElementById('email').focus();
     this.props.onCheckErrorState(this.props.error);
   }
 

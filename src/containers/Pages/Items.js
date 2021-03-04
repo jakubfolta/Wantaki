@@ -133,8 +133,8 @@ class Items extends Component {
     this.setState(prevState => {
       return {
         newItemForm: updatedForm,
-        formIsValid: !prevState.formIsValid,
-        editMode: !prevState.editMode
+        formIsValid: true,
+        editMode: true
       };
     });
     this.props.onEditItem(id, this.props.items);
@@ -144,8 +144,8 @@ class Items extends Component {
 
     this.setState(prevState => {
       return {
-        formIsValid: !prevState.formIsValid,
-        editMode: !prevState.editMode
+        formIsValid: false,
+        editMode: false
       };
     });
     this.resetValues();
@@ -191,7 +191,7 @@ class Items extends Component {
             <Button
               disabled={!this.state.formIsValid}
               btnType="pulse"
-              >{this.state.editMode? 'Update Item' : 'Save Future Gift'}</Button>
+              >{this.state.editMode ? 'Update Item' : 'Save Future Gift'}</Button>
         </form>
       )
 
@@ -213,7 +213,7 @@ class Items extends Component {
                   clicked={() => this.onDeleteItemHandler(el.id)}>Delete</Button>
                 <Button
                   btnType="edit"
-                  clicked={this.state.editMode
+                  clicked={this.props.items[index].editMode
                     ? () => this.onCancelEditHandler(el.id)
                     : () => this.onEditItemHandler(el.id)}>
                   {!this.props.items[index].editMode ? 'Edit' : 'Cancel'}</Button>

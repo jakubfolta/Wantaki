@@ -154,14 +154,19 @@ export const deleteItem = (id, token, items) => {
 export const editItemStart = (id, items) => {
   const itemIndex = items.findIndex(el => el.id === id);
   const item = items.find(el => el.id === id);
+  const initialItems = items.map(el => {
+    return {
+      ...el,
+      editMode: false
+    };
+  });
 
   item.editMode = !item.editMode;
-  items[itemIndex] = item;
-  console.log(items);
+  initialItems[itemIndex] = item;
 
   return {
     type: actions.EDIT_ITEM_START,
-    items: items
+    items: initialItems
   };
 };
 
