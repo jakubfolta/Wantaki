@@ -40,10 +40,12 @@ class Items extends Component {
         valid: true
       }
     },
-    formIsValid: false
+    formIsValid: false,
+    editMode: false
   }
 
   componentDidMount() {
+    document.getElementById('nameInput').focus();
     this.props.onCheckErrorState(this.props.error);
 
 // Fetch items from firebase only when there are none in redux state
@@ -114,7 +116,7 @@ class Items extends Component {
   onEditItemHandler = id => {
     document.getElementById('nameInput').focus();
     const item = this.props.items.find(el => el.id === id);
-    console.log(item);
+    console.log(this.state);
 
     const updatedName = updateObject(this.state.newItemForm.name, {
        value: item.name});
@@ -131,10 +133,23 @@ class Items extends Component {
     this.setState(prevState => {
       return {
         newItemForm: updatedForm,
-        formIsValid: true,
-        editMode: !prevState.editMode/////////
-      }
+        formIsValid: !prevState.formIsValid,
+        editMode: !prevState.editMode
+      };
     });
+    this.props.onEditItem(id, this.props.items);
+  }
+
+  onCancelEditHandler = id => {
+
+    this.setState(prevState => {
+      return {
+        formIsValid: !prevState.formIsValid,
+        editMode: !prevState.editMode
+      };
+    });
+    this.resetValues();
+    this.props.onEditItem(id, this.props.items);
   }
 
   render() {
@@ -176,7 +191,7 @@ class Items extends Component {
             <Button
               disabled={!this.state.formIsValid}
               btnType="pulse"
-              >Save Future Gift </Button>
+              >{this.state.editMode? 'Update Item' : 'Save Future Gift'}</Button>
         </form>
       )
 
@@ -186,7 +201,7 @@ class Items extends Component {
     } else if (this.props.items.length > 0) {
         items = (
           <ListItems>
-            {this.props.items.map(el =>
+            {this.props.items.map((el, index) =>
               <ListItem
                 key={el.id}
                 link={el.link}
@@ -198,8 +213,10 @@ class Items extends Component {
                   clicked={() => this.onDeleteItemHandler(el.id)}>Delete</Button>
                 <Button
                   btnType="edit"
-                  clicked={() => this.onEditItemHandler(el.id)}>
-                  {this.state.editMode ? 'Edit' : 'Cancel'}</Button>
+                  clicked={this.state.editMode
+                    ? () => this.onCancelEditHandler(el.id)
+                    : () => this.onEditItemHandler(el.id)}>
+                  {!this.props.items[index].editMode ? 'Edit' : 'Cancel'}</Button>
               </ListItem>
             )}
           </ListItems>
@@ -239,7 +256,8 @@ const mapDispatchToProps = dispatch => {
     onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token)),
     onCheckErrorState: error => dispatch(itemsActions.checkItemsErrorState(error)),
     onFetchItems: userId => dispatch(itemsActions.fetchItems(userId)),
-    onDeleteItem: (id, token, items) => dispatch(itemsActions.deleteItem(id, token, items))
+    onDeleteItem: (id, token, items) => dispatch(itemsActions.deleteItem(id, token, items)),
+    onEditItem: (id, items) => dispatch(itemsActions.editItemStart(id, items))
   };
 };
 

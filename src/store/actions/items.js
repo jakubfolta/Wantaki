@@ -151,9 +151,17 @@ export const deleteItem = (id, token, items) => {
 };
 
 // Edit list item
-export const editItemStart = () => {
+export const editItemStart = (id, items) => {
+  const itemIndex = items.findIndex(el => el.id === id);
+  const item = items.find(el => el.id === id);
+
+  item.editMode = !item.editMode;
+  items[itemIndex] = item;
+  console.log(items);
+
   return {
-    type: actions.EDIT_ITEM_START
+    type: actions.EDIT_ITEM_START,
+    items: items
   };
 };
 

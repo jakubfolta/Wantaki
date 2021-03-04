@@ -10,5 +10,5 @@ export {
   checkItemsErrorState,
   fetchItems,
   deleteItem,
-  editItem
+  editItemStart
 } from './items';
