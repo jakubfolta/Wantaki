@@ -9,7 +9,7 @@ export const AUTH_INIT_ERROR = 'AUTH_INIT_ERROR';
 export const NEW_ITEM_START = 'NEW_ITEM_START';
 export const NEW_ITEM_SUCCESS = 'NEW_ITEM_SUCCESS';
 export const NEW_ITEM_FAIL = 'NEW_ITEM_FAIL';
-export const ITEMS_INIT_ERROR = 'ITEMS_INIT_ERROR';
+export const INIT_ERROR = 'INIT_ERROR';
 
 // Fetched items actions
 export const FETCH_ITEMS_START = 'FETCH_ITEMS_START';
@@ -23,5 +23,6 @@ export const DELETE_ITEM_FAIL = 'DELETE_ITEM_FAIL';
 export const EDIT_ITEM_START = 'EDIT_ITEM_START';
 export const EDIT_ITEM_SUCCESS = 'EDIT_ITEM_SUCCESS';
 export const EDIT_ITEM_FAIL = 'EDIT_ITEM_FAIL';
+export const INIT_EDIT_MODE = 'INIT_EDIT_MODE';
 
 

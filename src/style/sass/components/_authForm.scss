@@ -6,6 +6,7 @@
     font-family: 'Yusei Magic', sans-serif;
     font-size: $medium-font-size;
     padding: 1rem 2rem;
+    border: none;
 
     &-label {
       display: block;
@@ -35,16 +36,16 @@
   &_login--valid:focus,
   &_password--valid,
   &_password--valid:focus {
-      background-color: lighten($color-primary, 50%);
-      box-shadow: 0 0 .5rem 2px hsl(131, 100%, 45%), 0 0 1rem 2px hsl(131, 100%, 45%);
+    background-color: lighten($color-primary, 50%);
+    box-shadow: 0 0 .5rem 2px hsl(131, 100%, 45%), 0 0 1rem 2px hsl(131, 100%, 45%);
   }
 
   &_login--invalid,
   &_login--invalid:focus,
   &_password--invalid,
   &_password--invalid:focus {
-      background-color: lighten($color-warning, 50%);
-      box-shadow: 0 0 .5rem 2px hsl(0, 100%, 40%), 0 0 1rem 2px hsl(0, 100%, 40%);
+    background-color: lighten($color-warning, 50%);
+    box-shadow: 0 0 .5rem 2px hsl(0, 100%, 40%), 0 0 1rem 2px hsl(0, 100%, 40%);
   }
 }
 

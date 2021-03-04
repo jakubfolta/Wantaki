@@ -46,7 +46,7 @@ class Items extends Component {
 
   componentDidMount() {
     document.getElementById('nameInput').focus();
-    this.props.onCheckErrorState(this.props.error);
+    this.props.onSetInitialState(this.props.error, this.props.items);
 
 // Fetch items from firebase only when there are none in redux state
     if (!this.props.items.length > 0) {
@@ -116,7 +116,6 @@ class Items extends Component {
   onEditItemHandler = id => {
     document.getElementById('nameInput').focus();
     const item = this.props.items.find(el => el.id === id);
-    console.log(this.state);
 
     const updatedName = updateObject(this.state.newItemForm.name, {
        value: item.name});
@@ -254,7 +253,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token)),
-    onCheckErrorState: error => dispatch(itemsActions.checkItemsErrorState(error)),
+    onSetInitialState: (error, items) => dispatch(itemsActions.setInitialState(error, items)),
     onFetchItems: userId => dispatch(itemsActions.fetchItems(userId)),
     onDeleteItem: (id, token, items) => dispatch(itemsActions.deleteItem(id, token, items)),
     onEditItem: (id, items) => dispatch(itemsActions.editItemStart(id, items))

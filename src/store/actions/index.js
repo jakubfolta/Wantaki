@@ -7,7 +7,7 @@ export {
 
 export {
   newItem,
-  checkItemsErrorState,
+  setInitialState,
   fetchItems,
   deleteItem,
   editItemStart

@@ -33,6 +33,10 @@ const initError = (state, action) => {
   return updateObject(state, {error: null});
 };
 
+const initEditMode = (state, action) => {
+  return updateObject(state, {items: action.items});
+};
+
 // Fetching items from firebase
 const fetchItemsStart = (state, action) => {
   return updateObject(state, {
@@ -79,15 +83,15 @@ const deleteItemFail = (state, action) => {
 
 // Editing items
 const editItemStart = (state, action) => {
-  return updateObject(state, {items: action.items})
-}
+  return updateObject(state, {items: action.items});
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.NEW_ITEM_START: return newItemStart(state, action);
     case actions.NEW_ITEM_SUCCESS: return newItemSuccess(state, action);
     case actions.NEW_ITEM_FAIL: return newItemFail(state, action);
-    case actions.ITEMS_INIT_ERROR: return initError(state, action);
+    case actions.INIT_ERROR: return initError(state, action);
 
     case actions.FETCH_ITEMS_START: return fetchItemsStart(state, action);
     case actions.FETCH_ITEMS_SUCCESS: return fetchItemsSuccess(state, action);
@@ -98,6 +102,7 @@ const reducer = (state = initialState, action) => {
     case actions.DELETE_ITEM_FAIL: return deleteItemFail(state, action);
 
     case actions.EDIT_ITEM_START: return editItemStart(state,action);
+    case actions.INIT_EDIT_MODE: return initEditMode(state, action);
     default: return state;
   };
 };

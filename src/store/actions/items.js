@@ -24,14 +24,31 @@ export const newItemFail = error => {
 
 export const initError = () => {
   return {
-    type: actions.ITEMS_INIT_ERROR
+    type: actions.INIT_ERROR
   };
 };
 
-export const checkItemsErrorState = error => {
+export const initEditMode = items => {
+  return {
+    type: actions.INIT_EDIT_MODE,
+    items: items
+  };
+};
+
+export const setInitialState = (error, items) => {
   return dispatch => {
+    const initialItems = items.map(el => {
+      return {
+        ...el,
+        editMode: false
+      };
+    });
+
     if (error) {
-      dispatch(initError())
+      dispatch(initError());
+    }
+    if (items.length > 0) {
+      dispatch(initEditMode(initialItems));
     }
     else {
       return
@@ -170,24 +187,24 @@ export const editItemStart = (id, items) => {
   };
 };
 
-export const editItemSuccess = items => {
-  return {
-    type: actions.EDIT_ITEM_SUCCESS,
-    items: items
-  };
-};
-
-export const editItemFail = error => {
-  return {
-    type: actions.EDIT_ITEM_FAIL,
-    error: error
-  };
-};
-
-export const editItem = () => {
-  return dispatch => {
-    dispatch(editItemStart());
-
-
-  };
-};
+// export const editItemSuccess = items => {
+//   return {
+//     type: actions.EDIT_ITEM_SUCCESS,
+//     items: items
+//   };
+// };
+//
+// export const editItemFail = error => {
+//   return {
+//     type: actions.EDIT_ITEM_FAIL,
+//     error: error
+//   };
+// };
+//
+// export const editItem = () => {
+//   return dispatch => {
+//     dispatch(editItemStart());
+//
+//
+//   };
+// };
