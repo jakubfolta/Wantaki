@@ -55,8 +55,17 @@ class Items extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (this.state.editMode) {
+      let initEditMode = true;
+      for (let el in this.state.newItemForm) {
+        initEditMode = this.state.newItemForm[el].value === '' && initEditMode;
+      }
+      if (initEditMode) {
+        this.resetEditMode();
+      }
+    }
     if (prevProps.loading === true) {
-      this.props.onFetchItems(this.props.userId);
+    this.props.onFetchItems(this.props.userId);
     }
   }
 
@@ -140,7 +149,7 @@ class Items extends Component {
   }
 
   onCancelEditHandler = id => {
-
+    document.getElementById('nameInput').focus();
     this.setState(prevState => {
       return {
         formIsValid: false,
@@ -149,6 +158,11 @@ class Items extends Component {
     });
     this.resetValues();
     this.props.onEditItem(id, this.props.items);
+  }
+
+  resetEditMode = () => {
+    this.setState({editMode: false});
+    this.props.onSetInitialState(this.props.error, this.props.items);
   }
 
   render() {
