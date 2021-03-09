@@ -56,12 +56,14 @@ class Items extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.state.editMode) {
+      const editedItem = document.querySelector('.list_item--edit');
       let initEditMode = true;
       for (let el in this.state.newItemForm) {
         initEditMode = this.state.newItemForm[el].value === '' && initEditMode;
       }
       if (initEditMode) {
         this.resetEditMode();
+        this.removeEditClass(editedItem);
       }
     }
     if (prevProps.loading === true) {
@@ -127,9 +129,11 @@ class Items extends Component {
     console.log(id);
   }
 
-  onEditItemHandler = id => {
+  onEditItemHandler = (e, id) => {
     document.getElementById('nameInput').focus();
     const item = this.props.items.find(el => el.id === id);
+    const DOMitem = e.target.parentNode.parentNode;
+    this.setEditClass(DOMitem);
 
     const updatedName = updateObject(this.state.newItemForm.name, {
        value: item.name});
@@ -153,8 +157,22 @@ class Items extends Component {
     this.props.onEditItem(id, this.props.items);
   }
 
-  onCancelEditHandler = id => {
+  setEditClass = el => {
+    const editedItem = document.querySelector('.list_item--edit');
+    if (editedItem) {
+      this.removeEditClass(editedItem);
+    }
+
+    el.classList.add('list_item--edit');
+  }
+
+  removeEditClass = el => { el.classList.remove('list_item--edit'); }
+
+  onCancelEditHandler = (e, id) => {
     document.getElementById('nameInput').focus();
+    const DOMitem = e.target.parentNode.parentNode;
+    this.removeEditClass(DOMitem);
+
     this.setState(prevState => {
       return {
         formIsValid: false,
@@ -227,8 +245,8 @@ class Items extends Component {
                 <Button
                   btnType="edit"
                   clicked={this.props.items[index].editMode
-                    ? () => this.onCancelEditHandler(el.id)
-                    : () => this.onEditItemHandler(el.id)}>
+                    ? (e) => this.onCancelEditHandler(e, el.id)
+                    : (e) => this.onEditItemHandler(e, el.id)}>
                   {!this.props.items[index].editMode ? 'Edit' : 'Cancel'}</Button>
               </ListItem>
             )}
