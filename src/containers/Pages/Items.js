@@ -69,6 +69,11 @@ class Items extends Component {
     }
   }
 
+  resetEditMode = () => {
+    this.setState({editMode: false});
+    this.props.onSetInitialState(this.props.error, this.props.items);
+  }
+
   newItemHandler = e => {
     e.preventDefault();
 
@@ -158,11 +163,6 @@ class Items extends Component {
     });
     this.resetValues();
     this.props.onEditItem(id, this.props.items);
-  }
-
-  resetEditMode = () => {
-    this.setState({editMode: false});
-    this.props.onSetInitialState(this.props.error, this.props.items);
   }
 
   render() {
