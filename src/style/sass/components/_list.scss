@@ -8,6 +8,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 .5rem;
+    box-shadow: 0 0 1rem 1px $color-tertiary;
+
+    &:not(:first-of-type) { margin-top: 1rem; }
 
     &-group {
       display: flex;
@@ -33,7 +37,7 @@
       &:active {
         outline: none;
         border: 2px solid $color-primary;
-        box-shadow: 0 0 .5rem 2px hsl(131, 100%, 45%), 0 0 1rem 2px hsl(131, 100%, 45%);
+        box-shadow: 0 0 .5rem 2px $color-primary, 0 0 1rem 2px $color-primary;
        }
     }
 
