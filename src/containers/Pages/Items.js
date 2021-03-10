@@ -97,8 +97,10 @@ class Items extends Component {
     const updatedName = this.state.newItemForm.name.value;
     const updatedLink = this.state.newItemForm.link.value;
     const updatedDescription = this.state.newItemForm.description.value;
-    const updatedItemIndex = this.props.items.findIndex(el => el.editMode === true);
     const items = this.props.items;
+    const updatedItemIndex = items.findIndex(el => el.editMode === true);
+    const updatedItemId = items[updatedItemIndex].id;
+    const token = this.props.token;
 
     const updatedItem = updateObject(items[updatedItemIndex], {
       name: updatedName,
@@ -111,6 +113,7 @@ class Items extends Component {
       [items[updatedItemIndex]]: updatedItem
     });
 
+    this.props.onUpdateItem(updatedItems, )
 
   }
 
@@ -311,7 +314,8 @@ const mapDispatchToProps = dispatch => {
     onSetInitialState: (error, items) => dispatch(itemsActions.setInitialState(error, items)),
     onFetchItems: userId => dispatch(itemsActions.fetchItems(userId)),
     onDeleteItem: (id, token, items) => dispatch(itemsActions.deleteItem(id, token, items)),
-    onEditItem: (id, items) => dispatch(itemsActions.editItemStart(id, items))
+    onEditItem: (id, items) => dispatch(itemsActions.editItemStart(id, items)),
+    onUpdateItem: (items, updatedItemId, token) => dispatch(itemsActions.updateItem(items, updatedItemId, token))
   };
 };
 
