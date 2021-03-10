@@ -5,7 +5,6 @@ const initialState = {
   items: [],
   error: null,
   fetchingError: null,
-  deletingError: null,
   loading: false,
   loadingItems: false
 };
@@ -30,11 +29,11 @@ const newItemFail = (state, action) => {
 };
 
 const initError = (state, action) => {
-  return updateObject(state, {error: null});
+  return updateObject(state, { error: null });
 };
 
 const initEditMode = (state, action) => {
-  return updateObject(state, {items: action.items});
+  return updateObject(state, { items: action.items });
 };
 
 // Fetching items from firebase
@@ -63,7 +62,7 @@ const fetchItemsFail = (state, action) => {
 const deleteItemStart = (state, action) => {
   return updateObject(state, {
     loadingItems: true,
-    deletingError: null
+    fetchingError: null
   });
 };
 
@@ -77,13 +76,34 @@ const deleteItemSuccess = (state, action) => {
 const deleteItemFail = (state, action) => {
   return updateObject(state, {
     loadingItems: false,
-    deletingError: action.error
+    fetchingError: action.error
   });
 };
 
 // Editing items
 const editItemStart = (state, action) => {
-  return updateObject(state, {items: action.items});
+  return updateObject(state, { items: action.items });
+};
+
+const updateItemStart = (state, action) => {
+  return updateObject(state, {
+    loadingItems: true,
+    fetchingError: null
+  });
+};
+
+const updateItemSuccess = (state, action) => {
+  return updateObject(state, {
+    items: action.items,
+    loadingItems: false
+  });
+};
+
+const updateItemFail = (state, action) => {
+  return updateObject(state, {
+    loadingItems: false,
+    fetchingError: action.error
+  });
 };
 
 const reducer = (state = initialState, action) => {
@@ -103,6 +123,10 @@ const reducer = (state = initialState, action) => {
 
     case actions.EDIT_ITEM_START: return editItemStart(state,action);
     case actions.INIT_EDIT_MODE: return initEditMode(state, action);
+
+    case actions.UPDATE_ITEM_START: return updateItemStart(state, action);
+    case actions.UPDATE_ITEM_SUCCESS: return updateItemSuccess(state, action);
+    case actions.UPDATE_ITEM_FAIL: return updateItemFail(state,action);
     default: return state;
   };
 };

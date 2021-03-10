@@ -93,6 +93,27 @@ class Items extends Component {
     this.resetValues();
   }
 
+  updateItemHandler = () => {
+    const updatedName = this.state.newItemForm.name.value;
+    const updatedLink = this.state.newItemForm.link.value;
+    const updatedDescription = this.state.newItemForm.description.value;
+    const updatedItemIndex = this.props.items.findIndex(el => el.editMode === true);
+    const items = this.props.items;
+
+    const updatedItem = updateObject(items[updatedItemIndex], {
+      name: updatedName,
+      link: updatedLink,
+      description: updatedDescription,
+      editMode: false
+    });
+
+    const updatedItems = updateObject(items, {
+      [items[updatedItemIndex]]: updatedItem
+    });
+
+
+  }
+
   resetValues = () => {
     const initialName = updateObject(this.state.newItemForm.name, { value: '' });
     const initialLink = updateObject(this.state.newItemForm.link, { value: '' });
@@ -206,7 +227,9 @@ class Items extends Component {
     let newItemForm = this.props.loading ? <Spinner /> :
       (
         <form
-          onSubmit={this.newItemHandler}
+          onSubmit={this.state.editMode
+            ? this.updateItemHandler
+            : this.newItemHandler}
           className="items-form">
           {formElements.map( el =>
             <Input

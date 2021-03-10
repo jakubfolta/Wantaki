@@ -23,4 +23,4 @@ export const checkValidity = (value, rules) => {
   }
 
   return valid;
-}
+};

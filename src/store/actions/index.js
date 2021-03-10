@@ -10,5 +10,6 @@ export {
   setInitialState,
   fetchItems,
   deleteItem,
-  editItemStart
+  editItemStart,
+  updateItem
 } from './items';

@@ -8,10 +8,9 @@ export const newItemStart = () => {
   };
 };
 
-export const newItemSuccess = item => {
+export const newItemSuccess = () => {
   return {
-    type: actions.NEW_ITEM_SUCCESS,
-    item: item
+    type: actions.NEW_ITEM_SUCCESS
   };
 };
 
@@ -187,24 +186,39 @@ export const editItemStart = (id, items) => {
   };
 };
 
-// export const editItemSuccess = items => {
-//   return {
-//     type: actions.EDIT_ITEM_SUCCESS,
-//     items: items
-//   };
-// };
-//
-// export const editItemFail = error => {
-//   return {
-//     type: actions.EDIT_ITEM_FAIL,
-//     error: error
-//   };
-// };
-//
-// export const editItem = () => {
-//   return dispatch => {
-//     dispatch(editItemStart());
-//
-//
-//   };
-// };
+export const updateItemStart = () => {
+  return {
+    type: actions.UPDATE_ITEM_START
+  };
+};
+
+export const updateItemSuccess = items => {
+  return {
+    type: actions.UPDATE_ITEM_SUCCESS,
+    items: items
+  };
+};
+
+export const updateItemFail = error => {
+  return {
+    type: actions.UPDATE_ITEM_FAIL,
+    error: error
+  };
+};
+
+export const updateItem = (items, updatedItemId, token) => {
+  return dispatch => {
+    dispatch(updateItemStart());
+
+    const queryParams = updatedItemId + '.json?auth=' + token;
+    axios.put('https://what-i-desire-default-rtdb.firebaseio.com/items/' + queryParams)
+      .then(response => {
+        console.log(response);
+        dispatch(updateItemSuccess(items));
+      })
+      .catch(error => {
+        const errorMessage = error.response.data.error;
+        dispatch(updateItemFail(errorMessage));
+      })
+  };
+};
