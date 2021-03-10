@@ -10,6 +10,6 @@ export {
   setInitialState,
   fetchItems,
   deleteItem,
-  editItemStart,
+  setItemEditMode,
   updateItem
 } from './items';

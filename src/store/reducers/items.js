@@ -81,7 +81,7 @@ const deleteItemFail = (state, action) => {
 };
 
 // Editing items
-const editItemStart = (state, action) => {
+const setItemEditMode = (state, action) => {
   return updateObject(state, { items: action.items });
 };
 
@@ -121,7 +121,7 @@ const reducer = (state = initialState, action) => {
     case actions.DELETE_ITEM_SUCCESS: return deleteItemSuccess(state, action);
     case actions.DELETE_ITEM_FAIL: return deleteItemFail(state, action);
 
-    case actions.EDIT_ITEM_START: return editItemStart(state,action);
+    case actions.SET_ITEM_EDIT_MODE: return setItemEditMode(state,action);
     case actions.INIT_EDIT_MODE: return initEditMode(state, action);
 
     case actions.UPDATE_ITEM_START: return updateItemStart(state, action);

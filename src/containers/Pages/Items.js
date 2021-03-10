@@ -113,7 +113,8 @@ class Items extends Component {
       [items[updatedItemIndex]]: updatedItem
     });
 
-    this.props.onUpdateItem(updatedItems, )
+    this.props.onUpdateItem(updatedItems, updatedItemId, token);
+    this.resetValues()
 
   }
 
@@ -178,7 +179,7 @@ class Items extends Component {
         editMode: true
       };
     });
-    this.props.onEditItem(id, this.props.items);
+    this.props.onSetItemEditMode(id, this.props.items);
   }
 
   setEditClass = el => {
@@ -197,14 +198,9 @@ class Items extends Component {
     const DOMitem = e.target.parentNode.parentNode;
     this.removeEditClass(DOMitem);
 
-    this.setState(prevState => {
-      return {
-        formIsValid: false,
-        editMode: false
-      };
-    });
+    this.setState({formIsValid: false, editMode: false});
     this.resetValues();
-    this.props.onEditItem(id, this.props.items);
+    this.props.onSetItemEditMode(id, this.props.items);
   }
 
   render() {
@@ -314,7 +310,7 @@ const mapDispatchToProps = dispatch => {
     onSetInitialState: (error, items) => dispatch(itemsActions.setInitialState(error, items)),
     onFetchItems: userId => dispatch(itemsActions.fetchItems(userId)),
     onDeleteItem: (id, token, items) => dispatch(itemsActions.deleteItem(id, token, items)),
-    onEditItem: (id, items) => dispatch(itemsActions.editItemStart(id, items)),
+    onSetItemEditMode: (id, items) => dispatch(itemsActions.setItemEditMode(id, items)),
     onUpdateItem: (items, updatedItemId, token) => dispatch(itemsActions.updateItem(items, updatedItemId, token))
   };
 };

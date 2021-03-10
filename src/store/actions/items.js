@@ -167,7 +167,7 @@ export const deleteItem = (id, token, items) => {
 };
 
 // Edit list item
-export const editItemStart = (id, items) => {
+export const setItemEditMode = (id, items) => {
   const itemIndex = items.findIndex(el => el.id === id);
   const item = items.find(el => el.id === id);
   const initialItems = items.map(el => {
@@ -177,11 +177,13 @@ export const editItemStart = (id, items) => {
     };
   });
 
-  item.editMode = !item.editMode;
-  initialItems[itemIndex] = item;
+  if (!item.editMode) {
+    item.editMode = !item.editMode;
+    initialItems[itemIndex] = item;
+  }
 
   return {
-    type: actions.EDIT_ITEM_START,
+    type: actions.SET_ITEM_EDIT_MODE,
     items: initialItems
   };
 };
