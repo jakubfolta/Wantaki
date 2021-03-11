@@ -15,26 +15,26 @@ const newItemStart = (state, action) => {
     error: false,
     loading: true
   });
-};
+}
 
 const newItemSuccess = (state, action) => {
   return updateObject(state, { loading: false });
-};
+}
 
 const newItemFail = (state, action) => {
   return updateObject(state, {
     error: action.error,
     loading: false
   });
-};
+}
 
 const initError = (state, action) => {
   return updateObject(state, { error: null });
-};
+}
 
 const initEditMode = (state, action) => {
   return updateObject(state, { items: action.items });
-};
+}
 
 // Fetching items from firebase
 const fetchItemsStart = (state, action) => {
@@ -42,21 +42,21 @@ const fetchItemsStart = (state, action) => {
     loadingItems: true,
     fetchingError: null
   });
-};
+}
 
 const fetchItemsSuccess = (state, action) => {
   return updateObject(state, {
     loadingItems: false,
     items: action.items
   });
-};
+}
 
 const fetchItemsFail = (state, action) => {
   return updateObject(state, {
     loadingItems: false,
     fetchingError: action.error
   });
-};
+}
 
 // Deleting item from firebase
 const deleteItemStart = (state, action) => {
@@ -64,47 +64,47 @@ const deleteItemStart = (state, action) => {
     loadingItems: true,
     fetchingError: null
   });
-};
+}
 
 const deleteItemSuccess = (state, action) => {
   return updateObject(state, {
     loadingItems: false,
     items: action.items
   });
-};
+}
 
 const deleteItemFail = (state, action) => {
   return updateObject(state, {
     loadingItems: false,
     fetchingError: action.error
   });
-};
+}
 
 // Editing items
 const setItemEditMode = (state, action) => {
   return updateObject(state, { items: action.items });
-};
+}
 
 const updateItemStart = (state, action) => {
   return updateObject(state, {
     loadingItems: true,
     fetchingError: null
   });
-};
+}
 
 const updateItemSuccess = (state, action) => {
   return updateObject(state, {
     items: action.items,
     loadingItems: false
   });
-};
+}
 
 const updateItemFail = (state, action) => {
   return updateObject(state, {
     loadingItems: false,
     fetchingError: action.error
   });
-};
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -128,7 +128,7 @@ const reducer = (state = initialState, action) => {
     case actions.UPDATE_ITEM_SUCCESS: return updateItemSuccess(state, action);
     case actions.UPDATE_ITEM_FAIL: return updateItemFail(state,action);
     default: return state;
-  };
-};
+  }
+}
 
 export default reducer;

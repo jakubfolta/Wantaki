@@ -5,7 +5,7 @@ export const authStart = () => {
   return {
     type: actions.AUTH_START
   };
-};
+}
 
 export const authSuccess = (token, userId) => {
   return {
@@ -13,14 +13,14 @@ export const authSuccess = (token, userId) => {
     token: token,
     userId: userId
   };
-};
+}
 
 export const authFail = error => {
   return {
     type: actions.AUTH_FAIL,
     error: error
   };
-};
+}
 
 export const checkAuthExpire = expireTime => {
   return dispatch => {
@@ -28,7 +28,7 @@ export const checkAuthExpire = expireTime => {
       dispatch(logout());
     }, expireTime * 1000)
   };
-};
+}
 
 export const logout = () => {
   localStorage.removeItem('token');
@@ -37,13 +37,13 @@ export const logout = () => {
   return {
     type: actions.AUTH_LOGOUT
   };
-};
+}
 
 export const initError = () => {
   return {
     type: actions.AUTH_INIT_ERROR
   };
-};
+}
 
 export const checkAuthErrorState = error => {
   return dispatch => {
@@ -54,7 +54,7 @@ export const checkAuthErrorState = error => {
       return
     }
   };
-};
+}
 
 export const auth = (email, password, type, path) => {
   return dispatch => {
@@ -88,8 +88,8 @@ export const auth = (email, password, type, path) => {
 
       dispatch(authFail(errMessage));
     })
-  }
-};
+  };
+}
 
 export const checkAuthState = () => {
   return dispatch => {
@@ -111,4 +111,4 @@ export const checkAuthState = () => {
       return
     }
   };
-};
+}

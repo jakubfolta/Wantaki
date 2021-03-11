@@ -6,7 +6,7 @@ const initialState = {
   token: null,
   userId: null,
   error: null
-}
+};
 
 const authStart = (state, action) => {
   return updateObject(state, {loading: true, error: null});

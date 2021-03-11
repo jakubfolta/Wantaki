@@ -22,7 +22,7 @@ class Items extends Component {
         valid: false,
         rules: {
           required: true,
-          minLength: 6
+          minLength: 3
         }
       },
       link: {
@@ -55,27 +55,12 @@ class Items extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.state.editMode) {
-      const editedItem = document.querySelector('.list_item--edit');
-      let initEditMode = true;
-      for (let el in this.state.newItemForm) {
-        initEditMode = this.state.newItemForm[el].value === '' && initEditMode;
-      }
-      if (initEditMode) {
-        this.resetEditMode();
-        this.removeEditClass(editedItem);
-      }
-    }
     if (prevProps.loading === true) {
     this.props.onFetchItems(this.props.userId);
     }
   }
 
-  resetEditMode = () => {
-    this.setState({editMode: false});
-    this.props.onSetInitialState(this.props.error, this.props.items);
-  }
-
+// Add new item to firebase
   newItemHandler = e => {
     e.preventDefault();
 
@@ -93,67 +78,10 @@ class Items extends Component {
     this.resetValues();
   }
 
-  updateItemHandler = () => {
-    const updatedName = this.state.newItemForm.name.value;
-    const updatedLink = this.state.newItemForm.link.value;
-    const updatedDescription = this.state.newItemForm.description.value;
-    const items = this.props.items;
-    const updatedItemIndex = items.findIndex(el => el.editMode === true);
-    const updatedItemId = items[updatedItemIndex].id;
-    const token = this.props.token;
+// Delete item from firebase and redux state
+  onDeleteItemHandler = id => this.props.onDeleteItem(id, this.props.token, this.props.items);
 
-    const updatedItem = updateObject(items[updatedItemIndex], {
-      name: updatedName,
-      link: updatedLink,
-      description: updatedDescription,
-      editMode: false
-    });
-
-    const updatedItems = updateObject(items, {
-      [items[updatedItemIndex]]: updatedItem
-    });
-
-    this.props.onUpdateItem(updatedItems, updatedItemId, token);
-    this.resetValues()
-
-  }
-
-  resetValues = () => {
-    const initialName = updateObject(this.state.newItemForm.name, { value: '' });
-    const initialLink = updateObject(this.state.newItemForm.link, { value: '' });
-    const initialDescription = updateObject(this.state.newItemForm.description, { value: '' });
-
-    const initialInputs = updateObject(this.state.newItemForm, {
-      name: initialName,
-      link: initialLink,
-      description: initialDescription
-    });
-
-    this.setState({newItemForm: initialInputs, formIsValid: false});
-  }
-
-  onChangeHandler = (e, id) => {
-    const updatedElement = updateObject(this.state.newItemForm[id], {
-      value: e.target.value,
-      valid: checkValidity(e.target.value, this.state.newItemForm[id].rules),
-    });
-    const updatedForm = updateObject(this.state.newItemForm, {
-      [id]: updatedElement
-    });
-
-    let valid = true;
-    for (let el in updatedForm) {
-      valid = updatedForm[el].valid && valid;
-    }
-
-    this.setState({newItemForm: updatedForm, formIsValid: valid});
-  }
-
-  onDeleteItemHandler = id => {
-    this.props.onDeleteItem(id, this.props.token, this.props.items);
-    console.log(id);
-  }
-
+// Edit & Update list item
   onEditItemHandler = (e, id) => {
     document.getElementById('nameInput').focus();
     const item = this.props.items.find(el => el.id === id);
@@ -191,7 +119,7 @@ class Items extends Component {
     el.classList.add('list_item--edit');
   }
 
-  removeEditClass = el => { el.classList.remove('list_item--edit'); }
+  removeEditClass = el => el.classList.remove('list_item--edit');
 
   onCancelEditHandler = (e, id) => {
     document.getElementById('nameInput').focus();
@@ -201,6 +129,62 @@ class Items extends Component {
     this.setState({formIsValid: false, editMode: false});
     this.resetValues();
     this.props.onSetItemEditMode(id, this.props.items);
+  }
+
+  updateItemHandler = e => {
+    e.preventDefault();
+
+    const updatedName = this.state.newItemForm.name.value;
+    const updatedLink = this.state.newItemForm.link.value;
+    const updatedDescription = this.state.newItemForm.description.value;
+    const items = [...this.props.items];
+    const updatedItemIndex = items.findIndex(el => el.editMode === true);
+    const updatedItemId = items[updatedItemIndex].id;
+    const token = this.props.token;
+
+    const updatedItem = updateObject(items[updatedItemIndex], {
+      name: updatedName,
+      link: updatedLink,
+      description: updatedDescription,
+      editMode: false
+    });
+
+    items.splice(updatedItemIndex, 1, updatedItem);
+
+    this.props.onUpdateItem(updatedItem, items, updatedItemId, token);
+    this.resetValues();
+    this.setState({editMode: false});
+  }
+
+  resetValues = () => {
+    const initialName = updateObject(this.state.newItemForm.name, { value: '' });
+    const initialLink = updateObject(this.state.newItemForm.link, { value: '' });
+    const initialDescription = updateObject(this.state.newItemForm.description, { value: '' });
+
+    const initialInputs = updateObject(this.state.newItemForm, {
+      name: initialName,
+      link: initialLink,
+      description: initialDescription
+    });
+
+    this.setState({newItemForm: initialInputs, formIsValid: false});
+  }
+
+  onChangeHandler = (e, id) => {
+    const updatedElement = updateObject(this.state.newItemForm[id], {
+      value: e.target.value,
+      valid: checkValidity(e.target.value, this.state.newItemForm[id].rules),
+    });
+    const updatedForm = updateObject(this.state.newItemForm, {
+      [id]: updatedElement
+    });
+
+    let valid = true;
+    for (let el in updatedForm) {
+      valid = updatedForm[el].valid && valid;
+    }
+
+    this.setState({newItemForm: updatedForm, formIsValid: valid});
   }
 
   render() {
@@ -281,7 +265,7 @@ class Items extends Component {
     return (
       <Fragment>
         <section className="section section--items">
-          <h1 className="page-heading">Add new items</h1>
+          <h1 className="page-heading">Your Future Goodies</h1>
           {error}
           {newItemForm}
           {fetchingError}
@@ -311,7 +295,7 @@ const mapDispatchToProps = dispatch => {
     onFetchItems: userId => dispatch(itemsActions.fetchItems(userId)),
     onDeleteItem: (id, token, items) => dispatch(itemsActions.deleteItem(id, token, items)),
     onSetItemEditMode: (id, items) => dispatch(itemsActions.setItemEditMode(id, items)),
-    onUpdateItem: (items, updatedItemId, token) => dispatch(itemsActions.updateItem(items, updatedItemId, token))
+    onUpdateItem: (updatedItem, updatedItems, updatedItemId, token) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token))
   };
 };
 

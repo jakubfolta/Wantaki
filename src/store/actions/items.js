@@ -6,54 +6,59 @@ export const newItemStart = () => {
   return {
     type: actions.NEW_ITEM_START
   };
-};
+}
 
 export const newItemSuccess = () => {
   return {
     type: actions.NEW_ITEM_SUCCESS
   };
-};
+}
 
 export const newItemFail = error => {
   return {
     type: actions.NEW_ITEM_FAIL,
     error: error
   };
-};
+}
 
 export const initError = () => {
   return {
     type: actions.INIT_ERROR
   };
-};
+}
 
 export const initEditMode = items => {
   return {
     type: actions.INIT_EDIT_MODE,
     items: items
   };
-};
+}
 
 export const setInitialState = (error, items) => {
   return dispatch => {
-    const initialItems = items.map(el => {
-      return {
-        ...el,
-        editMode: false
-      };
-    });
 
     if (error) {
       dispatch(initError());
     }
     if (items.length > 0) {
-      dispatch(initEditMode(initialItems));
+      let editMode = false;
+      for (let el in items) {
+        editMode = items[el].editMode || editMode;
+      }
+
+      if (editMode) {
+        const initialItems = items.map(el => {
+          return {
+            ...el,
+            editMode: false
+          };
+        });
+        dispatch(initEditMode(initialItems));
+      }
     }
-    else {
-      return
-    }
+    else { return }
   };
-};
+}
 
 export const newItem = (item, token) => {
   return dispatch => {
@@ -68,28 +73,28 @@ export const newItem = (item, token) => {
         dispatch(newItemFail(errMessage));
       })
   };
-};
+}
 
 // Fetching items from firebase
 export const fetchItemsStart = () => {
   return {
     type: actions.FETCH_ITEMS_START
   };
-};
+}
 
 export const fetchItemsSuccess = items => {
   return {
     type: actions.FETCH_ITEMS_SUCCESS,
     items: items
   };
-};
+}
 
 export const fetchItemsFail = error => {
   return {
     type: actions.FETCH_ITEMS_FAIL,
     error: error
   };
-};
+}
 
 export const fetchItems = userId => {
   return dispatch => {
@@ -124,28 +129,28 @@ export const fetchItems = userId => {
         dispatch(fetchItemsFail(errMessage));
       })
   };
-};
+}
 
 // Deleting item from firebase and redux state
 export const deleteItemStart = () => {
   return {
     type: actions.DELETE_ITEM_START
   };
-};
+}
 
 export const deleteItemSuccess = items => {
   return {
     type: actions.DELETE_ITEM_SUCCESS,
     items: items
   };
-};
+}
 
 export const deleteItemFail = error => {
   return {
     type: actions.DELETE_ITEM_FAIL,
     error: error
   };
-};
+}
 
 export const deleteItem = (id, token, items) => {
   return dispatch => {
@@ -154,9 +159,7 @@ export const deleteItem = (id, token, items) => {
     const queryParams = id + '.json?auth=' + token;
     axios.delete('https://what-i-desire-default-rtdb.firebaseio.com/items/' + queryParams)
       .then(response => {
-        console.log(response);
         items = items.filter(el => el.id !== id);
-        console.log(items);
         dispatch(deleteItemSuccess(items));
       })
       .catch(error => {
@@ -164,7 +167,7 @@ export const deleteItem = (id, token, items) => {
         dispatch(deleteItemFail(errMessage));
       })
   };
-};
+}
 
 // Edit list item
 export const setItemEditMode = (id, items) => {
@@ -186,36 +189,35 @@ export const setItemEditMode = (id, items) => {
     type: actions.SET_ITEM_EDIT_MODE,
     items: initialItems
   };
-};
+}
 
 export const updateItemStart = () => {
   return {
     type: actions.UPDATE_ITEM_START
   };
-};
+}
 
 export const updateItemSuccess = items => {
   return {
     type: actions.UPDATE_ITEM_SUCCESS,
     items: items
   };
-};
+}
 
 export const updateItemFail = error => {
   return {
     type: actions.UPDATE_ITEM_FAIL,
     error: error
   };
-};
+}
 
-export const updateItem = (items, updatedItemId, token) => {
+export const updateItem = (item, items, updatedItemId, token) => {
   return dispatch => {
     dispatch(updateItemStart());
 
     const queryParams = updatedItemId + '.json?auth=' + token;
-    axios.put('https://what-i-desire-default-rtdb.firebaseio.com/items/' + queryParams)
+    axios.put('https://what-i-desire-default-rtdb.firebaseio.com/items/' + queryParams, item)
       .then(response => {
-        console.log(response);
         dispatch(updateItemSuccess(items));
       })
       .catch(error => {
@@ -223,4 +225,4 @@ export const updateItem = (items, updatedItemId, token) => {
         dispatch(updateItemFail(errorMessage));
       })
   };
-};
+}
