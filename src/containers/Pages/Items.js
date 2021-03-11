@@ -56,7 +56,8 @@ class Items extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.loading === true) {
-    this.props.onFetchItems(this.props.userId);
+      document.getElementById('nameInput').focus();
+      this.props.onFetchItems(this.props.userId);
     }
   }
 
@@ -79,7 +80,10 @@ class Items extends Component {
   }
 
 // Delete item from firebase and redux state
-  onDeleteItemHandler = id => this.props.onDeleteItem(id, this.props.token, this.props.items);
+  onDeleteItemHandler = id => {
+    document.getElementById('nameInput').focus();
+    this.props.onDeleteItem(id, this.props.token, this.props.items);
+  }
 
 // Edit & Update list item
   onEditItemHandler = (e, id) => {
@@ -133,6 +137,7 @@ class Items extends Component {
 
   updateItemHandler = e => {
     e.preventDefault();
+    document.getElementById('nameInput').focus();
 
     const updatedName = this.state.newItemForm.name.value;
     const updatedLink = this.state.newItemForm.link.value;
