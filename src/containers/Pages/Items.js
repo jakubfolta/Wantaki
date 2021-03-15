@@ -55,9 +55,13 @@ class Items extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.loading === true) {
+    console.log('Update');
+    if (prevProps.loading) {
       document.getElementById('nameInput').focus();
       this.props.onFetchItems(this.props.userId);
+    }
+    if (prevProps.items.length !== this.props.items.length && this.state.editMode) {
+      this.checkEditState();
     }
   }
 
@@ -83,6 +87,15 @@ class Items extends Component {
   onDeleteItemHandler = id => {
     document.getElementById('nameInput').focus();
     this.props.onDeleteItem(id, this.props.token, this.props.items);
+    this.checkEditState();
+    // const itemDeleted = this.props.items.find(el => el.id === id);
+    //
+    // if (!itemDeleted) {
+    //
+    // }
+    // for (let el in this.props.items) {
+    //
+    // }
   }
 
 // Edit & Update list item
@@ -93,7 +106,9 @@ class Items extends Component {
     this.setEditClass(DOMitem);
 
     const updatedName = updateObject(this.state.newItemForm.name, {
-       value: item.name});
+       value: item.name,
+       valid: true
+     });
     const updatedLink = updateObject(this.state.newItemForm.link, {
        value: item.link});
     const updatedDescription = updateObject(this.state.newItemForm.description, {
@@ -114,6 +129,14 @@ class Items extends Component {
     this.props.onSetItemEditMode(id, this.props.items);
   }
 
+  checkEditState = () => {
+    if (this.state.editMode) {
+      const editedItemId = this.props.items.find(el => el.editMode === true).id;
+      const DOMitem = document.getElementById(editedItemId);
+      this.setEditClass(DOMitem);
+    }
+  }
+
   setEditClass = el => {
     const editedItem = document.querySelector('.list_item--edit');
     if (editedItem) {
@@ -130,7 +153,6 @@ class Items extends Component {
     const DOMitem = e.target.parentNode.parentNode;
     this.removeEditClass(DOMitem);
 
-    this.setState({formIsValid: false, editMode: false});
     this.resetValues();
     this.props.onSetItemEditMode(id, this.props.items);
   }
@@ -158,11 +180,13 @@ class Items extends Component {
 
     this.props.onUpdateItem(updatedItem, items, updatedItemId, token);
     this.resetValues();
-    this.setState({editMode: false});
   }
 
   resetValues = () => {
-    const initialName = updateObject(this.state.newItemForm.name, { value: '' });
+    const initialName = updateObject(this.state.newItemForm.name, {
+      value: '',
+      valid: false
+    });
     const initialLink = updateObject(this.state.newItemForm.link, { value: '' });
     const initialDescription = updateObject(this.state.newItemForm.description, { value: '' });
 
@@ -172,7 +196,7 @@ class Items extends Component {
       description: initialDescription
     });
 
-    this.setState({newItemForm: initialInputs, formIsValid: false});
+    this.setState({newItemForm: initialInputs, formIsValid: false, editMode: false});
   }
 
   onChangeHandler = (e, id) => {
@@ -245,9 +269,10 @@ class Items extends Component {
           <ListItems>
             {this.props.items.map((el, index) =>
               <ListItem
+                id={el.id}
                 key={el.id}
-                link={el.link}
                 name={el.name}
+                link={el.link}
                 description={el.description}>
 
                 <Button

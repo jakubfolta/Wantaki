@@ -3,7 +3,7 @@ export const updateObject = (oldObject, updatedValues) => {
     ...oldObject,
     ...updatedValues
   };
-};
+}
 
 export const checkValidity = (value, rules) => {
   let valid = true;
@@ -23,4 +23,4 @@ export const checkValidity = (value, rules) => {
   }
 
   return valid;
-};
+}
