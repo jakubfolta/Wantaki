@@ -55,7 +55,6 @@ class Items extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('Update');
     if (prevProps.loading) {
       document.getElementById('nameInput').focus();
       this.props.onFetchItems(this.props.userId);
@@ -76,7 +75,8 @@ class Items extends Component {
       link: this.state.newItemForm.link.value,
       description: this.state.newItemForm.description.value,
       timestamp: Date.now(),
-      editMode: false
+      editMode: false,
+      userName: this.props.userName
     }
 
     this.props.onAddNewItem(itemData, token);
@@ -87,15 +87,6 @@ class Items extends Component {
   onDeleteItemHandler = id => {
     document.getElementById('nameInput').focus();
     this.props.onDeleteItem(id, this.props.token, this.props.items);
-    this.checkEditState();
-    // const itemDeleted = this.props.items.find(el => el.id === id);
-    //
-    // if (!itemDeleted) {
-    //
-    // }
-    // for (let el in this.props.items) {
-    //
-    // }
   }
 
 // Edit & Update list item
@@ -130,10 +121,12 @@ class Items extends Component {
   }
 
   checkEditState = () => {
-    if (this.state.editMode) {
-      const editedItemId = this.props.items.find(el => el.editMode === true).id;
-      const DOMitem = document.getElementById(editedItemId);
+    const editedItem = this.props.items.find(el => el.editMode === true);
+    if (editedItem) {
+      const DOMitem = document.getElementById(editedItem.id);
       this.setEditClass(DOMitem);
+    } else {
+      this.resetValues();
     }
   }
 
@@ -142,7 +135,6 @@ class Items extends Component {
     if (editedItem) {
       this.removeEditClass(editedItem);
     }
-
     el.classList.add('list_item--edit');
   }
 
@@ -258,6 +250,8 @@ class Items extends Component {
               disabled={!this.state.formIsValid}
               btnType="pulse"
               >{this.state.editMode ? 'Update Item' : 'Save Future Gift'}</Button>
+            <h4 className="share-link">Your link to share with others</h4>
+            <p>{"/giftideas?user=" + this.props.userName}</p>
         </form>
       )
 
@@ -306,7 +300,7 @@ class Items extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     items: state.items.items,
     error: state.items.error,
@@ -314,9 +308,10 @@ const mapStateToProps = state => {
     loading: state.items.loading,
     loadingItems: state.items.loadingItems,
     token: state.auth.token,
-    userId: state.auth.userId
+    userId: state.auth.userId,
+    userName: state.auth.userName
   };
-};
+}
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -327,6 +322,6 @@ const mapDispatchToProps = dispatch => {
     onSetItemEditMode: (id, items) => dispatch(itemsActions.setItemEditMode(id, items)),
     onUpdateItem: (updatedItem, updatedItems, updatedItemId, token) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token))
   };
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Items);

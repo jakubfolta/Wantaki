@@ -96,11 +96,14 @@ export const fetchItemsFail = error => {
   };
 }
 
-export const fetchItems = userId => {
+export const fetchItems = (userId, userName) => {
   return dispatch => {
     dispatch(fetchItemsStart());
 
-    const queryParams = '?orderBy="userId"&equalTo="' + userId + '"';
+    const queryParams = userName
+      ? '?orderBy="userName"&equalTo="' + userName + '"'
+      : '?orderBy="userId"&equalTo="' + userId + '"';
+      console.log(queryParams);
     axios.get('https://what-i-desire-default-rtdb.firebaseio.com/items.json' + queryParams)
       .then(response => {
         let items = [];
