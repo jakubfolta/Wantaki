@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import * as itemsActions from '../../store/actions';
 import { updateObject, checkValidity } from '../../shared/utility';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
 import Input from '../../components/UI/Input';
@@ -211,7 +212,9 @@ class Items extends Component {
   }
 
   copyLink = () => {
-    navigator.clipboard.writeText("/giftideas?user=" + this.props.userName)
+    const baseURL = window.location.href.split(this.props.match.url)[0];
+
+    navigator.clipboard.writeText(baseURL + "/giftideas?user=" + this.props.userName)
       .then(() => {
       this.setState({linkCopied: true});
       setTimeout(() => {
@@ -334,7 +337,7 @@ class Items extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     items: state.items.items,
     error: state.items.error,
@@ -358,4 +361,4 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Items);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Items));
