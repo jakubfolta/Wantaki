@@ -3,8 +3,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    list-style: none;
   }
+
+  &_item { list-style: none; }
 
   &_link:link,
   &_link:visited {
@@ -28,4 +29,3 @@
   //   transition: all .3s linear;
   // }
 }
-

@@ -1,4 +1,5 @@
 import React, { Component, Suspense } from 'react';
+import { withRouter } from 'react-router';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as authActions from './store/actions';
@@ -10,16 +11,23 @@ import Logout from './containers/Pages/Auth/Logout/Logout';
 const Auth = React.lazy(() => import('./containers/Pages/Auth/Auth'));
 const Items = React.lazy(() => import('./containers/Pages/Items'));
 const GiftIdeas = React.lazy(() => import('./containers/Pages/GiftIdeas'));
+const authSuspense = <Suspense fallback=<div>Loading...</div>><Auth /></Suspense>;
+const itemsSuspense = <Suspense fallback=<div>Loading...</div>><Items /></Suspense>;
+const giftIdeasSuspense = <Suspense fallback=<div>Loading...</div>><GiftIdeas /></Suspense>;
+let prevPage = '';
 
 class App extends Component {
   componentDidMount() {
     this.props.onCheckAuthState();
+    prevPage = this.props.location.pathname;
   }
 
   render() {
-    const authSuspense = <Suspense fallback=<div>Loading...</div>><Auth /></Suspense>
-    const itemsSuspense = <Suspense fallback=<div>Loading...</div>><Items /></Suspense>
-    const giftIdeasSuspense = <Suspense fallback=<div>Loading...</div>><GiftIdeas /></Suspense>
+// Redirect back to "/items" route if refresh webpage on this "/items" route
+// Previously root route "/" loaded due to route guards
+    let redirect = this.props.isAuthenticated && prevPage === '/items'
+      ? <Redirect to={prevPage} />
+      : null;
 
     let routes = this.props.isAuthenticated
       ? <Switch>
@@ -36,27 +44,29 @@ class App extends Component {
         <Route path="/auth" render={() => authSuspense}  />
         <Route path="/giftideas" render={() => giftIdeasSuspense} />
         <Redirect to="/" />
-      </Switch>
+      </Switch>;
 
     return (
       <div>
         <Layout>
           {routes}
+          {redirect}
         </Layout>
       </div>
     );
   }
 }
-const mapStateToProps = state => {
+
+const mapStateToProps = (state, ownProps) => {
   return {
     isAuthenticated: state.auth.token !== null
   };
-};
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     onCheckAuthState: () => dispatch(authActions.checkAuthState())
-  }
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

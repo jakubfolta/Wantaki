@@ -1,0 +1,9 @@
+.share-section {
+
+  width: 80%;
+  &_group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

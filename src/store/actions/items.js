@@ -103,7 +103,7 @@ export const fetchItems = (userId, userName) => {
     const queryParams = userName
       ? '?orderBy="userName"&equalTo="' + userName + '"'
       : '?orderBy="userId"&equalTo="' + userId + '"';
-      console.log(queryParams);
+
     axios.get('https://what-i-desire-default-rtdb.firebaseio.com/items.json' + queryParams)
       .then(response => {
         let items = [];

@@ -41,7 +41,7 @@
 .delete,
 .edit {
   font-size: $small-font-size;
-  padding: .5rem 1rem;
+  padding: 1rem 1.5rem;
   box-shadow: 0 0 0 1.5rem transparent;
   border: 2px solid transparent;
 
@@ -50,12 +50,19 @@
 }
 
 .delete {
-  &:focus { color: $color-warning; border: 2px solid $color-warning; }
-  &:active { box-shadow: 0 0 .5rem 2px hsl(0, 100%, 40%), 0 0 1rem 2px hsl(0, 100%, 40%); }
+  &:focus,
+  &:active {
+    border: 2px solid $color-warning;
+    box-shadow: 0 0 .5rem 2px hsl(0, 100%, 40%), 0 0 1rem 2px hsl(0, 100%, 40%);
+  }
 }
 
 .edit {
-  &:focus { color: $color-change; border: 2px solid $color-change; }
-  &:not(:focus) { color: black; }
-  &:active { box-shadow: 0 0 .5rem 2px hsl(45, 82%, 50%), 0 0 1rem 2px hsl(45, 82%, 50%); }
+  &:focus,
+  &:active {
+    border: 2px solid $color-change;
+    box-shadow: 0 0 .5rem 2px hsl(45, 82%, 50%), 0 0 1rem 2px hsl(45, 82%, 50%);
+  }
 }
+
+.copy { border: none; }

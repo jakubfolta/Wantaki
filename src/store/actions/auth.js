@@ -78,7 +78,6 @@ export const auth = (email, password, type, path) => {
       const userId = response.data.localId;
       const expireDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
       const userName = email.split('@')[0];
-      console.log(userName);
 
       localStorage.setItem('token', token);
       localStorage.setItem('userId', userId);

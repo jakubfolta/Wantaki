@@ -8,6 +8,7 @@ import Button from '../../components/UI/Button';
 import Spinner from '../../components/UI/Spinner';
 import ListItems from '../../components/ListItems/ListItems';
 import ListItem from '../../components/ListItems/ListItem/ListItem';
+import NavigationItem from '../../components/Navigation/NavigationItem';
 
 
 class Items extends Component {
@@ -41,7 +42,8 @@ class Items extends Component {
       }
     },
     formIsValid: false,
-    editMode: false
+    editMode: false,
+    linkCopied: false
   }
 
   componentDidMount() {
@@ -208,6 +210,20 @@ class Items extends Component {
     this.setState({newItemForm: updatedForm, formIsValid: valid});
   }
 
+  copyLink = () => {
+    navigator.clipboard.writeText("/giftideas?user=" + this.props.userName)
+      .then(() => {
+      this.setState({linkCopied: true});
+      setTimeout(() => {
+        this.setState({linkCopied: false});
+        document.getElementById('nameInput').focus();
+      }, 3000)
+      })
+      .catch(error => {
+        alert(error);
+      })
+  }
+
   render() {
     const form = this.state.newItemForm;
     const formElements = [];
@@ -228,32 +244,49 @@ class Items extends Component {
     }
 
 // Create "Add item" form
-    let newItemForm = this.props.loading ? <Spinner /> :
-      (
-        <form
-          onSubmit={this.state.editMode
-            ? this.updateItemHandler
-            : this.newItemHandler}
-          className="items-form">
-          {formElements.map( el =>
-            <Input
-              key={el.id}
-              type={el.configuration.type}
-              focusId={el.configuration.id}
-              change={(e) => this.onChangeHandler(e, el.id)}
-              value={el.configuration.value}
-              placeholder={el.configuration.placeholder}
-              label={el.configuration.label}
-              valid={el.configuration.valid} /> )}
+    let newItemForm = this.props.loading
+      ? <Spinner />
+      : ( <form
+            onSubmit={this.state.editMode
+              ? this.updateItemHandler
+              : this.newItemHandler}
+            className="items-form">
+            {formElements.map( el =>
+              <Input
+                key={el.id}
+                type={el.configuration.type}
+                focusId={el.configuration.id}
+                change={(e) => this.onChangeHandler(e, el.id)}
+                value={el.configuration.value}
+                placeholder={el.configuration.placeholder}
+                label={el.configuration.label}
+                valid={el.configuration.valid} /> )}
 
+              <Button
+                disabled={!this.state.formIsValid}
+                btnType="pulse"
+                >{this.state.editMode ? 'Update Item' : 'Save Future Gift'}</Button>
+          </form> )
+
+
+
+// Create "share" section
+    let shareSection = this.props.items.length > 0
+      ? ( <div className="share-section">
+          <h3
+            className="share-section_heading">Let them know what you want!
+          </h3>
+          <div className="share-section_group">
             <Button
-              disabled={!this.state.formIsValid}
-              btnType="pulse"
-              >{this.state.editMode ? 'Update Item' : 'Save Future Gift'}</Button>
-            <h4 className="share-link">Your link to share with others</h4>
-            <p>{"/giftideas?user=" + this.props.userName}</p>
-        </form>
-      )
+              clicked={this.copyLink}
+              btnType="copy"
+              >{this.state.linkCopied ? "Copied !!!" : "Copy Link"}</Button>
+            <NavigationItem
+              link={"/giftideas?user=" + this.props.userName}
+              >Your list</NavigationItem>
+          </div>
+        </div> )
+      : null
 
 // Create fetched items list
     if (this.props.loadingItems) {
@@ -292,6 +325,7 @@ class Items extends Component {
           <h1 className="page-heading">Your Future Goodies</h1>
           {error}
           {newItemForm}
+          {shareSection}
           {fetchingError}
           {items}
         </section>
@@ -300,7 +334,7 @@ class Items extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     items: state.items.items,
     error: state.items.error,

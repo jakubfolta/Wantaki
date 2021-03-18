@@ -9,8 +9,7 @@ import ListItem from '../../components/ListItems/ListItem/ListItem';
 
 class GiftIdeas extends Component {
   componentDidMount() {
-    const user = this.props.userName.split('=')[1]
-    console.log(user);
+    const user = this.props.location.search.split('=')[1];
     this.props.onFetchItems(user);
   }
 
@@ -58,8 +57,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     items: state.items.items,
     fetchingError: state.items.fetchingError,
-    loadingItems: state.items.loadingItems,
-    userName: ownProps.location.search
+    loadingItems: state.items.loadingItems
   };
 }
 
