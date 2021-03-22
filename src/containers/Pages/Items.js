@@ -9,8 +9,6 @@ import Button from '../../components/UI/Button';
 import Spinner from '../../components/UI/Spinner';
 import ListItems from '../../components/ListItems/ListItems';
 import ListItem from '../../components/ListItems/ListItem/ListItem';
-import NavigationItem from '../../components/Navigation/NavigationItem';
-
 
 class Items extends Component {
   state = {
@@ -276,19 +274,13 @@ class Items extends Component {
 // Create "share" section
     let shareSection = this.props.items.length > 0
       ? ( <div className="share-section">
-          <h3
-            className="share-section_heading">Let them know what you want!
-          </h3>
-          <div className="share-section_group">
             <Button
               clicked={this.copyLink}
               btnType="copy"
-              >{this.state.linkCopied ? "Copied !!!" : "Copy Link"}</Button>
-            <NavigationItem
-              link={"/giftideas?user=" + this.props.userName}
-              >Your list</NavigationItem>
-          </div>
-        </div> )
+              >{this.state.linkCopied
+                  ? "Copied To Clipboard !!!"
+                  : "Copy Link To Your List And Share It !!!"}</Button>
+          </div> )
       : null
 
 // Create fetched items list

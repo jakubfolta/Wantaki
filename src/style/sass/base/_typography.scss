@@ -1,7 +1,7 @@
 body {
   font-family: 'Montserrat', sans-serif;
   font-size: $default-font-size;
-  color: $color-primary;
+  color: $color-primary--text;
   background-color: $color-secondary;
 }
 
@@ -21,6 +21,7 @@ p {
   font-size: $huge-font-size;
   text-transform: capitalize;
   letter-spacing: .2rem;
+  color: $color-white;
 }
 
 .error {
