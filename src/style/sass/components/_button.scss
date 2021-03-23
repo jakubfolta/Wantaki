@@ -6,7 +6,7 @@
   padding: 1rem 2rem;
   cursor: pointer;
   border: 2px solid $color-primary;
-  box-shadow: 0 0 .5rem 2px hsl(122, 39%, 49%), 0 0 1rem 2px hsl(122, 39%, 49%);
+  box-shadow: 0 0 .5rem 2px $color-primary, 0 0 1rem 2px $color-primary;
   transition: all .2s linear;
 
   &:focus,

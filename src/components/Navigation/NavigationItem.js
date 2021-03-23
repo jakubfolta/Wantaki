@@ -2,7 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const NavigationItem = props => (
-  <li className="navigation_item">
+  <li
+    className="navigation_item"
+    id={props.id}>
     <NavLink
       className="navigation_link"
       to={props.link}

@@ -29,3 +29,16 @@
   //   transition: all .3s linear;
   // }
 }
+
+
+#home,
+#logout { animation: moveInUp .3s linear .5s; }
+#logout { animation-delay: .8s; }
+
+#auth { animation: moveInLeft .3s linear .8s; }
+#items { animation: moveInLeft .3s linear 1.1s; }
+
+#home,
+#logout,
+#auth,
+#items { animation-fill-mode: backwards; }

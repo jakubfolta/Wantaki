@@ -5,20 +5,20 @@ import { connect } from 'react-redux';
 const NavigationItems = props => (
   <nav className="navigation">
     <ul className="navigation_list">
-      <NavigationItem link="/">
+      <NavigationItem id="home" link="/">
         Home
       </NavigationItem>
 
       {props.isAuthenticated
-        ? <NavigationItem link="/logout">
+        ? <NavigationItem id="logout" link="/logout">
           Logout
           </NavigationItem>
-        : <NavigationItem link="/auth">
+        : <NavigationItem id="auth" link="/auth">
           Sign In
           </NavigationItem>}
 
       {props.isAuthenticated
-        ? <NavigationItem link="/items">
+        ? <NavigationItem id="items" link="/items">
           Items
         </NavigationItem>
         : null}
