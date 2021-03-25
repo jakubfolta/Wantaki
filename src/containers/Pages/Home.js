@@ -7,11 +7,11 @@ const Home = () => {
     <Fragment>
       <div className="logo">
         <img className="logo_img" src={logo} alt="logo"/>
-      </div>
-      <div className="logo_group">
-        <h1 className="page-heading logo_title">Wantaki</h1>
-        <span className="logo_gradient"></span>
+        <div className="logo_group">
+          <h1 className="page-heading logo_title">Wantaki</h1>
+          <span className="logo_gradient"></span>
 
+        </div>
       </div>
       <section className="section">
         <Carousel />
