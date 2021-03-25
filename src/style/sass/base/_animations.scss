@@ -4,19 +4,6 @@
   100% { transform: scale(1); }
 }
 
-@keyframes slide {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
-
-@keyframes showUp {
-  0% { opacity: 0; }
-  20% { opacity: 0; }
-  40% { opacity: 1; }
-  100% { opacity: 1; }
-}
-
 @keyframes moveInUp {
   0% { transform: translateY(4rem); }
   50% { transform: translateY(-1.5rem); }
@@ -27,4 +14,88 @@
   0% { transform: translateX(10rem); }
   50% { transform: translateX(-1.5rem); }
   100% { transform: translateX(0); }
+}
+
+// Main page instructions animations
+// First Animation 5s
+@keyframes moveInRight {
+  0% { transform: translateX(-100%); }
+  6.66% { transform: translateX(-100%); } // 1s delay
+  9.99% { transform: translateX(0); } // show up in .5s
+  23.31% { transform: translateX(0); }
+  26.64% { transform: translateX(100%); } // dissapear .5s
+  100% { transform: translateX(100%); } // 10s invisible for other 2 animations
+}
+
+@keyframes showUp {
+  0% { opacity: 0; }
+  9.99% { opacity: 0; } // 1.5s delay
+  13.32% { opacity: 1; } // show up in .5s
+  26.64% { opacity: 1; }
+  29.97% { opacity: 0; } // dissapear in .5s
+  100% { opacity: 0; } // 10s invisible for other 2 animations
+}
+
+@keyframes scale {
+  0% { transform: scale(0); }
+  13.32% { transform: scale(0); } // 2s delay
+  16.65% { transform: scale(1); } // show up in .5s
+  29.97% { transform: scale(1); }
+  33.3% { transform: scale(0); } // dissapear in .5s
+  100% { transform: scale(0); } // 10s invisible for other 2 animations
+}
+
+// Second Animation 5s
+@keyframes moveInRight2 {
+  0% { transform: translateX(-100%); }
+  33.3% { transform: translateX(-100%); } // 5s delay
+  36.63% { transform: translateX(0); } // show up in .5s
+  56.61% { transform: translateX(0); }
+  59.94% { transform: translateX(100%); } // dissapear .5s
+  100% { transform: translateX(100%); } // 5s invisible for third animation
+}
+
+@keyframes showUp2 {
+  0% { opacity: 0; }
+  36.63% { opacity: 0; } // 5.5s delay
+  39.96% { opacity: 1; } // show up in .5s
+  59.94% { opacity: 1; }
+  63.27% { opacity: 0; } // dissapear in .5s
+  100% { opacity: 0; } // 5s invisible for third animation
+}
+
+@keyframes scale2 {
+  0% { transform: scale(0); }
+  39.96% { transform: scale(0); } // 6s delay
+  43.29% { transform: scale(1); } // show up in .5s
+  63.27% { transform: scale(1); }
+  66.6% { transform: scale(0); } // dissapear in .5s
+  100% { transform: scale(0); } // 5s invisible for third animation
+}
+
+// Third Animation 5s
+@keyframes moveInRight3 {
+  0% { transform: translateX(-100%); }
+  66.6% { transform: translateX(-100%); } // 10s delay
+  69.93% { transform: translateX(0); } // show up in .5s
+  90.01% { transform: translateX(0); }
+  93.34% { transform: translateX(100%); } // dissapear .5s
+  100% { transform: translateX(100%); }
+}
+
+@keyframes showUp3 {
+  0% { opacity: 0; }
+  69.93% { opacity: 0; } // 10.5s delay
+  73.26% { opacity: 1; } // show up in .5s
+  93.34% { opacity: 1; }
+  96.67% { opacity: 0; } // dissapear in .5s
+  100% { opacity: 0; }
+}
+
+@keyframes scale3 {
+  0% { transform: scale(0); }
+  73.26% { transform: scale(0); } // 11s delay
+  76.59% { transform: scale(1); } // show up in .5s
+  96.67% { transform: scale(1); }
+  100% { transform: scale(0); } // dissapear in .5s
 }

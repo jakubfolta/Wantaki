@@ -46,7 +46,6 @@ class Items extends Component {
   }
 
   componentDidMount() {
-    document.getElementById('nameInput').focus();
     this.props.onSetInitialState(this.props.error, this.props.items);
 
 // Fetch items from firebase only when there are none in redux state
@@ -86,7 +85,6 @@ class Items extends Component {
 
 // Delete item from firebase and redux state
   onDeleteItemHandler = id => {
-    document.getElementById('nameInput').focus();
     this.props.onDeleteItem(id, this.props.token, this.props.items);
   }
 
@@ -142,7 +140,6 @@ class Items extends Component {
   removeEditClass = el => el.classList.remove('list_item--edit');
 
   onCancelEditHandler = (e, id) => {
-    document.getElementById('nameInput').focus();
     const DOMitem = e.target.parentNode.parentNode;
     this.removeEditClass(DOMitem);
 
@@ -152,7 +149,6 @@ class Items extends Component {
 
   updateItemHandler = e => {
     e.preventDefault();
-    document.getElementById('nameInput').focus();
 
     const updatedName = this.state.newItemForm.name.value;
     const updatedLink = this.state.newItemForm.link.value;

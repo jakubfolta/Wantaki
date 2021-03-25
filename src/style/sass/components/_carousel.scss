@@ -1,34 +1,52 @@
 .carousel {
   position: relative;
-  display: flex;
-  width: 90%;
+  width: 100%;
   overflow: hidden;
 
-  &::before,
-  &::after {
-    content: '';
+  &_stepOne,
+  &_stepTwo,
+  &_stepThree {
+    &-description,
+    &-title {
+      font-family: $font-yusei;
+      font-size: $big-font-size;
+      font-weight: bold;
+      letter-spacing: 3px;
+    }
+
+    &-title { text-transform: uppercase; }
+    &-img {
+      height: 50vh;
+      margin: 2rem 0;
+      animation-fill-mode: backwards;
+      box-shadow: 0 0 2rem 8px $color-primary;
+    }
+  }
+
+  &_stepTwo,
+  &_stepThree {
     position: absolute;
-    width: 10%;
+    width: 100%;
     height: 100%;
     top: 0;
-    background: linear-gradient(to right, $color-secondary 0%, hsla(230, 21%, 5%, 0) 100%);
-    z-index: 2;
+    left: 0;
   }
 
-  &::before { left: 0; }
-  &::after {
-    right: 0;
-    transform: rotateZ(180deg);
+  &_stepOne {
+    &-title { animation: moveInRight 15s linear infinite; }
+    &-description { animation: scale 15s linear infinite; }
+    &-img { animation: showUp 15s linear infinite; }
   }
 
-  &_slider {
-    display: flex;
-    animation: slide 12s linear infinite, showUp 12s linear infinite;
-    animation-fill-mode: backwards;
+  &_stepTwo {
+    &-title { animation: moveInRight2 15s linear infinite; }
+    &-description { animation: scale2 15s linear infinite; }
+    &-img { animation: showUp2 15s linear infinite; }
+  }
 
-    & > * {
-      height: 50vh;
-      padding: 0 1.5rem;
-    }
+  &_stepThree {
+    &-title { animation: moveInRight3 15s linear infinite; }
+    &-description { animation: scale3 15s linear infinite; }
+    &-img { animation: showUp3 15s linear infinite; }
   }
 }

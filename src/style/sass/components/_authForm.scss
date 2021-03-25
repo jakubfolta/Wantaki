@@ -3,7 +3,7 @@
 
   &_login,
   &_password {
-    font-family: 'Yusei Magic', sans-serif;
+    font-family: $font-yusei;
     font-size: $medium-font-size;
     padding: 1rem 2rem;
     border: none;
@@ -12,7 +12,7 @@
       display: block;
       text-align: left;
       transform: translate(2.2rem, .5rem);
-      font-family: 'Yusei Magic', sans-serif;
+      font-family: $font-yusei;
       font-size: $medium-font-size;
       color: $color-secondary--text;
       opacity: 1;
@@ -21,7 +21,7 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 .5rem 2px hsl(122, 39%, 49%), 0 0 1rem 2px hsl(122, 39%, 49%);
+      box-shadow: 0 0 .5rem 2px $color-primary, 0 0 1rem 2px $color-primary;
       transition: all .2s linear;
     }
   }
@@ -37,7 +37,7 @@
   &_password--valid,
   &_password--valid:focus {
     background-color: lighten($color-primary, 50%);
-    box-shadow: 0 0 .5rem 2px hsl(122, 39%, 49%), 0 0 1rem 2px hsl(122, 39%, 49%);
+    box-shadow: 0 0 .5rem 2px $color-primary, 0 0 1rem 2px $color-primary;
   }
 
   &_login--invalid,

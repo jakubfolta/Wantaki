@@ -33,7 +33,6 @@ class Auth extends Component {
   }
 
   componentDidMount() {
-    document.getElementById('email').focus();
     this.props.onCheckErrorState(this.props.error);
   }
 
@@ -48,6 +47,9 @@ class Auth extends Component {
         signUp: !prevState.signUp
       };
     })
+    setTimeout(() => {
+      document.getElementById("email").focus()
+    }, 1000)
   }
 
   onChangeHandler = (e) => {
