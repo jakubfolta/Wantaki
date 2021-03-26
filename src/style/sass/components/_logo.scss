@@ -1,0 +1,23 @@
+.logo {
+  display: flex;
+  align-items: center;
+
+  &_img {
+    width: 6rem;
+    padding: 1rem;
+    margin-right: 1rem;
+    animation: moveInLogo .5s linear .5s;
+  }
+
+  &_title {
+    letter-spacing: 4px;
+    background: linear-gradient(0deg, rgba(69,162,158,1) 0%, rgba(255,255,255,1) 100%);
+    font-style: italic;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: moveInLogo .5s linear .8s;
+  }
+
+  &_img,
+  &_title { animation-fill-mode: backwards; }
+}

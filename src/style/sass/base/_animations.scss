@@ -16,6 +16,11 @@
   100% { transform: translateX(0); }
 }
 
+@keyframes moveInLogo {
+  0% { transform: translateX(100vw); }
+  100% { transform: translate(0); }
+}
+
 // Main page instructions animations
 // First Animation 5s
 @keyframes moveInRight {

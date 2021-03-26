@@ -9,17 +9,17 @@
     &-description,
     &-title {
       font-family: $font-yusei;
-      font-size: $big-font-size;
+      font-size: $medium-font-size;
       font-weight: bold;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
     }
 
-    &-title { text-transform: uppercase; }
+    &-title { text-transform: capitalize; }
     &-img {
       height: 50vh;
-      margin: 2rem 0;
+      margin: 2rem 0 1.5rem;
       animation-fill-mode: backwards;
-      box-shadow: 0 0 2rem 8px $color-primary;
+      box-shadow: 2px 2px 2rem 5px $color-primary;
     }
   }
 

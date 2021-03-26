@@ -1,18 +1,11 @@
 import React, { Fragment } from 'react';
 import Carousel from '../../components/Carousel/Carousel.js';
-import logo from '../../img/logo.png';
+import Logo from '../../components/Logo/Logo.js';
 
 const Home = () => {
   return (
     <Fragment>
-      <div className="logo">
-        <img className="logo_img" src={logo} alt="logo"/>
-        <div className="logo_group">
-          <h1 className="page-heading logo_title">Wantaki</h1>
-          <span className="logo_gradient"></span>
-
-        </div>
-      </div>
+      <Logo />
       <section className="section">
         <Carousel />
       </section>
