@@ -1,6 +1,7 @@
 .logo {
   display: flex;
   align-items: center;
+  animation: showUpLogo 1s linear;
 
   &_img {
     width: 6rem;

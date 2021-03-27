@@ -32,11 +32,11 @@
 
 
 #home,
-#logout { animation: moveInUp .3s linear .5s; }
-#logout { animation-delay: .8s; }
+#logout { animation: moveInUp .3s linear .2s; }
+#logout { animation-delay: .5s; }
 
-#auth { animation: moveInLeft .3s linear .8s; }
-#items { animation: moveInLeft .3s linear 1.1s; }
+#auth { animation: moveInLeft .3s linear .5s; }
+#items { animation: moveInLeft .3s linear .8s; }
 
 #home,
 #logout,
