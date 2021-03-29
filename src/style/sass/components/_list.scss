@@ -50,6 +50,6 @@
       color: $color-white;
       font-size: $small-font-size;
     }
-    &--edit { box-shadow: 0 0 1rem 1px $color-primary; }
+    &--edit { box-shadow: 0 0 1rem .5rem $color-primary; }
   }
 }

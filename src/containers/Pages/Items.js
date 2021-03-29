@@ -56,7 +56,6 @@ class Items extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.loading) {
-      document.getElementById('nameInput').focus();
       this.props.onFetchItems(this.props.userId);
     }
     if (prevProps.items.length !== this.props.items.length && this.state.editMode) {
@@ -145,6 +144,7 @@ class Items extends Component {
 
     this.resetValues();
     this.props.onSetItemEditMode(id, this.props.items);
+    DOMitem.childNodes[1].childNodes[1].blur();
   }
 
   updateItemHandler = e => {
@@ -213,7 +213,7 @@ class Items extends Component {
       this.setState({linkCopied: true});
       setTimeout(() => {
         this.setState({linkCopied: false});
-        document.getElementById('nameInput').focus();
+        document.getElementById('copy').blur();
       }, 3000)
       })
       .catch(error => {
@@ -271,6 +271,7 @@ class Items extends Component {
     let shareSection = this.props.items.length > 0
       ? ( <div className="share-section">
             <Button
+              id="copy"
               clicked={this.copyLink}
               btnType="copy"
               >{this.state.linkCopied
