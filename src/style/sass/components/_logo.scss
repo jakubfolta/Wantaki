@@ -1,7 +1,7 @@
 .logo {
   display: flex;
   align-items: center;
-  animation: showUpLogo 2s linear .5s;
+  animation: showUpLogo 2s linear 1s;
   animation-fill-mode: backwards;
 
   &_img {
