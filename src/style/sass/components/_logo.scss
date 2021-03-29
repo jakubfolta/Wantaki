@@ -1,14 +1,13 @@
 .logo {
   display: flex;
   align-items: center;
-  animation: showUpLogo 2s linear 1s;
+  animation: showUpLogo 1.5s linear 1s;
   animation-fill-mode: backwards;
 
   &_img {
     width: 6rem;
     padding: 1rem;
     margin-right: 1rem;
-    // animation: moveInLogo .5s linear .5s;
   }
 
   &_title {
@@ -17,9 +16,5 @@
     font-style: italic;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    // animation: moveInLogo .5s linear .8s;
   }
-
-  &_img,
-  &_title { animation-fill-mode: backwards; }
 }

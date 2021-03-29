@@ -5,7 +5,12 @@
     align-items: center;
   }
 
-  &_item { list-style: none; }
+  &_item {
+    list-style: none;
+    padding: .5rem 1rem;
+  }
+  //media padding: 1rem 2rem;
+  // cursor: pointer;
 
   &_link:link,
   &_link:visited {
