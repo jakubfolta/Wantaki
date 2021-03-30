@@ -14,13 +14,13 @@
   &_link:link,
   &_link:visited {
     display: inline-block;
-    padding: .5rem 1rem;
+    padding: .5rem .8rem;
     font-family: 'Yusei Magic', sans-serif;
     font-size: $big-font-size;
     border-bottom: 4px solid transparent;
     text-decoration: none;
     color: $color-white;
-    letter-spacing: 4px;
+    letter-spacing: 3px;
 
     &:focus {
       outline: none;
@@ -40,11 +40,11 @@
 
 
 #home,
-#logout { animation: moveInUp .5s ease-out .5s; }
-#logout { animation-delay: .8s; }
+#logout { animation: moveInUp .5s ease-out .6s; }
+#logout { animation-delay: .9s; }
 
-#auth { animation: moveInLeft .5s ease-out .8s; }
-#items { animation: moveInLeft .5s ease-out .8s; }
+#auth { animation: moveInLeft .5s ease-out .9s; }
+#items { animation: moveInLeft .5s ease-out .9s; }
 
 #home,
 #logout,
