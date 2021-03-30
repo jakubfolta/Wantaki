@@ -1,6 +1,5 @@
 .form {
-  // width: 50%;
-  // overflow: hidden;
+  width: 70%;
   &_group { margin: 1rem 0; }
 
   &_login,
@@ -9,7 +8,7 @@
     font-size: $medium-font-size;
     padding: 1rem 2rem;
     border: none;
-    width: 70vw;
+    width: 100%;
 
     &-label {
       display: block;
