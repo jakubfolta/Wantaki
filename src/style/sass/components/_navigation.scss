@@ -7,22 +7,24 @@
 
   &_item {
     list-style: none;
-    padding: .5rem 1rem;
+    cursor: pointer;
   }
   //media padding: 1rem 2rem;
-  // cursor: pointer;
 
   &_link:link,
   &_link:visited {
+    display: inline-block;
+    padding: .5rem 1rem;
     font-family: 'Yusei Magic', sans-serif;
     font-size: $big-font-size;
-    border-bottom: 2px solid transparent;
+    border-bottom: 4px solid transparent;
     text-decoration: none;
     color: $color-white;
+    letter-spacing: 4px;
 
     &:focus {
       outline: none;
-      border-bottom: 2px solid $color-primary;
+      border-bottom: 4px solid $color-primary;
     }
   }
 
