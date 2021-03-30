@@ -8,13 +8,14 @@
     font-weight: bold;
     color: $color-white;
     text-transform: capitalize;
+    letter-spacing: 1px;
   }
 
   &_input,
   &_textarea {
     font-family: 'Yusei Magic', sans-serif;
     font-size: $default-font-size;
-    padding: 1rem 2rem;
+    padding: .5rem 1rem;
     margin-top: .5rem;
     cursor: pointer;
     border: none;

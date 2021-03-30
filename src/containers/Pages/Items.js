@@ -18,7 +18,7 @@ class Items extends Component {
         id: 'nameInput',
         value: '',
         placeholder: 'Quadra Type-66 "Javelina"',
-        label: "What you desire ? *",
+        label: "What you desire ?",
         valid: false,
         rules: {
           required: true,
@@ -314,7 +314,7 @@ class Items extends Component {
     return (
       <Fragment>
         <section className="section section--items">
-          <h1 className="page-heading">Your Future Goodies</h1>
+          <h1 className="page-heading">Create your list!</h1>
           {error}
           {newItemForm}
           {shareSection}

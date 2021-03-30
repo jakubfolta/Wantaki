@@ -5,14 +5,14 @@
 }
 
 @keyframes moveInUp {
-  0% { transform: translateY(4rem); }
-  50% { transform: translateY(-1.5rem); }
+  0% { transform: translateY(100%); }
+  50% { transform: translateY(-2.5rem); }
   100% { transform: translateY(0); }
 }
 
 @keyframes moveInLeft {
-  0% { transform: translateX(10rem); }
-  50% { transform: translateX(-1.5rem); }
+  0% { transform: translateX(100%); }
+  50% { transform: translateX(-2.5rem); }
   100% { transform: translateX(0); }
 }
 

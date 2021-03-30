@@ -54,7 +54,7 @@ const Carousel = () => {
           src={step3}
           alt="Step three" />
         <p className="carousel_stepThree-description">Share your list...</p>
-        <p className="carousel_stepThree-description">and receive perfect gift!</p>
+        <p className="carousel_stepThree-description">and receive perfect gifts!</p>
       </div>
     </div>
   )

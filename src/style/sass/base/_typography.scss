@@ -20,8 +20,9 @@ p {
   font-family: $font-yusei;
   font-size: $huge-font-size;
   text-transform: capitalize;
-  letter-spacing: .2rem;
+  letter-spacing: 4px;
   color: $color-white;
+  text-shadow: 2px 2px 4px $color-primary;
 }
 
 .error {

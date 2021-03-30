@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import AuthForm from '../../../components/AuthForm/AuthForm';
-import Logo from '../../../components/Logo/Logo.js';
 import * as authActions from '../../../store/actions';
 import { updateObject, checkValidity } from '../../../shared/utility';
 
@@ -78,7 +77,6 @@ class Auth extends Component {
 
     return (
       <Fragment>
-        <Logo />
         <section className="section">
           {error}
           <AuthForm
