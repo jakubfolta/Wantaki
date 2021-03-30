@@ -40,11 +40,11 @@
 
 
 #home,
-#logout { animation: moveInUp .5s ease-out .6s; }
-#logout { animation-delay: .9s; }
+#logout { animation: moveInUp .5s ease-out .7s; }
+#logout { animation-delay: 1s; }
 
-#auth { animation: moveInLeft .5s ease-out .9s; }
-#items { animation: moveInLeft .5s ease-out .9s; }
+#auth { animation: moveInLeft .5s ease-out 1s; }
+#items { animation: moveInLeft .5s ease-out 1s; }
 
 #home,
 #logout,
