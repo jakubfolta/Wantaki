@@ -1,17 +1,16 @@
 .section {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   width: 100%;
+  height: 100vh;
+  animation: appear 1.5s linear 1s;
+  animation-fill-mode: backwards;
 
   &--items {
-    position: static;
-    transform: translate(0);
     padding: 2rem;
+    height: auto;
   }
 }

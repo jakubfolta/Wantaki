@@ -7,9 +7,9 @@
 
   &_item {
     list-style: none;
+    text-shadow: 2px 2px 6px $color-primary;
     cursor: pointer;
   }
-  //media padding: 1rem 2rem;
 
   &_link:link,
   &_link:visited {
@@ -27,6 +27,7 @@
       border-bottom: 4px solid $color-primary;
     }
   }
+  //media padding: 1rem 2rem;
 
   &_link:active,
   &_link.active { color: $color-primary; }
