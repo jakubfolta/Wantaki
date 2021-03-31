@@ -33,19 +33,19 @@
   }
 
   &_stepOne {
-    &-title { animation: moveInRight 15s linear infinite; }
+    &-title { animation: moveIn 15s linear infinite; }
     &-description { animation: scale 15s linear infinite; }
     &-img { animation: showUp 15s linear infinite; }
   }
 
   &_stepTwo {
-    &-title { animation: moveInRight2 15s linear infinite; }
+    &-title { animation: moveIn2 15s linear infinite; }
     &-description { animation: scale2 15s linear infinite; }
     &-img { animation: showUp2 15s linear infinite; }
   }
 
   &_stepThree {
-    &-title { animation: moveInRight3 15s linear infinite; }
+    &-title { animation: moveIn3 15s linear infinite; }
     &-description { animation: scale3 15s linear infinite; }
     &-img { animation: showUp3 15s linear infinite; }
   }
