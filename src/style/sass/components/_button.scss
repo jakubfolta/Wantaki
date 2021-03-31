@@ -62,6 +62,6 @@
 
 .copy {
   border: none;
-  animation: scaleAppear .5s 1.4s;
+  animation: appear .8s linear .5s;
   animation-fill-mode: backwards;
 }
