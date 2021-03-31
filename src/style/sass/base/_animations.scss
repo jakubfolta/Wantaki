@@ -21,6 +21,12 @@
   100% { opacity: 1; }
 }
 
+@keyframes slide {
+  0% { transform: translateX(-50%); }
+  50% { transform: translateX(150%); }
+  100% { transform: translateX(-50%); }
+}
+
 // Main page instructions animations
 // First Animation 5s
 @keyframes moveIn {

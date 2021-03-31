@@ -20,9 +20,20 @@ p {
   font-family: $font-yusei;
   font-size: $huge-font-size;
   text-transform: capitalize;
+  text-align: center;
   letter-spacing: 4px;
   color: $color-white;
   text-shadow: 2px 2px 4px $color-primary;
+
+  &--auth {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 2rem;
+  }
+
+  &--loading { padding: 0 2rem; }
 }
 
 .error {

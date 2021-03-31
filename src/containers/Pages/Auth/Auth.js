@@ -78,6 +78,7 @@ class Auth extends Component {
     return (
       <Fragment>
         <section className="section">
+          <h1 className="page-heading page-heading--auth">First step to right gifts</h1>
           {error}
           <AuthForm
             onSubmit={this.submitHandler}

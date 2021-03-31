@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as authActions from './store/actions';
 
 import Layout from './components/Layout/Layout';
+import LoadingPage from './components/LoadingPage/LoadingPage';
 import Home from './containers/Pages/Home';
 import Logout from './containers/Pages/Auth/Logout/Logout';
 
@@ -15,11 +16,26 @@ const authSuspense = <Suspense fallback=<div>Loading...</div>><Auth /></Suspense
 const itemsSuspense = <Suspense fallback=<div>Loading...</div>><Items /></Suspense>;
 const giftIdeasSuspense = <Suspense fallback=<div>Loading...</div>><GiftIdeas /></Suspense>;
 let prevPage = '';
+let routes;
 
 class App extends Component {
+  state = {
+    load: false
+  }
+
   componentDidMount() {
     this.props.onCheckAuthState();
     prevPage = this.props.location.pathname;
+
+    setTimeout(() => {
+      this.setState({ load: true });
+    }, 2000)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.isAuthenticated === true && this.props.isAuthenticated === false) {
+      document.getElementById("auth").childNodes[0].blur();
+    }
   }
 
   render() {
@@ -29,7 +45,8 @@ class App extends Component {
       ? <Redirect to={prevPage} />
       : null;
 
-    let routes = this.props.isAuthenticated
+    if (this.state.load) {
+      routes = this.props.isAuthenticated
       ? <Switch>
         <Route path="/" exact component={Home} />
         {/* /auth available to apply redirect after log in */}
@@ -45,6 +62,9 @@ class App extends Component {
         <Route path="/giftideas" render={() => giftIdeasSuspense} />
         <Redirect to="/" />
       </Switch>;
+    } else {
+      routes = <LoadingPage />
+    }
 
     return (
       <div>
