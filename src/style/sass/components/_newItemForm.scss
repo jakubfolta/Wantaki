@@ -1,8 +1,5 @@
 .items-form {
   width: 100%;
-  animation: moveInRight .8s ease-out .5s;
-  animation-fill-mode: backwards;
-
   &_group { margin: 1rem 0; }
 
   &_label {

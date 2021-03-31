@@ -60,8 +60,4 @@
   &:active { box-shadow: 0 0 .5rem 2px $color-primary, 0 0 1rem 2px $color-primary; }
 }
 
-.copy {
-  border: none;
-  animation: appear .8s linear .5s;
-  animation-fill-mode: backwards;
-}
+.copy { border: none; }
