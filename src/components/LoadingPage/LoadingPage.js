@@ -2,7 +2,6 @@ import React from 'react';
 
 import logo from '../../img/wantaki-logo.png';
 import logoLg from '../../img/wantaki-logo-large.png';
-import Spinner from '../UI/Spinner';
 
 const LoadingPage = () => (
   <div className="loadingPage">
