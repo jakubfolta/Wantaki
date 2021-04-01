@@ -33,7 +33,11 @@ p {
     padding-top: 2rem;
   }
 
-  &--loading { padding: 0 3rem; }
+  &--loading {
+    padding: 0 3rem;
+    animation: scaleAppear .5s ease-in-out 1.5s;
+    animation-fill-mode: backwards;
+  }
 }
 
 .error {
