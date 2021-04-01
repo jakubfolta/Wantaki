@@ -6,7 +6,8 @@
   justify-content: center;
   align-items: center;
   background: $color-primary;
-  animation: appear 2s linear;
+  animation: appear 2s linear 1s;
+  animation-fill-mode: backwards;
 
   &::before {
     position: absolute;
