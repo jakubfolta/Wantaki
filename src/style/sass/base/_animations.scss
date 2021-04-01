@@ -16,8 +16,14 @@
   100% { transform: translateY(0); }
 }
 
+@keyframes moveInDown {
+  0% { transform: translateY(-100%); }
+  50% { transform: translateY(2.5rem); }
+  100% { transform: translateY(0); }
+}
+
 @keyframes moveInLeft {
-  0% { transform: translateX(100vw); }
+  0% { transform: translateX(100%); }
   50% { transform: translateX(-2.5rem); }
   100% { transform: translateX(0); }
 }
@@ -37,10 +43,22 @@
 // First Animation 5s
 @keyframes moveIn {
   0% { transform: translateX(-100%); }
-  6.66% { transform: translateX(-100%); } // 1s delay
-  9.99% { transform: translateX(0); } // show up in .5s
-  23.31% { transform: translateX(0); }
-  26.64% { transform: translateX(100%); } // dissapear .5s
+  6.66% {
+    transform: translateX(-100%);
+    opacity: 0;
+  } // 1s delay
+  9.99% {
+    transform: translateX(0);
+    opacity: 1;
+  } // show up in .5s
+  23.31% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  26.64% {
+    transform: translateX(100%);
+    opacity: 0;
+   }                                    // dissapear .5s
   100% { transform: translateX(100%); } // 10s invisible for other 2 animations
 }
 
@@ -65,10 +83,22 @@
 // Second Animation 5s
 @keyframes moveIn2 {
   0% { transform: translateX(-100%); }
-  33.3% { transform: translateX(-100%); } // 5s delay
-  36.63% { transform: translateX(0); } // show up in .5s
-  56.61% { transform: translateX(0); }
-  59.94% { transform: translateX(100%); } // dissapear .5s
+  33.3% {
+    transform: translateX(-100%);
+    opacity: 0;
+  } // 5s delay
+  36.63% {
+    transform: translateX(0);
+    opacity: 1;
+  } // show up in .5s
+  56.61% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  59.94% {
+    transform: translateX(100%);
+    opacity: 0;
+  }                                     // dissapear .5s
   100% { transform: translateX(100%); } // 5s invisible for third animation
 }
 
@@ -93,10 +123,22 @@
 // Third Animation 5s
 @keyframes moveIn3 {
   0% { transform: translateX(-100%); }
-  66.6% { transform: translateX(-100%); } // 10s delay
-  69.93% { transform: translateX(0); } // show up in .5s
-  90.01% { transform: translateX(0); }
-  93.34% { transform: translateX(100%); } // dissapear .5s
+  66.6% {
+    transform: translateX(-100%);
+    opacity: 0;
+  } // 10s delay
+  69.93% {
+    transform: translateX(0);
+    opacity: 1;
+  } // show up in .5s
+  90.01% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  93.34% {
+    transform: translateX(100%);
+    opacity: 0;
+  }                                     // dissapear .5s
   100% { transform: translateX(100%); }
 }
 

@@ -3,6 +3,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @include respond(tab-land) {
+      flex-direction: column;
+      align-items: flex-end;
+    }
   }
 
   &_item {
@@ -40,8 +45,16 @@
 
 
 #home,
-#logout { animation: moveInUp .5s ease-out 1s; }
-#logout { animation-delay: 1.3s; }
+#logout {
+  animation: moveInUp .5s ease-out 1s;
+
+  @include respond(tab-land) { animation-name: moveInDown; }
+}
+#logout {
+  animation-delay: 1.3s;
+
+  @include respond(tab-land) { animation-name: moveInLeft; }
+}
 
 #auth { animation: moveInLeft .5s ease-out 1.3s; }
 #items { animation: moveInLeft .5s ease-out 1.6s; }

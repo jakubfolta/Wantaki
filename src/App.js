@@ -28,8 +28,8 @@ class App extends Component {
     prevPage = this.props.location.pathname;
 
     setTimeout(() => {
-      // this.setState({ load: true });
-    }, 2000)
+      this.setState({ load: true });
+    }, 4000)
   }
 
   componentDidUpdate(prevProps) {

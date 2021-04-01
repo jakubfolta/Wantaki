@@ -31,13 +31,14 @@ p {
     left: 0;
     width: 100%;
     padding-top: 2rem;
+
+    // @include respond(tab-land) {
+    //   padding-left: 2rem;
+    //   text-align: left;
+    // }
   }
 
-  &--loading {
-    padding: 0 3rem;
-    // animation: scaleAppear .5s ease-in-out 1.5s;
-    // animation-fill-mode: backwards;
-  }
+  &--loading { padding: 0 3rem; }
 }
 
 .error {

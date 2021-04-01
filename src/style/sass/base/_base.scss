@@ -7,8 +7,16 @@
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 62.5%; // 1rem = 10px
   -webkit-tap-highlight-color: transparent;
+
+  @include respond(tab-port) {
+    font-size: 75%; // 1rem = 12px
+  }
+
+  @include respond(desktop) {
+    font-size: 81.25%; // 1rem = 13px
+  }
 }
 body { box-sizing: border-box; }
 

@@ -9,6 +9,11 @@
   animation: appear 1s linear .5s;
   animation-fill-mode: backwards;
 
+  @include respond(tab-port) { max-width: 500px; }
+  @include respond(tab-land) { max-width: 600px; }
+  @include respond(desktop) { max-width: 800px; }
+  @include respond(big-desktop) { max-width: 1100px; }
+
   &--items {
     padding: 2rem;
     height: auto;

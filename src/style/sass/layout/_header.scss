@@ -4,4 +4,12 @@
   left: 0;
   width: 100%;
   z-index: 100;
+
+  @include respond(tab-land) {
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: auto;
+    width: 50%;
+  }
 }
