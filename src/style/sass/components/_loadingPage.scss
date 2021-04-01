@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   background: $color-primary;
-  animation: appear 2s linear 1s;
+  animation: appear 1s linear 1s;
   animation-fill-mode: backwards;
 
   &::before {
@@ -39,8 +39,8 @@
     width: 30%;
     max-width: 15rem;
     margin-bottom: 2rem;
-    animation: appear 2s linear 1.2s;
-    animation-fill-mode: backwards;
+    // animation: appear 2s linear 1.2s;
+    // animation-fill-mode: backwards;
   }
 
   &_logo { width: 100%; }
@@ -52,6 +52,8 @@
     background: $color-white;
     margin-top: 2rem;
     overflow: hidden;
+    animation: appear 1s 2s;
+    animation-fill-mode: backwards;
 
     &::before,
     &::after {
@@ -78,7 +80,7 @@
       width: 50%;
       height: 100%;
       background: $color-primary;
-      animation: slide 2s ease infinite 1.7s;
+      animation: slide 2s ease infinite;
       animation-fill-mode: backwards;
     }
   }
