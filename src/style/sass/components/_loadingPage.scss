@@ -5,17 +5,49 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: $color-primary;
+  animation: appear 2s linear;
 
-  &_logo {
-    max-width: 20rem;
-    width: 30%;
-    margin-bottom: 2rem;
+  &::before {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+    content: '';
+    background: linear-gradient(to bottom right, $color-primary 0%, $color-secondary 100%);
+    z-index: -1;
+
+    @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
+      clip-path: polygon(30% 0, 100% 55%, 50% 100%, 0 60%);
+      -webkit-clip-path: polygon(30% 0, 100% 55%, 50% 100%, 0 60%);
+    }
   }
 
+  @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
+    clip-path: polygon(30% 0, 100% 55%, 50% 100%, 0 60%);
+    -webkit-clip-path: polygon(30% 0, 100% 55%, 50% 100%, 0 60%);
+  }
+
+  &-wrapper {
+    width: 100%;
+    background: linear-gradient(to bottom, darken($color-primary, 20%) 0%, lighten($color-secondary, 5%) 100%);
+  }
+
+  &-box {
+    width: 30%;
+    max-width: 15rem;
+    margin-bottom: 2rem;
+    animation: appear 2s linear .5s;
+    animation-fill-mode: backwards;
+  }
+
+  &_logo { width: 100%; }
   &_spinner {
     position: relative;
-    width: 50%;
-    height: 3rem;
+    width: 30%;
+    max-width: 15rem;
+    height: 1rem;
     background: $color-white;
     margin-top: 2rem;
     overflow: hidden;
@@ -25,9 +57,9 @@
       position: absolute;
       content: '';
       top: 0;
-      width: 20%;
+      width: 10%;
       height: 100%;
-      background: linear-gradient(to right, $color-secondary 0%, hsla(230, 21%, 5%, 0) 100%);
+      background: linear-gradient(to right, darken($color-primary, 10%) 0%, hsla(177, 40%, 45%, 0) 100%);
       z-index: 1;
     }
 

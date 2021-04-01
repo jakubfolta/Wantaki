@@ -8,7 +8,7 @@ const Logo = () => (
     <img
       className="logo_img"
       srcSet={`${logo} 1x, ${logoLg} 2x` }
-      src={logoLg}
+      src={logo}
       alt="logo"/>
     <h1 className="page-heading logo_title">Wantaki</h1>
   </div>

@@ -28,7 +28,7 @@ class App extends Component {
     prevPage = this.props.location.pathname;
 
     setTimeout(() => {
-      this.setState({ load: true });
+      // this.setState({ load: true });
     }, 2000)
   }
 
