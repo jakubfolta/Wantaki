@@ -21,11 +21,16 @@
     @include respond(tab-land) {
       margin: 0 1rem 1rem 1rem;
       flex: 1 0 48%;
+
       &:nth-of-type(odd) {margin: 0 1rem 1rem 0}
-      &:nth-of-type(even) {margin: 0 0 1rem 1rem}
       &:last-of-type {
         flex: 0 0 48%;
         margin: 1rem 0 0;
+      }
+      
+      &:nth-of-type(even) {
+        flex: 1 0 48%;
+        margin: 0 0 1rem 1rem
       }
     }
 
