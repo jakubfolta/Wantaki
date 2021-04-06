@@ -33,7 +33,7 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.isAuthenticated === true && this.props.isAuthenticated === false) {
+    if (prevProps.isAuthenticated === true && this.props.isAuthenticated === false && document.getElementById("auth")) {
       document.getElementById("auth").childNodes[0].blur();
     }
   }

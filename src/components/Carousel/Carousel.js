@@ -22,7 +22,7 @@ const Carousel = () => {
           src={step1}
           alt="Step one" />
         <p className="carousel_stepOne-description">Jump into sign in page</p>
-        <p className="carousel_stepOne-description">and create your account</p>
+        <p className="carousel_stepOne-description">and set up your account</p>
       </div>
 
       <div className="carousel_stepTwo">
@@ -37,7 +37,7 @@ const Carousel = () => {
           srcSet={`${step2} 1x, ${step2lg} 2x`}
           src={step2}
           alt="Step two" />
-        <p className="carousel_stepTwo-description">Save the items</p>
+        <p className="carousel_stepTwo-description">Create a list of items</p>
         <p className="carousel_stepTwo-description">you want to get</p>
       </div>
 
@@ -53,7 +53,7 @@ const Carousel = () => {
           srcSet={`${step3} 1x, ${step3lg} 2x`}
           src={step3}
           alt="Step three" />
-        <p className="carousel_stepThree-description">Share your list...</p>
+        <p className="carousel_stepThree-description">Share your list's link...</p>
         <p className="carousel_stepThree-description">and receive perfect gifts!</p>
       </div>
     </div>

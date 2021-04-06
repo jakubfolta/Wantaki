@@ -31,16 +31,18 @@
       outline: none;
       border-bottom: 4px solid $color-primary;
     }
+
+    @include respond(tab-land) { padding: 1rem 2rem; }
+    @include respond(big-desktop) { font-size: $huge-font-size; }
   }
-  //media padding: 1rem 2rem;
 
   &_link:active,
   &_link.active { color: $color-primary; }
 
-  // &_link:hover {
-  //   border-bottom: 2px solid $color-primary;
-  //   transition: all .3s linear;
-  // }
+  &_link:hover {
+    border-bottom: 4px solid $color-primary;
+    transition: all .3s linear;
+  }
 }
 
 

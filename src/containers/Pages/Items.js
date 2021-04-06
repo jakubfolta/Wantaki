@@ -276,7 +276,7 @@ class Items extends Component {
               btnType="copy"
               >{this.state.linkCopied
                   ? "Copied To Clipboard !!!"
-                  : "Copy Link To Your List And Share It !!!"}</Button>
+                  : "Copy Link"}</Button>
           </div> )
       : null
 
@@ -294,15 +294,18 @@ class Items extends Component {
                 link={el.link}
                 description={el.description}>
 
-                <Button
-                  btnType="delete"
-                  clicked={() => this.onDeleteItemHandler(el.id)}>Delete</Button>
-                <Button
-                  btnType="edit"
-                  clicked={this.props.items[index].editMode
-                    ? (e) => this.onCancelEditHandler(e, el.id)
-                    : (e) => this.onEditItemHandler(e, el.id)}>
-                  {!this.props.items[index].editMode ? 'Edit' : 'Cancel'}</Button>
+                <div className="list_item-group">
+                  <Button
+                    btnType="delete"
+                    clicked={() => this.onDeleteItemHandler(el.id)}>Delete</Button>
+                    <Button
+                      btnType="edit"
+                      clicked={this.props.items[index].editMode
+                        ? (e) => this.onCancelEditHandler(e, el.id)
+                        : (e) => this.onEditItemHandler(e, el.id)}>
+                        {!this.props.items[index].editMode ? 'Edit' : 'Cancel'}</Button>
+
+                </div>
               </ListItem>
             )}
           </ListItems>

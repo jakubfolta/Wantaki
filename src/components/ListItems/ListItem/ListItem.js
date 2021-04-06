@@ -9,9 +9,8 @@ const ListItem = props => (
       </a>
     </div>
 
-    <div className="list_item-group">
-      {props.children}
-    </div>
+    {props.children}
+    
   </li>
 )
 

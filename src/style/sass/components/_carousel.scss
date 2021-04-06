@@ -11,7 +11,13 @@
       font-family: $font-yusei;
       font-size: $medium-font-size;
       font-weight: bold;
-      letter-spacing: 4px;
+      letter-spacing: 5px;
+
+      @include respond(tab-land) {
+        font-size: $big-font-size;
+        letter-spacing: 8px;
+      }
+      @include respond(big-desktop) { font-size: $huge-font-size; }
     }
 
     &-title { text-transform: capitalize; }
@@ -19,7 +25,16 @@
       height: 50vh;
       margin: 2rem 0 1.5rem;
       animation-fill-mode: backwards;
-      box-shadow: 2px 2px 2rem 5px $color-primary;
+      box-shadow: 3px 4px 2rem 5px $color-primary;
+
+      @include respond(tab-land) {
+        margin: 3rem 0 2rem;
+        box-shadow: 3px 4px 3rem 10px $color-primary;
+      }
+      @include respond(big-desktop) {
+        margin: 4rem 0 3rem;
+        box-shadow: 5px 7px 4rem 12px $color-primary;
+      }
     }
   }
 

@@ -4,6 +4,12 @@
   margin-bottom: 4.5rem;
   width: 100%;
 
+  @include respond(tab-land) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
   &_item {
     display: flex;
     justify-content: space-between;
@@ -11,6 +17,20 @@
     box-shadow: 0 0 1rem 1px $color-secondary--light;
 
     &:not(:first-of-type) { margin-top: 1rem; }
+
+    @include respond(tab-land) {
+      margin: 0 1rem 1rem 1rem;
+      flex: 1 0 48%;
+      &:nth-of-type(odd) {margin: 0 1rem 1rem 0}
+      &:nth-of-type(even) {margin: 0 0 1rem 1rem}
+      &:last-of-type {
+        flex: 0 0 48%;
+        margin: 1rem 0 0;
+      }
+      // &:first-of-type{margin-left: 0;}
+
+    }
+
 
     &-group {
       display: flex;

@@ -7,10 +7,13 @@
   animation: appear 1.5s linear 1s;
   animation-fill-mode: backwards;
 
+
   &_img {
     width: 6rem;
     padding: 1rem;
     margin-right: 1rem;
+
+    @include respond(big-desktop) { width: 8rem; }
   }
 
   &_title {
@@ -19,5 +22,7 @@
     font-style: italic;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+
+    @include respond(big-desktop) { font-size: 4rem; }
   }
 }
