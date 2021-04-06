@@ -27,10 +27,12 @@
         flex: 0 0 48%;
         margin: 1rem 0 0;
       }
-      // &:first-of-type{margin-left: 0;}
-
     }
 
+    &-gift {
+      padding: 0;
+      display: block;
+    }
 
     &-group {
       display: flex;
@@ -40,6 +42,11 @@
 
       &:first-child { margin: 0 1rem 0 0; }
       &:last-child { flex: 0 1 0; }
+
+      &-gift:first-child {
+        height: 100%;
+        margin: 0;
+      }
     }
 
     &-link:link,
@@ -54,12 +61,13 @@
       font-family: 'Yusei Magic', sans-serif;
       letter-spacing: 2px;
       padding: .5rem 1rem;
-      box-shadow: 0 0 0 1.5rem transparent;
+      box-shadow: inset 0 0 .5rem 2px transparent, 0 0 0 1rem transparent;
       border: 2px solid transparent;
-      transition: all .2s linear;
+      transition: all .3s linear;
 
       &:focus,
-      &:active {
+      &:active,
+      &:hover {
         outline: none;
         border: 2px solid $color-primary;
         box-shadow: inset 0 0 .5rem 2px $color-primary, 0 0 1rem 2px $color-primary;

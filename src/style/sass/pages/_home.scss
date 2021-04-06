@@ -16,8 +16,14 @@
   @include respond(big-desktop) { max-width: 1100px; }
 
   &--auth { justify-content: flex-start; }
-  &--items {
+  &--items,
+  &--gifts {
     padding: 2rem;
     height: auto;
+  }
+  &--gifts {
+    @include respond(tab-land) { max-width: 650px; }
+    @include respond(desktop) { max-width: 950px; }
+    @include respond(big-desktop) { max-width: 1100px; }
   }
 }

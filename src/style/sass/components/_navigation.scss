@@ -27,9 +27,11 @@
     color: $color-white;
     letter-spacing: 3px;
 
-    &:focus {
+    &:focus,
+    &:hover {
       outline: none;
       border-bottom: 4px solid $color-primary;
+      transition: all .3s linear;
     }
 
     @include respond(tab-land) { padding: 1rem 2rem; }
@@ -38,11 +40,6 @@
 
   &_link:active,
   &_link.active { color: $color-primary; }
-
-  &_link:hover {
-    border-bottom: 4px solid $color-primary;
-    transition: all .3s linear;
-  }
 }
 
 

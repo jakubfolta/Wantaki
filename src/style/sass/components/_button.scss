@@ -14,21 +14,13 @@
     outline: none;
     background-color: $color-primary;
     color: $color-white;
-    transition: all .2s linear;
   }
-  &:active { transform: translateY(2px); }
 
   &:disabled {
     border: 2px solid transparent;
     box-shadow: 0 0 0 1.5rem transparent;
     animation: none;
   }
-  // transition: transform .2s linear;
-
-  // &:hover {
-  //   transform: translateY(-2px);
-  //   transition: transform .2s linear;
-  // }
 }
 
 .pulse {
@@ -44,7 +36,8 @@
   border: 2px solid transparent;
 
   &:focus,
-  &:active {
+  &:active,
+  &:hover {
     background-color: $color-white;
     color: $color-secondary;
   }
@@ -52,12 +45,22 @@
 
 .delete {
   &:focus,
-  &:active { box-shadow: 0 0 .5rem 2px $color-warning, 0 0 1rem 2px $color-warning; }
+  &:active,
+  &:hover { box-shadow: 0 0 .5rem 2px $color-warning, 0 0 1rem 2px $color-warning; }
 }
 
 .edit {
   &:focus,
-  &:active { box-shadow: 0 0 .5rem 2px $color-primary, 0 0 1rem 2px $color-primary; }
+  &:active,
+  &:hover { box-shadow: 0 0 .5rem 2px $color-primary, 0 0 1rem 2px $color-primary; }
 }
 
-.copy { border: none; }
+.copy {
+  border: none;
+
+  &:hover {
+    outline: none;
+    background-color: $color-primary;
+    color: $color-white;
+  }
+}

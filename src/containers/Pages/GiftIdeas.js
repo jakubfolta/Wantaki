@@ -28,6 +28,8 @@ class GiftIdeas extends Component {
           <ListItems>
             {this.props.items.map((el, index) =>
               <ListItem
+                class="list_item-gift"
+                groupClass="list_item-group-gift"
                 id={el.id}
                 key={el.id}
                 name={el.name}
@@ -43,7 +45,7 @@ class GiftIdeas extends Component {
 
     return (
       <Fragment>
-        <section className="section section--items">
+        <section className="section section--gifts">
           <h1 className="page-heading">Gift Ideas</h1>
           {fetchingError}
           {items}
