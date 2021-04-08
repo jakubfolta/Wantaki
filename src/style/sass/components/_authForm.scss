@@ -9,6 +9,13 @@
     padding: 1rem 2rem;
     border: none;
     width: 100%;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 .5rem 2px $color-primary, 0 0 1rem 2px $color-primary;
+      transition: all .2s linear;
+    }
 
     &-label {
       display: block;
@@ -18,13 +25,8 @@
       font-size: $medium-font-size;
       color: $color-secondary--text;
       opacity: 1;
+      visibility: visible;
       transition: all .3s linear;
-    }
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 .5rem 2px $color-primary, 0 0 1rem 2px $color-primary;
-      transition: all .2s linear;
     }
   }
 
@@ -32,6 +34,7 @@
   &_password:placeholder-shown + &_password-label {
     transform: translate(2.2rem, -2rem);
     opacity: 0;
+    visibility: hidden;
   }
 
   &_login--valid,
