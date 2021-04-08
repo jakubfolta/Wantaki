@@ -30,6 +30,7 @@
       @include respond(tab-land) {
         margin: 3rem 0 2rem;
         box-shadow: 3px 4px 3rem 10px $color-primary;
+        height: 40vh;
       }
       @include respond(big-desktop) {
         margin: 4rem 0 3rem;

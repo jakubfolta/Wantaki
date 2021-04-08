@@ -48,8 +48,8 @@ class Auth extends Component {
       };
     })
     setTimeout(() => {
-      document.getElementById("email").focus()
-    }, 1000)
+      document.getElementById("switch").blur();
+    }, 500)
   }
 
   onChangeHandler = (e) => {

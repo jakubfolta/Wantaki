@@ -49,6 +49,7 @@ const AuthForm = props => {
           disabled={props.formIsValid}>{props.signUp ? "Sign Up" : "Log in"}</Button>
       </form>
       <Button
+        id="switch"
         clicked={props.switch}>{!props.signUp ? "Switch to sign up" : "Back to log in"}</Button>
     </Fragment>
   );
