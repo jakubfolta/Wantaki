@@ -32,6 +32,10 @@ const initError = (state, action) => {
   return updateObject(state, { error: null });
 }
 
+const authLogout = (state, action) => {
+  return updateObject(state, { items: [] });
+}
+
 const initEditMode = (state, action) => {
   return updateObject(state, { items: action.items });
 }
@@ -112,6 +116,8 @@ const reducer = (state = initialState, action) => {
     case actions.NEW_ITEM_SUCCESS: return newItemSuccess(state, action);
     case actions.NEW_ITEM_FAIL: return newItemFail(state, action);
     case actions.INIT_ERROR: return initError(state, action);
+
+    case actions.AUTH_LOGOUT: return authLogout(state, action);
 
     case actions.FETCH_ITEMS_START: return fetchItemsStart(state, action);
     case actions.FETCH_ITEMS_SUCCESS: return fetchItemsSuccess(state, action);
