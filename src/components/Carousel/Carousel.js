@@ -24,6 +24,7 @@ const Carousel = () => {
         <p className="carousel_stepOne-description">and set up your account</p>
       </div>
 
+
       <div className="carousel_stepTwo">
         <p className="carousel_stepTwo-title">Step two...</p>
         <picture>
