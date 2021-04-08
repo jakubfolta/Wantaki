@@ -7,7 +7,7 @@ The basic idea is simple, you have to create your account then a list of items y
 - possibility to create collections of items
 - other color themes
 - reset password
-- google log in
+- google login
 - possibiity to add images to our items
 
 ## Check Here ==> https://wantaki.app/
