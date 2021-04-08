@@ -12,7 +12,7 @@ The basic idea is simple, you have to create your account then a list of items y
 
 ## Check Here ==> https://wantaki.app/
 
-## Portfolio
+## Wantaki
 ![Wantaki](./images/wantaki.png)
 
 ## Technologies
