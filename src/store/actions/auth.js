@@ -7,12 +7,12 @@ export const authStart = () => {
   };
 }
 
-export const authSuccess = (token, userId, userName) => {
+export const authSuccess = (token, userId, user) => {
   return {
     type: actions.AUTH_SUCCESS,
     token: token,
     userId: userId,
-    userName: userName
+    user: user
   };
 }
 
@@ -35,7 +35,7 @@ export const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('userId');
   localStorage.removeItem('expireDate');
-  localStorage.removeItem('userName');
+  localStorage.removeItem('user');
   return {
     type: actions.AUTH_LOGOUT
   };
@@ -58,6 +58,28 @@ export const checkAuthErrorState = error => {
   };
 }
 
+export const setUuid = userId => {
+  let uuid = '';
+  // console.log(userId);
+
+  for (let char of userId) {
+    if (/^-?[\d.]+(?:e-?\d+)?$/.test(char)) {
+      uuid += (char + Math.floor((Math.random() * (Math.random() * 100)) + 1));
+    } else if (/[a-zA-Z]/.test(char)) {
+      const result = Math.floor((Math.random() * 10) + 1) < 5 ? true : false;
+      if (result) {
+        uuid += char.toLowerCase() === char ? char.toUpperCase() : char.toLowerCase();
+      } else {
+        uuid += char;
+      }
+    } else {
+      uuid += char;
+    }
+  }
+  console.log(uuid);
+  return uuid;
+}
+
 export const auth = (email, password, type, path) => {
   return dispatch => {
     dispatch(authStart());
@@ -77,14 +99,55 @@ export const auth = (email, password, type, path) => {
       const token = response.data.idToken;
       const userId = response.data.localId;
       const expireDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-      const userName = email.split('@')[0];
+      const emailUserId = email.split('@')[0] + userId;
+      console.log(userId);
+
+      let user = {};
+
+      // Set and save uuid (used for creating url to user's list of items) when signing up
+      if (type) {
+        user = {
+          uuid: setUuid(userId)
+        }
+        // console.log('https://what-i-desire-default-rtdb.firebaseio.com/users/' + email.split('@')[0] + user.uuid + '/uuid.json?auth=');
+        // axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/uuid.json?auth=' + token, user)
+        axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '/uuid.json?auth=' + token, user)
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            const errMessage = error.response.data.error;
+            console.log(errMessage);
+          })
+
+        dispatch(authSuccess(token, userId, user.uuid));
+        localStorage.setItem('user', user.uuid);
+
+      // Fetching uuid when signing in
+      } else {
+        axios.get('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '/uuid.json?auth=' + token)
+          .then(response => {
+            console.log(response);
+            for (let el in response.data) {
+              user = {
+                ...response.data.[el]
+              }
+            }
+
+            dispatch(authSuccess(token, userId, user.uuid));
+            localStorage.setItem('user', user.uuid);
+            console.log(user);
+          })
+          .catch(error => {
+            const errMessage = error.response.data.error;
+            console.log(errMessage);
+          })
+      }
 
       localStorage.setItem('token', token);
       localStorage.setItem('userId', userId);
       localStorage.setItem('expireDate', expireDate);
-      localStorage.setItem('userName', userName);
 
-      dispatch(authSuccess(token, userId, userName));
       dispatch(checkAuthExpire(response.data.expiresIn));
     })
     .catch( err => {
@@ -102,10 +165,10 @@ export const checkAuthState = () => {
       const expireDate = new Date(localStorage.getItem('expireDate'));
       if (expireDate > new Date()) {
         const userId = localStorage.getItem('userId');
-        const userName = localStorage.getItem('userName');
+        const user = localStorage.getItem('user');
         const expireTime = (expireDate.getTime() - new Date().getTime()) / 1000;
 
-        dispatch(authSuccess(token, userId, userName));
+        dispatch(authSuccess(token, userId, user));
         dispatch(checkAuthExpire(expireTime));
       }
       else {
