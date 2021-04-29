@@ -107,7 +107,8 @@ export const auth = (email, password, type, path) => {
       // Set and save uuid (used for creating url to user's list of items) when signing up
       if (type) {
         user = {
-          uuid: setUuid(userId)
+          uuid: setUuid(userId),
+          partEmail: email.split('@')[0]
         }
         // console.log('https://what-i-desire-default-rtdb.firebaseio.com/users/' + email.split('@')[0] + user.uuid + '/uuid.json?auth=');
         // axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/uuid.json?auth=' + token, user)
@@ -120,8 +121,8 @@ export const auth = (email, password, type, path) => {
             console.log(errMessage);
           })
 
-        dispatch(authSuccess(token, userId, user.uuid));
-        localStorage.setItem('user', user.uuid);
+        dispatch(authSuccess(token, userId, user));
+        localStorage.setItem('user', JSON.stringify(user));
 
       // Fetching uuid when signing in
       } else {
@@ -134,8 +135,8 @@ export const auth = (email, password, type, path) => {
               }
             }
 
-            dispatch(authSuccess(token, userId, user.uuid));
-            localStorage.setItem('user', user.uuid);
+            dispatch(authSuccess(token, userId, user));
+            localStorage.setItem('user', JSON.stringify(user));
             console.log(user);
           })
           .catch(error => {
@@ -168,7 +169,7 @@ export const checkAuthState = () => {
         const user = localStorage.getItem('user');
         const expireTime = (expireDate.getTime() - new Date().getTime()) / 1000;
 
-        dispatch(authSuccess(token, userId, user));
+        dispatch(authSuccess(token, userId, JSON.parse(user)));
         dispatch(checkAuthExpire(expireTime));
       }
       else {
