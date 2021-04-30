@@ -1,66 +1,54 @@
 .button {
   font-family: inherit;
   font-size: $medium-font-size;
-  font-weight: bold;
+  width: 25rem;
   margin: 1rem 0;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
+  border: none;
   cursor: pointer;
-  border: 2px solid $color-primary;
-  box-shadow: 0 0 .5rem 2px $color-primary, 0 0 1rem 2px $color-primary;
   transition: all .2s linear;
+
+  @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
+    clip-path: polygon(0% 0%, 93% 0%, 100% 35%, 100% 100%, 0% 100%);
+    -webkit-clip-path: polygon(0% 0%, 93% 0%, 100% 35%, 100% 100%, 0% 100%);
+  }
 
   &:focus,
   &:active {
     outline: none;
-    background-color: $color-primary;
+    background-color: var(--color-primary);
     color: $color-white;
   }
-
-  &:disabled {
-    border: 2px solid transparent;
-    box-shadow: 0 0 0 1.5rem transparent;
-    animation: none;
-  }
-}
-
-.pulse {
-  animation: scaleUp 1s linear infinite;
-  transition: all .2s linear;
 }
 
 .delete,
 .edit {
+  width: 10rem;
   font-size: $small-font-size;
   padding: 1rem 1.5rem;
-  box-shadow: 0 0 0 1rem transparent, 0 0 1rem 2px $color-secondary--light;
-  border: 2px solid transparent;
+
+  @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
+    clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
+    -webkit-clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
+  }
 
   &:focus,
   &:active,
-  &:hover {
-    background-color: $color-white;
-    color: $color-secondary;
-  }
+  &:hover { color: black; }
 }
 
 .delete {
   &:focus,
   &:active,
-  &:hover { box-shadow: 0 0 .5rem 2px $color-warning, 0 0 1rem 2px $color-warning; }
-}
-
-.edit {
-  &:focus,
-  &:active,
-  &:hover { box-shadow: 0 0 .5rem 2px $color-primary, 0 0 1rem 2px $color-primary; }
-}
-
-.copy {
-  border: none;
-
   &:hover {
-    outline: none;
-    background-color: $color-primary;
+    background-color: $color-warning;
     color: $color-white;
   }
+}
+
+.edit,
+.copy {
+  &:focus,
+  &:active,
+  &:hover { background-color: var(--color-primary); }
 }

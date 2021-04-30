@@ -5,7 +5,12 @@ const Button = props => (
     id={props.id}
     className={["button", props.btnType].join(' ')}
     onClick={props.clicked}
-    disabled={props.disabled}>{props.children}</button>
+    disabled={props.disabled}>
+    <div className="button_content">
+      {props.children}
+    </div>
+    <span className="button_label"></span>
+  </button>
 )
 
 export default Button;

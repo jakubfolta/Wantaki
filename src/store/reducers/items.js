@@ -12,7 +12,7 @@ const initialState = {
 // Add new item to firebase
 const newItemStart = (state, action) => {
   return updateObject(state, {
-    error: false,
+    error: null,
     loading: true
   });
 }
@@ -110,6 +110,12 @@ const updateItemFail = (state, action) => {
   });
 }
 
+const setUserDataFail = (state, action) => {
+  return updateObject(state, {
+    error: action.error
+  })
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.NEW_ITEM_START: return newItemStart(state, action);
@@ -133,6 +139,8 @@ const reducer = (state = initialState, action) => {
     case actions.UPDATE_ITEM_START: return updateItemStart(state, action);
     case actions.UPDATE_ITEM_SUCCESS: return updateItemSuccess(state, action);
     case actions.UPDATE_ITEM_FAIL: return updateItemFail(state,action);
+
+    case actions.SET_USER_DATA_FAIL: return setUserDataFail(state, action);
     default: return state;
   }
 }

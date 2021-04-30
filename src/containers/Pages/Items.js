@@ -208,7 +208,7 @@ class Items extends Component {
   copyLink = () => {
     const baseURL = window.location.href.split(this.props.match.url)[0];
 
-    navigator.clipboard.writeText(baseURL + "/giftideas?user=" + this.props.userName)
+    navigator.clipboard.writeText(baseURL + "/giftideas?user=" + this.props.user)
       .then(() => {
       this.setState({linkCopied: true});
       setTimeout(() => {
@@ -219,6 +219,17 @@ class Items extends Component {
       .catch(error => {
         alert(error);
       })
+  }
+
+  switchTheme = () => {
+    const el = document.documentElement;
+
+    if (el.getAttribute('data-theme') === 'cyber') {
+      document.documentElement.removeAttribute('data-theme');
+
+    } else {
+      document.documentElement.setAttribute('data-theme', 'cyber');
+    }
   }
 
   render() {
@@ -261,8 +272,11 @@ class Items extends Component {
 
               <Button
                 disabled={!this.state.formIsValid}
-                btnType="pulse"
                 >{this.state.editMode ? 'Update Item' : 'Save Future Gift'}</Button>
+              <Button
+                clicked={this.switchTheme}
+
+                >{'Change theme'}</Button>
           </form> )
 
 
@@ -338,7 +352,7 @@ const mapStateToProps = (state, ownProps) => {
     loadingItems: state.items.loadingItems,
     token: state.auth.token,
     userId: state.auth.userId,
-    userName: state.auth.userName
+    user: state.auth.user.uuid
   };
 }
 

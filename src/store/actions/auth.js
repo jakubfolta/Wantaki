@@ -7,12 +7,11 @@ export const authStart = () => {
   };
 }
 
-export const authSuccess = (token, userId, user) => {
+export const authSuccess = (token, userId) => {
   return {
     type: actions.AUTH_SUCCESS,
     token: token,
-    userId: userId,
-    user: user
+    userId: userId
   };
 }
 
@@ -60,7 +59,6 @@ export const checkAuthErrorState = error => {
 
 export const setUuid = userId => {
   let uuid = '';
-  // console.log(userId);
 
   for (let char of userId) {
     if (/^-?[\d.]+(?:e-?\d+)?$/.test(char)) {
@@ -76,11 +74,71 @@ export const setUuid = userId => {
       uuid += char;
     }
   }
-  console.log(uuid);
   return uuid;
 }
 
-export const auth = (email, password, type, path) => {
+export const setUserDataSuccess = user => {
+  return {
+    type: actions.SET_USER_DATA_SUCCESS,
+    user: user
+  };
+}
+
+export const setUserDataFail = error => {
+  return {
+    type: actions.SET_USER_DATA_FAIL,
+    error: error
+  };
+}
+
+export const setUserData = (type, token, userId, email) => {
+  return dispatch => {
+    const emailUserId = email.split('@')[0] + userId;
+    let user = {};
+
+    // Set and save uuid (used for creating url to user's list of items) when signing up
+    if (type) {
+      user = {
+        uuid: setUuid(userId),
+        partEmail: email.split('@')[0]
+      }
+
+      axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '/uuid.json?auth=' + token, user)
+        .then(response => {
+          localStorage.setItem('user', JSON.stringify(user));
+
+          dispatch(setUserDataSuccess(user));
+        })
+        .catch(error => {
+          const errMessage = error.response.data.error;
+
+          dispatch(setUserDataFail(errMessage));
+        })
+
+    // Fetching uuid when signing in
+    } else {
+      axios.get('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '/uuid.json?auth=' + token)
+        .then(response => {
+          for (let el in response.data) {
+            user = {
+              ...response.data.[el]
+            }
+          }
+
+          localStorage.setItem('user', JSON.stringify(user));
+
+          dispatch(setUserDataSuccess(user));
+        })
+        .catch(error => {
+          const errMessage = error.response.data.error;
+
+          dispatch(setUserDataFail(errMessage));
+        })
+    }
+  };
+}
+
+export const auth = (email, password, type) => {
   return dispatch => {
     dispatch(authStart());
 
@@ -99,56 +157,14 @@ export const auth = (email, password, type, path) => {
       const token = response.data.idToken;
       const userId = response.data.localId;
       const expireDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-      const emailUserId = email.split('@')[0] + userId;
-      console.log(userId);
 
-      let user = {};
-
-      // Set and save uuid (used for creating url to user's list of items) when signing up
-      if (type) {
-        user = {
-          uuid: setUuid(userId),
-          partEmail: email.split('@')[0]
-        }
-        // console.log('https://what-i-desire-default-rtdb.firebaseio.com/users/' + email.split('@')[0] + user.uuid + '/uuid.json?auth=');
-        // axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/uuid.json?auth=' + token, user)
-        axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '/uuid.json?auth=' + token, user)
-          .then(response => {
-            console.log(response);
-          })
-          .catch(error => {
-            const errMessage = error.response.data.error;
-            console.log(errMessage);
-          })
-
-        dispatch(authSuccess(token, userId, user));
-        localStorage.setItem('user', JSON.stringify(user));
-
-      // Fetching uuid when signing in
-      } else {
-        axios.get('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '/uuid.json?auth=' + token)
-          .then(response => {
-            console.log(response);
-            for (let el in response.data) {
-              user = {
-                ...response.data.[el]
-              }
-            }
-
-            dispatch(authSuccess(token, userId, user));
-            localStorage.setItem('user', JSON.stringify(user));
-            console.log(user);
-          })
-          .catch(error => {
-            const errMessage = error.response.data.error;
-            console.log(errMessage);
-          })
-      }
 
       localStorage.setItem('token', token);
       localStorage.setItem('userId', userId);
       localStorage.setItem('expireDate', expireDate);
 
+      dispatch(setUserData(type, token, userId, email));
+      dispatch(authSuccess(token, userId));
       dispatch(checkAuthExpire(response.data.expiresIn));
     })
     .catch( err => {
@@ -169,8 +185,9 @@ export const checkAuthState = () => {
         const user = localStorage.getItem('user');
         const expireTime = (expireDate.getTime() - new Date().getTime()) / 1000;
 
-        dispatch(authSuccess(token, userId, JSON.parse(user)));
+        dispatch(authSuccess(token, userId));
         dispatch(checkAuthExpire(expireTime));
+        dispatch(setUserDataSuccess(JSON.parse(user)));
       }
       else {
         dispatch(logout());

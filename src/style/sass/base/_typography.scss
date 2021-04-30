@@ -1,8 +1,9 @@
 body {
-  font-family: $font-montserrat;
+  font-family: var(--font-default);
   font-size: $default-font-size;
   color: $color-white;
   background-color: $color-secondary;
+  // background: url('../../../img/wantaki-logo-large.png') center no-repeat fixed;
 }
 
 a,
@@ -17,13 +18,14 @@ p {
 }
 
 .page-heading {
-  font-family: $font-yusei;
+  font-family: var(--font-default);
   font-size: $huge-font-size;
-  text-transform: capitalize;
+  font-weight: 400;
+  text-transform: uppercase;
   text-align: center;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   color: $color-white;
-  text-shadow: 2px 2px 4px $color-primary;
+  text-shadow: 2px 2px 4px var(--color-primary);
 
   &--loading { padding: 0 2rem; }
 }

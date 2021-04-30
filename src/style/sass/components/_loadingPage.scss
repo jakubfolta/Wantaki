@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: $color-primary;
+  background: var(--color-primary);
   animation: appear 1s linear .5s;
   animation-fill-mode: backwards;
 
@@ -16,7 +16,7 @@
     bottom: 0px;
     left: 0px;
     content: '';
-    background: linear-gradient(to bottom left, $color-primary 0%, $color-secondary 100%);
+    background: linear-gradient(to bottom left, var(--color-primary) 0%, $color-secondary 100%);
     z-index: -1;
 
     @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
@@ -32,7 +32,7 @@
 
   &-wrapper {
     width: 100%;
-    background: linear-gradient(to bottom, darken($color-primary, 20%) 0%, lighten($color-secondary, 5%) 100%);
+    background: linear-gradient(to bottom right, var(--color-primary) 0%, lighten($color-secondary, 5%) 100%);
   }
 
   &-box {
@@ -58,7 +58,7 @@
       top: 0;
       width: 10%;
       height: 100%;
-      background: linear-gradient(to right, darken($color-primary, 10%) 0%, hsla(177, 40%, 45%, 0) 100%);
+      background: linear-gradient(to right, var(--color-primary) 0%, hsla(177, 40%, 45%, 0) 100%);
       z-index: 1;
     }
 
@@ -75,7 +75,7 @@
       left: 0;
       width: 50%;
       height: 100%;
-      background: $color-primary;
+      background: var(--color-primary);
       animation: slide 2s ease infinite;
       animation-fill-mode: backwards;
     }

@@ -21,6 +21,6 @@ html {
 body { box-sizing: border-box; }
 
 ::selection {
-  background-color: $color-primary;
+  background-color: var(--color-primary);
   color: $color-white;
 }

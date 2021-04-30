@@ -1,6 +1,4 @@
 // Colors
-$color-primary: #45A29E;
-// $color-primary: #FCEE09;
 $color-primary--text: #212121;
 $color-secondary--text: #C5C6C7;
 $color-secondary: #0B0C10;
@@ -8,7 +6,6 @@ $color-secondary--light: #474D6C;
 
 $color-white: #FFFFFF;
 $color-warning: #930000;
-$color-cyber: #FCEE09;
 
 // Fonts
 $small-font-size: 1.4rem;
@@ -17,6 +14,27 @@ $medium-font-size: 1.8rem;
 $big-font-size: 2.3rem;
 $huge-font-size: 3rem;
 
-$font-cyber: 'Tomorrow', sans-serif;
-$font-yusei: 'Yusei Magic', sans-serif;
-$font-montserrat: 'Montserrat', sans-serif;
+// $font-yusei: 'Yusei Magic', sans-serif;
+
+:root {
+  --color-primary: #45A29E;
+  --font-default: 'Montserrat', sans-serif;
+}
+
+[data-theme="cyber"] {
+  --color-primary: #FCEE09;
+  --font-default: 'Tomorrow', sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

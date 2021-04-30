@@ -5,6 +5,9 @@ export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const AUTH_INIT_ERROR = 'AUTH_INIT_ERROR';
 
+export const SET_USER_DATA_SUCCESS = 'SET_USER_DATA_SUCCESS';
+export const SET_USER_DATA_FAIL = 'SET_USER_DATA_FAIL';
+
 // Add new item actions
 export const NEW_ITEM_START = 'NEW_ITEM_START';
 export const NEW_ITEM_SUCCESS = 'NEW_ITEM_SUCCESS';
