@@ -183,8 +183,10 @@ export const checkAuthState = () => {
       if (expireDate > new Date()) {
         const userId = localStorage.getItem('userId');
         const user = localStorage.getItem('user');
+        const theme = localStorage.getItem('data-theme');
         const expireTime = (expireDate.getTime() - new Date().getTime()) / 1000;
 
+        document.documentElement.setAttribute('data-theme', theme);
         dispatch(authSuccess(token, userId));
         dispatch(checkAuthExpire(expireTime));
         dispatch(setUserDataSuccess(JSON.parse(user)));

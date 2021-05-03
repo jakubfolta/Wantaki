@@ -215,7 +215,7 @@ class Items extends Component {
         this.setState({linkCopied: false});
         document.getElementById('copy').blur();
       }, 3000)
-      })
+    })
       .catch(error => {
         alert(error);
       })
@@ -226,9 +226,11 @@ class Items extends Component {
 
     if (el.getAttribute('data-theme') === 'cyber') {
       document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('data-theme', 'default');
 
     } else {
       document.documentElement.setAttribute('data-theme', 'cyber');
+      localStorage.setItem('data-theme', 'cyber');
     }
   }
 
@@ -273,10 +275,6 @@ class Items extends Component {
               <Button
                 disabled={!this.state.formIsValid}
                 >{this.state.editMode ? 'Update Item' : 'Save Future Gift'}</Button>
-              <Button
-                clicked={this.switchTheme}
-
-                >{'Change theme'}</Button>
           </form> )
 
 
@@ -284,6 +282,10 @@ class Items extends Component {
 // Create "share" section
     let shareSection = this.props.items.length > 0
       ? ( <div className="share-section">
+            <Button
+              clicked={this.switchTheme}
+
+            >{'Change theme'}</Button>
             <Button
               id="copy"
               clicked={this.copyLink}
