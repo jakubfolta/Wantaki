@@ -7,11 +7,12 @@ export const authStart = () => {
   };
 }
 
-export const authSuccess = (token, userId) => {
+export const authSuccess = (token, userId, partEmail) => {
   return {
     type: actions.AUTH_SUCCESS,
     token: token,
-    userId: userId
+    userId: userId,
+    partEmail: partEmail
   };
 }
 
@@ -99,11 +100,10 @@ export const setUserData = (type, token, userId, email) => {
     // Set and save uuid (used for creating url to user's list of items) when signing up
     if (type) {
       user = {
-        uuid: setUuid(userId),
-        partEmail: email.split('@')[0]
+        uuid: setUuid(userId)
       }
 
-      axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '/uuid.json?auth=' + token, user)
+      axios.put('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '.json?auth=' + token, user)
         .then(response => {
           localStorage.setItem('user', JSON.stringify(user));
 
@@ -117,13 +117,12 @@ export const setUserData = (type, token, userId, email) => {
 
     // Fetching uuid when signing in
     } else {
-      axios.get('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '/uuid.json?auth=' + token)
+      axios.get('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '.json?auth=' + token)
         .then(response => {
-          for (let el in response.data) {
+          console.log(response);
             user = {
-              ...response.data.[el]
+              ...response.data
             }
-          }
 
           localStorage.setItem('user', JSON.stringify(user));
 
@@ -156,15 +155,17 @@ export const auth = (email, password, type) => {
     .then( response => {
       const token = response.data.idToken;
       const userId = response.data.localId;
+      const partEmail = email.split('@')[0];
       const expireDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
 
 
       localStorage.setItem('token', token);
       localStorage.setItem('userId', userId);
+      localStorage.setItem('partEmail', partEmail);
       localStorage.setItem('expireDate', expireDate);
 
       dispatch(setUserData(type, token, userId, email));
-      dispatch(authSuccess(token, userId));
+      dispatch(authSuccess(token, userId, partEmail));
       dispatch(checkAuthExpire(response.data.expiresIn));
     })
     .catch( err => {
@@ -178,16 +179,17 @@ export const auth = (email, password, type) => {
 export const checkAuthState = () => {
   return dispatch => {
     const token = localStorage.getItem('token');
+    const theme = localStorage.getItem('data-theme');
+    document.documentElement.setAttribute('data-theme', theme);
     if (token) {
       const expireDate = new Date(localStorage.getItem('expireDate'));
       if (expireDate > new Date()) {
         const userId = localStorage.getItem('userId');
         const user = localStorage.getItem('user');
-        const theme = localStorage.getItem('data-theme');
+        const partEmail = localStorage.getItem('partEmail');
         const expireTime = (expireDate.getTime() - new Date().getTime()) / 1000;
 
-        document.documentElement.setAttribute('data-theme', theme);
-        dispatch(authSuccess(token, userId));
+        dispatch(authSuccess(token, userId, partEmail));
         dispatch(checkAuthExpire(expireTime));
         dispatch(setUserDataSuccess(JSON.parse(user)));
       }

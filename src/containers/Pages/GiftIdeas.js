@@ -10,6 +10,7 @@ import ListItem from '../../components/ListItems/ListItem/ListItem';
 class GiftIdeas extends Component {
   componentDidMount() {
     const user = this.props.location.search.split('=')[1];
+
     this.props.onFetchItems(user);
   }
 

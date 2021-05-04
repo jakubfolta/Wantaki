@@ -3,7 +3,6 @@
   font-size: $medium-font-size;
   width: 25rem;
   margin: 1rem 0;
-  padding: 1rem 1.5rem;
   border: none;
   cursor: pointer;
   transition: all .2s linear;
@@ -19,13 +18,16 @@
     background-color: var(--color-primary);
     color: $color-white;
   }
+
+  &_content { padding: 1rem 1.5rem; }
+  &_label {
+  }
 }
 
 .delete,
 .edit {
   width: 10rem;
   font-size: $small-font-size;
-  padding: 1rem 1.5rem;
 
   @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
     clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);

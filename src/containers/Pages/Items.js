@@ -50,13 +50,13 @@ class Items extends Component {
 
 // Fetch items from firebase only when there are none in redux state
     if (!this.props.items.length > 0) {
-      this.props.onFetchItems(this.props.userId);
+      this.props.onFetchItems(this.props.userId, this.props.partEmail);
     } else { return }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.loading) {
-      this.props.onFetchItems(this.props.userId);
+      this.props.onFetchItems(this.props.userId, this.props.partEmail);
     }
     if (prevProps.items.length !== this.props.items.length && this.state.editMode) {
       this.checkEditState();
@@ -75,7 +75,8 @@ class Items extends Component {
       description: this.state.newItemForm.description.value,
       timestamp: Date.now(),
       editMode: false,
-      userName: this.props.userName
+      uuid: this.props.uuid,
+      partEmail: this.props.partEmail
     }
 
     this.props.onAddNewItem(itemData, token);
@@ -84,14 +85,14 @@ class Items extends Component {
 
 // Delete item from firebase and redux state
   onDeleteItemHandler = id => {
-    this.props.onDeleteItem(id, this.props.token, this.props.items);
+    this.props.onDeleteItem(id, this.props.token, this.props.items, this.props.partEmail, this.props.userId);
   }
 
 // Edit & Update list item
   onEditItemHandler = (e, id) => {
     document.getElementById('nameInput').focus();
     const item = this.props.items.find(el => el.id === id);
-    const DOMitem = e.target.parentNode.parentNode;
+    const DOMitem = e.target.parentNode.parentNode.parentNode;
     this.setEditClass(DOMitem);
 
     const updatedName = updateObject(this.state.newItemForm.name, {
@@ -139,7 +140,7 @@ class Items extends Component {
   removeEditClass = el => el.classList.remove('list_item--edit');
 
   onCancelEditHandler = (e, id) => {
-    const DOMitem = e.target.parentNode.parentNode;
+    const DOMitem = e.target.parentNode.parentNode.parentNode;
     this.removeEditClass(DOMitem);
 
     this.resetValues();
@@ -208,7 +209,7 @@ class Items extends Component {
   copyLink = () => {
     const baseURL = window.location.href.split(this.props.match.url)[0];
 
-    navigator.clipboard.writeText(baseURL + "/giftideas?user=" + this.props.user)
+    navigator.clipboard.writeText(baseURL + "/giftideas?user=" + this.props.uuid)
       .then(() => {
       this.setState({linkCopied: true});
       setTimeout(() => {
@@ -354,7 +355,8 @@ const mapStateToProps = (state, ownProps) => {
     loadingItems: state.items.loadingItems,
     token: state.auth.token,
     userId: state.auth.userId,
-    user: state.auth.user.uuid
+    uuid: state.auth.user.uuid,
+    partEmail: state.auth.partEmail
   };
 }
 
@@ -362,8 +364,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token)),
     onSetInitialState: (error, items) => dispatch(itemsActions.setInitialState(error, items)),
-    onFetchItems: userId => dispatch(itemsActions.fetchItems(userId)),
-    onDeleteItem: (id, token, items) => dispatch(itemsActions.deleteItem(id, token, items)),
+    onFetchItems: (userId, partEmail) => dispatch(itemsActions.fetchItems(userId, null, partEmail)),
+    onDeleteItem: (id, token, items, partEmail, userId) => dispatch(itemsActions.deleteItem(id, token, items, partEmail, userId)),
     onSetItemEditMode: (id, items) => dispatch(itemsActions.setItemEditMode(id, items)),
     onUpdateItem: (updatedItem, updatedItems, updatedItemId, token) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token))
   };

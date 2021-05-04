@@ -5,6 +5,7 @@ const initialState = {
   loading: false,
   token: null,
   userId: null,
+  partEmail: null,
   error: null,
   user: ''
 };
@@ -20,7 +21,8 @@ const authSuccess = (state, action) => {
   return updateObject(state, {
     loading: false,
     token: action.token,
-    userId: action.userId
+    userId: action.userId,
+    partEmail: action.partEmail
   });
 }
 
@@ -35,6 +37,7 @@ const authLogout = (state, action) => {
   return updateObject(state, {
     token: null,
     userId: null,
+    partEmail: null,
     user: ''
   });
 }

@@ -64,12 +64,13 @@ export const newItem = (item, token) => {
   return dispatch => {
     dispatch(newItemStart());
 
-    axios.post('https://what-i-desire-default-rtdb.firebaseio.com/items.json?auth=' + token, item)
+    axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/' + item.partEmail + item.userId + '/items.json?auth=' + token, item)
       .then(response => {
         dispatch(newItemSuccess());
       })
       .catch(error => {
         const errMessage = error.response.data.error;
+
         dispatch(newItemFail(errMessage));
       })
   };
@@ -96,33 +97,43 @@ export const fetchItemsFail = error => {
   };
 }
 
-export const fetchItems = (userId, userName) => {
+export const fetchItems = (userId, user, partEmail) => {
   return dispatch => {
     dispatch(fetchItemsStart());
 
-    const queryParams = userName
-      ? '?orderBy="userName"&equalTo="' + userName + '"'
-      : '?orderBy="userId"&equalTo="' + userId + '"';
+    // const queryParams = user
+    //   ? '?orderBy="uuid"&equalTo="' + user + '"'
+    //   : '?orderBy="userId"&equalTo="' + userId + '"';
 
-    axios.get('https://what-i-desire-default-rtdb.firebaseio.com/items.json' + queryParams)
+    const url = user
+      ? 'https://what-i-desire-default-rtdb.firebaseio.com/users/.json?orderBy="uuid"&equalTo="' + user + '"'
+      : 'https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '.json';
+
+    console.log(url);
+    axios.get(url)
       .then(response => {
         let items = [];
         let timestampsArray = [];
         let sortedItems = []
+        console.log(response);
 
-        for (let el in response.data) {
-          items.push({
-            ...response.data[el],
-            id: el
-          })
-          timestampsArray.push(response.data[el].timestamp);
-        }
-        timestampsArray.sort().reverse();
+        if (response.data) {
+          console.log(response.data.items);
+          for (let el in response.data.items) {
+            console.log(el)
+            items.push({
+              ...response.data.items[el],
+              id: el
+            })
+            timestampsArray.push(response.data.items[el].timestamp);
+          }
+          timestampsArray.sort().reverse();
 
-// Sort items descending due to creation time
-        for (let number of timestampsArray) {
-          let itemIndex = items.findIndex(el => el.timestamp === number);
-          sortedItems.push(items[itemIndex]);
+          // Sort items descending due to creation time
+          for (let number of timestampsArray) {
+            let itemIndex = items.findIndex(el => el.timestamp === number);
+            sortedItems.push(items[itemIndex]);
+          }
         }
         dispatch(fetchItemsSuccess(sortedItems));
       })
