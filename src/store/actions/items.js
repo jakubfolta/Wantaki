@@ -115,12 +115,9 @@ export const fetchItems = (userId, user, partEmail) => {
         let items = [];
         let timestampsArray = [];
         let sortedItems = []
-        console.log(response);
 
         if (response.data) {
-          console.log(response.data.items);
           for (let el in response.data.items) {
-            console.log(el)
             items.push({
               ...response.data.items[el],
               id: el
@@ -166,12 +163,12 @@ export const deleteItemFail = error => {
   };
 }
 
-export const deleteItem = (id, token, items) => {
+export const deleteItem = (id, token, items, partEmail, userId) => {
   return dispatch => {
     dispatch(deleteItemStart());
 
     const queryParams = id + '.json?auth=' + token;
-    axios.delete('https://what-i-desire-default-rtdb.firebaseio.com/items/' + queryParams)
+    axios.delete('https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '/items/' + queryParams)
       .then(response => {
         items = items.filter(el => el.id !== id);
         dispatch(deleteItemSuccess(items));
@@ -225,12 +222,12 @@ export const updateItemFail = error => {
   };
 }
 
-export const updateItem = (item, items, updatedItemId, token) => {
+export const updateItem = (item, items, updatedItemId, token, partEmail, userId) => {
   return dispatch => {
     dispatch(updateItemStart());
 
     const queryParams = updatedItemId + '.json?auth=' + token;
-    axios.put('https://what-i-desire-default-rtdb.firebaseio.com/items/' + queryParams, item)
+    axios.put('https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '/items/' + queryParams, item)
       .then(response => {
         dispatch(updateItemSuccess(items));
       })

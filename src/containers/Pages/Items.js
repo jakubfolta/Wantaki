@@ -157,7 +157,6 @@ class Items extends Component {
     const items = [...this.props.items];
     const updatedItemIndex = items.findIndex(el => el.editMode === true);
     const updatedItemId = items[updatedItemIndex].id;
-    const token = this.props.token;
 
     const updatedItem = updateObject(items[updatedItemIndex], {
       name: updatedName,
@@ -168,7 +167,7 @@ class Items extends Component {
 
     items.splice(updatedItemIndex, 1, updatedItem);
 
-    this.props.onUpdateItem(updatedItem, items, updatedItemId, token);
+    this.props.onUpdateItem(updatedItem, items, updatedItemId, this.props.token, this.props.partEmail, this.props.userId);
     this.resetValues();
   }
 
@@ -367,7 +366,7 @@ const mapDispatchToProps = dispatch => {
     onFetchItems: (userId, partEmail) => dispatch(itemsActions.fetchItems(userId, null, partEmail)),
     onDeleteItem: (id, token, items, partEmail, userId) => dispatch(itemsActions.deleteItem(id, token, items, partEmail, userId)),
     onSetItemEditMode: (id, items) => dispatch(itemsActions.setItemEditMode(id, items)),
-    onUpdateItem: (updatedItem, updatedItems, updatedItemId, token) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token))
+    onUpdateItem: (updatedItem, updatedItems, updatedItemId, token, partEmail, userId) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token, partEmail, userId))
   };
 }
 

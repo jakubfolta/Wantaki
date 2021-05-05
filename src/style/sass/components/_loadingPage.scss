@@ -16,23 +16,23 @@
     bottom: 0px;
     left: 0px;
     content: '';
-    background: linear-gradient(to bottom left, var(--color-primary) 0%, $color-secondary 100%);
+    background: linear-gradient(to bottom left, var(--color-primary) 0%, var(--color-primary-dark) 100%);
     z-index: -1;
 
     @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
-      clip-path: polygon(30% -20%, 115% 55%, 60% 110%, -10% 60%);
-      -webkit-clip-path: polygon(30% -20%, 115% 55%, 60% 110%, -10% 60%);
+      clip-path: polygon(20% -5%, 145% 45%, -15% 110%);
+      -webkit-clip-path: polygon(20% -5%, 145% 45%, -15% 110%);
     }
   }
 
   @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
-    clip-path: polygon(30% -20%, 115% 55%, 60% 110%, -10% 60%);
-    -webkit-clip-path: polygon(30% -20%, 115% 55%, 60% 110%, -10% 60%);
+    clip-path: polygon(20% -5%, 145% 45%, -15% 110%);
+    -webkit-clip-path: polygon(20% -5%, 145% 45%, -15% 110%);
   }
 
   &-wrapper {
     width: 100%;
-    background: linear-gradient(to bottom right, var(--color-primary) 0%, lighten($color-secondary, 5%) 100%);
+    background: linear-gradient(to bottom right, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   }
 
   &-box {

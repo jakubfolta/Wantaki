@@ -119,7 +119,6 @@ export const setUserData = (type, token, userId, email) => {
     } else {
       axios.get('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '.json?auth=' + token)
         .then(response => {
-          console.log(response);
             user = {
               ...response.data
             }
