@@ -274,7 +274,7 @@ class Items extends Component {
 
               <Button
                 disabled={!this.state.formIsValid}
-                >{this.state.editMode ? 'Update Item' : 'Save Future Gift'}</Button>
+                label="W24" >{this.state.editMode ? 'Update Item_' : 'Save Future Gift_'}</Button>
           </form> )
 
 
@@ -292,7 +292,7 @@ class Items extends Component {
               btnType="copy"
               >{this.state.linkCopied
                   ? "Copied To Clipboard !!!"
-                  : "Copy Link"}</Button>
+                  : "Copy Link_"}</Button>
           </div> )
       : null
 

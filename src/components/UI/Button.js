@@ -9,7 +9,7 @@ const Button = props => (
     <div className="button_content">
       {props.children}
     </div>
-    <span className="button_label"></span>
+    <span className="button_label">{props.label}</span>
   </button>
 )
 

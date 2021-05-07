@@ -36,6 +36,7 @@ export const logout = () => {
   localStorage.removeItem('userId');
   localStorage.removeItem('expireDate');
   localStorage.removeItem('user');
+  localStorage.removeItem('partEmail');
   return {
     type: actions.AUTH_LOGOUT
   };
@@ -156,6 +157,7 @@ export const auth = (email, password, type) => {
       const userId = response.data.localId;
       const partEmail = email.split('@')[0];
       const expireDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
+      console.log(response.data);
 
 
       localStorage.setItem('token', token);
