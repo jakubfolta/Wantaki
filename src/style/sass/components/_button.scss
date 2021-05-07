@@ -21,6 +21,7 @@
 
   &_content { padding: 1rem 1.5rem; }
   &_label {
+
   }
 }
 
@@ -33,10 +34,6 @@
     clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
     -webkit-clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
   }
-
-  &:focus,
-  &:active,
-  &:hover { color: black; }
 }
 
 .delete {
@@ -52,5 +49,8 @@
 .copy {
   &:focus,
   &:active,
-  &:hover { background-color: var(--color-primary); }
+  &:hover {
+    background-color: var(--color-primary);
+    color: #000;
+  }
 }

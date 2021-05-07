@@ -101,28 +101,32 @@ export const fetchItems = (userId, user, partEmail) => {
   return dispatch => {
     dispatch(fetchItemsStart());
 
-    // const queryParams = user
-    //   ? '?orderBy="uuid"&equalTo="' + user + '"'
-    //   : '?orderBy="userId"&equalTo="' + userId + '"';
-
     const url = user
-      ? 'https://what-i-desire-default-rtdb.firebaseio.com/users/.json?orderBy="uuid"&equalTo="' + user + '"'
+      ? 'https://what-i-desire-default-rtdb.firebaseio.com/users.json?orderBy="uuid"&equalTo="' + user + '"'
       : 'https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '.json';
 
-    console.log(url);
     axios.get(url)
       .then(response => {
         let items = [];
         let timestampsArray = [];
         let sortedItems = []
+        let data = response.data;
 
-        if (response.data) {
-          for (let el in response.data.items) {
+        // Get the same directory as when signing in
+        if (user) {
+          for (let el in data) {
+            data = data[el];
+            break
+          }
+        }
+
+        if (data) {
+          for (let el in data.items) {
             items.push({
-              ...response.data.items[el],
+              ...data.items[el],
               id: el
             })
-            timestampsArray.push(response.data.items[el].timestamp);
+            timestampsArray.push(data.items[el].timestamp);
           }
           timestampsArray.sort().reverse();
 
@@ -168,6 +172,7 @@ export const deleteItem = (id, token, items, partEmail, userId) => {
     dispatch(deleteItemStart());
 
     const queryParams = id + '.json?auth=' + token;
+
     axios.delete('https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '/items/' + queryParams)
       .then(response => {
         items = items.filter(el => el.id !== id);
@@ -227,6 +232,7 @@ export const updateItem = (item, items, updatedItemId, token, partEmail, userId)
     dispatch(updateItemStart());
 
     const queryParams = updatedItemId + '.json?auth=' + token;
+
     axios.put('https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '/items/' + queryParams, item)
       .then(response => {
         dispatch(updateItemSuccess(items));
