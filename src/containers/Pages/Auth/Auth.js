@@ -49,7 +49,7 @@ class Auth extends Component {
     })
     setTimeout(() => {
       document.getElementById("switch").blur();
-    }, 500)
+    }, 1000)
   }
 
   onChangeHandler = (e) => {

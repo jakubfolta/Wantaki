@@ -2,13 +2,12 @@ import React from 'react';
 
 const Button = props => (
   <button
+    type={props.type}
     id={props.id}
     className={["button", props.btnType].join(' ')}
     onClick={props.clicked}
     disabled={props.disabled}>
-    <div className="button_content">
-      {props.children}
-    </div>
+    {props.children}
     <span className="button_label">{props.label}</span>
   </button>
 )

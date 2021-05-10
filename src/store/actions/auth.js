@@ -177,11 +177,19 @@ export const auth = (email, password, type) => {
   };
 }
 
-export const checkAuthState = () => {
+export const checkAuthState = (delay) => {
   return dispatch => {
     const token = localStorage.getItem('token');
     const theme = localStorage.getItem('data-theme');
     document.documentElement.setAttribute('data-theme', theme);
+
+    if (theme === "cyber") {
+      setTimeout(() => {
+        const buttons = document.querySelectorAll('.button');
+        Array.from(buttons).forEach(el => el.className += " cyber");
+      }, delay + 100)
+    }
+
     if (token) {
       const expireDate = new Date(localStorage.getItem('expireDate'));
       if (expireDate > new Date()) {

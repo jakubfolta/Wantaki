@@ -46,13 +46,15 @@ const AuthForm = props => {
           <label className="form_password-label" htmlFor="password">Password</label>
         </div>
         <Button
+          type="submit"
           disabled={props.formIsValid}
           label="W26"  >{props.signUp ? "SIGN UP_" : "SIGN IN_"}</Button>
+        <Button
+          type="button"
+          id="switch"
+          clicked={props.switch}
+          label="W27"  >{!props.signUp ? "Switch to sign up" : "Back to sign in"}</Button>
       </form>
-      <Button
-        id="switch"
-        clicked={props.switch}
-        label="W27"  >{!props.signUp ? "Switch to sign up" : "Back to sign in"}</Button>
     </Fragment>
   );
 }

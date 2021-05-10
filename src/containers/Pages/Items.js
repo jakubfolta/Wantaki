@@ -92,7 +92,7 @@ class Items extends Component {
   onEditItemHandler = (e, id) => {
     document.getElementById('nameInput').focus();
     const item = this.props.items.find(el => el.id === id);
-    const DOMitem = e.target.parentNode.parentNode.parentNode;
+    const DOMitem = e.target.parentNode.parentNode;
     this.setEditClass(DOMitem);
 
     const updatedName = updateObject(this.state.newItemForm.name, {
@@ -140,7 +140,7 @@ class Items extends Component {
   removeEditClass = el => el.classList.remove('list_item--edit');
 
   onCancelEditHandler = (e, id) => {
-    const DOMitem = e.target.parentNode.parentNode.parentNode;
+    const DOMitem = e.target.parentNode.parentNode;
     this.removeEditClass(DOMitem);
 
     this.resetValues();
@@ -223,13 +223,16 @@ class Items extends Component {
 
   switchTheme = () => {
     const el = document.documentElement;
+    const buttons = document.querySelectorAll('.button');
 
     if (el.getAttribute('data-theme') === 'cyber') {
       document.documentElement.removeAttribute('data-theme');
+      Array.from(buttons).forEach(el => el.classList.remove("cyber"));
       localStorage.setItem('data-theme', 'default');
 
     } else {
       document.documentElement.setAttribute('data-theme', 'cyber');
+      Array.from(buttons).forEach(el => el.className += " cyber");
       localStorage.setItem('data-theme', 'cyber');
     }
   }
@@ -273,6 +276,7 @@ class Items extends Component {
                 valid={el.configuration.valid} /> )}
 
               <Button
+                type="submit"
                 disabled={!this.state.formIsValid}
                 label="W24" >{this.state.editMode ? 'Update Item_' : 'Save Future Gift_'}</Button>
           </form> )
@@ -287,6 +291,7 @@ class Items extends Component {
 
             >{'Change theme'}</Button>
             <Button
+              type="button"
               id="copy"
               clicked={this.copyLink}
               btnType="copy"
@@ -312,9 +317,11 @@ class Items extends Component {
 
                 <div className="list_item-group">
                   <Button
+                    type="button"
                     btnType="delete"
                     clicked={() => this.onDeleteItemHandler(el.id)}>Delete</Button>
                     <Button
+                      type="button"
                       btnType="edit"
                       clicked={this.props.items[index].editMode
                         ? (e) => this.onCancelEditHandler(e, el.id)

@@ -35,7 +35,7 @@
       transition: all .3s linear;
     }
 
-    @include respond(tab-land) { padding: 1rem 2rem; }
+    @include respond(tab-land) { padding: 1rem 1.6rem; }
     @include respond(big-desktop) { font-size: $huge-font-size; }
   }
 
