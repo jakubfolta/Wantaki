@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import * as itemsActions from '../../store/actions';
-import { updateObject, checkValidity } from '../../shared/utility';
+import { updateObject, checkValidity, setTheme } from '../../shared/utility';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
@@ -46,7 +46,9 @@ class Items extends Component {
   }
 
   componentDidMount() {
+    const theme = document.documentElement.getAttribute('data-theme');
     this.props.onSetInitialState(this.props.error, this.props.items);
+    setTheme(theme, true);
 
 // Fetch items from firebase only when there are none in redux state
     if (!this.props.items.length > 0) {
@@ -222,18 +224,12 @@ class Items extends Component {
   }
 
   switchTheme = () => {
-    const el = document.documentElement;
-    const buttons = document.querySelectorAll('.button');
+    const theme = document.documentElement.getAttribute('data-theme');
 
-    if (el.getAttribute('data-theme') === 'cyber') {
-      document.documentElement.removeAttribute('data-theme');
-      Array.from(buttons).forEach(el => el.classList.remove("cyber"));
-      localStorage.setItem('data-theme', 'default');
-
+    if (theme === 'cyber') {
+      setTheme(theme);
     } else {
-      document.documentElement.setAttribute('data-theme', 'cyber');
-      Array.from(buttons).forEach(el => el.className += " cyber");
-      localStorage.setItem('data-theme', 'cyber');
+      setTheme(theme);
     }
   }
 
@@ -277,8 +273,9 @@ class Items extends Component {
 
               <Button
                 type="submit"
-                disabled={!this.state.formIsValid}
-                label="W24" >{this.state.editMode ? 'Update Item_' : 'Save Future Gift_'}</Button>
+                id="itemSubmit"
+                disabled={!this.state.formIsValid}>{this.state.editMode ? 'Update Item_' : 'Save Future Gift_'}
+                <span className="button_label">W24</span></Button>
           </form> )
 
 
@@ -288,16 +285,13 @@ class Items extends Component {
       ? ( <div className="share-section">
             <Button
               clicked={this.switchTheme}
-
             >{'Change theme'}</Button>
             <Button
               type="button"
               id="copy"
               clicked={this.copyLink}
-              btnType="copy"
-              >{this.state.linkCopied
-                  ? "Copied To Clipboard !!!"
-                  : "Copy Link_"}</Button>
+              btnType="copy">{this.state.linkCopied ? "Copied To Clipboard !!!" : "Copy Link_"}
+              <span className="button_label">W25</span></Button>
           </div> )
       : null
 

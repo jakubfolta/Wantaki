@@ -1,4 +1,5 @@
 import * as actions from './actionTypes';
+import { setTheme } from '../../shared/utility';
 import axios from 'axios';
 
 export const authStart = () => {
@@ -177,7 +178,7 @@ export const auth = (email, password, type) => {
   };
 }
 
-export const checkAuthState = (delay) => {
+export const checkAuthState = delay => {
   return dispatch => {
     const token = localStorage.getItem('token');
     const theme = localStorage.getItem('data-theme');
@@ -185,8 +186,7 @@ export const checkAuthState = (delay) => {
 
     if (theme === "cyber") {
       setTimeout(() => {
-        const buttons = document.querySelectorAll('.button');
-        Array.from(buttons).forEach(el => el.className += " cyber");
+        setTheme(theme, true);
       }, delay + 100)
     }
 

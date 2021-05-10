@@ -1,7 +1,7 @@
 .items-form {
   width: 100%;
 
-  @include respond(tab-land) { max-width: 600px; }
+  @include respond(tab-land) { max-width: 550px; }
   @include respond(desktop) { max-width: 800px; }
 
   &_group { margin: 1rem 0; }

@@ -8,7 +8,6 @@ const Button = props => (
     onClick={props.clicked}
     disabled={props.disabled}>
     {props.children}
-    <span className="button_label">{props.label}</span>
   </button>
 )
 
