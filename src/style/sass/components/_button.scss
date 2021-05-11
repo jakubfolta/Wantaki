@@ -85,6 +85,9 @@
     left: 0;
     transform: rotate(40deg) translate(-.3rem, 1rem);
   }
+
+  &[type="submit"],
+  &.copy { text-transform: uppercase; }
 }
 
 

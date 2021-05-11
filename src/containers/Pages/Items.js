@@ -42,17 +42,13 @@ class Items extends Component {
     },
     formIsValid: false,
     editMode: false,
-    linkCopied: false
+    linkCopied: false,
+    theme: 'default'
   }
 
   componentDidMount() {
-    const theme = document.documentElement.getAttribute('data-theme');
     this.props.onSetInitialState(this.props.error, this.props.items);
-    console.log(document.getElementsByClassName('cyber'));
-    if (theme === 'cyber') {
-      console.log('cyber')
-      setTheme(theme, true);
-    }
+    this.checkTheme();
 
 // Fetch items from firebase only when there are none in redux state
     if (!this.props.items.length > 0) {
@@ -63,11 +59,7 @@ class Items extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.loading) {
       this.props.onFetchItems(this.props.userId, this.props.partEmail);
-
-      const theme = document.documentElement.getAttribute('data-theme');
-      if (theme === 'cyber') {
-        setTheme(theme, true);
-      }
+      this.checkTheme();
     }
     if (prevProps.items.length !== this.props.items.length && this.state.editMode) {
       this.checkEditState();
@@ -235,6 +227,19 @@ class Items extends Component {
   switchTheme = () => {
     const theme = document.documentElement.getAttribute('data-theme');
     setTheme(theme);
+    if (theme === 'cyber') {
+      this.setState({theme: 'default'})
+    } else {
+      this.setState({theme: 'cyber'})
+    }
+  }
+
+  checkTheme = () => {
+    const theme = document.documentElement.getAttribute('data-theme');
+    if (theme === 'cyber') {
+      setTheme(theme, true);
+      this.setState({theme: 'cyber'})
+    }
   }
 
   render() {
@@ -257,6 +262,9 @@ class Items extends Component {
     }
 
 // Create "Add item" form
+    let submitButton = this.state.theme === 'cyber'
+      ? this.state.editMode ? 'Update Item_' : 'Save Future Gift_'
+      : this.state.editMode ? 'Update Item' : 'Save Future Gift'
     let newItemForm = this.props.loading
       ? <Spinner />
       : ( <form
@@ -278,7 +286,7 @@ class Items extends Component {
               <Button
                 type="submit"
                 id="itemSubmit"
-                disabled={!this.state.formIsValid}>{this.state.editMode ? 'Update Item_' : 'Save Future Gift_'}
+                disabled={!this.state.formIsValid}>{submitButton}
                 <span className="button_label">W24</span></Button>
           </form> )
 

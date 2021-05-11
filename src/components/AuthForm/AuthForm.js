@@ -49,7 +49,7 @@ const AuthForm = props => {
           type="submit"
           id="authSubmit"
           disabled={props.formIsValid}
-          label="W26"  >{props.signUp ? "SIGN UP_" : "SIGN IN_"}</Button>
+          label="W26"  >{props.signUp ? "Sign up_" : "Sign in_"}</Button>
         <Button
           type="button"
           id="switch"
