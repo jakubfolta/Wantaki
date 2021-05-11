@@ -2,7 +2,6 @@ import * as actions from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
 
 const initialState = {
-  delay: 4000,
   loading: false,
   token: null,
   userId: null,

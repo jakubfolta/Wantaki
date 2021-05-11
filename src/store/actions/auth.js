@@ -158,8 +158,6 @@ export const auth = (email, password, type) => {
       const userId = response.data.localId;
       const partEmail = email.split('@')[0];
       const expireDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-      console.log(response.data);
-
 
       localStorage.setItem('token', token);
       localStorage.setItem('userId', userId);
@@ -178,17 +176,11 @@ export const auth = (email, password, type) => {
   };
 }
 
-export const checkAuthState = delay => {
+export const checkAuthState = () => {
   return dispatch => {
     const token = localStorage.getItem('token');
     const theme = localStorage.getItem('data-theme');
     document.documentElement.setAttribute('data-theme', theme);
-
-    if (theme === "cyber") {
-      setTimeout(() => {
-        setTheme(theme, true);
-      }, delay + 100)
-    }
 
     if (token) {
       const expireDate = new Date(localStorage.getItem('expireDate'));

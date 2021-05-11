@@ -48,7 +48,11 @@ class Items extends Component {
   componentDidMount() {
     const theme = document.documentElement.getAttribute('data-theme');
     this.props.onSetInitialState(this.props.error, this.props.items);
-    setTheme(theme, true);
+    console.log(document.getElementsByClassName('cyber'));
+    if (theme === 'cyber') {
+      console.log('cyber')
+      setTheme(theme, true);
+    }
 
 // Fetch items from firebase only when there are none in redux state
     if (!this.props.items.length > 0) {
@@ -59,6 +63,11 @@ class Items extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.loading) {
       this.props.onFetchItems(this.props.userId, this.props.partEmail);
+
+      const theme = document.documentElement.getAttribute('data-theme');
+      if (theme === 'cyber') {
+        setTheme(theme, true);
+      }
     }
     if (prevProps.items.length !== this.props.items.length && this.state.editMode) {
       this.checkEditState();
@@ -225,12 +234,7 @@ class Items extends Component {
 
   switchTheme = () => {
     const theme = document.documentElement.getAttribute('data-theme');
-
-    if (theme === 'cyber') {
-      setTheme(theme);
-    } else {
-      setTheme(theme);
-    }
+    setTheme(theme);
   }
 
   render() {
@@ -281,19 +285,18 @@ class Items extends Component {
 
 
 // Create "share" section
-    let shareSection = this.props.items.length > 0
-      ? ( <div className="share-section">
-            <Button
-              clicked={this.switchTheme}
-            >{'Change theme'}</Button>
-            <Button
-              type="button"
-              id="copy"
-              clicked={this.copyLink}
-              btnType="copy">{this.state.linkCopied ? "Copied To Clipboard !!!" : "Copy Link_"}
-              <span className="button_label">W25</span></Button>
-          </div> )
-      : null
+    const shareSection =
+      ( <div className="share-section">
+          <Button
+            clicked={this.switchTheme}
+          >{'Change theme'}</Button>
+          <Button
+            type="button"
+            id="copy"
+            clicked={this.copyLink}
+            btnType="copy">{this.state.linkCopied ? "Copied To Clipboard !!!" : "Copy Link_"}
+            <span className="button_label">W25</span></Button>
+        </div> )
 
 // Create fetched items list
     if (this.props.loadingItems) {

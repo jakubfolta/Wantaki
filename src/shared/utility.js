@@ -25,14 +25,14 @@ export const checkValidity = (value, rules) => {
   return valid;
 }
 
-export const setTheme = (type, init) => {
+export const setTheme = (theme, init) => {
   const buttons = document.querySelectorAll('#authSubmit, #switch, #itemSubmit, #copy');
   console.log(buttons);
 
   if (init) {
-    Array.from(buttons).forEach(el => el.className += " " + type);
+    Array.from(buttons).forEach(el => el.className += " " + theme);
   } else {
-    if (type === "cyber") {
+    if (theme === "cyber") {
       document.documentElement.removeAttribute('data-theme');
       Array.from(buttons).forEach(el => el.classList.remove("cyber"));
       localStorage.setItem('data-theme', 'default');

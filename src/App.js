@@ -24,12 +24,12 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.onCheckAuthState(this.props.delay);
+    this.props.onCheckAuthState();
     prevPage = this.props.location.pathname;
 
     setTimeout(() => {
       this.setState({ load: true });
-    }, this.props.delay)
+    }, 4000)
   }
 
   componentDidUpdate(prevProps) {
@@ -79,14 +79,13 @@ class App extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    isAuthenticated: state.auth.token !== null,
-    delay: state.auth.delay
+    isAuthenticated: state.auth.token !== null
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCheckAuthState: delay => dispatch(authActions.checkAuthState(delay))
+    onCheckAuthState: () => dispatch(authActions.checkAuthState())
   };
 }
 
