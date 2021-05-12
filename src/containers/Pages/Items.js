@@ -59,7 +59,6 @@ class Items extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.loading) {
       this.props.onFetchItems(this.props.userId, this.props.partEmail);
-      this.checkTheme();
     }
     if (prevProps.items.length !== this.props.items.length && this.state.editMode) {
       this.checkEditState();
@@ -264,35 +263,42 @@ class Items extends Component {
 // Create "Add item" form
     let submitButton = this.state.theme === 'cyber'
       ? this.state.editMode ? 'Update Item_' : 'Save Future Gift_'
-      : this.state.editMode ? 'Update Item' : 'Save Future Gift'
-    let newItemForm = this.props.loading
-      ? <Spinner />
-      : ( <form
-            onSubmit={this.state.editMode
-              ? this.updateItemHandler
-              : this.newItemHandler}
-            className="items-form">
-            {formElements.map( el =>
-              <Input
-                key={el.id}
-                type={el.configuration.type}
-                focusId={el.configuration.id}
-                change={(e) => this.onChangeHandler(e, el.id)}
-                value={el.configuration.value}
-                placeholder={el.configuration.placeholder}
-                label={el.configuration.label}
-                valid={el.configuration.valid} /> )}
+      : this.state.editMode ? 'Update Item' : 'Save Future Gift';
 
-              <Button
-                type="submit"
-                id="itemSubmit"
-                disabled={!this.state.formIsValid}>{submitButton}
-                <span className="button_label">W24</span></Button>
-          </form> )
+       //////// Add same to copy button and to auth page button, add checkTheme() to auth page
+    let newItemForm =
+      ( <form
+          onSubmit={this.state.editMode
+            ? this.updateItemHandler
+            : this.newItemHandler}
+          className="items-form">
+          {this.props.loading
+            ? <Spinner />
+            : formElements.map( el =>
+                <Input
+                  key={el.id}
+                  type={el.configuration.type}
+                  focusId={el.configuration.id}
+                  change={(e) => this.onChangeHandler(e, el.id)}
+                  value={el.configuration.value}
+                  placeholder={el.configuration.placeholder}
+                  label={el.configuration.label}
+                  valid={el.configuration.valid} /> )}
+
+          <Button
+            type="submit"
+            id="itemSubmit"
+            disabled={!this.state.formIsValid}>{submitButton}
+            <span className="button_label">W24</span></Button>
+        </form> )
 
 
 
 // Create "share" section
+    let copyButton = this.state.theme === 'cyber'
+      ? this.state.linkCopied ? 'Copied_' : 'Copy link_'
+      : this.state.linkCopied ? 'Copied' : 'Copy link';
+
     const shareSection =
       ( <div className="share-section">
           <Button
@@ -302,7 +308,7 @@ class Items extends Component {
             type="button"
             id="copy"
             clicked={this.copyLink}
-            btnType="copy">{this.state.linkCopied ? "Copied To Clipboard !!!" : "Copy Link_"}
+            btnType="copy">{copyButton}
             <span className="button_label">W25</span></Button>
         </div> )
 

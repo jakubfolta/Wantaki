@@ -27,7 +27,6 @@ export const checkValidity = (value, rules) => {
 
 export const setTheme = (theme, init) => {
   const buttons = document.querySelectorAll('#authSubmit, #switch, #itemSubmit, #copy');
-  console.log(buttons);
 
   if (init) {
     Array.from(buttons).forEach(el => el.className += " " + theme);
