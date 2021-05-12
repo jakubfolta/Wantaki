@@ -14,8 +14,6 @@ $medium-font-size: 1.8rem;
 $big-font-size: 2.3rem;
 $huge-font-size: 3rem;
 
-// $font-yusei: 'Yusei Magic', sans-serif;
-
 :root {
   --color-primary: #45A29E;
   --color-primary-dark: #265957;
@@ -26,6 +24,12 @@ $huge-font-size: 3rem;
   --color-primary: #FCEE09;
   --color-primary-dark: #696302;
   --font-default: 'Tomorrow', sans-serif;
+}
+
+[data-theme="materia"] {
+  --color-primary: #00E82B;
+  --color-primary-dark: #006613;
+  --font-default: 'Yusei Magic', sans-serif;
 }
 
 

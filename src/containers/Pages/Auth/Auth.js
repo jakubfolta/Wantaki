@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import AuthForm from '../../../components/AuthForm/AuthForm';
 import * as authActions from '../../../store/actions';
-import { updateObject, checkValidity } from '../../../shared/utility';
+import { updateObject, checkValidity, setTheme } from '../../../shared/utility';
 
 class Auth extends Component {
   state = {
@@ -29,11 +29,13 @@ class Auth extends Component {
       }
     },
     signUp: false,
-    validForm: false
+    validForm: false,
+    theme: 'default'
   }
 
   componentDidMount() {
     this.props.onCheckErrorState(this.props.error);
+    this.checkTheme();
   }
 
   submitHandler = e => {
@@ -70,10 +72,22 @@ class Auth extends Component {
     this.setState({form: updatedForm, validForm: formIsValid})
   }
 
+  checkTheme = () => {
+    const theme = document.documentElement.getAttribute('data-theme');
+    if (theme === 'cyber') {
+      setTheme(theme, true);
+      this.setState({theme: 'cyber'})
+    }
+  }
+
   render() {
     const form = this.state.form;
     let error = this.props.error ? <div className="error">{this.props.error}</div> : null;
     let redirectPath = this.props.isAuthenticated ? <Redirect to='/items'/> : null;
+
+    let submitButton = this.state.theme === 'cyber'
+      ? this.state.signUp ? 'Sign up_' : 'Sign in_'
+      : this.state.signUp ? 'Sign up' : 'Sign in';
 
     return (
       <Fragment>
@@ -91,7 +105,8 @@ class Auth extends Component {
             passwordTouched={form.password.touched}
             switch={this.onSwitchAuthModeHandler}
             signUp={this.state.signUp}
-            formIsValid={!this.state.validForm} />
+            formIsValid={!this.state.validForm}
+            buttonContent={submitButton}  />
         </section>
         {redirectPath}
       </Fragment>

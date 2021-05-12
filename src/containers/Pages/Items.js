@@ -223,8 +223,9 @@ class Items extends Component {
       })
   }
 
-  switchTheme = () => {
+  switchTheme = e => {
     const theme = document.documentElement.getAttribute('data-theme');
+    console.log(e.target.getAttribute('data-theme'));
     setTheme(theme);
     if (theme === 'cyber') {
       this.setState({theme: 'default'})
@@ -265,7 +266,6 @@ class Items extends Component {
       ? this.state.editMode ? 'Update Item_' : 'Save Future Gift_'
       : this.state.editMode ? 'Update Item' : 'Save Future Gift';
 
-       //////// Add same to copy button and to auth page button, add checkTheme() to auth page
     let newItemForm =
       ( <form
           onSubmit={this.state.editMode
@@ -301,9 +301,23 @@ class Items extends Component {
 
     const shareSection =
       ( <div className="share-section">
+
           <Button
+            dataTheme="default"
             clicked={this.switchTheme}
-          >{'Change theme'}</Button>
+          >{'Theme default'}</Button>
+
+          <Button
+            dataTheme="cyber"
+            clicked={this.switchTheme}
+          >{'Theme cyber'}</Button>
+
+          <Button
+            dataTheme="materia"
+            clicked={this.switchTheme}
+          >{'Theme materia'}</Button>
+
+
           <Button
             type="button"
             id="copy"
