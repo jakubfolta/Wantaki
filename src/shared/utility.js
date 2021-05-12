@@ -30,15 +30,15 @@ export const setTheme = (theme, init) => {
 
   if (init) {
     Array.from(buttons).forEach(el => el.className += " " + theme);
+  }
+
+  if (theme === "cyber") {
+    document.documentElement.setAttribute('data-theme', 'cyber');
+    Array.from(buttons).forEach(el => el.className += " cyber");
+    localStorage.setItem('data-theme', theme);
   } else {
-    if (theme === "cyber") {
-      document.documentElement.removeAttribute('data-theme');
-      Array.from(buttons).forEach(el => el.classList.remove("cyber"));
-      localStorage.setItem('data-theme', 'default');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'cyber');
-      Array.from(buttons).forEach(el => el.className += " cyber");
-      localStorage.setItem('data-theme', 'cyber');
-    }
+    document.documentElement.setAttribute('data-theme', theme);
+    Array.from(buttons).forEach(el => el.classList.remove('cyber'));
+    localStorage.setItem('data-theme', theme);
   }
 }

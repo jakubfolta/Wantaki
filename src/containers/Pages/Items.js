@@ -224,21 +224,20 @@ class Items extends Component {
   }
 
   switchTheme = e => {
-    const theme = document.documentElement.getAttribute('data-theme');
-    console.log(e.target.getAttribute('data-theme'));
-    setTheme(theme);
-    if (theme === 'cyber') {
-      this.setState({theme: 'default'})
-    } else {
-      this.setState({theme: 'cyber'})
+    const theme = e.target.getAttribute('data-theme');
+
+    if (this.state.theme === 'cyber' && theme === 'cyber') {
+      return;
     }
+    setTheme(theme);
+    this.setState({theme: theme})
   }
 
   checkTheme = () => {
     const theme = document.documentElement.getAttribute('data-theme');
     if (theme === 'cyber') {
       setTheme(theme, true);
-      this.setState({theme: 'cyber'})
+      this.setState({theme: theme})
     }
   }
 
