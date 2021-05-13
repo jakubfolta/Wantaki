@@ -8,9 +8,15 @@
   max-width: 25rem;
   margin: 1rem 0;
   padding: 1.2rem 2rem;
+  background-color: $color-white;
   border: none;
   cursor: pointer;
   transition: all .2s linear;
+
+  &:disabled {
+    opacity: .3;
+    cursor: not-allowed;
+  }
 
   &:not(:disabled):focus,
   &:not(:disabled):active,
@@ -54,11 +60,18 @@
   &:hover { background-color: $color-warning; }
 }
 
-.edit,
 .copy {
-  &:focus,
-  &:active,
-  &:hover { background-color: var(--color-primary); }
+  &,
+  .edit {
+    &:focus,
+    &:active,
+    &:hover { background-color: var(--color-primary); }
+  }
+
+  &_description {
+    display: inline-block;
+    // background-color:
+  }
 }
 
 // Theme "cyber" style
