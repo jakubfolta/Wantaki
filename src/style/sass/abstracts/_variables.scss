@@ -20,6 +20,12 @@ $huge-font-size: 3rem;
   --font-default: 'Montserrat', sans-serif;
 }
 
+[data-theme="default"] {
+  --color-primary: #45A29E;
+  --color-primary-dark: #265957;
+  --font-default: 'Montserrat', sans-serif;
+}
+
 [data-theme="cyber"] {
   --color-primary: #FCEE09;
   --color-primary-dark: #696302;

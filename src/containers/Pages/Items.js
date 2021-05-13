@@ -321,7 +321,9 @@ class Items extends Component {
             type="button"
             id="copy"
             clicked={this.copyLink}
-            btnType="copy">{copyButton}
+            btnType="copy">
+            <span className="copy_description">Link to your list</span>
+            {copyButton}
             <span className="button_label">W25</span></Button>
         </div> )
 
