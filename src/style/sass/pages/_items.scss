@@ -1,1 +1,5 @@
-.share-section { width: 80%; }
+.share-section {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}

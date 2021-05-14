@@ -323,7 +323,7 @@ class Items extends Component {
             clicked={this.copyLink}
             btnType="copy">
             <span className="copy_description">Link to your list</span>
-            {copyButton}
+            <span className="copy_action">{copyButton}</span>
             <span className="button_label">W25</span></Button>
         </div> )
 

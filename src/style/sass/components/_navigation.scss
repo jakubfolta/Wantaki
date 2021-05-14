@@ -20,7 +20,7 @@
   &_link:link,
   &_link:visited {
     display: inline-block;
-    padding: .5rem .8rem;
+    padding: .3rem .5rem;
     font-family: var(--font-default);
     font-size: $big-font-size;
     border-bottom: 4px solid transparent;
@@ -35,6 +35,7 @@
       transition: all .3s linear;
     }
 
+    @include respond(tab-port) { padding: .5rem .8rem; }
     @include respond(tab-land) { padding: 1rem 1.6rem; }
     @include respond(big-desktop) { font-size: $huge-font-size; }
   }
