@@ -33,8 +33,8 @@ export const setTheme = (theme, init) => {
   }
 
   if (theme === "cyber") {
-    document.documentElement.setAttribute('data-theme', 'cyber');
-    Array.from(buttons).forEach(el => el.className += " cyber");
+    document.documentElement.setAttribute('data-theme', theme);
+    Array.from(buttons).forEach(el => el.className += ` ${theme}`);
     localStorage.setItem('data-theme', theme);
   } else {
     document.documentElement.setAttribute('data-theme', theme);

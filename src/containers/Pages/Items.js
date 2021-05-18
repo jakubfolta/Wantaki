@@ -9,6 +9,7 @@ import Button from '../../components/UI/Button';
 import Spinner from '../../components/UI/Spinner';
 import ListItems from '../../components/ListItems/ListItems';
 import ListItem from '../../components/ListItems/ListItem/ListItem';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 class Items extends Component {
   state = {
@@ -302,6 +303,15 @@ class Items extends Component {
       ( <div className="share-section">
 
           <Button
+            type="button"
+            id="copy"
+            clicked={this.copyLink}
+            btnType="copy">
+            <span className="copy_description">Link to your list</span>
+            <span className="copy_action"><FaArrowRight/>{copyButton}<FaArrowLeft/></span>
+            <span className="button_label">W25</span></Button>
+
+          <Button
             dataTheme="default"
             clicked={this.switchTheme}
           >{'Theme default'}</Button>
@@ -317,14 +327,6 @@ class Items extends Component {
           >{'Theme materia'}</Button>
 
 
-          <Button
-            type="button"
-            id="copy"
-            clicked={this.copyLink}
-            btnType="copy">
-            <span className="copy_description">Link to your list</span>
-            <span className="copy_action">{copyButton}</span>
-            <span className="button_label">W25</span></Button>
         </div> )
 
 // Create fetched items list

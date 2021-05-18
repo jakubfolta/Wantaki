@@ -60,14 +60,15 @@
 }
 
 .copy {
-  width: 22rem;
-  max-width: 80%;
-  height: 10rem;
-  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 22rem;
+  max-width: 80%;
+  height: 10rem;
+  text-transform: capitalize;
+  padding: 0;
 
   &,
   .edit {
@@ -82,10 +83,12 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    color: green;
   }
 
   &_action { flex: 0 0 40%; }
   &_description {
+    height: 100%;
     flex: 0 0 60%;
     padding: 0 .5rem;
     background-color: $color-white;
