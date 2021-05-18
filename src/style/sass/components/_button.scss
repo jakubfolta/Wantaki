@@ -83,10 +83,17 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    color: green;
   }
 
-  &_action { flex: 0 0 40%; }
+  &_action {
+    flex: 0 0 40%;
+    justify-content: space-around;
+    padding: 0 1.5rem;
+    color: var(--color-secondary);
+    background-color: black;
+    // font-weight: 700;
+  }
+
   &_description {
     height: 100%;
     flex: 0 0 60%;

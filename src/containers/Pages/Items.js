@@ -296,8 +296,8 @@ class Items extends Component {
 
 // Create "share" section
     let copyButton = this.state.theme === 'cyber'
-      ? this.state.linkCopied ? 'Copied_' : 'Copy link_'
-      : this.state.linkCopied ? 'Copied' : 'Copy link';
+      ? 'Your list\'s link_'
+      : 'Your list\'s link';
 
     const shareSection =
       ( <div className="share-section">
@@ -307,8 +307,12 @@ class Items extends Component {
             id="copy"
             clicked={this.copyLink}
             btnType="copy">
-            <span className="copy_description">Link to your list</span>
-            <span className="copy_action"><FaArrowRight/>{copyButton}<FaArrowLeft/></span>
+            <span className="copy_description">{copyButton}</span>
+            <span className="copy_action">
+              <FaArrowRight/>
+              {this.state.linkCopied ? 'Copied' : 'Copy now'}
+              <FaArrowLeft/>
+            </span>
             <span className="button_label">W25</span></Button>
 
           <Button
