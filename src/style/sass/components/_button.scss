@@ -37,7 +37,7 @@
     font-size: .6rem;
     padding: 1px .5rem;
     background-color: $color-secondary;
-    color: $color-white;
+    color: var(--color-secondary);
   }
 }
 
@@ -91,7 +91,6 @@
     padding: 0 1.5rem;
     color: var(--color-secondary);
     background-color: black;
-    // font-weight: 700;
   }
 
   &_description {
@@ -114,6 +113,9 @@
     background-color: $color-secondary;
     transform-origin: center;
   }
+
+  &.copy::before,
+  &.copy::after { background-color: var(--color-primary); }
 
   &::after {
     top: 0;

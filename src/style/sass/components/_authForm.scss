@@ -5,6 +5,9 @@
   align-items: stretch;
   justify-content: center;
 
+  @include respond(tab-port) { max-width: 500px; }
+  @include respond(desktop) { max-width: 1000px; }
+
   &_group { margin: 1rem 0; }
 
   &_login,

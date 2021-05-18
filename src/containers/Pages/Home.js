@@ -8,7 +8,7 @@ const Home = () => {
       <Logo />
       <section className="section">
         <Carousel />
-        <span className="version">v2.0</span>
+        <span className="version">2.0</span>
       </section>
     </Fragment>
   )
