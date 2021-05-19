@@ -1,13 +1,22 @@
 .share-section {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: var(--color-primary);
   margin: 1rem 0;
-  padding-top: 2rem;
 
-  @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
-    clip-path: polygon(0% 5%, 14% 5%, 15% 8%, 18% 2%, 19% 5%, 31% 5%, 31.5% 6.5%, 32% 5%, 38% 5%, 38.5% 6.5%, 42% 6.5%, 42.5% 5%, 43% 3.5%, 46.5% 3.5%, 47% 2%, 48% 5%, 100% 0%, 100% 100%, 0% 100%);
-    // -webkit-clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
+  [data-theme="cyber"] & {
+    padding-top: 4rem;
+    background-color: var(--color-primary);
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: -1px;
+      left: 0;
+      right: 0;
+      background: url(../../../img/cybertop.jpg);
+      height: 45px;
+    }
   }
 }
