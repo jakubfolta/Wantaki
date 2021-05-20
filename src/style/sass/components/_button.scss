@@ -11,7 +11,7 @@
   background-color: $color-white;
   border: none;
   cursor: pointer;
-  transition: all .2s linear;
+  transition: all .3s linear;
 
   &:disabled {
     opacity: .3;
@@ -26,6 +26,8 @@
     color: #000;
   }
 
+  &:not(:disabled):focus &_label,
+  &:not(:disabled):active &_label,
   &:not(:disabled):hover &_label { color: var(--color-primary); }
 
   &_label { display: none; }
@@ -38,6 +40,7 @@
     padding: 1px .5rem;
     background-color: $color-secondary;
     color: var(--color-secondary);
+    transition: all .3s;
   }
 }
 
@@ -51,6 +54,12 @@
     clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
     -webkit-clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
   }
+}
+
+.edit {
+  &:focus,
+  &:active,
+  &:hover { background-color: var(--color-primary); }
 }
 
 .button.delete {
@@ -70,12 +79,13 @@
   text-transform: capitalize;
   padding: 0;
 
-  &,
-  .edit {
-    &:focus,
-    &:active,
-    &:hover { background-color: var(--color-primary); }
-  }
+    &:focus &_action,
+    &:active &_action,
+    &:hover &_action { color: $color-white; }
+
+    [data-theme="cyber"] &:focus &_action,
+    [data-theme="cyber"] &:active &_action,
+    [data-theme="cyber"] &:hover &_action { color: var(--color-primary); }
 
   &_description,
   &_action {
@@ -90,8 +100,11 @@
     justify-content: space-around;
     padding: 0 1.5rem;
     color: var(--color-secondary);
-    background-color: black;
+    background-color: var(--color-primary);
+    transition: all .3s;
   }
+
+  [data-theme="cyber"] &_action { background-color: $color-secondary; }
 
   &_description {
     height: 100%;
