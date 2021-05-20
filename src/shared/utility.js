@@ -29,7 +29,8 @@ export const setTheme = (theme, init) => {
   const buttons = document.querySelectorAll('#authSubmit, #switch, #itemSubmit, #copy');
 
   if (init) {
-    Array.from(buttons).forEach(el => el.className += " " + theme);
+    Array.from(buttons).forEach(el => el.className += ` ${theme}`);
+    return
   }
 
   if (theme === "cyber") {
