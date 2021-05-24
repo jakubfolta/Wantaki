@@ -53,7 +53,7 @@
   &_login--invalid,
   &_login--invalid:focus,
   &_password--invalid,
-  &_password--invalid:focus { background-color: lighten($color-warning, 20%); }
+  &_password--invalid:focus { background-color: $color-warning; }
 }
 
 

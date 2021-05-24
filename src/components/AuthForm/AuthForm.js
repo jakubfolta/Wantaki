@@ -49,7 +49,8 @@ const AuthForm = props => {
           type="submit"
           id="authSubmit"
           disabled={props.formIsValid}
-          label="W26"  >{props.buttonContent}</Button>
+          label="W26"  >{props.buttonContent}
+          <span className="button_glitch"></span></Button>
         <Button
           type="button"
           id="switch"

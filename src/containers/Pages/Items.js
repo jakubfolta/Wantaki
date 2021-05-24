@@ -289,6 +289,7 @@ class Items extends Component {
             type="submit"
             id="itemSubmit"
             disabled={!this.state.formIsValid}>{submitButton}
+            <span className="button_glitch"></span>
             <span className="button_label">W24</span></Button>
         </form> )
 
