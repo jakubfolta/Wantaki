@@ -79,7 +79,8 @@
     [data-theme="cyber"] &:hover &_action { color: var(--color-primary); }
 
   &_description,
-  &_action {
+  &_action,
+  .create_input {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,12 +99,25 @@
 
   [data-theme="cyber"] &_action { background-color: $color-secondary; }
 
-  &_description {
+  &_description,
+  .create_input {
     height: 100%;
     flex: 0 0 60%;
     padding: 0 .5rem;
     background-color: $color-white;
   }
+}
+
+.create_input {
+  border: none;
+  font-family: var(--font-default);
+  font-size: $medium-font-size;
+  text-align: center;
+
+  &:focus {
+    outline: none;
+  }
+
 }
 
 // Theme "cyber" style
@@ -170,8 +184,7 @@
     z-index: 10;
   }
 
-  &.copy .button_glitch,
-  &.create .button_glitch { background-color: $color-secondary; }
+  &.copy .button_glitch { background-color: $color-secondary; }
 
   &:not(:disabled):hover .button_glitch,
   &:not(:disabled):focus .button_glitch {

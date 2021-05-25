@@ -47,8 +47,8 @@ class Items extends Component {
     editMode: false,
     linkCopied: false,
     theme: 'default',
-    collectionName: 'First',
-    showCollectionForm: false
+    collectionName: '',
+    collectionFormVisible: false
   }
 
   componentDidMount() {
@@ -246,12 +246,17 @@ class Items extends Component {
     }
   }
 
-  switchCollectionForm = () => {
-    this.setState = prevState => {
+  showCollectionForm = () => {
+    this.setState(prevState => {
       return {
-        showCollectionForm: !prevState.showCollectionForm
+        collectionFormVisible: !prevState.collectionFormVisible
       };
-    }
+    })
+    document.querySelector('create_input').focus();
+  }
+
+  createNewCollection = () => {
+
   }
 
   render() {
@@ -316,6 +321,10 @@ class Items extends Component {
       ? 'New collection_'
       : 'New collection';
 
+    let createBtnTop = this.state.collectionFormVisible
+      ? <input className="create_input" type="text" onChange={this.handleCollectionNameChange} placeholder="My collection" value={this.state.collectionName} />
+      : <span className="create_description">{createButton}</span>;
+
     let glitch = this.state.linkCopied
       ? <span className="button_glitch"></span>
       : null;
@@ -340,12 +349,14 @@ class Items extends Component {
           <Button
             type="button"
             id="create"
-            clicked={this.createCollection}
+            clicked={this.state.collectionFormVisible
+              ? this.createNewCollection
+              : this.showCollectionForm}
             btnType="create">
-              <span className="create_description">{createButton}</span>
+              {createBtnTop}
               <span className="create_action">
                 <AiFillFolderAdd />
-                Create
+                {this.state.collectionFormVisible ? 'Create' : 'Start'}
                 <AiFillFolderAdd />
               </span>
               <span className="button_label">W26</span></Button>
