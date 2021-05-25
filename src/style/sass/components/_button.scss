@@ -104,6 +104,12 @@
   }
 }
 
+.create {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 // Theme "cyber" style
 .cyber {
   &::after,

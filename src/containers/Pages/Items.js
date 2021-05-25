@@ -9,7 +9,9 @@ import Button from '../../components/UI/Button';
 import Spinner from '../../components/UI/Spinner';
 import ListItems from '../../components/ListItems/ListItems';
 import ListItem from '../../components/ListItems/ListItem/ListItem';
+import Collection from '../../components/Collection/Collection';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { AiFillFolderAdd } from 'react-icons/ai';
 
 class Items extends Component {
   state = {
@@ -44,7 +46,9 @@ class Items extends Component {
     formIsValid: false,
     editMode: false,
     linkCopied: false,
-    theme: 'default'
+    theme: 'default',
+    collectionName: 'First',
+    showCollectionForm: false
   }
 
   componentDidMount() {
@@ -242,6 +246,14 @@ class Items extends Component {
     }
   }
 
+  switchCollectionForm = () => {
+    this.setState = prevState => {
+      return {
+        showCollectionForm: !prevState.showCollectionForm
+      };
+    }
+  }
+
   render() {
     const form = this.state.newItemForm;
     const formElements = [];
@@ -310,26 +322,33 @@ class Items extends Component {
             btnType="copy">
             <span className="copy_description">{copyButton}</span>
             <span className="copy_action">
-              <FaArrowRight/>
+              <FaArrowRight />
               {this.state.linkCopied ? 'Copied' : 'Copy now'}
-              <FaArrowLeft/>
+              <FaArrowLeft />
             </span>
             <span className="button_label">W25</span></Button>
 
           <Button
+            type="button"
+            clicked={this.createCollection}
+            btnType="create">
+              Create collection
+              <AiFillFolderAdd /></Button>
+
+          <Button
             dataTheme="default"
             clicked={this.switchTheme}
-          >{'Theme default'}</Button>
+          >Theme default</Button>
 
           <Button
             dataTheme="cyber"
             clicked={this.switchTheme}
-          >{'Theme cyber'}</Button>
+          >Theme cyber</Button>
 
           <Button
             dataTheme="materia"
             clicked={this.switchTheme}
-          >{'Theme materia'}</Button>
+          >Theme materia</Button>
 
 
         </div> )
@@ -340,6 +359,11 @@ class Items extends Component {
     } else if (this.props.items.length > 0) {
         items = (
           <ListItems>
+            <Collection
+              // handleClick={this.switchCollectionForm}
+              name={this.state.collectionName}>
+
+            </Collection>
             {this.props.items.map((el, index) =>
               <ListItem
                 id={el.id}

@@ -1,0 +1,25 @@
+.collection {
+  position: relative;
+  background-color: var(--color-primary);
+  padding: 1rem 2rem;
+
+  &:focus,
+  &:active,
+  &:hover {
+    color: black;
+    outline: none;
+  }
+
+  &_name { letter-spacing: .3rem; }
+
+  &_icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: .5rem;
+    background-color: transparent;
+    border: none;
+
+    &:hover { color: $color-warning; }
+  }
+}
