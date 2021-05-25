@@ -312,6 +312,14 @@ class Items extends Component {
       ? 'Your list\'s link_'
       : 'Your list\'s link';
 
+    let createButton = this.state.theme === 'cyber'
+      ? 'New collection_'
+      : 'New collection';
+
+    let glitch = this.state.linkCopied
+      ? <span className="button_glitch"></span>
+      : null;
+
     const shareSection =
       ( <div className="share-section">
 
@@ -322,6 +330,7 @@ class Items extends Component {
             btnType="copy">
             <span className="copy_description">{copyButton}</span>
             <span className="copy_action">
+              {glitch}
               <FaArrowRight />
               {this.state.linkCopied ? 'Copied' : 'Copy now'}
               <FaArrowLeft />
@@ -330,10 +339,16 @@ class Items extends Component {
 
           <Button
             type="button"
+            id="create"
             clicked={this.createCollection}
             btnType="create">
-              Create collection
-              <AiFillFolderAdd /></Button>
+              <span className="create_description">{createButton}</span>
+              <span className="create_action">
+                <AiFillFolderAdd />
+                Create
+                <AiFillFolderAdd />
+              </span>
+              <span className="button_label">W26</span></Button>
 
           <Button
             dataTheme="default"

@@ -58,7 +58,8 @@
   &:hover { background-color: $color-warning; }
 }
 
-.copy {
+.copy,
+.create {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -86,6 +87,7 @@
   }
 
   &_action {
+    position: relative;
     flex: 0 0 40%;
     justify-content: space-around;
     padding: 0 1.5rem;
@@ -104,17 +106,12 @@
   }
 }
 
-.create {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
 // Theme "cyber" style
 .cyber {
   &::after,
   &[type="submit"]::before,
-  &.copy::before {
+  &.copy::before,
+  &.create::before {
     position: absolute;
     content: '';
     width: 2.4rem;
@@ -124,7 +121,9 @@
   }
 
   &.copy::before,
-  &.copy::after { background-color: var(--color-primary); }
+  &.create::before,
+  &.copy::after,
+  &.create::after { background-color: var(--color-primary); }
 
   &::after {
     top: 0;
@@ -133,14 +132,17 @@
   }
 
   &[type="submit"]::before,
-  &.copy::before {
+  &.copy::before,
+  &.create::before {
     bottom: 0;
     left: 0;
     transform: rotate(40deg) translate(-.3rem, 1rem);
+    z-index: 20;
   }
 
   &[type="submit"],
-  &.copy { text-transform: uppercase; }
+  &.copy,
+  &.create { text-transform: uppercase; }
 
   &[type="submit"] { background-color: var(--color-primary); }
 
@@ -167,6 +169,9 @@
     left: 0;
     z-index: 10;
   }
+
+  &.copy .button_glitch,
+  &.create .button_glitch { background-color: $color-secondary; }
 
   &:not(:disabled):hover .button_glitch,
   &:not(:disabled):focus .button_glitch {
