@@ -43,11 +43,19 @@ class Items extends Component {
         valid: true
       }
     },
+    newCollectionForm: {
+      name: '',
+      valid: false,
+      rules: {
+        required: true,
+        minLength: 3
+      }
+    },
     formIsValid: false,
+    newCollectionFormIsValid: true,
     editMode: false,
     linkCopied: false,
     theme: 'default',
-    collectionName: '',
     collectionFormVisible: false
   }
 
@@ -196,20 +204,32 @@ class Items extends Component {
   }
 
   onChangeHandler = (e, id) => {
-    const updatedElement = updateObject(this.state.newItemForm[id], {
-      value: e.target.value,
-      valid: checkValidity(e.target.value, this.state.newItemForm[id].rules),
-    });
-    const updatedForm = updateObject(this.state.newItemForm, {
-      [id]: updatedElement
-    });
+    // Use for new item form
+    if (id) {
+      const updatedElement = updateObject(this.state.newItemForm[id], {
+        value: e.target.value,
+        valid: checkValidity(e.target.value, this.state.newItemForm[id].rules),
+      });
+      const updatedForm = updateObject(this.state.newItemForm, {
+        [id]: updatedElement
+      });
 
-    let valid = true;
-    for (let el in updatedForm) {
-      valid = updatedForm[el].valid && valid;
+      let valid = true;
+      for (let el in updatedForm) {
+        valid = updatedForm[el].valid && valid;
+      }
+
+      this.setState({newItemForm: updatedForm, formIsValid: valid});
     }
+    // Use for new collection form
+    else {
+      const updatedCollectionForm = updateObject(this.state.newCollectionForm, {
+        name: e.target.value,
+        valid: checkValidity(e.target.value, this.state.newCollectionForm.rules)
+      });
 
-    this.setState({newItemForm: updatedForm, formIsValid: valid});
+      this.setState({newCollectionForm: updatedCollectionForm, newCollectionFormIsValid: updatedCollectionForm.valid});
+    }
   }
 
   copyLink = () => {
@@ -246,13 +266,16 @@ class Items extends Component {
     }
   }
 
-  showCollectionForm = () => {
+  switchCollectionForm = () => {
     this.setState(prevState => {
       return {
-        collectionFormVisible: !prevState.collectionFormVisible
+        collectionFormVisible: !prevState.collectionFormVisible,
+        newCollectionFormIsValid: !prevState.newCollectionFormIsValid
       };
     })
-    document.querySelector('create_input').focus();
+    setTimeout(() => {
+      document.querySelector('.create_input').focus();
+    }, 500)
   }
 
   createNewCollection = () => {
@@ -322,8 +345,16 @@ class Items extends Component {
       : 'New collection';
 
     let createBtnTop = this.state.collectionFormVisible
-      ? <input className="create_input" type="text" onChange={this.handleCollectionNameChange} placeholder="My collection" value={this.state.collectionName} />
+      ? <input
+        className="create_input"
+        type="text"
+        name="name"
+        onChange={this.onChangeHandler}
+        placeholder="My collection"
+        value={this.state.collectionName} />
       : <span className="create_description">{createButton}</span>;
+
+    // let createBtn
 
     let glitch = this.state.linkCopied
       ? <span className="button_glitch"></span>
@@ -349,9 +380,10 @@ class Items extends Component {
           <Button
             type="button"
             id="create"
+            disabled={!this.state.newCollectionFormIsValid}
             clicked={this.state.collectionFormVisible
               ? this.createNewCollection
-              : this.showCollectionForm}
+              : this.switchCollectionForm}
             btnType="create">
               {createBtnTop}
               <span className="create_action">

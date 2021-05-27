@@ -108,16 +108,17 @@
   }
 }
 
-.create_input {
-  border: none;
-  font-family: var(--font-default);
-  font-size: $medium-font-size;
-  text-align: center;
+.create {
 
-  &:focus {
-    outline: none;
+  &.button:disabled { opacity: 1; background-color: blue; }
+  &_input {
+    border: none;
+    font-family: var(--font-default);
+    font-size: $medium-font-size;
+    text-align: center;
+
+    &:focus { outline: none; }
   }
-
 }
 
 // Theme "cyber" style

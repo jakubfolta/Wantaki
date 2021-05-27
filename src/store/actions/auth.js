@@ -1,5 +1,4 @@
 import * as actions from './actionTypes';
-import { setTheme } from '../../shared/utility';
 import axios from 'axios';
 
 export const authStart = () => {
