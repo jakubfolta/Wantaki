@@ -27,6 +27,7 @@
   }
 
   &:not(:disabled):focus &_label,
+  // &.create:not(:disabled):focus &_label,
   &:not(:disabled):active &_label,
   &:not(:disabled):hover &_label { color: var(--color-primary); }
 
@@ -109,8 +110,7 @@
 }
 
 .create {
-
-  &.button:disabled { opacity: 1; background-color: blue; }
+  &.button:disabled { opacity: 1; }
   &_input {
     border: none;
     font-family: var(--font-default);
@@ -119,6 +119,12 @@
 
     &:focus { outline: none; }
   }
+
+  [data-theme="cyber"] &:disabled &_action,
+  [data-theme="cyber"] &:disabled .button_label { color: $color-warning; }
+
+  [data-theme="cyber"] &:not(:disabled) &_input:focus + &_action,
+  [data-theme="cyber"] &:not(:disabled) &_input:focus ~ .button_label { color: var(--color-primary); }
 }
 
 // Theme "cyber" style
