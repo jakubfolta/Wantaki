@@ -27,7 +27,6 @@
   }
 
   &:not(:disabled):focus &_label,
-  // &.create:not(:disabled):focus &_label,
   &:not(:disabled):active &_label,
   &:not(:disabled):hover &_label { color: var(--color-primary); }
 
@@ -75,10 +74,6 @@
     &:active &_action,
     &:hover &_action { color: $color-white; }
 
-    [data-theme="cyber"] &:focus &_action,
-    [data-theme="cyber"] &:active &_action,
-    [data-theme="cyber"] &:hover &_action { color: var(--color-primary); }
-
   &_description,
   &_action,
   .create_input {
@@ -110,6 +105,8 @@
 }
 
 .create {
+  &:disabled:hover &_action { color: var(--color-secondary); }
+
   &.button:disabled { opacity: 1; }
   &_input {
     border: none;
@@ -129,6 +126,11 @@
 
 // Theme "cyber" style
 .cyber {
+
+  &:focus span[class$="_action"],
+  &:active span[class$="_action"],
+  &:hover span[class$="_action"] { color: var(--color-primary); }
+
   &::after,
   &[type="submit"]::before,
   &.copy::before,
