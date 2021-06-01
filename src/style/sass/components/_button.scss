@@ -93,7 +93,6 @@
     transition: all .3s;
   }
 
-  [data-theme="cyber"] &_action { background-color: $color-secondary; }
 
   &_description,
   .create_input {
@@ -130,6 +129,8 @@
   &:focus span[class$="_action"],
   &:active span[class$="_action"],
   &:hover span[class$="_action"] { color: var(--color-primary); }
+
+  & span[class$="_action"] { background-color: $color-secondary; }
 
   &::after,
   &[type="submit"]::before,
