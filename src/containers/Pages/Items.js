@@ -10,7 +10,7 @@ import Spinner from '../../components/UI/Spinner';
 import ListItems from '../../components/ListItems/ListItems';
 import ListItem from '../../components/ListItems/ListItem/ListItem';
 import Collection from '../../components/Collection/Collection';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight, FaTimes } from 'react-icons/fa';
 import { AiFillFolderAdd } from 'react-icons/ai';
 
 class Items extends Component {
@@ -345,16 +345,17 @@ class Items extends Component {
       : 'New collection';
 
     let createBtnTop = this.state.collectionFormVisible
-      ? <input
-        className="create_input"
-        type="text"
-        name="name"
-        onChange={this.onChangeHandler}
-        placeholder="My collection"
-        value={this.state.collectionName} />
+      ? <Fragment>
+          <input
+            className="create_input"
+            type="text"
+            name="name"
+            onChange={this.onChangeHandler}
+            placeholder="My collection"
+            value={this.state.collectionName} />
+          <span class="create_input-icon"><FaTimes /></span>
+        </Fragment>
       : <span className="create_description">{createButton}</span>;
-
-    // let createBtn
 
     let glitch = this.state.linkCopied
       ? <span className="button_glitch"></span>
