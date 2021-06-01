@@ -93,7 +93,6 @@
     transition: all .3s;
   }
 
-
   &_description,
   .create_input {
     height: 100%;
@@ -104,33 +103,34 @@
 }
 
 .create {
-  &:disabled:hover &_action { color: var(--color-secondary); }
-
+  &:disabled &_action { color: inherit;; }
   &.button:disabled { opacity: 1; }
+
   &_input {
     border: none;
     font-family: var(--font-default);
     font-size: $medium-font-size;
     text-align: center;
 
-    &:focus { outline: none; }
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 1rem 1px var(--color-primary) inset;
+    }
   }
-
-  [data-theme="cyber"] &:disabled &_action,
-  [data-theme="cyber"] &:disabled .button_label { color: $color-warning; }
-
-  [data-theme="cyber"] &:not(:disabled) &_input:focus + &_action,
-  [data-theme="cyber"] &:not(:disabled) &_input:focus ~ .button_label { color: var(--color-primary); }
 }
 
 // Theme "cyber" style
 .cyber {
 
+  &.create:disabled .create_action,
+  &.create:disabled .button_label { color: $color-warning; }
+
+  & .create_input:focus { box-shadow: 0 0 1rem 1px var(--color-secondary) inset; }
+  & span[class$="_action"] { background-color: $color-secondary; }
+
   &:focus span[class$="_action"],
   &:active span[class$="_action"],
   &:hover span[class$="_action"] { color: var(--color-primary); }
-
-  & span[class$="_action"] { background-color: $color-secondary; }
 
   &::after,
   &[type="submit"]::before,
