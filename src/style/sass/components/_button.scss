@@ -121,17 +121,6 @@
 
 // Theme "cyber" style
 .cyber {
-
-  &.create:disabled .create_action,
-  &.create:disabled .button_label { color: $color-warning; }
-
-  & .create_input:focus { box-shadow: 0 0 1rem 1px var(--color-secondary) inset; }
-  & span[class$="_action"] { background-color: $color-secondary; }
-
-  &:focus span[class$="_action"],
-  &:active span[class$="_action"],
-  &:hover span[class$="_action"] { color: var(--color-primary); }
-
   &::after,
   &[type="submit"]::before,
   &.copy::before,
@@ -164,6 +153,16 @@
     z-index: 20;
   }
 
+  &.create:disabled .create_action,
+  &.create:disabled .button_label { color: $color-warning; }
+
+  & .create_input:focus { box-shadow: 0 0 1rem 1px var(--color-secondary) inset; }
+  & span[class$="_action"] { background-color: $color-secondary; }
+
+  &:focus span[class$="_action"],
+  &:active span[class$="_action"],
+  &:hover span[class$="_action"] { color: var(--color-primary); }
+
   &[type="submit"],
   &.copy,
   &.create { text-transform: uppercase; }
@@ -173,9 +172,8 @@
   & .button_label,
   & .button_glitch { position: absolute; }
 
-  & .button_label { display: block; }
-
   & .button_label {
+    display: block;
     bottom: -6px;
     right: 5%;
     font-size: .6rem;
