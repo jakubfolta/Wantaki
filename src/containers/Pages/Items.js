@@ -345,16 +345,13 @@ class Items extends Component {
       : 'New collection';
 
     let createBtnTop = this.state.collectionFormVisible
-      ? <Fragment>
-          <input
-            className="create_input"
-            type="text"
-            name="name"
-            onChange={this.onChangeHandler}
-            placeholder="My collection"
-            value={this.state.collectionName} />
-          <span class="create_input-icon"><FaTimes /></span>
-        </Fragment>
+      ? <input
+          className="create_input"
+          type="text"
+          name="name"
+          onChange={this.onChangeHandler}
+          placeholder="My collection"
+          value={this.state.collectionName} />
       : <span className="create_description">{createButton}</span>;
 
     let glitch = this.state.linkCopied

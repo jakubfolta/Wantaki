@@ -116,14 +116,6 @@
       outline: none;
       box-shadow: 0 0 1rem 1px var(--color-primary) inset;
     }
-
-    &-icon {
-      position: absolute;
-      bottom: 40%;
-      right: 2%;
-      color: $color-secondary;
-      cursor: pointer;
-    }
   }
 }
 
