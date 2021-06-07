@@ -78,7 +78,7 @@ class Items extends Component {
     }
   }
 
-// Add new item to firebase
+// ADD & DELETE NEW ITEM METHODS //
   newItemHandler = e => {
     e.preventDefault();
 
@@ -98,12 +98,11 @@ class Items extends Component {
     this.resetValues();
   }
 
-// Delete item from firebase and redux state
   onDeleteItemHandler = id => {
     this.props.onDeleteItem(id, this.props.token, this.props.items, this.props.partEmail, this.props.userId);
   }
 
-// Edit & Update list item
+// EDIT & UPDATE LIST ITEM METHODS //
   onEditItemHandler = (e, id) => {
     document.getElementById('nameInput').focus();
     const item = this.props.items.find(el => el.id === id);
@@ -232,6 +231,7 @@ class Items extends Component {
     }
   }
 
+// Copy link to item's list
   copyLink = () => {
     const baseURL = window.location.href.split(this.props.match.url)[0];
 
@@ -248,6 +248,7 @@ class Items extends Component {
       })
   }
 
+// THEME CHANGE METHODS //
   switchTheme = e => {
     const theme = e.target.getAttribute('data-theme');
 
@@ -266,20 +267,28 @@ class Items extends Component {
     }
   }
 
+// COLLECTION METHODS //
   switchCollectionForm = () => {
-    this.setState(prevState => {
-      return {
-        collectionFormVisible: !prevState.collectionFormVisible,
-        newCollectionFormIsValid: !prevState.newCollectionFormIsValid
-      };
-    })
-    setTimeout(() => {
-      document.querySelector('.create_input').focus();
-    }, 500)
+    if (this.state.collectionFormVisible) {
+      this.setState(prevState => {
+        return { collectionFormVisible: !prevState.collectionFormVisible };
+      })
+    } else {
+      this.setState(prevState => {
+        return {
+          collectionFormVisible: !prevState.collectionFormVisible,
+          newCollectionFormIsValid: !prevState.newCollectionFormIsValid
+        };
+      })
+    }
   }
 
-  createNewCollection = () => {
+  onCreateNewCollectionHandler = (e) => {
+    console.log(e.detail);
+    const collectionName = this.state.newCollectionForm.name;
 
+    console.log(collectionName);  /////////////// Next: Reset value of input////////
+    this.switchCollectionForm();
   }
 
   render() {
@@ -351,7 +360,7 @@ class Items extends Component {
           name="name"
           onChange={this.onChangeHandler}
           placeholder="My collection"
-          value={this.state.collectionName} />
+          value={this.state.newCollectionForm.name} />
       : <span className="create_description">{createButton}</span>;
 
     let glitch = this.state.linkCopied
@@ -380,11 +389,13 @@ class Items extends Component {
             id="create"
             disabled={!this.state.newCollectionFormIsValid}
             clicked={this.state.collectionFormVisible
-              ? this.createNewCollection
+              ? null
               : this.switchCollectionForm}
             btnType="create">
               {createBtnTop}
-              <span className="create_action">
+              <span
+                className="create_action"
+                onClick={this.state.collectionFormVisible ? this.onCreateNewCollectionHandler : null}>
                 <AiFillFolderAdd />
                 {this.state.collectionFormVisible ? 'Create' : 'Start'}
                 <AiFillFolderAdd />
