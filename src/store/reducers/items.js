@@ -3,9 +3,12 @@ import { updateObject } from '../../shared/utility';
 
 const initialState = {
   items: [],
+  collections: [],
   error: null,
   fetchingError: null,
   loading: false,
+  loadingCollection: false,
+  collectionError: null,
   loadingItems: false
 };
 
@@ -118,19 +121,22 @@ const setUserDataFail = (state, action) => {
 
 const newCollectionStart = (state, action) => {
   return updateObject(state, {
-
+    loadingCollection: true,
+    collectionError: null
   });
 }
 
 const newCollectionSuccess = (state, action) => {
   return updateObject(state, {
-
+    loadingCollection: false,
+    collections: action.collections
   });
 }
 
 const newCollectionFail = (state, action) => {
   return updateObject(state, {
-
+    loadingCollection: false,
+    collectionError: action.error
   });
 }
 

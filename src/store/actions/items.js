@@ -251,9 +251,10 @@ export const newCollectionStart = () => {
   };
 }
 
-export const newCollectionSuccess = () => {
+export const newCollectionSuccess = collections => {
   return {
-    type: actions.NEW_COLLECTION_SUCCESS
+    type: actions.NEW_COLLECTION_SUCCESS,
+    collections: collections
   };
 }
 
@@ -264,13 +265,20 @@ export const newCollectionFail = error => {
   };
 }
 
-export const newCollection = (token, partEmail, userId, collection) => {
+export const newCollection = (token, partEmail, userId, collections, newCollection) => {
   return dispatch => {
     dispatch(newCollectionStart());
 
-    axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '/collections.json?auth=' + token, collection)
+    axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '/collections.json?auth=' + token, newCollection)
       .then(response => {
-        console.log(response.data)
+        const updatedCollection = {
+          ...newCollection,
+          id: response.data.name
+        }
+        const newCollections = collections.concat(updatedCollection);
+        console.log(newCollections);
+
+        dispatch(newCollectionSuccess(newCollections));
       })
       .catch(error => {
         const errorMessage = error.response.data.error;

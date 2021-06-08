@@ -7,11 +7,11 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import App from './App';
 import authReducer from './store/reducers/auth';
-import newItemReducer from './store/reducers/items';
+import itemsReducer from './store/reducers/items';
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    items: newItemReducer
+    items: itemsReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

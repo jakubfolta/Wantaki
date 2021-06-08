@@ -297,13 +297,11 @@ class Items extends Component {
 
   onCreateNewCollectionHandler = () => {
     const collection = {
-      name: this.state.newCollectionForm.name;
-      ..................
-    }
+      name: this.state.newCollectionForm.name,
+      timestamp: Date.now()
+    };
 
-
-
-
+    this.props.onAddNewCollection(this.props.token, this.props.partEmail, this.props.userId, this.props.collections, collection);
     this.switchCollectionForm();
   }
 
@@ -496,6 +494,7 @@ class Items extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     items: state.items.items,
+    collections: state.items.collections,
     error: state.items.error,
     fetchingError: state.items.fetchingError,
     loading: state.items.loading,
@@ -514,7 +513,8 @@ const mapDispatchToProps = dispatch => {
     onFetchItems: (userId, partEmail) => dispatch(itemsActions.fetchItems(userId, null, partEmail)),
     onDeleteItem: (id, token, items, partEmail, userId) => dispatch(itemsActions.deleteItem(id, token, items, partEmail, userId)),
     onSetItemEditMode: (id, items) => dispatch(itemsActions.setItemEditMode(id, items)),
-    onUpdateItem: (updatedItem, updatedItems, updatedItemId, token, partEmail, userId) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token, partEmail, userId))
+    onUpdateItem: (updatedItem, updatedItems, updatedItemId, token, partEmail, userId) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token, partEmail, userId)),
+    onAddNewCollection: (token, partEmail, userId, collections, newCollection) => dispatch(itemsActions.newCollection(token, partEmail, userId, collections, newCollection))
   };
 }
 
