@@ -112,7 +112,7 @@ export const fetchItems = (userId, user, partEmail) => {
         let sortedItems = [];
         let data = response.data;
 
-        // Get the same directory as when signing in
+        // Get the same directory as when signing in - fetching items list through gift ideas page for not authenticated user
         if (user) {
           for (let el in data) {
             data = data[el];
@@ -257,16 +257,24 @@ export const newCollectionSuccess = () => {
   };
 }
 
-export const newCollectionFail = () => {
+export const newCollectionFail = error => {
   return {
-    type: actions.NEW_COLLECTION_FAIL
+    type: actions.NEW_COLLECTION_FAIL,
+    error: error
   };
 }
 
-export const newCollection = (token, partEmail, userId, collectionName) => {
+export const newCollection = (token, partEmail, userId, collection) => {
   return dispatch => {
     dispatch(newCollectionStart());
 
-    axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '/collections.json?auth=' + token, item)
+    axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '/collections.json?auth=' + token, collection)
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(error => {
+        const errorMessage = error.response.data.error;
+        dispatch(newCollectionFail(errorMessage));
+      })
   };
 }

@@ -296,10 +296,15 @@ class Items extends Component {
   }
 
   onCreateNewCollectionHandler = () => {
+    const collection = {
+      name: this.state.newCollectionForm.name;
+      ..................
+    }
+
+
+
+
     this.switchCollectionForm();
-    const collectionName = this.state.newCollectionForm.name;
-
-
   }
 
   render() {
