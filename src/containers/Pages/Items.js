@@ -279,7 +279,8 @@ class Items extends Component {
       this.setState(prevState => {
         return {
           collectionFormVisible: !prevState.collectionFormVisible,
-          newCollectionForm: defaultForm
+          newCollectionForm: defaultForm,
+          collectionCreated: !prevState.collectionCreated
         };
       })
     } else {
@@ -309,12 +310,11 @@ class Items extends Component {
     };
 
     this.props.onAddNewCollection(this.props.token, this.props.partEmail, this.props.userId, this.props.collections, collection);
-    this.switchCollectionForm();
     this.setState({collectionCreated: true});
     setTimeout(() => {
-      this.setState({collectionCreated: false});
+      this.switchCollectionForm();
       document.getElementById('create').blur();
-    }, 3000)
+    }, 2000)
   }
 
   render() {
@@ -390,7 +390,11 @@ class Items extends Component {
           value={this.state.newCollectionForm.name} />
       : <span className="create_description">{createButton}</span>;
 
-    let glitch = this.state.linkCopied || this.state.collectionCreated
+    let copyGlitch = this.state.linkCopied
+      ? <span className="button_glitch"></span>
+      : null;
+
+    let collectionGlitch = this.state.collectionCreated
       ? <span className="button_glitch"></span>
       : null;
 
@@ -404,7 +408,7 @@ class Items extends Component {
             btnType="copy">
             <span className="copy_description">{copyButton}</span>
             <span className="copy_action">
-              {glitch}
+              {copyGlitch}
               <FaArrowRight />
               {this.state.linkCopied ? 'Copied' : 'Copy now'}
               <FaArrowLeft />
@@ -424,10 +428,10 @@ class Items extends Component {
                 className="create_action"
                 onClick={this.state.collectionFormVisible && this.state.newCollectionFormIsValid ? this.onCreateNewCollectionHandler : null}
                 >
-                {glitch}
+                {collectionGlitch}
                 <AiFillFolderAdd />
                 {this.state.collectionCreated
-                  ? 'Created!'
+                  ? 'Created'
                   : this.state.collectionFormVisible ? 'Create' : 'Start'
                 }
                 <AiFillFolderAdd />

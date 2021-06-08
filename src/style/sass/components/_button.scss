@@ -192,10 +192,12 @@
     z-index: 10;
   }
 
-  &.copy .button_glitch { background-color: $color-secondary; }
+  &.copy .button_glitch,
+  &.create .button_glitch { background-color: $color-secondary; }
 
   &:not(:disabled):hover .button_glitch,
-  &:not(:disabled):focus .button_glitch {
+  &:not(:disabled):focus .button_glitch,
+  &:not(:disabled) .button_glitch {
     display: block;
     animation: glitch-effect 2s infinite;
   }
