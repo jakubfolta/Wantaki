@@ -55,6 +55,7 @@ class Items extends Component {
     newCollectionFormIsValid: true,
     editMode: false,
     linkCopied: false,
+    collectionCreated: false,
     theme: 'default',
     collectionFormVisible: false
   }
@@ -295,6 +296,12 @@ class Items extends Component {
     }
   }
 
+  submitCollectionInput = e => {
+    if (e.key === 'Enter') {
+      this.onCreateNewCollectionHandler();
+    }
+  }
+
   onCreateNewCollectionHandler = () => {
     const collection = {
       name: this.state.newCollectionForm.name,
@@ -303,6 +310,11 @@ class Items extends Component {
 
     this.props.onAddNewCollection(this.props.token, this.props.partEmail, this.props.userId, this.props.collections, collection);
     this.switchCollectionForm();
+    this.setState({collectionCreated: true});
+    setTimeout(() => {
+      this.setState({collectionCreated: false});
+      document.getElementById('create').blur();
+    }, 3000)
   }
 
   render() {
@@ -373,11 +385,12 @@ class Items extends Component {
           type="text"
           name="name"
           onChange={this.onChangeHandler}
+          onKeyPress={this.submitCollectionInput}
           placeholder="My collection"
           value={this.state.newCollectionForm.name} />
       : <span className="create_description">{createButton}</span>;
 
-    let glitch = this.state.linkCopied
+    let glitch = this.state.linkCopied || this.state.collectionCreated
       ? <span className="button_glitch"></span>
       : null;
 
@@ -411,8 +424,12 @@ class Items extends Component {
                 className="create_action"
                 onClick={this.state.collectionFormVisible && this.state.newCollectionFormIsValid ? this.onCreateNewCollectionHandler : null}
                 >
+                {glitch}
                 <AiFillFolderAdd />
-                {this.state.collectionFormVisible ? 'Create' : 'Start'}
+                {this.state.collectionCreated
+                  ? 'Created!'
+                  : this.state.collectionFormVisible ? 'Create' : 'Start'
+                }
                 <AiFillFolderAdd />
               </span>
               <span className="button_label">W26</span></Button>
