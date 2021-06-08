@@ -109,7 +109,7 @@ export const fetchItems = (userId, user, partEmail) => {
       .then(response => {
         let items = [];
         let timestampsArray = [];
-        let sortedItems = []
+        let sortedItems = [];
         let data = response.data;
 
         // Get the same directory as when signing in
@@ -241,5 +241,32 @@ export const updateItem = (item, items, updatedItemId, token, partEmail, userId)
         const errorMessage = error.response.data.error;
         dispatch(updateItemFail(errorMessage));
       })
+  };
+}
+
+// Add new collection to firebase
+export const newCollectionStart = () => {
+  return {
+    type: actions.NEW_COLLECTION_START
+  };
+}
+
+export const newCollectionSuccess = () => {
+  return {
+    type: actions.NEW_COLLECTION_SUCCESS
+  };
+}
+
+export const newCollectionFail = () => {
+  return {
+    type: actions.NEW_COLLECTION_FAIL
+  };
+}
+
+export const newCollection = (token, partEmail, userId, collectionName) => {
+  return dispatch => {
+    dispatch(newCollectionStart());
+
+    axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '/collections.json?auth=' + token, item)
   };
 }

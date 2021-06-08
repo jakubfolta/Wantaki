@@ -270,8 +270,16 @@ class Items extends Component {
 // COLLECTION METHODS //
   switchCollectionForm = () => {
     if (this.state.collectionFormVisible) {
+      const defaultForm = updateObject(this.state.newCollectionForm, {
+        name: '',
+        valid: false
+      });
+
       this.setState(prevState => {
-        return { collectionFormVisible: !prevState.collectionFormVisible };
+        return {
+          collectionFormVisible: !prevState.collectionFormVisible,
+          newCollectionForm: defaultForm
+        };
       })
     } else {
       this.setState(prevState => {
@@ -280,15 +288,18 @@ class Items extends Component {
           newCollectionFormIsValid: !prevState.newCollectionFormIsValid
         };
       })
+
+      setTimeout(() => {
+        document.querySelector('.create_input').focus();
+      }, 500)
     }
   }
 
-  onCreateNewCollectionHandler = (e) => {
-    console.log(e.detail);
+  onCreateNewCollectionHandler = () => {
+    this.switchCollectionForm();
     const collectionName = this.state.newCollectionForm.name;
 
-    console.log(collectionName);  /////////////// Next: Reset value of input////////
-    this.switchCollectionForm();
+
   }
 
   render() {
@@ -395,7 +406,8 @@ class Items extends Component {
               {createBtnTop}
               <span
                 className="create_action"
-                onClick={this.state.collectionFormVisible ? this.onCreateNewCollectionHandler : null}>
+                onClick={this.state.collectionFormVisible && this.state.newCollectionFormIsValid ? this.onCreateNewCollectionHandler : null}
+                >
                 <AiFillFolderAdd />
                 {this.state.collectionFormVisible ? 'Create' : 'Start'}
                 <AiFillFolderAdd />

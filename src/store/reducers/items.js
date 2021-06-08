@@ -113,7 +113,25 @@ const updateItemFail = (state, action) => {
 const setUserDataFail = (state, action) => {
   return updateObject(state, {
     error: action.error
-  })
+  });
+}
+
+const newCollectionStart = (state, action) => {
+  return updateObject(state, {
+
+  });
+}
+
+const newCollectionSuccess = (state, action) => {
+  return updateObject(state, {
+
+  });
+}
+
+const newCollectionFail = (state, action) => {
+  return updateObject(state, {
+
+  });
 }
 
 const reducer = (state = initialState, action) => {
@@ -141,6 +159,10 @@ const reducer = (state = initialState, action) => {
     case actions.UPDATE_ITEM_FAIL: return updateItemFail(state,action);
 
     case actions.SET_USER_DATA_FAIL: return setUserDataFail(state, action);
+
+    case actions.NEW_COLLECTION_START: return newCollectionStart(state, action);
+    case actions.NEW_COLLECTION_SUCCESS: return newCollectionSuccess(state, action);
+    case actions.NEW_COLLECTION_FAIL: return newCollectionFail(state, action);
     default: return state;
   }
 }

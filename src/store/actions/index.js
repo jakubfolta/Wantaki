@@ -11,5 +11,6 @@ export {
   fetchItems,
   deleteItem,
   setItemEditMode,
-  updateItem
+  updateItem,
+  newCollection
 } from './items';
