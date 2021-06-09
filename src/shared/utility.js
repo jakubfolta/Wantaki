@@ -25,6 +25,17 @@ export const checkValidity = (value, rules) => {
   return valid;
 }
 
+export const sortItems = (timestampsArray, items) => {
+  const sortedItems = [];
+
+  for (let number of timestampsArray) {
+    let itemIndex = items.findIndex(el => el.timestamp === number);
+    sortedItems.push(items[itemIndex]);
+  }
+
+  return sortedItems;
+}
+
 export const setTheme = (theme, init) => {
   const buttons = document.querySelectorAll('#authSubmit, #switch, #itemSubmit, #copy, #create');
 

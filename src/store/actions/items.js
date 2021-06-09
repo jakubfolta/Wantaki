@@ -1,6 +1,8 @@
 import * as actions from './actionTypes';
 import axios from 'axios';
 
+import { sortItems } from '../../shared/utility';
+
 // Add new item to firebase
 export const newItemStart = () => {
   return {
@@ -131,10 +133,7 @@ export const fetchItems = (userId, user, partEmail) => {
           timestampsArray.sort().reverse();
 
           // Sort items descending due to creation time
-          for (let number of timestampsArray) {
-            let itemIndex = items.findIndex(el => el.timestamp === number);
-            sortedItems.push(items[itemIndex]);
-          }
+          sortedItems = sortItems(timestampsArray, items);
         }
         dispatch(fetchItemsSuccess(sortedItems));
       })
@@ -275,7 +274,9 @@ export const newCollection = (token, partEmail, userId, collections, newCollecti
           ...newCollection,
           id: response.data.name
         };
-        const newCollections = collections.concat(updatedCollection);
+        const newCollections = [...collections];
+        // const newCollections = collections.concat(updatedCollection);
+        newCollections.unshift(updatedCollection);
         console.log(newCollections);
 
         dispatch(newCollectionSuccess(newCollections));

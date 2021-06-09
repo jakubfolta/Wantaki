@@ -1,8 +1,9 @@
 import React from 'react';
 import { ImFire } from 'react-icons/im';
 
-const Collection = props => (
+const ListCollection = props => (
   <div
+    id={props.id}
     tabIndex="0"
     className="collection"
     onClick={props.handleClick}>
@@ -10,9 +11,7 @@ const Collection = props => (
     <button className="collection_icon">
       <ImFire />
     </button>
-
-    {props.children}
   </div>
 )
 
-export default Collection;
+export default ListCollection;

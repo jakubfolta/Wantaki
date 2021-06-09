@@ -9,7 +9,8 @@ import Button from '../../components/UI/Button';
 import Spinner from '../../components/UI/Spinner';
 import ListItems from '../../components/ListItems/ListItems';
 import ListItem from '../../components/ListItems/ListItem/ListItem';
-import Collection from '../../components/Collection/Collection';
+import ListCollections from '../../components/ListCollections/ListCollections';
+import ListCollection from '../../components/ListCollections/ListCollection/ListCollection';
 import { FaArrowLeft, FaArrowRight, FaTimes } from 'react-icons/fa';
 import { AiFillFolderAdd } from 'react-icons/ai';
 
@@ -320,7 +321,7 @@ class Items extends Component {
   render() {
     const form = this.state.newItemForm;
     const formElements = [];
-    let items;
+    let items, collections;
 
     let error = this.props.error
       ? <div className="error">{this.props.error}</div>
@@ -385,7 +386,7 @@ class Items extends Component {
           type="text"
           name="name"
           onChange={this.onChangeHandler}
-          onKeyPress={this.submitCollectionInput}
+          onKeyPress={this.state.newCollectionFormIsValid ? this.submitCollectionInput : null}
           placeholder="My collection"
           value={this.state.newCollectionForm.name} />
       : <span className="create_description">{createButton}</span>;
@@ -453,8 +454,19 @@ class Items extends Component {
             clicked={this.switchTheme}
           >Theme materia</Button>
 
-
         </div> )
+// Create collections list
+    collections = (
+      <ListCollections>
+        {this.props.collections.map(el =>
+          <ListCollection
+            id={el.id}
+            key={el.id}
+            // handleClick={}
+            name={el.name}/>
+        )}
+      </ListCollections>
+    )
 
 // Create fetched items list
     if (this.props.loadingItems) {
@@ -462,11 +474,11 @@ class Items extends Component {
     } else if (this.props.items.length > 0) {
         items = (
           <ListItems>
-            <Collection
+            {/* <Collection
               // handleClick={this.switchCollectionForm}
               name={this.state.collectionName}>
 
-            </Collection>
+            </Collection> */}
             {this.props.items.map((el, index) =>
               <ListItem
                 id={el.id}
@@ -505,6 +517,7 @@ class Items extends Component {
           {newItemForm}
           {shareSection}
           {fetchingError}
+          {collections}
           {items}
         </section>
       </Fragment>
