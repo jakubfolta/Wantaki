@@ -275,9 +275,7 @@ export const newCollection = (token, partEmail, userId, collections, newCollecti
           id: response.data.name
         };
         const newCollections = [...collections];
-        // const newCollections = collections.concat(updatedCollection);
         newCollections.unshift(updatedCollection);
-        console.log(newCollections);
 
         dispatch(newCollectionSuccess(newCollections));
       })
