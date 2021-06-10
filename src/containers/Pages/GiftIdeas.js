@@ -11,7 +11,7 @@ class GiftIdeas extends Component {
   componentDidMount() {
     const user = this.props.location.search.split('=')[1];
 
-    this.props.onFetchItems(user);
+    this.props.onFetchData(user);
   }
 
   render() {
@@ -66,7 +66,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchItems: userName => dispatch(itemsActions.fetchItems(null, userName))
+    onFetchData: userName => dispatch(itemsActions.fetchData(null, userName))
   };
 }
 

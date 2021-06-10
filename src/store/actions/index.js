@@ -8,7 +8,7 @@ export {
 export {
   newItem,
   setInitialState,
-  fetchItems,
+  fetchData,
   deleteItem,
   setItemEditMode,
   updateItem,

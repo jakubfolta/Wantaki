@@ -36,7 +36,10 @@ const initError = (state, action) => {
 }
 
 const authLogout = (state, action) => {
-  return updateObject(state, { items: [] });
+  return updateObject(state, {
+    items: [],
+    collections: []
+  });
 }
 
 const initEditMode = (state, action) => {
@@ -44,21 +47,22 @@ const initEditMode = (state, action) => {
 }
 
 // Fetching items from firebase
-const fetchItemsStart = (state, action) => {
+const fetchDataStart = (state, action) => {
   return updateObject(state, {
     loadingItems: true,
     fetchingError: null
   });
 }
 
-const fetchItemsSuccess = (state, action) => {
+const fetchDataSuccess = (state, action) => {
   return updateObject(state, {
     loadingItems: false,
-    items: action.items
+    items: action.items,
+    collections: action.collections
   });
 }
 
-const fetchItemsFail = (state, action) => {
+const fetchDataFail = (state, action) => {
   return updateObject(state, {
     loadingItems: false,
     fetchingError: action.error
@@ -149,9 +153,9 @@ const reducer = (state = initialState, action) => {
 
     case actions.AUTH_LOGOUT: return authLogout(state, action);
 
-    case actions.FETCH_ITEMS_START: return fetchItemsStart(state, action);
-    case actions.FETCH_ITEMS_SUCCESS: return fetchItemsSuccess(state, action);
-    case actions.FETCH_ITEMS_FAIL: return fetchItemsFail(state, action);
+    case actions.FETCH_DATA_START: return fetchDataStart(state, action);
+    case actions.FETCH_DATA_SUCCESS: return fetchDataSuccess(state, action);
+    case actions.FETCH_DATA_FAIL: return fetchDataFail(state, action);
 
     case actions.DELETE_ITEM_START: return deleteItemStart(state, action);
     case actions.DELETE_ITEM_SUCCESS: return deleteItemSuccess(state, action);

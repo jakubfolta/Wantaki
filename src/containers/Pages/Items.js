@@ -11,7 +11,7 @@ import ListItems from '../../components/ListItems/ListItems';
 import ListItem from '../../components/ListItems/ListItem/ListItem';
 import ListCollections from '../../components/ListCollections/ListCollections';
 import ListCollection from '../../components/ListCollections/ListCollection/ListCollection';
-import { FaArrowLeft, FaArrowRight, FaTimes } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { AiFillFolderAdd } from 'react-icons/ai';
 
 class Items extends Component {
@@ -67,7 +67,7 @@ class Items extends Component {
 
 // Fetch items from firebase only when there are none in redux state
     if (!this.props.items.length > 0) {
-      this.props.onFetchItems(this.props.userId, this.props.partEmail);
+      this.props.onFetchData(this.props.userId, this.props.partEmail);
     } else { return }
   }
 
@@ -544,7 +544,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token)),
     onSetInitialState: (error, items) => dispatch(itemsActions.setInitialState(error, items)),
-    onFetchItems: (userId, partEmail) => dispatch(itemsActions.fetchItems(userId, null, partEmail)),
+    onFetchData: (userId, partEmail) => dispatch(itemsActions.fetchData(userId, null, partEmail)),
     onDeleteItem: (id, token, items, partEmail, userId) => dispatch(itemsActions.deleteItem(id, token, items, partEmail, userId)),
     onSetItemEditMode: (id, items) => dispatch(itemsActions.setItemEditMode(id, items)),
     onUpdateItem: (updatedItem, updatedItems, updatedItemId, token, partEmail, userId) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token, partEmail, userId)),

@@ -1,13 +1,33 @@
-.collection {
+.list_collection {
   position: relative;
+  justify-content: space-between;
   background-color: var(--color-primary);
   padding: 1rem 2rem;
+
+  &:not(:first-of-type) { margin-top: 1rem; }
+
+  @include respond(tab-land) {
+    margin: 0 1rem 1rem 1rem;
+    flex: 1 0 48%;
+
+    &:nth-of-type(odd) {margin: 0 1rem 1rem 0}
+    &:last-of-type {
+      flex: 0 0 48%;
+      margin: 1rem 0 0;
+    }
+
+    &:nth-of-type(even) {
+      flex: 1 0 48%;
+      margin: 0 0 1rem 1rem
+    }
+  }
 
   &:focus,
   &:active,
   &:hover {
     color: black;
     outline: none;
+    cursor: pointer;
   }
 
   &_name { letter-spacing: .3rem; }
@@ -20,6 +40,12 @@
     background-color: transparent;
     border: none;
 
-    &:hover { color: $color-warning; }
+    &:focus,
+    &:active,
+    &:hover {
+      color: $color-warning;
+      outline: none;
+      cursor: pointer;
+    }
   }
 }

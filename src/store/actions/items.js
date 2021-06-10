@@ -79,29 +79,30 @@ export const newItem = (item, token) => {
 }
 
 // Fetching items from firebase
-export const fetchItemsStart = () => {
+export const fetchDataStart = () => {
   return {
-    type: actions.FETCH_ITEMS_START
+    type: actions.FETCH_DATA_START
   };
 }
 
-export const fetchItemsSuccess = items => {
+export const fetchDataSuccess = (items, collections) => {
   return {
-    type: actions.FETCH_ITEMS_SUCCESS,
-    items: items
+    type: actions.FETCH_DATA_SUCCESS,
+    items: items,
+    collections: collections
   };
 }
 
-export const fetchItemsFail = error => {
+export const fetchDataFail = error => {
   return {
-    type: actions.FETCH_ITEMS_FAIL,
+    type: actions.FETCH_DATA_FAIL,
     error: error
   };
 }
 
-export const fetchItems = (userId, user, partEmail) => {
+export const fetchData = (userId, user, partEmail) => {
   return dispatch => {
-    dispatch(fetchItemsStart());
+    dispatch(fetchDataStart());
 
     const url = user
       ? 'https://what-i-desire-default-rtdb.firebaseio.com/users.json?orderBy="uuid"&equalTo="' + user + '"'
@@ -110,9 +111,13 @@ export const fetchItems = (userId, user, partEmail) => {
     axios.get(url)
       .then(response => {
         let items = [];
-        let timestampsArray = [];
+        let collections = [];
+        let itemsTimestampsArray = [];
+        let collectionsTimestampsArray = [];
         let sortedItems = [];
+        let sortedCollections = [];
         let data = response.data;
+        console.log(response);
 
         // Get the same directory as when signing in - fetching items list through gift ideas page for not authenticated user
         if (user) {
@@ -123,24 +128,34 @@ export const fetchItems = (userId, user, partEmail) => {
         }
 
         if (data) {
+          console.log(data);
           for (let el in data.items) {
             items.push({
               ...data.items[el],
               id: el
-            })
-            timestampsArray.push(data.items[el].timestamp);
+            });
+            itemsTimestampsArray.push(data.items[el].timestamp);
           }
-          timestampsArray.sort().reverse();
+          for (let el in data.collections) {
+            collections.push({
+              ...data.collections[el],
+              id: el
+            });
+            collectionsTimestampsArray.push(data.collections[el].timestamp);
+          }
+          itemsTimestampsArray.sort().reverse();
+          collectionsTimestampsArray.sort().reverse();
 
           // Sort items descending due to creation time
-          sortedItems = sortItems(timestampsArray, items);
+          sortedItems = sortItems(itemsTimestampsArray, items);
+          sortedCollections = sortItems(collectionsTimestampsArray, collections);
         }
-        dispatch(fetchItemsSuccess(sortedItems));
+        dispatch(fetchDataSuccess(sortedItems, sortedCollections));
       })
 
       .catch(error => {
         const errMessage = error.response.data.error;
-        dispatch(fetchItemsFail(errMessage));
+        dispatch(fetchDataFail(errMessage));
       })
   };
 }
