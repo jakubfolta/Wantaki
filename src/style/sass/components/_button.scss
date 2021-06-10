@@ -197,7 +197,7 @@
 
   &:not(:disabled):hover .button_glitch,
   &:not(:disabled):focus .button_glitch,
-  &:not(:disabled) .button_glitch {
+  &:not(:disabled).create .button_glitch {
     display: block;
     animation: glitch-effect 2s infinite;
   }
