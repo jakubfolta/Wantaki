@@ -73,7 +73,7 @@ class Items extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.loading) {
-      this.props.onFetchItems(this.props.userId, this.props.partEmail);
+      this.props.onFetchData(this.props.userId, this.props.partEmail);
     }
     if (prevProps.items.length !== this.props.items.length && this.state.editMode) {
       this.checkEditState();
