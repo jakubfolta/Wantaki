@@ -105,11 +105,6 @@ export const fetchData = (userId, user, partEmail) => {
   return dispatch => {
     dispatch(fetchDataStart());
 
-    // const url = user
-    //   ? 'https://what-i-desire-default-rtdb.firebaseio.com/users.json?orderBy="uuid"&equalTo="' + user + '"'
-    //   : 'https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '.json';
-    //
-    // axios.get(url)
     fetchUserData(user, partEmail, userId)
       .then(response => {
         let items = [];
