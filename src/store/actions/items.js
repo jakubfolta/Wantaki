@@ -1,5 +1,6 @@
 import * as actions from './actionTypes';
 import axios from 'axios';
+import { addItem, deleteUserItem } from '../../network/lib/items';
 
 import { sortItems } from '../../shared/utility';
 
@@ -66,7 +67,7 @@ export const newItem = (item, token) => {
   return dispatch => {
     dispatch(newItemStart());
 
-    axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/' + item.partEmail + item.userId + '/items.json?auth=' + token, item)
+    addItem(item, token)
       .then(response => {
         dispatch(newItemSuccess());
       })
@@ -187,7 +188,7 @@ export const deleteItem = (id, token, items, partEmail, userId) => {
 
     const queryParams = id + '.json?auth=' + token;
 
-    axios.delete('https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '/items/' + queryParams)
+    deleteUserItem(partEmail, userId, queryParams)
       .then(response => {
         items = items.filter(el => el.id !== id);
         dispatch(deleteItemSuccess(items));

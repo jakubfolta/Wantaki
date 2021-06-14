@@ -106,7 +106,6 @@ export const setUserData = (type, token, userId, email) => {
       }
 
       setUserUuid(emailUserId, token, user)
-      // axios.put('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '.json?auth=' + token, user)
         .then(response => {
           localStorage.setItem('user', JSON.stringify(user));
 
@@ -121,7 +120,6 @@ export const setUserData = (type, token, userId, email) => {
     // Fetching uuid when signing in
     } else {
       getUserUuid(emailUserId, token)
-      // axios.get('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '.json?auth=' + token)
         .then(response => {
             user = {
               uuid: response.data.uuid
