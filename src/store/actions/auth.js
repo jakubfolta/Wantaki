@@ -1,5 +1,6 @@
 import * as actions from './actionTypes';
 import axios from 'axios';
+import { setUserUuid, getUserUuid } from '../../network/lib/user';
 
 export const authStart = () => {
   return {
@@ -104,7 +105,8 @@ export const setUserData = (type, token, userId, email) => {
         uuid: setUuid(userId)
       }
 
-      axios.put('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '.json?auth=' + token, user)
+      setUserUuid(emailUserId, token, user)
+      // axios.put('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '.json?auth=' + token, user)
         .then(response => {
           localStorage.setItem('user', JSON.stringify(user));
 
@@ -118,10 +120,11 @@ export const setUserData = (type, token, userId, email) => {
 
     // Fetching uuid when signing in
     } else {
-      axios.get('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '.json?auth=' + token)
+      getUserUuid(emailUserId, token)
+      // axios.get('https://what-i-desire-default-rtdb.firebaseio.com/users/' + emailUserId + '.json?auth=' + token)
         .then(response => {
             user = {
-              ...response.data
+              uuid: response.data.uuid
             }
 
           localStorage.setItem('user', JSON.stringify(user));

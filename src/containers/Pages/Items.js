@@ -66,7 +66,7 @@ class Items extends Component {
     this.checkTheme();
 
 // Fetch items from firebase only when there are none in redux state
-    if (!this.props.items.length > 0) {
+    if (!this.props.items.length > 0 && !this.props.collections.length > 0) {
       this.props.onFetchData(this.props.userId, this.props.partEmail);
     } else { return }
   }
@@ -474,11 +474,7 @@ class Items extends Component {
     } else if (this.props.items.length > 0) {
         items = (
           <ListItems>
-            {/* <Collection
-              // handleClick={this.switchCollectionForm}
-              name={this.state.collectionName}>
 
-            </Collection> */}
             {this.props.items.map((el, index) =>
               <ListItem
                 id={el.id}
@@ -499,10 +495,10 @@ class Items extends Component {
                         ? (e) => this.onCancelEditHandler(e, el.id)
                         : (e) => this.onEditItemHandler(e, el.id)}>
                         {!this.props.items[index].editMode ? 'Edit' : 'Cancel'}</Button>
-
                 </div>
               </ListItem>
             )}
+
           </ListItems>
         );
     } else {
