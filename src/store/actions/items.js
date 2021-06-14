@@ -1,6 +1,6 @@
 import * as actions from './actionTypes';
 import axios from 'axios';
-import { addItem, deleteUserItem } from '../../network/lib/items';
+import { addItem, fetchUserData, deleteUserItem, updateUserItem } from '../../network/lib/items';
 
 import { sortItems } from '../../shared/utility';
 
@@ -105,11 +105,12 @@ export const fetchData = (userId, user, partEmail) => {
   return dispatch => {
     dispatch(fetchDataStart());
 
-    const url = user
-      ? 'https://what-i-desire-default-rtdb.firebaseio.com/users.json?orderBy="uuid"&equalTo="' + user + '"'
-      : 'https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '.json';
-
-    axios.get(url)
+    // const url = user
+    //   ? 'https://what-i-desire-default-rtdb.firebaseio.com/users.json?orderBy="uuid"&equalTo="' + user + '"'
+    //   : 'https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '.json';
+    //
+    // axios.get(url)
+    fetchUserData(user, partEmail, userId)
       .then(response => {
         let items = [];
         let collections = [];
@@ -248,7 +249,7 @@ export const updateItem = (item, items, updatedItemId, token, partEmail, userId)
 
     const queryParams = updatedItemId + '.json?auth=' + token;
 
-    axios.put('https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '/items/' + queryParams, item)
+    updateUserItem(partEmail, userId, queryParams, item)
       .then(response => {
         dispatch(updateItemSuccess(items));
       })
