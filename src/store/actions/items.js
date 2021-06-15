@@ -1,5 +1,4 @@
 import * as actions from './actionTypes';
-import axios from 'axios';
 import { addItem, fetchUserData, deleteUserItem, updateUserItem, addCollection } from '../../network/lib/items';
 
 import { sortItems } from '../../shared/utility';
@@ -101,55 +100,60 @@ export const fetchDataFail = error => {
   };
 }
 
+export const setData = (user, response) => {
+  let items = [];
+  let collections = [];
+  let itemsTimestampsArray = [];
+  let collectionsTimestampsArray = [];
+  let data = response.data;
+
+  // Get the same directory as when signing in - fetching items list through gift ideas page for not authenticated user
+  if (user) {
+    for (let el in data) {
+      data = data[el];
+      break
+    }
+  }
+
+  if (data) {
+    for (let el in data.items) {
+      items.push({
+        ...data.items[el],
+        id: el
+      });
+      itemsTimestampsArray.push(data.items[el].timestamp);
+    }
+    for (let el in data.collections) {
+      collections.push({
+        ...data.collections[el],
+        id: el
+      });
+      collectionsTimestampsArray.push(data.collections[el].timestamp);
+    }
+    itemsTimestampsArray.sort().reverse();
+    collectionsTimestampsArray.sort().reverse();
+
+    // Sort items descending due to creation time
+    items = sortItems(itemsTimestampsArray, items);
+    collections = sortItems(collectionsTimestampsArray, collections);
+
+    return {
+      items,
+      collections
+    };
+  }
+}
+
 export const fetchData = (userId, user, partEmail) => {
   return dispatch => {
     dispatch(fetchDataStart());
 
     fetchUserData(user, partEmail, userId)
       .then(response => {
-        let items = [];
-        let collections = [];
-        let itemsTimestampsArray = [];
-        let collectionsTimestampsArray = [];
-        let sortedItems = [];
-        let sortedCollections = [];
-        let data = response.data;
-        console.log(response);
+        const { items, collections } = setData(user, response);
 
-        // Get the same directory as when signing in - fetching items list through gift ideas page for not authenticated user
-        if (user) {
-          for (let el in data) {
-            data = data[el];
-            break
-          }
-        }
-
-        if (data) {
-          console.log(data);
-          for (let el in data.items) {
-            items.push({
-              ...data.items[el],
-              id: el
-            });
-            itemsTimestampsArray.push(data.items[el].timestamp);
-          }
-          for (let el in data.collections) {
-            collections.push({
-              ...data.collections[el],
-              id: el
-            });
-            collectionsTimestampsArray.push(data.collections[el].timestamp);
-          }
-          itemsTimestampsArray.sort().reverse();
-          collectionsTimestampsArray.sort().reverse();
-
-          // Sort items descending due to creation time
-          sortedItems = sortItems(itemsTimestampsArray, items);
-          sortedCollections = sortItems(collectionsTimestampsArray, collections);
-        }
-        dispatch(fetchDataSuccess(sortedItems, sortedCollections));
+        dispatch(fetchDataSuccess(items, collections));
       })
-
       .catch(error => {
         const errMessage = error.response.data.error;
         dispatch(fetchDataFail(errMessage));
