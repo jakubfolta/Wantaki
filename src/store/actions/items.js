@@ -280,7 +280,7 @@ export const newCollection = (token, partEmail, userId, collections, newCollecti
   return dispatch => {
     dispatch(newCollectionStart());
 
-    axios.post('https://what-i-desire-default-rtdb.firebaseio.com/users/' + partEmail + userId + '/collections.json?auth=' + token, newCollection)
+    addCollection(partEmail, userId, token, newCollection)
       .then(response => {
         const updatedCollection = {
           ...newCollection,
