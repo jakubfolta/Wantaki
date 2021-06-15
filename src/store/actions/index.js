@@ -12,5 +12,6 @@ export {
   deleteItem,
   setItemEditMode,
   updateItem,
-  newCollection
+  newCollection,
+  deleteCollection
 } from './items';

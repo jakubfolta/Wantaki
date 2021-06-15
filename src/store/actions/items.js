@@ -1,5 +1,5 @@
 import * as actions from './actionTypes';
-import { addItem, fetchUserData, deleteUserItem, updateUserItem, addCollection } from '../../network/lib/items';
+import { addItem, fetchUserData, deleteUserItem, updateUserItem, addCollection, deleteUserCollection } from '../../network/lib/items';
 
 import { sortItems } from '../../shared/utility';
 
@@ -298,6 +298,47 @@ export const newCollection = (token, partEmail, userId, collections, newCollecti
       .catch(error => {
         const errorMessage = error.response.data.error;
         dispatch(newCollectionFail(errorMessage));
+      })
+  };
+}
+
+// Delete collection from redux and firebase
+export const deleteCollectionStart = () => {
+  return {
+    type: actions.DELETE_COLLECTION_START
+  };
+}
+
+export const deleteCollectionSuccess = collections => {
+  return {
+    type: actions.DELETE_COLLECTION_SUCCESS,
+    collections: collections
+  };
+}
+
+export const deleteCollectionFail = error => {
+  return {
+    type: actions.DELETE_COLLECTION_FAIL,
+    error: error
+  };
+}
+
+export const deleteCollection = (partEmail, userId, token, id, collections) => {
+  return dispatch => {
+    dispatch(deleteCollectionStart());
+
+    const queryParams = id +'.json?auth=' + token;
+
+    deleteUserCollection(partEmail, userId, queryParams)
+      .then(response => {
+        const updatedCollections = collections.filter(el => el.id !== id);
+        console.log(updatedCollections);
+        dispatch(deleteCollectionSuccess(updatedCollections));
+
+      })
+      .catch(error => {
+        const errorMessage = error.response.data.error;
+        dispatch(deleteCollectionFail(errorMessage));
       })
   };
 }

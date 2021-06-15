@@ -318,6 +318,10 @@ class Items extends Component {
     }, 2000)
   }
 
+  onDeleteCollectionHandler = id => {
+    this.props.onDeleteCollection(this.props.partEmail, this.props.userId, this.props.token, id, this.props.collections);
+  }
+
   render() {
     const form = this.state.newItemForm;
     const formElements = [];
@@ -456,17 +460,20 @@ class Items extends Component {
 
         </div> )
 // Create collections list
-    collections = (
-      <ListCollections>
-        {this.props.collections.map(el =>
-          <ListCollection
-            id={el.id}
-            key={el.id}
-            // handleClick={}
-            name={el.name}/>
-        )}
-      </ListCollections>
-    )
+    collections = this.props.loadingCollections
+      ? <Spinner />
+      : <ListCollections>
+
+          {this.props.collections.map(el =>
+            <ListCollection
+              id={el.id}
+              key={el.id}
+              // handleClick={}
+              handleDelete={() => this.onDeleteCollectionHandler(el.id)}
+              name={el.name}/>
+          )}
+
+        </ListCollections>
 
 // Create fetched items list
     if (this.props.loadingItems) {
@@ -529,6 +536,7 @@ const mapStateToProps = (state, ownProps) => {
     fetchingError: state.items.fetchingError,
     loading: state.items.loading,
     loadingItems: state.items.loadingItems,
+    loadingCollections: state.items.loadingCollections,
     token: state.auth.token,
     userId: state.auth.userId,
     uuid: state.auth.user.uuid,
@@ -544,7 +552,8 @@ const mapDispatchToProps = dispatch => {
     onDeleteItem: (id, token, items, partEmail, userId) => dispatch(itemsActions.deleteItem(id, token, items, partEmail, userId)),
     onSetItemEditMode: (id, items) => dispatch(itemsActions.setItemEditMode(id, items)),
     onUpdateItem: (updatedItem, updatedItems, updatedItemId, token, partEmail, userId) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token, partEmail, userId)),
-    onAddNewCollection: (token, partEmail, userId, collections, newCollection) => dispatch(itemsActions.newCollection(token, partEmail, userId, collections, newCollection))
+    onAddNewCollection: (token, partEmail, userId, collections, newCollection) => dispatch(itemsActions.newCollection(token, partEmail, userId, collections, newCollection)),
+    onDeleteCollection: (partEmail, userId, token, id, collections) => dispatch(itemsActions.deleteCollection(partEmail, userId, token, id, collections))
   };
 }
 

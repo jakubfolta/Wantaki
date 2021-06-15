@@ -8,7 +8,9 @@ const ListCollection = props => (
     className="list_collection"
     onClick={props.handleClick}>
     <h2 className="list_collection_name">{props.name}</h2>
-    <button className="list_collection_icon">
+    <button
+      className="list_collection_icon"
+      onClick={props.handleDelete}>
       <FaTimes />
     </button>
   </div>

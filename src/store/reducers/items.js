@@ -7,7 +7,7 @@ const initialState = {
   error: null,
   fetchingError: null,
   loading: false,
-  loadingCollection: false,
+  loadingCollections: false,
   collectionError: null,
   loadingItems: false
 };
@@ -125,21 +125,42 @@ const setUserDataFail = (state, action) => {
 
 const newCollectionStart = (state, action) => {
   return updateObject(state, {
-    loadingCollection: true,
+    loadingCollections: true,
     collectionError: null
   });
 }
 
 const newCollectionSuccess = (state, action) => {
   return updateObject(state, {
-    loadingCollection: false,
+    loadingCollections: false,
     collections: action.collections
   });
 }
 
 const newCollectionFail = (state, action) => {
   return updateObject(state, {
-    loadingCollection: false,
+    loadingCollections: false,
+    collectionError: action.error
+  });
+}
+
+const deleteCollectionStart = (state, action) => {
+  return updateObject(state, {
+    loadingCollections: true,
+    collectionError: null
+  });
+}
+
+const deleteCollectionSuccess = (state, action) => {
+  return updateObject(state, {
+    loadingCollections: false,
+    collections: action.collections
+  });
+}
+
+const deleteCollectionFail = (state, action) => {
+  return updateObject(state, {
+    loadingCollections: false,
     collectionError: action.error
   });
 }
@@ -173,6 +194,10 @@ const reducer = (state = initialState, action) => {
     case actions.NEW_COLLECTION_START: return newCollectionStart(state, action);
     case actions.NEW_COLLECTION_SUCCESS: return newCollectionSuccess(state, action);
     case actions.NEW_COLLECTION_FAIL: return newCollectionFail(state, action);
+
+    case actions.DELETE_COLLECTION_START: return deleteCollectionStart(state, action);
+    case actions.DELETE_COLLECTION_SUCCESS: return deleteCollectionSuccess(state, action);
+    case actions.DELETE_COLLECTION_FAIL: return deleteCollectionFail(state, action);
     default: return state;
   }
 }
