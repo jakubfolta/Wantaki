@@ -1,6 +1,6 @@
 import * as actions from './actionTypes';
 import axios from 'axios';
-import { addItem, fetchUserData, deleteUserItem, updateUserItem } from '../../network/lib/items';
+import { addItem, fetchUserData, deleteUserItem, updateUserItem, addCollection } from '../../network/lib/items';
 
 import { sortItems } from '../../shared/utility';
 

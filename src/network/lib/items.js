@@ -19,3 +19,7 @@ export const fetchUserData = (user, partEmail, userId) => {
 
     return axiosClient.get(url);
 }
+
+export const addCollection = (partEmail, userId, token, newCollection) => {
+  return axiosClient.post(partEmail + userId + '/collections.json?auth=' + token, newCollection);
+}
