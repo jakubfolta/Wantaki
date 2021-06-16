@@ -34,7 +34,6 @@
 
   &_icon {
     position: absolute;
-    top: 0;
     right: 0;
     padding: .5rem;
     background-color: transparent;
@@ -43,9 +42,23 @@
     &:focus,
     &:active,
     &:hover {
-      color: $color-warning;
+      color: $color-white;
       outline: none;
       cursor: pointer;
+    }
+
+    &--edit { bottom: 0; }
+    &--add {
+      font-size: 2rem;
+      left: 0;
+      bottom: 0;
+    }
+    &--delete {
+      top: 0;
+
+      &:focus,
+      &:active,
+      &:hover { color: $color-warning; }
     }
   }
 }

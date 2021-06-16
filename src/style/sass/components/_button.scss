@@ -201,6 +201,13 @@
     display: block;
     animation: glitch-effect 2s infinite;
   }
+  
+  @media only screen and (hover:none) {
+    &[type="submit"]:not(:disabled) .button_glitch {
+      display: block;
+      animation: glitch-effect 2s infinite;
+    }
+  }
 }
 
 
