@@ -470,6 +470,7 @@ class Items extends Component {
               key={el.id}
               // handleClick={}
               handleDelete={() => this.onDeleteCollectionHandler(el.id)}
+              // handleCopy={() => this.onCopyCollectionHandler(el.id)}
               name={el.name}/>
           )}
 

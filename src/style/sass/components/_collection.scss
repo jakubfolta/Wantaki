@@ -1,8 +1,9 @@
 .list_collection {
-  position: relative;
+  display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: var(--color-primary);
-  padding: 1rem 2rem;
+  padding: 1rem .5rem;
 
   &:not(:first-of-type) { margin-top: 1rem; }
 
@@ -30,12 +31,17 @@
     cursor: pointer;
   }
 
-  &_name { letter-spacing: .3rem; }
+  &_name {
+    flex: 1 1 50%;
+    letter-spacing: .3rem;
+  }
 
-  &_icon {
-    position: absolute;
-    right: 0;
-    padding: .5rem;
+  &_button {
+    display: flex;
+    // justify-content: center;
+    flex: 1 1 0;
+    font-size: 1.5rem;
+    font-family: inherit;
     background-color: transparent;
     border: none;
 
@@ -47,18 +53,10 @@
       cursor: pointer;
     }
 
-    &--edit { bottom: 0; }
-    &--add {
-      font-size: 2rem;
-      left: 0;
-      bottom: 0;
-    }
-    &--delete {
-      top: 0;
-
-      &:focus,
-      &:active,
-      &:hover { color: $color-warning; }
+    &--add { font-size: 3.5rem; }
+    &--copy {
+      background-color: $color-white;
+      padding: .5rem 1rem;
     }
   }
 }
