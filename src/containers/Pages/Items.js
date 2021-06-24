@@ -459,6 +459,7 @@ class Items extends Component {
           >Theme materia</Button>
 
         </div> )
+
 // Create collections list
     collections = this.props.loadingCollections
       ? <Spinner />
