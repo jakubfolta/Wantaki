@@ -9,10 +9,9 @@ import Button from '../../components/UI/Button';
 import Spinner from '../../components/UI/Spinner';
 import ListItems from '../../components/ListItems/ListItems';
 import ListItem from '../../components/ListItems/ListItem/ListItem';
+import ShareSection from '../ShareSection/ShareSection';
 import ListCollections from '../../components/ListCollections/ListCollections';
 import ListCollection from '../../components/ListCollections/ListCollection/ListCollection';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { AiFillFolderAdd } from 'react-icons/ai';
 
 class Items extends Component {
   state = {
@@ -233,22 +232,22 @@ class Items extends Component {
     }
   }
 
-// Copy link to item's list
-  copyLink = () => {
-    const baseURL = window.location.href.split(this.props.match.url)[0];
-
-    navigator.clipboard.writeText(baseURL + "/giftideas?user=" + this.props.uuid)
-      .then(() => {
-      this.setState({linkCopied: true});
-      setTimeout(() => {
-        this.setState({linkCopied: false});
-        document.getElementById('copy').blur();
-      }, 3000)
-    })
-      .catch(error => {
-        alert(error);
-      })
-  }
+// // Copy link to item's list
+//   copyLink = () => {
+//     const baseURL = window.location.href.split(this.props.match.url)[0];
+//
+//     navigator.clipboard.writeText(baseURL + "/giftideas?user=" + this.props.uuid)
+//       .then(() => {
+//       this.setState({linkCopied: true});
+//       setTimeout(() => {
+//         this.setState({linkCopied: false});
+//         document.getElementById('copy').blur();
+//       }, 3000)
+//     })
+//       .catch(error => {
+//         alert(error);
+//       })
+//   }
 
 // THEME CHANGE METHODS //
   switchTheme = e => {
@@ -270,57 +269,57 @@ class Items extends Component {
   }
 
 // COLLECTION METHODS //
-  switchCollectionForm = () => {
-    if (this.state.collectionFormVisible) {
-      const defaultForm = updateObject(this.state.newCollectionForm, {
-        name: '',
-        valid: false
-      });
-
-      this.setState(prevState => {
-        return {
-          collectionFormVisible: !prevState.collectionFormVisible,
-          newCollectionForm: defaultForm,
-          collectionCreated: !prevState.collectionCreated
-        };
-      })
-    } else {
-      this.setState(prevState => {
-        return {
-          collectionFormVisible: !prevState.collectionFormVisible,
-          newCollectionFormIsValid: !prevState.newCollectionFormIsValid
-        };
-      })
-
-      setTimeout(() => {
-        document.querySelector('.create_input').focus();
-      }, 500)
-    }
-  }
-
-  submitCollectionInput = e => {
-    if (e.key === 'Enter') {
-      this.onCreateNewCollectionHandler();
-    }
-  }
-
-  onCreateNewCollectionHandler = () => {
-    const collection = {
-      name: this.state.newCollectionForm.name,
-      timestamp: Date.now()
-    };
-
-    this.props.onAddNewCollection(this.props.token, this.props.partEmail, this.props.userId, this.props.collections, collection);
-    this.setState({collectionCreated: true});
-    setTimeout(() => {
-      this.switchCollectionForm();
-      document.getElementById('create').blur();
-    }, 2000)
-  }
-
-  onDeleteCollectionHandler = id => {
-    this.props.onDeleteCollection(this.props.partEmail, this.props.userId, this.props.token, id, this.props.collections);
-  }
+  // switchCollectionForm = () => {
+  //   if (this.state.collectionFormVisible) {
+  //     const defaultForm = updateObject(this.state.newCollectionForm, {
+  //       name: '',
+  //       valid: false
+  //     });
+  //
+  //     this.setState(prevState => {
+  //       return {
+  //         collectionFormVisible: !prevState.collectionFormVisible,
+  //         newCollectionForm: defaultForm,
+  //         collectionCreated: !prevState.collectionCreated
+  //       };
+  //     })
+  //   } else {
+  //     this.setState(prevState => {
+  //       return {
+  //         collectionFormVisible: !prevState.collectionFormVisible,
+  //         newCollectionFormIsValid: !prevState.newCollectionFormIsValid
+  //       };
+  //     })
+  //
+  //     setTimeout(() => {
+  //       document.querySelector('.create_input').focus();
+  //     }, 500)
+  //   }
+  // }
+  //
+  // submitCollectionInput = e => {
+  //   if (e.key === 'Enter') {
+  //     this.onCreateNewCollectionHandler();
+  //   }
+  // }
+  //
+  // onCreateNewCollectionHandler = () => {
+  //   const collection = {
+  //     name: this.state.newCollectionForm.name,
+  //     timestamp: Date.now()
+  //   };
+  //
+  //   this.props.onAddNewCollection(this.props.token, this.props.partEmail, this.props.userId, this.props.collections, collection);
+  //   this.setState({collectionCreated: true});
+  //   setTimeout(() => {
+  //     this.switchCollectionForm();
+  //     document.getElementById('create').blur();
+  //   }, 2000)
+  // }
+  //
+  // onDeleteCollectionHandler = id => {
+  //   this.props.onDeleteCollection(this.props.partEmail, this.props.userId, this.props.token, id, this.props.collections);
+  // }
 
   render() {
     const form = this.state.newItemForm;
@@ -376,89 +375,89 @@ class Items extends Component {
 
 
 // Create "share" section
-    let copyButton = this.state.theme === 'cyber'
-      ? 'Your list\'s link_'
-      : 'Your list\'s link';
-
-    let createButton = this.state.theme === 'cyber'
-      ? 'New collection_'
-      : 'New collection';
-
-    let createBtnTop = this.state.collectionFormVisible
-      ? <input
-          className="create_input"
-          type="text"
-          name="name"
-          onChange={this.onChangeHandler}
-          onKeyPress={this.state.newCollectionFormIsValid ? this.submitCollectionInput : null}
-          placeholder="My collection"
-          value={this.state.newCollectionForm.name} />
-      : <span className="create_description">{createButton}</span>;
-
-    let copyGlitch = this.state.linkCopied
-      ? <span className="button_glitch"></span>
-      : null;
-
-    let collectionGlitch = this.state.collectionCreated
-      ? <span className="button_glitch"></span>
-      : null;
-
-    const shareSection =
-      ( <div className="share-section">
-
-          <Button
-            type="button"
-            id="copy"
-            clicked={this.copyLink}
-            btnType="copy">
-            <span className="copy_description">{copyButton}</span>
-            <span className="copy_action">
-              {copyGlitch}
-              <FaArrowRight />
-              {this.state.linkCopied ? 'Copied' : 'Copy now'}
-              <FaArrowLeft />
-            </span>
-            <span className="button_label">W25</span></Button>
-
-          <Button
-            type="button"
-            id="create"
-            disabled={!this.state.newCollectionFormIsValid}
-            clicked={this.state.collectionFormVisible
-              ? null
-              : this.switchCollectionForm}
-            btnType="create">
-              {createBtnTop}
-              <span
-                className="create_action"
-                onClick={this.state.collectionFormVisible && this.state.newCollectionFormIsValid ? this.onCreateNewCollectionHandler : null}
-                >
-                {collectionGlitch}
-                <AiFillFolderAdd />
-                {this.state.collectionCreated
-                  ? 'Created'
-                  : this.state.collectionFormVisible ? 'Create' : 'Start'
-                }
-                <AiFillFolderAdd />
-              </span>
-              <span className="button_label">W26</span></Button>
-
-          <Button
-            dataTheme="default"
-            clicked={this.switchTheme}
-          >Theme default</Button>
-
-          <Button
-            dataTheme="cyber"
-            clicked={this.switchTheme}
-          >Theme cyber</Button>
-
-          <Button
-            dataTheme="materia"
-            clicked={this.switchTheme}
-          >Theme materia</Button>
-
-        </div> )
+    // let copyButton = this.state.theme === 'cyber'
+    //   ? 'Your list\'s link_'
+    //   : 'Your list\'s link';
+    //
+    // let createButton = this.state.theme === 'cyber'
+    //   ? 'New collection_'
+    //   : 'New collection';
+    //
+    // let createBtnTop = this.state.collectionFormVisible
+    //   ? <input
+    //       className="create_input"
+    //       type="text"
+    //       name="name"
+    //       onChange={this.onChangeHandler}
+    //       onKeyPress={this.state.newCollectionFormIsValid ? this.submitCollectionInput : null}
+    //       placeholder="My collection"
+    //       value={this.state.newCollectionForm.name} />
+    //   : <span className="create_description">{createButton}</span>;
+    //
+    // let copyGlitch = this.state.linkCopied
+    //   ? <span className="button_glitch"></span>
+    //   : null;
+    //
+    // let collectionGlitch = this.state.collectionCreated
+    //   ? <span className="button_glitch"></span>
+    //   : null;
+    //
+    // const shareSection =
+    //   ( <div className="share-section">
+    //
+    //       <Button
+    //         type="button"
+    //         id="copy"
+    //         clicked={this.copyLink}
+    //         btnType="copy">
+    //         <span className="copy_description">{copyButton}</span>
+    //         <span className="copy_action">
+    //           {copyGlitch}
+    //           <FaArrowRight />
+    //           {this.state.linkCopied ? 'Copied' : 'Copy now'}
+    //           <FaArrowLeft />
+    //         </span>
+    //         <span className="button_label">W25</span></Button>
+    //
+    //       <Button
+    //         type="button"
+    //         id="create"
+    //         disabled={!this.state.newCollectionFormIsValid}
+    //         clicked={this.state.collectionFormVisible
+    //           ? null
+    //           : this.switchCollectionForm}
+    //         btnType="create">
+    //           {createBtnTop}
+    //           <span
+    //             className="create_action"
+    //             onClick={this.state.collectionFormVisible && this.state.newCollectionFormIsValid ? this.onCreateNewCollectionHandler : null}
+    //             >
+    //             {collectionGlitch}
+    //             <AiFillFolderAdd />
+    //             {this.state.collectionCreated
+    //               ? 'Created'
+    //               : this.state.collectionFormVisible ? 'Create' : 'Start'
+    //             }
+    //             <AiFillFolderAdd />
+    //           </span>
+    //           <span className="button_label">W26</span></Button>
+    //
+    //       <Button
+    //         dataTheme="default"
+    //         clicked={this.switchTheme}
+    //       >Theme default</Button>
+    //
+    //       <Button
+    //         dataTheme="cyber"
+    //         clicked={this.switchTheme}
+    //       >Theme cyber</Button>
+    //
+    //       <Button
+    //         dataTheme="materia"
+    //         clicked={this.switchTheme}
+    //       >Theme materia</Button>
+    //
+    //     </div> )
 
 // Create collections list
     collections = this.props.loadingCollections
@@ -520,7 +519,11 @@ class Items extends Component {
           <h1 className="page-heading">Create your list!</h1>
           {error}
           {newItemForm}
-          {shareSection}
+          <ShareSection
+            theme = {this.state.theme}
+            switchTheme = {this.switchTheme}
+          />
+          {/* {shareSection} */}
           {fetchingError}
           {collections}
           {items}
