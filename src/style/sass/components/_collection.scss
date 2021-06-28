@@ -7,19 +7,33 @@
 
   &:not(:first-of-type) { margin-top: 1.5rem; }
 
+  @include respond(tab-port) {
+    width: 90%;
+    align-self: center;
+  }
+
   @include respond(tab-land) {
     margin: 0 1rem 1rem 1rem;
-    flex: 1 0 48%;
+    flex: 0 0 45%;
 
     &:nth-of-type(odd) {margin: 0 1rem 1rem 0}
     &:last-of-type {
-      flex: 0 0 48%;
+      flex: 0 0 45%;
       margin: 1rem 0 0;
     }
 
     &:nth-of-type(even) {
-      flex: 1 0 48%;
-      margin: 0 0 1rem 1rem
+      flex: 0 0 45%;
+      margin: 0 0 1rem 1rem;
+    }
+  }
+
+  @include respond(desktop) {
+    flex: 0 0 40%;
+
+    &:last-of-type,
+    &:nth-of-type(even) {
+      flex: 0 0 40%;
     }
   }
 
@@ -44,15 +58,15 @@
     font-weight: 400;
     background-color: $color-white;
     color: $color-black;
-    border: .5rem solid transparent;
+    border: .6rem solid transparent;
+    padding: .7rem;
 
     &:focus,
     &:active,
     &:hover {
-      color: var(--color-primary);
       outline: none;
-      border-left: .5rem solid var(--color-primary);
-      border-bottom: .5rem solid var(--color-primary);
+      border-left: .6rem solid var(--color-primary);
+      border-bottom: .6rem solid var(--color-primary);
     }
   }
 
@@ -80,50 +94,38 @@
       margin-right: .5rem;
     }
   }
-
 }
 
 [data-theme="cyber"] {
-  .list_collection {
-    @include respond(tab-port) {
-      width: 90%;
-      align-self: center;
-    }
-  }
-
-  .list--collections {
-    background: linear-gradient(to bottom, darken($color-warning, 40%) 0%, $color-secondary 100%);
-
-    @include respond(tab-port) {
-      max-width: unset;
-      padding: 0 2rem;
-      // flex-direction: column;
-      // justify-content: center;
-      // align-items: center;
-    }
-
-    @include respond(tab-land) {
-
-    }
-
+  .list {
     &_title {
       text-transform: uppercase;
-      color: var(--color-primary);
+      letter-spacing: 3px;
     }
 
-  }
+    &_collection_name {
+      &:focus,
+      &:active,
+      &:hover {
+        border-left-color: $color-warning;
+        border-bottom-color: $color-warning;
+      }
+    }
 
-  .list_collection_name {
-    @include respond(tab-port) {
-      // flex: 0;
+    &_collection_button {
+      background-color: $color-black;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      word-spacing: 2px;
+      letter-spacing: 1px;
+
+      &:focus,
+      &:active,
+      &:hover {
+        color: var(--color-primary);
+      }
     }
   }
 
-  .list_collection_button {
-    // font-weight: bold;
-    background-color: $color-black;
-    text-transform: uppercase;
-    color: var(--color-secondary);
-    word-spacing: 2px;
-  }
+  .list--collections { background: linear-gradient(to bottom, darken($color-warning, 35%) 0%, $color-secondary 100%); }
 }

@@ -21,7 +21,15 @@
   @include respond(desktop) { max-width: 1000px; }
   @include respond(big-desktop) { max-width: 1100px; }
 
+  &--collections {
+    @include respond(tab-port) { max-width: unset; }
+  }
+
   &_title {
+    flex: 1 0 100%;
+    display: flex;
+    align-self: stretch;
+    justify-content: center;
     padding: 1.5rem 0;
     font-size: $huge-font-size;
     font-weight: 400;
