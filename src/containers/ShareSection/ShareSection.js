@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as itemsActions from '../../store/actions';
 import { connect } from 'react-redux';
-import { updateObject } from '../../shared/utility';
+import { updateObject, checkValidity } from '../../shared/utility';
 import { withRouter } from 'react-router';
 
 import Button from '../../components/UI/Button';
@@ -39,6 +39,15 @@ class ShareSection extends Component {
       .catch(error => {
         alert(error);
       })
+  }
+
+  onChangeHandler = e => {
+    const updatedCollectionForm = updateObject(this.state.newCollectionForm, {
+      name: e.target.value,
+      valid: checkValidity(e.target.value, this.state.newCollectionForm.rules)
+    });
+
+    this.setState({newCollectionForm: updatedCollectionForm, newCollectionFormIsValid: updatedCollectionForm.valid});
   }
 
   switchCollectionForm = () => {
@@ -89,10 +98,6 @@ class ShareSection extends Component {
     }, 2000)
   }
 
-  onDeleteCollectionHandler = id => {
-    this.props.onDeleteCollection(this.props.partEmail, this.props.userId, this.props.token, id, this.props.collections);
-  }
-
   render() {
     let copyButton = this.props.theme === 'cyber'
     ? 'Your list\'s link_'
@@ -107,8 +112,8 @@ class ShareSection extends Component {
       className="create_input"
       type="text"
       name="name"
-      onChange={this.props.onChange}
-      onKeyPress={this.props.newCollectionFormIsValid ? this.submitCollectionInput : null}
+      onChange={this.onChangeHandler}
+      onKeyPress={this.state.newCollectionFormIsValid ? this.submitCollectionInput : null}
       placeholder="My collection"
       value={this.state.newCollectionForm.name} />
     : <span className="create_description">{createButton}</span>;
@@ -180,19 +185,13 @@ class ShareSection extends Component {
 
     return (
       shareSection
-    )
+    );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    items: state.items.items,
     collections: state.items.collections,
-    error: state.items.error,
-    fetchingError: state.items.fetchingError,
-    loading: state.items.loading,
-    loadingItems: state.items.loadingItems,
-    loadingCollections: state.items.loadingCollections,
     token: state.auth.token,
     userId: state.auth.userId,
     uuid: state.auth.user.uuid,
@@ -201,10 +200,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {
-    onAddNewCollection: (token, partEmail, userId, collections, newCollection) => dispatch(itemsActions.newCollection(token, partEmail, userId, collections, newCollection)),
-    onDeleteCollection: (partEmail, userId, token, id, collections) => dispatch(itemsActions.deleteCollection(partEmail, userId, token, id, collections))
-  };
+  return { onAddNewCollection: (token, partEmail, userId, collections, newCollection) => dispatch(itemsActions.newCollection(token, partEmail, userId, collections, newCollection)) };
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ShareSection));
