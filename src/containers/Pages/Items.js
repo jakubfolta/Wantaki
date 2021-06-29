@@ -6,11 +6,9 @@ import { connect } from 'react-redux';
 import Input from '../../components/UI/Input';
 import Button from '../../components/UI/Button';
 import Spinner from '../../components/UI/Spinner';
-import ListItems from '../../components/ListItems/ListItems';
-import ListItem from '../../components/ListItems/ListItem/ListItem';
+// import ListItems from '../../components/ListItems/ListItems';
 import ShareSection from '../ShareSection/ShareSection';
 import ListCollections from '../../components/ListCollections/ListCollections';
-import ListCollection from '../../components/ListCollections/ListCollection/ListCollection';
 
 class Items extends Component {
   state = {
@@ -233,7 +231,6 @@ class Items extends Component {
   render() {
     const form = this.state.newItemForm;
     const formElements = [];
-    let items, collections;
 
     let error = this.props.error
       ? <div className="error">{this.props.error}</div>
@@ -281,59 +278,42 @@ class Items extends Component {
             <span className="button_label">W24</span></Button>
         </form> )
 
-// Create collections list
-    collections = this.props.loadingCollections
-      ? <Spinner />
-      : <ListCollections>
-
-          {this.props.collections.map(el =>
-            <ListCollection
-              id={el.id}
-              key={el.id}
-              // handleClick={}
-              handleDelete={() => this.onDeleteCollectionHandler(el.id)}
-              // handleCopy={() => this.onCopyCollectionHandler(el.id)}
-              name={el.name}/>
-          )}
-
-        </ListCollections>
-
 // Create fetched items list
-    if (this.props.loadingItems) {
-      items = <Spinner />;
-    } else if (this.props.items.length > 0) {
-        items = (
-          <ListItems>
-
-            {this.props.items.map((el, index) =>
-              <ListItem
-                id={el.id}
-                key={el.id}
-                name={el.name}
-                link={el.link}
-                description={el.description}>
-
-                <div className="list_item-group">
-                  <Button
-                    type="button"
-                    btnType="delete"
-                    clicked={() => this.onDeleteItemHandler(el.id)}>Delete</Button>
-                    <Button
-                      type="button"
-                      btnType="edit"
-                      clicked={this.props.items[index].editMode
-                        ? (e) => this.onCancelEditHandler(e, el.id)
-                        : (e) => this.onEditItemHandler(e, el.id)}>
-                        {!this.props.items[index].editMode ? 'Edit' : 'Cancel'}</Button>
-                </div>
-              </ListItem>
-            )}
-
-          </ListItems>
-        );
-    } else {
-        items = null;
-    }
+    // if (this.props.loadingItems) {
+    //   items = <Spinner />;
+    // } else if (this.props.items.length > 0) {
+    //     items = (
+    //       <ListItems>
+    //
+    //         {this.props.items.map((el, index) =>
+    //           <ListItem
+    //             id={el.id}
+    //             key={el.id}
+    //             name={el.name}
+    //             link={el.link}
+    //             description={el.description}>
+    //
+    //             <div className="list_item-group">
+    //               <Button
+    //                 type="button"
+    //                 btnType="delete"
+    //                 clicked={() => this.onDeleteItemHandler(el.id)}>Delete</Button>
+    //                 <Button
+    //                   type="button"
+    //                   btnType="edit"
+    //                   clicked={this.props.items[index].editMode
+    //                     ? (e) => this.onCancelEditHandler(e, el.id)
+    //                     : (e) => this.onEditItemHandler(e, el.id)}>
+    //                     {!this.props.items[index].editMode ? 'Edit' : 'Cancel'}</Button>
+    //             </div>
+    //           </ListItem>
+    //         )}
+    //
+    //       </ListItems>
+    //     );
+    // } else {
+    //     items = null;
+    // }
 
     return (
       <Fragment>
@@ -345,8 +325,8 @@ class Items extends Component {
             theme = {this.state.theme}
             switchTheme = {this.switchTheme}/>
           {fetchingError}
-          {collections}
-          {items}
+          <ListCollections />
+          {/* {items} */}
         </section>
       </Fragment>
     );
@@ -361,7 +341,6 @@ const mapStateToProps = state => {
     fetchingError: state.items.fetchingError,
     loading: state.items.loading,
     loadingItems: state.items.loadingItems,
-    loadingCollections: state.items.loadingCollections,
     token: state.auth.token,
     userId: state.auth.userId,
     uuid: state.auth.user.uuid,
