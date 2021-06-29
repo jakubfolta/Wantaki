@@ -128,7 +128,6 @@ class ShareSection extends Component {
 
     const shareSection =
       ( <div className="share-section">
-
           <Button
             type="button"
             id="copy"
@@ -180,12 +179,10 @@ class ShareSection extends Component {
             dataTheme="materia"
             clicked={this.props.switchTheme}
           >Theme materia</Button>
+        </div>
+      )
 
-        </div> )
-
-    return (
-      shareSection
-    );
+    return shareSection;
   }
 }
 
