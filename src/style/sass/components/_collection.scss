@@ -99,8 +99,26 @@
 [data-theme="cyber"] {
   .list {
     &_title {
+      position: relative;
       text-transform: uppercase;
       letter-spacing: 3px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        background-color: $color-white;
+        bottom: 1rem;
+        width: 25rem;
+        max-width: 85%;
+        transform: translateX(-50%);
+        height: .3rem;
+
+        @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
+          clip-path: polygon(0% 0%, 100% 0%, 100% 20%, 25% 20%, 22% 100%, 0% 100%);
+          -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 20%, 25% 20%, 22% 100%, 0% 100%);
+        }
+      }
     }
 
     &_collection_name {

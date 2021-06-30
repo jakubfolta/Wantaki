@@ -27,6 +27,7 @@
 
   &--collections {
     margin: unset;
+    padding-bottom: 5rem;
     @include respond(tab-port) { max-width: unset; }
   }
 

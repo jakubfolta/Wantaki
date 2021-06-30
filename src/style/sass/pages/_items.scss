@@ -6,17 +6,34 @@
   margin-top: 1rem;
 
   [data-theme="cyber"] & {
-    padding-top: 4rem;
+    width: 80%;
+    margin-bottom: 1rem;
+    padding: 4rem 0;
     background-color: var(--color-primary);
+    overflow: hidden;
 
     &::before {
       position: absolute;
       content: '';
-      top: -1px;
+      top: 0;
       left: 0;
       right: 0;
       background: url(../../../img/cybertop.jpg);
       height: 45px;
+    }
+    &::after {
+      position: absolute;
+      content: '';
+      bottom: -1px;
+      left: -1px;
+      right: -1px;
+      background: url(../../../img/cybertop.jpg);
+      transform: rotate(180deg);
+      height: 45px;
+    }
+
+    @include respond(tab-land) {
+      width: 60%;
     }
   }
 }
