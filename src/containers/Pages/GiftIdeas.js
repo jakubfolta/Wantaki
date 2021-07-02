@@ -21,7 +21,7 @@ class GiftIdeas extends Component {
       ? <div className="error">{this.props.fetchingError}</div>
       : null;
 
-// Create fetched items list
+// Create fetched items list WITHOUT buttons
     if (this.props.loadingItems) {
       items = <Spinner />;
     } else if (this.props.items.length > 0) {
