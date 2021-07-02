@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import Spinner from '../UI/Spinner';
+import Backdrop from '../Backdrop/Backdrop';
 import ListCollection from './ListCollection/ListCollection';
 
 class ListCollections extends Component {
@@ -11,7 +12,12 @@ class ListCollections extends Component {
 
   onAddItemsToCollectionHandler = (id) => {
     this.setState({ itemsBoxOpen: true });
+    // console.log(this.state.itemsBoxOpen);
+  }
 
+  closeItemsBox = () => {
+    this.setState({ itemsBoxOpen: false })
+    // console.log(this.state.itemsBoxOpen);
   }
 
   render() {
@@ -34,7 +40,16 @@ class ListCollections extends Component {
         </ul> )
     : null;
 
-    return collections;
+    return (
+      <Fragment>
+        {collections}
+        <Backdrop
+          visible={this.state.itemsBoxOpen}
+          handleClick={this.closeItemsBox}>
+
+        </Backdrop>
+      </Fragment>
+    )
   }
 }
 
