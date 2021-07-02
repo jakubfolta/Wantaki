@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Input from '../../components/UI/Input';
 import Button from '../../components/UI/Button';
 import Spinner from '../../components/UI/Spinner';
-// import ListItems from '../../components/ListItems/ListItems';
+import ListItems from '../../components/ListItems/ListItems';
 import ShareSection from '../ShareSection/ShareSection';
 import ListCollections from '../../components/ListCollections/ListCollections';
 
@@ -64,7 +64,9 @@ class Items extends Component {
     }
   }
 
-// ADD & DELETE NEW ITEM METHODS //
+// ADD & DELETE LIST ITEM METHODS //
+//////////////////////////////////////////////
+
   newItemHandler = e => {
     e.preventDefault();
 
@@ -89,6 +91,8 @@ class Items extends Component {
   }
 
 // EDIT & UPDATE LIST ITEM METHODS //
+//////////////////////////////////////////////
+
   onEditItemHandler = (e, id) => {
     document.getElementById('nameInput').focus();
     const item = this.props.items.find(el => el.id === id);
@@ -206,6 +210,8 @@ class Items extends Component {
   }
 
 // THEME CHANGE METHODS //
+//////////////////////////////////////////////
+
   switchTheme = e => {
     const theme = e.target.getAttribute('data-theme');
 
@@ -246,7 +252,9 @@ class Items extends Component {
       })
     }
 
-// Create "Add item" form
+// CREATE "ADD ITEM" FORM //
+//////////////////////////////////////////////
+
     let submitButton = this.state.theme === 'cyber'
       ? this.state.editMode ? 'Update Item_' : 'Save Future Gift_'
       : this.state.editMode ? 'Update Item' : 'Save Future Gift';
@@ -278,43 +286,6 @@ class Items extends Component {
             <span className="button_label">W24</span></Button>
         </form> )
 
-// Create fetched items list
-    // if (this.props.loadingItems) {
-    //   items = <Spinner />;
-    // } else if (this.props.items.length > 0) {
-    //     items = (
-    //       <ListItems>
-    //
-    //         {this.props.items.map((el, index) =>
-    //           <ListItem
-    //             id={el.id}
-    //             key={el.id}
-    //             name={el.name}
-    //             link={el.link}
-    //             description={el.description}>
-    //
-    //             <div className="list_item-group">
-    //               <Button
-    //                 type="button"
-    //                 btnType="delete"
-    //                 clicked={() => this.onDeleteItemHandler(el.id)}>Delete</Button>
-    //                 <Button
-    //                   type="button"
-    //                   btnType="edit"
-    //                   clicked={this.props.items[index].editMode
-    //                     ? (e) => this.onCancelEditHandler(e, el.id)
-    //                     : (e) => this.onEditItemHandler(e, el.id)}>
-    //                     {!this.props.items[index].editMode ? 'Edit' : 'Cancel'}</Button>
-    //             </div>
-    //           </ListItem>
-    //         )}
-    //
-    //       </ListItems>
-    //     );
-    // } else {
-    //     items = null;
-    // }
-
     return (
       <Fragment>
         <section className="section section--items">
@@ -326,7 +297,10 @@ class Items extends Component {
             switchTheme = {this.switchTheme}/>
           {fetchingError}
           <ListCollections />
-          {/* {items} */}
+          <ListItems
+            delete={this.onDeleteItemHandler}
+            cancel={this.onCancelEditHandler}
+            edit={this.onEditItemHandler}/>
         </section>
       </Fragment>
     );

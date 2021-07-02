@@ -128,9 +128,6 @@ class ShareSection extends Component {
 
     const shareSection =
       ( <div className="share-section">
-          <span className="share-section_decor-1"></span>
-          <span className="share-section_decor-2"></span>
-          <span className="share-section_decor-3"></span>
           <Button
             type="button"
             id="copy"

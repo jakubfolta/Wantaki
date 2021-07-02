@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as itemsActions from '../../store/actions';
 
 import ListItem from './ListItem/ListItem';
 import Spinner from '../UI/Spinner';
@@ -27,15 +26,14 @@ const ListItems = props => {
                 <Button
                   type="button"
                   btnType="delete"
-                  //  Move methods from items ...........................
-                  clicked={() => this.onDeleteItemHandler(el.id)}>Delete</Button>
+                  clicked={() => props.delete(el.id)}>Delete</Button>
 
                 <Button
                   type="button"
                   btnType="edit"
                   clicked={props.items[index].editMode
-                    ? (e) => this.onCancelEditHandler(e, el.id)
-                    : (e) => this.onEditItemHandler(e, el.id)}>
+                    ? (e) => props.cancel(e, el.id)
+                    : (e) => props.edit(e, el.id)}>
                     {!props.items[index].editMode ? 'Edit' : 'Cancel'}</Button>
               </div>
             </ListItem>
@@ -46,35 +44,14 @@ const ListItems = props => {
   } else {
       items = null;
   }
-
   return items;
 }
 
 const mapStateToProps = state => {
   return {
     items: state.items.items,
-    collections: state.items.collections,
-    error: state.items.error,
-    fetchingError: state.items.fetchingError,
-    loading: state.items.loading,
-    loadingItems: state.items.loadingItems,
-    token: state.auth.token,
-    userId: state.auth.userId,
-    uuid: state.auth.user.uuid,
-    partEmail: state.auth.partEmail
+    loading: state.items.loading
   };
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token)),
-    onSetInitialState: (error, items) => dispatch(itemsActions.setInitialState(error, items)),
-    onFetchData: (userId, partEmail) => dispatch(itemsActions.fetchData(userId, null, partEmail)),
-    onDeleteItem: (id, token, items, partEmail, userId) => dispatch(itemsActions.deleteItem(id, token, items, partEmail, userId)),
-    onSetItemEditMode: (id, items) => dispatch(itemsActions.setItemEditMode(id, items)),
-    onUpdateItem: (updatedItem, updatedItems, updatedItemId, token, partEmail, userId) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token, partEmail, userId)),
-    onDeleteCollection: (partEmail, userId, token, id, collections) => dispatch(itemsActions.deleteCollection(partEmail, userId, token, id, collections))
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ListItems);
+export default connect(mapStateToProps)(ListItems);
