@@ -15,9 +15,7 @@
   color: $color-black;
   z-index: 2;
 
-  &_title {
-    flex: 1 0 100%;
-  }
+  &_title { flex: 1 0 100%; }
 
   &_checkbox {
     opacity: 0;
@@ -45,16 +43,35 @@
   &_label {
     cursor: pointer;
     padding: 1rem;
-
-
   }
 }
 
 [data-theme="cyber"] {
   .itemsAvailable {
     @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
-      clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
-      -webkit-clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
+      clip-path: polygon(0% 0%, 85% 0%, 100% 22%, 100% 100%, 0% 100%);
+      -webkit-clip-path: polygon(0% 0%, 85% 0%, 100% 22%, 100% 100%, 0% 100%);
+    }
+
+    @include respond(tab-port) {
+      @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
+        clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
+        -webkit-clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
+      }
+    }
+
+    @include respond(desktop) {
+      @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
+        clip-path: polygon(0% 0%, 90% 0%, 100% 35%, 100% 100%, 0% 100%);
+        -webkit-clip-path: polygon(0% 0%, 90% 0%, 100% 35%, 100% 100%, 0% 100%);
+      }
+    }
+
+    &_title {
+      text-transform: uppercase;
+      padding: 0 2rem;
+
+      @include respond(tab-port) { padding: initial; }
     }
   }
 }
