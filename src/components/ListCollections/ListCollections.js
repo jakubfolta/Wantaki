@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Spinner from '../UI/Spinner';
 import Backdrop from '../Backdrop/Backdrop';
+import ItemsAvailable from '../ItemsAvailable/ItemsAvailable';
 import ListCollection from './ListCollection/ListCollection';
 
 class ListCollections extends Component {
@@ -10,13 +11,12 @@ class ListCollections extends Component {
     itemsBoxOpen: false
   }
 
-  onAddItemsToCollectionHandler = (id) => {
-    this.setState({ itemsBoxOpen: true });
-    // console.log(this.state.itemsBoxOpen);
-  }
-
-  closeItemsBox = () => {
-    this.setState({ itemsBoxOpen: false })
+  switchItemsBox = () => {
+    this.setState(prevProps => {
+      return {
+        itemsBoxOpen: !prevProps.itemsBoxOpen
+      }
+    })
     // console.log(this.state.itemsBoxOpen);
   }
 
@@ -27,7 +27,7 @@ class ListCollections extends Component {
       <ListCollection
         id={el.id}
         key={el.id}
-        handleAdd={() => this.onAddItemsToCollectionHandler(el.id)}
+        handleButtonClick={this.switchItemsBox}
         // handleDelete={() => this.onDeleteCollectionHandler(el.id)}
         // handleCopy={() => this.onCopyCollectionHandler(el.id)}
         name={el.name}/>
@@ -45,9 +45,10 @@ class ListCollections extends Component {
         {collections}
         <Backdrop
           visible={this.state.itemsBoxOpen}
-          handleClick={this.closeItemsBox}>
-
+          handleClick={this.switchItemsBox}>
         </Backdrop>
+        <ItemsAvailable
+          visible={this.state.itemsBoxOpen}/>
       </Fragment>
     )
   }

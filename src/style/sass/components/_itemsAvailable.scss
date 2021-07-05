@@ -1,0 +1,60 @@
+.itemsAvailable {
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1024px;
+  padding: .5rem 0;
+  background-color: $color-white;
+  border-top: 4px solid var(--color-primary);
+  border-left: 4px solid var(--color-primary);
+  color: $color-black;
+  z-index: 2;
+
+  &_title {
+    flex: 1 0 100%;
+  }
+
+  &_checkbox {
+    opacity: 0;
+
+    &:focus + span {
+      box-shadow: 0 0 0 .1rem $color-white, 0 0 .3rem .3rem var(--color-primary);
+    }
+
+    &:checked + span {
+      background-color: var(--color-primary);
+      border-color: $color-black;
+    }
+  }
+
+  &_control {
+    display: inline-block;
+    cursor: pointer;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 1px solid currentColor;
+    margin-right: 1rem;
+    transition: all .3s;
+  }
+
+  &_label {
+    cursor: pointer;
+    padding: 1rem;
+
+
+  }
+}
+
+[data-theme="cyber"] {
+  .itemsAvailable {
+    @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
+      clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
+      -webkit-clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
+    }
+  }
+}

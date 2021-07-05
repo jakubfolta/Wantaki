@@ -150,7 +150,7 @@
     bottom: 0;
     left: 0;
     transform: rotate(40deg) translate(-.3rem, 1rem);
-    z-index: 20;
+    z-index: 1;
   }
 
   &.create:disabled .create_action,
@@ -201,7 +201,7 @@
     display: block;
     animation: glitch-effect 2s infinite;
   }
-  
+
   @media only screen and (hover:none) {
     &[type="submit"]:not(:disabled) .button_glitch {
       display: block;

@@ -18,7 +18,7 @@ const ListCollection = props => (
     </button> */}
     <button
       className="list_collection_button"
-      onClick={props.handleAdd}>
+      onClick={props.handleButtonClick}>
       <span className="list_collection_button--icon">
         <AiOutlinePlus />
       </span>
