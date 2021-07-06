@@ -1,14 +1,18 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
+import { AiOutlinePlus } from 'react-icons/ai';
+import Button from '../UI/Button';
+
 const ItemsAvailable = props => {
   return (
     props.visible
     ? <div className="itemsAvailable">
-      <h3 className="itemsAvailable_title">Select items</h3>
-        {props.items.map(item => (
-          <Fragment key={item.id}>
+        <h3 className="itemsAvailable_title">Select items</h3>
+        <div className="itemsAvailable_list">
+          {props.items.map(item => (
             <label
+              key={item.id}
               className="itemsAvailable_label"
               htmlFor={item.id}>
               <input
@@ -16,10 +20,21 @@ const ItemsAvailable = props => {
                 type="checkbox"
                 id={item.id}
                 value={item.name}/>
-              <span className="itemsAvailable_control"/>
-              {item.name}</label>
-          </Fragment>
-        ))}
+                <span className="itemsAvailable_control"/>
+                {item.name}
+            </label>
+          ))}
+
+          <Button
+            type="button"
+            btnType="itemsAvailable_button">
+            <span className="itemsAvailable_button-icon">
+              <AiOutlinePlus />
+            </span>
+            <span className="button_glitch"></span>
+            Add to collection
+          </Button>
+        </div>
       </div>
     : null
   )

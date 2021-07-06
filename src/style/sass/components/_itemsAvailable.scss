@@ -4,23 +4,45 @@
   left: 50vw;
   transform: translate(-50%, -50%);
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: 1024px;
-  padding: .5rem 0;
+  flex-direction: column;
+  max-width: 20rem;
+  max-height: 80vh;
   background-color: $color-white;
   border-top: 4px solid var(--color-primary);
   border-left: 4px solid var(--color-primary);
   color: $color-black;
   z-index: 2;
+  opacity: 0;
+  animation: appear .6s;
+  animation-fill-mode: forwards;
 
-  &_title { flex: 1 0 100%; }
+  @include respond(tab-port) { min-width: 60vw; }
+
+  &_list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    margin-bottom: 6.5rem;
+
+    @include respond(tab-port) {
+      flex-flow: row wrap;
+      margin-bottom: 5.5rem;
+    }
+  }
+
+  &_title {
+    flex: 1 0 100%;
+    letter-spacing: 2px;
+    padding: .5rem 0;
+    background: linear-gradient(to right, var(--color-primary) 0%, $color-white 100%);
+  }
 
   &_checkbox {
     opacity: 0;
 
-    &:focus + span {
+    &:focus + span,
+    &:hover + span {
       box-shadow: 0 0 0 .1rem $color-white, 0 0 .3rem .3rem var(--color-primary);
     }
 
@@ -30,48 +52,85 @@
     }
   }
 
+  &_label {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    padding: 1rem;
+    text-align: left;
+
+    @include respond(tab-port) {
+      flex: 0 0 50%;
+    }
+
+    @include respond(desktop) {
+      flex: 0 0 33.3%;
+    }
+  }
+
   &_control {
     display: inline-block;
     cursor: pointer;
-    width: 1.2rem;
+    min-width: 1.2rem;
     height: 1.2rem;
     border: 1px solid currentColor;
     margin-right: 1rem;
     transition: all .3s;
   }
 
-  &_label {
-    cursor: pointer;
-    padding: 1rem;
+  &_button {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-primary);
+    margin: 0;
+    padding: .8rem 1.7rem;
+
+    &:not(:disabled):focus,
+    &:not(:disabled):active,
+    &:not(:disabled):hover {
+      color: $color-white;
+      outline: none;
+      cursor: pointer;
+    }
+
+    @include respond(tab-port) {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &-icon {
+      font-size: $huge-font-size;
+      display: flex;
+      margin-right: .5rem;
+    }
   }
+
 }
 
 [data-theme="cyber"] {
   .itemsAvailable {
-    @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
-      clip-path: polygon(0% 0%, 85% 0%, 100% 22%, 100% 100%, 0% 100%);
-      -webkit-clip-path: polygon(0% 0%, 85% 0%, 100% 22%, 100% 100%, 0% 100%);
-    }
-
-    @include respond(tab-port) {
-      @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
-        clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
-        -webkit-clip-path: polygon(0% 0%, 85% 0%, 100% 35%, 100% 100%, 0% 100%);
-      }
-    }
-
-    @include respond(desktop) {
-      @supports(-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0)) {
-        clip-path: polygon(0% 0%, 90% 0%, 100% 35%, 100% 100%, 0% 100%);
-        -webkit-clip-path: polygon(0% 0%, 90% 0%, 100% 35%, 100% 100%, 0% 100%);
-      }
-    }
+    border-top: 4px solid darken($color-warning, 35%);
+    border-left: 4px solid darken($color-warning, 35%);
 
     &_title {
       text-transform: uppercase;
-      padding: 0 2rem;
+      letter-spacing: 1px;
+      padding: .5rem;
+      background: linear-gradient(to right, darken($color-warning, 35%) 0%, $color-white 100%);
 
-      @include respond(tab-port) { padding: initial; }
+      @include respond(tab-port) { padding: 1rem 0; }
+    }
+
+    &_button {
+      background-color: $color-black;
+      color: var(--color-secondary);
     }
   }
 }
