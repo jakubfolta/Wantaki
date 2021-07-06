@@ -2,7 +2,7 @@
   position: fixed;
   top: 50vh;
   left: 50vw;
-  transform: translate(-50%, -50%);
+  transform: translate(-51.5%, -50%);
   display: flex;
   flex-direction: column;
   max-width: 20rem;
@@ -122,8 +122,9 @@
     &_title {
       text-transform: uppercase;
       letter-spacing: 1px;
+      color: $color-white;
       padding: .5rem;
-      background: linear-gradient(to right, darken($color-warning, 35%) 0%, $color-white 100%);
+      background: linear-gradient(to right, darken($color-warning, 35%) 0%, darken($color-warning, 35%) 20%, $color-black 100%);
 
       @include respond(tab-port) { padding: 1rem 0; }
     }
@@ -131,6 +132,15 @@
     &_button {
       background-color: $color-black;
       color: var(--color-secondary);
+
+      &:focus,
+      &:active,
+      &:hover {
+        background-color: $color-black;
+        color: var(--color-primary);
+        outline: none;
+        cursor: pointer;
+      }
     }
   }
 }
