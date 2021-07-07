@@ -8,16 +8,28 @@ import ListCollection from './ListCollection/ListCollection';
 
 class ListCollections extends Component {
   state = {
-    itemsBoxOpen: false
+    itemsBoxOpen: false,
+    selectedItemsIds: []
   }
 
   switchItemsBox = () => {
     this.setState(prevProps => {
       return {
-        itemsBoxOpen: !prevProps.itemsBoxOpen
-      }
+        itemsBoxOpen: !prevProps.itemsBoxOpen,
+        selectedItemsIds: []
+      };
     })
-    // console.log(this.state.itemsBoxOpen);
+  }
+
+  getSelectedItems = () => {
+    const selectedItems = document.querySelectorAll('input[type="checkbox"]:checked');
+    const selectedItemsIds = [];
+
+    selectedItems.forEach(el => {
+      selectedItemsIds.push(el.id);
+    });
+
+    this.setState({ selectedItemsIds: selectedItemsIds });
   }
 
   render() {
@@ -48,7 +60,10 @@ class ListCollections extends Component {
           handleClick={this.switchItemsBox}>
         </Backdrop>
         <ItemsAvailable
-          visible={this.state.itemsBoxOpen}/>
+          visible={this.state.itemsBoxOpen}
+          onCheckedItem={this.getSelectedItems}
+          itemsChecked={this.state.selectedItemsIds.length > 0}
+        />
       </Fragment>
     )
   }

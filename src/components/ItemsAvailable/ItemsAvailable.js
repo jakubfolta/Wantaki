@@ -17,6 +17,7 @@ const ItemsAvailable = props => {
               htmlFor={item.id}>
               <input
                 className="itemsAvailable_checkbox"
+                onClick={props.onCheckedItem}
                 type="checkbox"
                 id={item.id}
                 value={item.name}/>
@@ -27,7 +28,8 @@ const ItemsAvailable = props => {
 
           <Button
             type="button"
-            btnType="itemsAvailable_button">
+            btnType="itemsAvailable_button"
+            disabled={!props.itemsChecked}>
             <span className="itemsAvailable_button-icon">
               <AiOutlinePlus />
             </span>

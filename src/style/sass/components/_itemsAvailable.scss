@@ -91,6 +91,14 @@
     background-color: var(--color-primary);
     margin: 0;
     padding: .8rem 1.7rem;
+    transition: opacity .3s;
+
+    &:disabled {
+      opacity: .7;
+      color: $color-black;
+
+      &:hover { color: none; }
+    }
 
     &:not(:disabled):focus,
     &:not(:disabled):active,
@@ -128,6 +136,8 @@
     &_button {
       background-color: $color-black;
       color: var(--color-secondary);
+
+      &:disabled:hover { color: var(--color-secondary); }
 
       &:focus,
       &:active,
