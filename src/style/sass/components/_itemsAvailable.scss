@@ -94,11 +94,7 @@
 
     &:not(:disabled):focus,
     &:not(:disabled):active,
-    &:not(:disabled):hover {
-      color: $color-white;
-      outline: none;
-      cursor: pointer;
-    }
+    &:not(:disabled):hover { color: $color-white; }
 
     @include respond(tab-port) {
       left: 50%;
@@ -138,8 +134,6 @@
       &:hover {
         background-color: $color-black;
         color: var(--color-primary);
-        outline: none;
-        cursor: pointer;
       }
     }
   }
