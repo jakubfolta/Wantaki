@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { updateObject, checkValidity } from '../../shared/utility';
 import { withRouter } from 'react-router';
 
-import Button from '../../components/UI/Button';
+import Button from '../UI/Button';
+import CreateCollectionButton from '../UI/CreateCollectionButton';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { AiFillFolderAdd } from 'react-icons/ai';
 
 class ShareSection extends Component {
   state = {
@@ -21,7 +21,8 @@ class ShareSection extends Component {
     linkCopied: false,
     collectionCreated: false,
     collectionFormVisible: false,
-    newCollectionFormIsValid: true
+    newCollectionFormIsValid: true,
+    collectionExists: false
   }
 
 // Copy link to item's list
@@ -84,7 +85,22 @@ class ShareSection extends Component {
     }
   }
 
+  checkIfCollectionExists = () => {
+    let exists = this.props.collections.some(el => el.name === this.state.newCollectionForm.name);
+
+    if (exists) {
+      this.setState({collectionExists: true});
+      setTimeout(() => {
+        this.setState({collectionExists: false});
+      }, 1000)
+    }
+
+    return exists;
+  }
+
   onCreateNewCollectionHandler = () => {
+    if (this.checkIfCollectionExists()) return
+
     const collection = {
       name: this.state.newCollectionForm.name,
       timestamp: Date.now()
@@ -103,26 +119,7 @@ class ShareSection extends Component {
     ? 'Your list\'s link_'
     : 'Your list\'s link';
 
-    let createButton = this.props.theme === 'cyber'
-    ? 'New collection_'
-    : 'New collection';
-
-    let createBtnTop = this.state.collectionFormVisible
-    ? <input
-      className="create_input"
-      type="text"
-      name="name"
-      onChange={this.onChangeHandler}
-      onKeyPress={this.state.newCollectionFormIsValid ? this.submitCollectionInput : null}
-      placeholder="My collection"
-      value={this.state.newCollectionForm.name} />
-    : <span className="create_description">{createButton}</span>;
-
     let copyGlitch = this.state.linkCopied
-    ? <span className="button_glitch"></span>
-    : null;
-
-    let collectionGlitch = this.state.collectionCreated
     ? <span className="button_glitch"></span>
     : null;
 
@@ -142,28 +139,16 @@ class ShareSection extends Component {
             </span>
             <span className="button_label">W25</span></Button>
 
-          <Button
-            type="button"
-            id="create"
-            disabled={!this.state.newCollectionFormIsValid}
-            clicked={this.state.collectionFormVisible
-              ? null
-              : this.switchCollectionForm}
-            btnType="create">
-              {createBtnTop}
-              <span
-                className="create_action"
-                onClick={this.state.collectionFormVisible && this.state.newCollectionFormIsValid ? this.onCreateNewCollectionHandler : null}
-                >
-                {collectionGlitch}
-                <AiFillFolderAdd />
-                {this.state.collectionCreated
-                  ? 'Created'
-                  : this.state.collectionFormVisible ? 'Create' : 'Start'
-                }
-                <AiFillFolderAdd />
-              </span>
-              <span className="button_label">W26</span></Button>
+          <CreateCollectionButton
+           collectionFormVisible={this.state.collectionFormVisible}
+           onChange={this.onChangeHandler}
+           onKeyPressed={this.state.newCollectionFormIsValid ? this.submitCollectionInput : null}
+           value={this.state.newCollectionForm.name}
+           collectionCreated={this.state.collectionCreated}
+           disabled={!this.state.newCollectionFormIsValid}
+           switchCollectionForm={this.switchCollectionForm}
+           onClick={this.state.collectionFormVisible && this.state.newCollectionFormIsValid ? this.onCreateNewCollectionHandler : null}
+           collectionExists={this.state.collectionExists}/>
 
           <Button
             dataTheme="default"

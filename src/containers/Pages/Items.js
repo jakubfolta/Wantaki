@@ -8,7 +8,7 @@ import Input from '../../components/UI/Input';
 import Button from '../../components/UI/Button';
 import Spinner from '../../components/UI/Spinner';
 import ListItems from '../../components/ListItems/ListItems';
-import ShareSection from '../ShareSection/ShareSection';
+import ShareSection from '../../components/ShareSection/ShareSection';
 import ListCollections from '../../components/ListCollections/ListCollections';
 
 class Items extends Component {
@@ -216,9 +216,8 @@ class Items extends Component {
   switchTheme = e => {
     const theme = e.target.getAttribute('data-theme');
 
-    if (this.state.theme === 'cyber' && theme === 'cyber') {
-      return;
-    }
+    if (this.state.theme === 'cyber' && theme === 'cyber') return
+
     setTheme(theme);
     this.setState({theme: theme})
   }

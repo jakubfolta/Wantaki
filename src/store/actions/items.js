@@ -1,5 +1,5 @@
 import * as actions from './actionTypes';
-import { addItem, fetchUserData, deleteUserItem, updateUserItem, addCollection, deleteUserCollection } from '../../network/lib/items';
+import { addItem, fetchUserData, deleteUserItem, updateUserItem } from '../../network/lib/items';
 
 import { sortItems } from '../../shared/utility';
 
@@ -258,4 +258,3 @@ export const updateItem = (item, items, updatedItemId, token, partEmail, userId)
       })
   };
 }
-
