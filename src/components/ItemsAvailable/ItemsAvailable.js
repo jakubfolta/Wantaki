@@ -29,7 +29,8 @@ const ItemsAvailable = props => {
           <Button
             type="button"
             btnType="itemsAvailable_button"
-            disabled={!props.itemsChecked}>
+            disabled={!props.itemsChecked}
+            clicked={props.clicked} >
             <span className="itemsAvailable_button-icon">
               <AiOutlinePlus />
             </span>

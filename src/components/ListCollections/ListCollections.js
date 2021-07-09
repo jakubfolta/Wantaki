@@ -32,6 +32,10 @@ class ListCollections extends Component {
     this.setState({ selectedItemsIds: selectedItemsIds });
   }
 
+  onAddItemsToCollectionHandler = () => {
+
+  }
+
   render() {
     let items = this.props.loadingCollections
     ? <Spinner />
@@ -63,7 +67,7 @@ class ListCollections extends Component {
           visible={this.state.itemsBoxOpen}
           onCheckedItem={this.getSelectedItems}
           itemsChecked={this.state.selectedItemsIds.length > 0}
-        />
+          clicked={this.onAddItemsToCollectionHandler}/>
       </Fragment>
     );
   }
@@ -72,8 +76,18 @@ class ListCollections extends Component {
 const mapStateToProps = state => {
   return {
     collections: state.items.collections,
-    loadingCollections: state.items.loadingCollections
+    loadingCollections: state.items.loadingCollections,
+    token: state.auth.token,
+    userId: state.auth.userId,
+    uuid: state.auth.user.uuid,
+    partEmail: state.auth.partEmail
   };
 }
 
-export default connect(mapStateToProps)(ListCollections);
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddItemsToCollection: (partEmail, userId, token, collectionId, collectionWithItems, collections) => ...
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListCollections);

@@ -19,11 +19,3 @@ export const fetchUserData = (user, partEmail, userId) => {
 
     return axiosClient.get(url);
 }
-
-export const addCollection = (partEmail, userId, token, newCollection) => {
-  return axiosClient.post(partEmail + userId + '/collections.json?auth=' + token, newCollection);
-}
-
-export const deleteUserCollection = (partEmail, userId, queryParams) => {
-  return axiosClient.delete(partEmail + userId + '/collections/' + queryParams);
-}

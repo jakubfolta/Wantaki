@@ -165,6 +165,24 @@ const deleteCollectionFail = (state, action) => {
   });
 }
 
+const addItemsToCollectionStart = (state, action) => {
+  return updateObject(state, {
+    collectionError: null
+  });
+}
+
+const addItemsToCollectionSuccess = (state, action) => {
+  return updateObject(state, {
+    collections: action.collections
+  });
+}
+
+const addItemsToCollectionFail = (state, action) => {
+  return updateObject(state, {
+    collectionError: action.error
+  });
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.NEW_ITEM_START: return newItemStart(state, action);
@@ -198,6 +216,11 @@ const reducer = (state = initialState, action) => {
     case actions.DELETE_COLLECTION_START: return deleteCollectionStart(state, action);
     case actions.DELETE_COLLECTION_SUCCESS: return deleteCollectionSuccess(state, action);
     case actions.DELETE_COLLECTION_FAIL: return deleteCollectionFail(state, action);
+
+    case actions.ADD_ITEMS_TO_COLLECTION_START: return addItemsToCollectionStart(state, action);
+    case actions.ADD_ITEMS_TO_COLLECTION_SUCCESS: return addItemsToCollectionSuccess(state, action);
+    case actions.ADD_ITEMS_TO_COLLECTION_FAIL: return addItemsToCollectionFail(state, action);
+
     default: return state;
   }
 }

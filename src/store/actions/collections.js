@@ -1,5 +1,5 @@
 import * as actions from './actionTypes';
-import { addCollection, deleteUserCollection } from '../../network/lib/items';
+import { addCollection, deleteUserCollection, updateUserCollection } from '../../network/lib/collections';
 
 // Add new collection to redux and firebase
 export const newCollectionStart = () => {
@@ -84,3 +84,65 @@ export const deleteCollection = (partEmail, userId, token, id, collections) => {
       })
   };
 }
+
+export const addItemsToCollectionStart = () => {
+  return {
+    type: actions.ADD_ITEMS_TO_COLLECTION_START
+  };
+}
+
+export const addItemsToCollectionSuccess = collections => {
+  return {
+    type: actions.ADD_ITEMS_TO_COLLECTION_SUCCESS,
+    collections: collections
+  };
+}
+
+export const addItemsToCollectionFail = error => {
+  return {
+    type: actions.ADD_ITEMS_TO_COLLECTION_FAIL,
+    error: error
+  };
+}
+
+export const addItemsToCollection = (partEmail, userId, token, collectionId, collectionWithItems, collections) => {
+  return dispatch => {
+    dispatch(addItemsToCollectionStart());
+
+    const queryParams = collectionId + '.json?auth=' + token;
+
+    updateUserCollection(partEmail, userId, queryParams, collectionWithItems)
+      .then(response => {
+        const collectionsCopy = [...collections];
+        const updatedCollectionIndex = collections.findIndex(el => el.id === collectionId);
+        // let updatedCollection = collectionsCopy[updatedCollectionIndex];
+        collectionsCopy[updatedCollectionIndex] = collectionWithItems;
+
+        // updatedCollection = collectionWithItems;
+        dispatch(addItemsToCollectionSuccess(collectionsCopy));
+      })
+      .catch(error => {
+        const errorMessage = error.response.data.error;
+        dispatch(addItemsToCollectionFail(errorMessage));
+      })
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
