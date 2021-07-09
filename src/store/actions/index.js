@@ -11,7 +11,10 @@ export {
   fetchData,
   deleteItem,
   setItemEditMode,
-  updateItem,
+  updateItem
+} from './items';
+
+export {
   newCollection,
   deleteCollection
-} from './items';
+} from './collections';

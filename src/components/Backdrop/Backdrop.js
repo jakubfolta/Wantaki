@@ -9,7 +9,7 @@ const Backdrop = props => {
       {props.children}
       </div>
     : null
-  )
+  );
 }
 
 export default Backdrop;

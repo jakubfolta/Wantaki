@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import * as itemsActions from '../../store/actions';
+import * as collectionsActions from '../../store/actions';
 import { updateObject, checkValidity, setTheme } from '../../shared/utility';
 import { connect } from 'react-redux';
 
@@ -330,7 +331,7 @@ const mapDispatchToProps = dispatch => {
     onDeleteItem: (id, token, items, partEmail, userId) => dispatch(itemsActions.deleteItem(id, token, items, partEmail, userId)),
     onSetItemEditMode: (id, items) => dispatch(itemsActions.setItemEditMode(id, items)),
     onUpdateItem: (updatedItem, updatedItems, updatedItemId, token, partEmail, userId) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token, partEmail, userId)),
-    onDeleteCollection: (partEmail, userId, token, id, collections) => dispatch(itemsActions.deleteCollection(partEmail, userId, token, id, collections))
+    onDeleteCollection: (partEmail, userId, token, id, collections) => dispatch(collectionsActions.deleteCollection(partEmail, userId, token, id, collections))
   };
 }
 

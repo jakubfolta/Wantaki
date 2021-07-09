@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as itemsActions from '../../store/actions';
+import * as collectionsActions from '../../store/actions';
 import { connect } from 'react-redux';
 import { updateObject, checkValidity } from '../../shared/utility';
 import { withRouter } from 'react-router';
@@ -197,7 +197,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return { onAddNewCollection: (token, partEmail, userId, collections, newCollection) => dispatch(itemsActions.newCollection(token, partEmail, userId, collections, newCollection)) };
+  return { onAddNewCollection: (token, partEmail, userId, collections, newCollection) => dispatch(collectionsActions.newCollection(token, partEmail, userId, collections, newCollection)) };
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ShareSection));

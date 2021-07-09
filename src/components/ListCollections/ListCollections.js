@@ -65,7 +65,7 @@ class ListCollections extends Component {
           itemsChecked={this.state.selectedItemsIds.length > 0}
         />
       </Fragment>
-    )
+    );
   }
 }
 
@@ -73,7 +73,7 @@ const mapStateToProps = state => {
   return {
     collections: state.items.collections,
     loadingCollections: state.items.loadingCollections
-  }
+  };
 }
 
 export default connect(mapStateToProps)(ListCollections);
