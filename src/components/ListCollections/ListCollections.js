@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import * as collectionsActions from '../../store/actions';
 
 import Spinner from '../UI/Spinner';
 import Backdrop from '../Backdrop/Backdrop';
@@ -8,14 +9,22 @@ import ListCollection from './ListCollection/ListCollection';
 
 class ListCollections extends Component {
   state = {
-    itemsBoxOpen: false,
+    itemsBox: {
+      state: false,
+      openingCollectionId: ''
+    },
     selectedItemsIds: []
   }
 
-  switchItemsBox = () => {
+  switchItemsBox = (id = '') => {
     this.setState(prevProps => {
+      const itemsBoxCopy = {...this.state.itemsBox};
+
+      itemsBoxCopy.state = !this.state.itemsBox.state;
+      itemsBoxCopy.openingCollectionId = id;
+
       return {
-        itemsBoxOpen: !prevProps.itemsBoxOpen,
+        itemsBox: itemsBoxCopy,
         selectedItemsIds: []
       };
     })
@@ -33,7 +42,7 @@ class ListCollections extends Component {
   }
 
   onAddItemsToCollectionHandler = () => {
-
+    // this.props.onAddItemsToCollection(this.props.partEmail, this.props.userId, this.props.token, this.state.itemsBox.openingCollectionId, collectionWithItems, this.props.collections);
   }
 
   render() {
@@ -43,7 +52,7 @@ class ListCollections extends Component {
       <ListCollection
         id={el.id}
         key={el.id}
-        handleButtonClick={this.switchItemsBox}
+        handleButtonClick={() => this.switchItemsBox(el.id)}
         // handleDelete={() => this.onDeleteCollectionHandler(el.id)}
         // handleCopy={() => this.onCopyCollectionHandler(el.id)}
         name={el.name}/>
@@ -60,11 +69,11 @@ class ListCollections extends Component {
       <Fragment>
         {collections}
         <Backdrop
-          visible={this.state.itemsBoxOpen}
-          handleClick={this.switchItemsBox}>
+          visible={this.state.itemsBox.state}
+          handleClick={() => this.switchItemsBox()}>
         </Backdrop>
         <ItemsAvailable
-          visible={this.state.itemsBoxOpen}
+          visible={this.state.itemsBox.state}
           onCheckedItem={this.getSelectedItems}
           itemsChecked={this.state.selectedItemsIds.length > 0}
           clicked={this.onAddItemsToCollectionHandler}/>
@@ -79,14 +88,13 @@ const mapStateToProps = state => {
     loadingCollections: state.items.loadingCollections,
     token: state.auth.token,
     userId: state.auth.userId,
-    uuid: state.auth.user.uuid,
     partEmail: state.auth.partEmail
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddItemsToCollection: (partEmail, userId, token, collectionId, collectionWithItems, collections) => ...
+    onAddItemsToCollection: (partEmail, userId, token, collectionId, collectionWithItems, collections) => dispatch(collectionsActions.addItemsToCollection(partEmail, userId, token, collectionId, collectionWithItems, collections))
   }
 }
 

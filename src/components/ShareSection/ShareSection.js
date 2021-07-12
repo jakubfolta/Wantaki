@@ -99,7 +99,7 @@ class ShareSection extends Component {
   }
 
   onCreateNewCollectionHandler = () => {
-    if (this.checkIfCollectionExists()) return
+    if (this.checkIfCollectionExists()) return;
 
     const collection = {
       name: this.state.newCollectionForm.name,
