@@ -5,6 +5,14 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import Button from '../UI/Button';
 
 const ItemsAvailable = props => {
+  let glitchButton = props.itemsAdded
+    ? <span className="button_glitch"></span>
+    : null;
+
+  let buttonDescription = props.itemsAdded
+    ? 'Items added'
+    : 'Add to collection';
+
   return (
     props.visible
     ? <div className="itemsAvailable">
@@ -34,8 +42,8 @@ const ItemsAvailable = props => {
             <span className="itemsAvailable_button-icon">
               <AiOutlinePlus />
             </span>
-            <span className="button_glitch"></span>
-            Add to collection
+            {glitchButton}
+            {buttonDescription}
           </Button>
         </div>
       </div>

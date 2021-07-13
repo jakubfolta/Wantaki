@@ -13,7 +13,8 @@ class ListCollections extends Component {
       state: false,
       openingCollectionId: ''
     },
-    selectedItemsIds: []
+    selectedItemsIds: [],
+    itemsAddedToCollection: false
   }
 
   switchItemsBox = (id = '') => {
@@ -43,6 +44,15 @@ class ListCollections extends Component {
 
   onAddItemsToCollectionHandler = () => {
     // this.props.onAddItemsToCollection(this.props.partEmail, this.props.userId, this.props.token, this.state.itemsBox.openingCollectionId, collectionWithItems, this.props.collections);
+
+    this.setState({itemsAddedToCollection: true});
+    setTimeout(() => {
+      const itemsBoxCopy = {...this.state.itemsBox};
+
+      itemsBoxCopy.state = false;
+
+      this.setState({itemsBox: itemsBoxCopy, itemsAddedToCollection: false})
+    }, 2000)
   }
 
   render() {
@@ -76,7 +86,8 @@ class ListCollections extends Component {
           visible={this.state.itemsBox.state}
           onCheckedItem={this.getSelectedItems}
           itemsChecked={this.state.selectedItemsIds.length > 0}
-          clicked={this.onAddItemsToCollectionHandler}/>
+          clicked={this.onAddItemsToCollectionHandler}
+          itemsAdded={this.state.itemsAddedToCollection}/>
       </Fragment>
     );
   }
