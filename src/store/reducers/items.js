@@ -9,7 +9,8 @@ const initialState = {
   loading: false,
   loadingCollections: false,
   collectionError: null,
-  loadingItems: false
+  loadingItems: false,
+  loadingAddItemsToCollection: false
 };
 
 // Add new item to firebase
@@ -167,19 +168,22 @@ const deleteCollectionFail = (state, action) => {
 
 const addItemsToCollectionStart = (state, action) => {
   return updateObject(state, {
-    collectionError: null
+    collectionError: null,
+    loadingAddItemsToCollection: true
   });
 }
 
 const addItemsToCollectionSuccess = (state, action) => {
   return updateObject(state, {
-    collections: action.collections
+    collections: action.collections,
+    loadingAddItemsToCollection: false
   });
 }
 
 const addItemsToCollectionFail = (state, action) => {
   return updateObject(state, {
-    collectionError: action.error
+    collectionError: action.error,
+    loadingAddItemsToCollection: false
   });
 }
 

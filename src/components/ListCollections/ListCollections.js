@@ -17,11 +17,30 @@ class ListCollections extends Component {
     itemsAddedToCollection: false
   }
 
-  switchItemsBox = (id = '') => {
-    this.setState(prevProps => {
+  componentDidUpdate(prevProps) {
+    if (prevProps.collections !== this.props.collections && this.state.itemsBox.state) {
+      this.setState({itemsAddedToCollection: true});
+      this.resetState();
+    }
+  }
+
+  resetState = () => {
+    setTimeout(() => {
       const itemsBoxCopy = {...this.state.itemsBox};
 
-      itemsBoxCopy.state = !this.state.itemsBox.state;
+      itemsBoxCopy.state = false;
+      itemsBoxCopy.openingCollectionId = '';
+
+      this.setState({itemsBox: itemsBoxCopy, itemsAddedToCollection: false, selectedItemsIds: []});
+    }, 2000);
+  }
+
+  switchItemsBox = (id = '') => {
+    console.log(id);
+    this.setState(prevState => {
+      const itemsBoxCopy = {...this.state.itemsBox};
+
+      itemsBoxCopy.state = !prevState.itemsBox.state;
       itemsBoxCopy.openingCollectionId = id;
 
       return {
@@ -39,20 +58,18 @@ class ListCollections extends Component {
       selectedItemsIds.push(el.id);
     });
 
-    this.setState({ selectedItemsIds: selectedItemsIds });
+    this.setState({selectedItemsIds: selectedItemsIds});
   }
 
   onAddItemsToCollectionHandler = () => {
-    // this.props.onAddItemsToCollection(this.props.partEmail, this.props.userId, this.props.token, this.state.itemsBox.openingCollectionId, collectionWithItems, this.props.collections);
+    const selectedItems = this.props.items.filter(el => this.state.selectedItemsIds.includes(el.id) ? el : null);
+    const updatedCollection = this.props.collections.filter(el => el.id === this.state.itemsBox.openingCollectionId)[0];
+    const collectionWithItems = {
+      ...updatedCollection,
+      items: selectedItems
+    }
 
-    this.setState({itemsAddedToCollection: true});
-    setTimeout(() => {
-      const itemsBoxCopy = {...this.state.itemsBox};
-
-      itemsBoxCopy.state = false;
-
-      this.setState({itemsBox: itemsBoxCopy, itemsAddedToCollection: false})
-    }, 2000)
+    this.props.onAddItemsToCollection(this.props.partEmail, this.props.userId, this.props.token, this.state.itemsBox.openingCollectionId, collectionWithItems, this.props.collections);
   }
 
   render() {
@@ -95,6 +112,7 @@ class ListCollections extends Component {
 
 const mapStateToProps = state => {
   return {
+    items: state.items.items,
     collections: state.items.collections,
     loadingCollections: state.items.loadingCollections,
     token: state.auth.token,

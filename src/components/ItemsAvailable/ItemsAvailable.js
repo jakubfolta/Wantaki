@@ -9,9 +9,11 @@ const ItemsAvailable = props => {
     ? <span className="button_glitch"></span>
     : null;
 
-  let buttonDescription = props.itemsAdded
-    ? 'Items added'
-    : 'Add to collection';
+   let buttonDescription = props.loadingAddItemsToCollection
+    ? 'Adding...'
+    : props.itemsAdded
+      ? 'Items added'
+      : 'Add to collection';
 
   return (
     props.visible
@@ -53,7 +55,8 @@ const ItemsAvailable = props => {
 
 const mapStateToProps = state => {
   return {
-    items: state.items.items
+    items: state.items.items,
+    loadingAddItemsToCollection: state.items.loadingAddItemsToCollection
   }
 }
 

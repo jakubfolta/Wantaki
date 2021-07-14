@@ -115,10 +115,8 @@ export const addItemsToCollection = (partEmail, userId, token, collectionId, col
       .then(response => {
         const collectionsCopy = [...collections];
         const updatedCollectionIndex = collections.findIndex(el => el.id === collectionId);
-        // let updatedCollection = collectionsCopy[updatedCollectionIndex];
         collectionsCopy[updatedCollectionIndex] = collectionWithItems;
 
-        // updatedCollection = collectionWithItems;
         dispatch(addItemsToCollectionSuccess(collectionsCopy));
       })
       .catch(error => {
