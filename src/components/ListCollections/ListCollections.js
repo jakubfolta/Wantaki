@@ -63,13 +63,17 @@ class ListCollections extends Component {
 
   onAddItemsToCollectionHandler = () => {
     const selectedItems = this.props.items.filter(el => this.state.selectedItemsIds.includes(el.id) ? el : null);
+    const updatedItems = this.props.items.filter(el => !this.state.selectedItemsIds.includes(el.id) ? el : null);
     const updatedCollection = this.props.collections.filter(el => el.id === this.state.itemsBox.openingCollectionId)[0];
     const collectionWithItems = {
       ...updatedCollection,
       items: selectedItems
-    }
+    };
 
-    this.props.onAddItemsToCollection(this.props.partEmail, this.props.userId, this.props.token, this.state.itemsBox.openingCollectionId, collectionWithItems, this.props.collections);
+    // console.log(collectionWithItems);
+    // console.log(updatedItems);
+
+    this.props.onAddItemsToCollection(this.props.partEmail, this.props.userId, this.props.token, this.state.itemsBox.openingCollectionId, collectionWithItems, updatedItems, this.props.collections);
   }
 
   render() {
@@ -123,8 +127,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddItemsToCollection: (partEmail, userId, token, collectionId, collectionWithItems, collections) => dispatch(collectionsActions.addItemsToCollection(partEmail, userId, token, collectionId, collectionWithItems, collections))
-  }
+    onAddItemsToCollection: (partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections) => dispatch(collectionsActions.addItemsToCollection(partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections))
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListCollections);

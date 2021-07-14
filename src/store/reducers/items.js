@@ -176,6 +176,7 @@ const addItemsToCollectionStart = (state, action) => {
 const addItemsToCollectionSuccess = (state, action) => {
   return updateObject(state, {
     collections: action.collections,
+    items: action.items,
     loadingAddItemsToCollection: false
   });
 }

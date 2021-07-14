@@ -25,6 +25,16 @@ class ShareSection extends Component {
     collectionExists: false
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.collections.length > prevProps.collections.length && this.state.collectionFormVisible) {
+      this.setState({collectionCreated: true});
+      setTimeout(() => {
+        this.switchCollectionForm();
+        document.getElementById('create').blur();
+      }, 2000);
+    }
+  }
+
 // Copy link to item's list
   copyLink = () => {
     const baseURL = window.location.href.split(this.props.match.url)[0];
@@ -107,11 +117,6 @@ class ShareSection extends Component {
     };
 
     this.props.onAddNewCollection(this.props.token, this.props.partEmail, this.props.userId, this.props.collections, collection);
-    this.setState({collectionCreated: true});
-    setTimeout(() => {
-      this.switchCollectionForm();
-      document.getElementById('create').blur();
-    }, 2000)
   }
 
   render() {

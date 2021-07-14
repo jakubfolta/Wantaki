@@ -1,5 +1,6 @@
+import axios from 'axios';
 import * as actions from './actionTypes';
-import { addCollection, deleteUserCollection, updateUserCollection } from '../../network/lib/collections';
+import { addCollection, deleteUserCollection, updateUserCollectionAndItems } from '../../network/lib/collections';
 
 // Add new collection to redux and firebase
 export const newCollectionStart = () => {
@@ -91,10 +92,11 @@ export const addItemsToCollectionStart = () => {
   };
 }
 
-export const addItemsToCollectionSuccess = collections => {
+export const addItemsToCollectionSuccess = (collections, items) => {
   return {
     type: actions.ADD_ITEMS_TO_COLLECTION_SUCCESS,
-    collections: collections
+    collections: collections,
+    items: items
   };
 }
 
@@ -105,22 +107,31 @@ export const addItemsToCollectionFail = error => {
   };
 }
 
-export const addItemsToCollection = (partEmail, userId, token, collectionId, collectionWithItems, collections) => {
+export const addItemsToCollection = (partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections) => {
   return dispatch => {
     dispatch(addItemsToCollectionStart());
 
     const queryParams = collectionId + '.json?auth=' + token;
+    const databaseUpdatedItems = {};
 
-    updateUserCollection(partEmail, userId, queryParams, collectionWithItems)
-      .then(response => {
+    for (const item of updatedItems) {
+      databaseUpdatedItems[item.id] = {...item}
+    }
+
+    console.log(collectionWithItems);
+    console.log(databaseUpdatedItems);
+    updateUserCollectionAndItems(partEmail, userId, token, queryParams, collectionWithItems, databaseUpdatedItems)
+      .then(axios.spread((...responses) => {
+        console.log(responses[1]);
         const collectionsCopy = [...collections];
         const updatedCollectionIndex = collections.findIndex(el => el.id === collectionId);
         collectionsCopy[updatedCollectionIndex] = collectionWithItems;
+        // console.log(collections);
 
-        dispatch(addItemsToCollectionSuccess(collectionsCopy));
-      })
+        dispatch(addItemsToCollectionSuccess(collectionsCopy, updatedItems));
+      }))
       .catch(error => {
-        const errorMessage = error.response.data.error;
+        const errorMessage = error.responses.data.error;
         dispatch(addItemsToCollectionFail(errorMessage));
       })
   }

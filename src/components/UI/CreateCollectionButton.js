@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Button from '../UI/Button';
 import { AiFillFolderAdd } from 'react-icons/ai';
 
 class CreateCollectionButton extends Component {
   setCollectionButtonDescription = () => {
+    if (this.props.loadingCollections) return 'Creating';
     if (this.props.collectionCreated) return 'Created';
     if (this.props.collectionExists) return 'Exists';
 
@@ -55,4 +57,10 @@ class CreateCollectionButton extends Component {
   }
 }
 
-export default CreateCollectionButton;
+const mapStateToProps = (state) => {
+  return {
+    loadingCollections: state.items.loadingCollections
+  };
+}
+
+export default connect(mapStateToProps)(CreateCollectionButton);
