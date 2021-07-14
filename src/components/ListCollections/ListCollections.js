@@ -67,11 +67,11 @@ class ListCollections extends Component {
     const updatedCollection = this.props.collections.filter(el => el.id === this.state.itemsBox.openingCollectionId)[0];
     const collectionWithItems = {
       ...updatedCollection,
-      items: selectedItems
+      items: updatedCollection.items
+        ? [...updatedCollection.items,
+          ...selectedItems]
+        : [...selectedItems]
     };
-
-    // console.log(collectionWithItems);
-    // console.log(updatedItems);
 
     this.props.onAddItemsToCollection(this.props.partEmail, this.props.userId, this.props.token, this.state.itemsBox.openingCollectionId, collectionWithItems, updatedItems, this.props.collections);
   }

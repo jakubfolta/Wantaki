@@ -118,15 +118,11 @@ export const addItemsToCollection = (partEmail, userId, token, collectionId, col
       databaseUpdatedItems[item.id] = {...item}
     }
 
-    console.log(collectionWithItems);
-    console.log(databaseUpdatedItems);
     updateUserCollectionAndItems(partEmail, userId, token, queryParams, collectionWithItems, databaseUpdatedItems)
       .then(axios.spread((...responses) => {
-        console.log(responses[1]);
         const collectionsCopy = [...collections];
         const updatedCollectionIndex = collections.findIndex(el => el.id === collectionId);
         collectionsCopy[updatedCollectionIndex] = collectionWithItems;
-        // console.log(collections);
 
         dispatch(addItemsToCollectionSuccess(collectionsCopy, updatedItems));
       }))

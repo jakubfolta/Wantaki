@@ -86,6 +86,14 @@
       cursor: pointer;
     }
 
+    &:disabled {
+      opacity: .6;
+      color: $color-black;
+      cursor: not-allowed;
+
+      &:hover { color: none; }
+    }
+
     &--icon {
       display: flex;
       justify-content: center;
@@ -98,6 +106,7 @@
 
 [data-theme="cyber"] {
   .list {
+    &_collection { background-color: unset; }
     &_title {
       position: relative;
       text-transform: uppercase;
@@ -142,6 +151,8 @@
       &:hover {
         color: var(--color-primary);
       }
+
+      &:disabled:hover { color: var(--color-secondary); }      
     }
   }
 

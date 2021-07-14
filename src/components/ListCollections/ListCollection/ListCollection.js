@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 // import { FaShareAlt, FaEdit } from 'react-icons/fa';
 // import { IconContext } from "react-icons";
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -18,7 +19,8 @@ const ListCollection = props => (
     </button> */}
     <button
       className="list_collection_button"
-      onClick={props.handleButtonClick}>
+      onClick={props.handleButtonClick}
+      disabled={props.items.length === 0}>
       <span className="list_collection_button--icon">
         <AiOutlinePlus />
       </span>
@@ -27,4 +29,10 @@ const ListCollection = props => (
   </li>
 )
 
-export default ListCollection;
+const mapStateToProps = (state) => {
+  return {
+    items: state.items.items
+  };
+}
+
+export default connect(mapStateToProps)(ListCollection);
