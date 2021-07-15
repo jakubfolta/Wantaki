@@ -5,20 +5,24 @@ import * as collectionsActions from '../../store/actions';
 import Spinner from '../UI/Spinner';
 import Backdrop from '../Backdrop/Backdrop';
 import ItemsAvailable from '../ItemsAvailable/ItemsAvailable';
+import ItemsInCollection from '../ItemsInCollection/ItemsInCollection';
 import ListCollection from './ListCollection/ListCollection';
 
 class ListCollections extends Component {
   state = {
     itemsBox: {
-      state: false,
+      visibilityState: false,
       openingCollectionId: ''
+    },
+    itemsInCollectionBox: {
+
     },
     selectedItemsIds: [],
     itemsAddedToCollection: false
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.collections !== this.props.collections && this.state.itemsBox.state) {
+    if (prevProps.collections !== this.props.collections && this.state.itemsBox.visibilityState) {
       this.setState({itemsAddedToCollection: true});
       this.resetState();
     }
@@ -36,11 +40,10 @@ class ListCollections extends Component {
   }
 
   switchItemsBox = (id = '') => {
-    console.log(id);
     this.setState(prevState => {
       const itemsBoxCopy = {...this.state.itemsBox};
 
-      itemsBoxCopy.state = !prevState.itemsBox.state;
+      itemsBoxCopy.visibilityState = !prevState.itemsBox.visibilityState;
       itemsBoxCopy.openingCollectionId = id;
 
       return {
@@ -100,15 +103,17 @@ class ListCollections extends Component {
       <Fragment>
         {collections}
         <Backdrop
-          visible={this.state.itemsBox.state}
+          visible={this.state.itemsBox.visibilityState}
           handleClick={() => this.switchItemsBox()}>
         </Backdrop>
         <ItemsAvailable
-          visible={this.state.itemsBox.state}
+          visible={this.state.itemsBox.visibilityState}
           onCheckedItem={this.getSelectedItems}
           itemsChecked={this.state.selectedItemsIds.length > 0}
           clicked={this.onAddItemsToCollectionHandler}
           itemsAdded={this.state.itemsAddedToCollection}/>
+        {/* <ItemsInCollection
+         visible=/> */}
       </Fragment>
     );
   }
