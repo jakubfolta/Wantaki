@@ -10,19 +10,20 @@ import ListCollection from './ListCollection/ListCollection';
 
 class ListCollections extends Component {
   state = {
-    itemsBox: {
+    availableItemsBox: {
       visibilityState: false,
       openingCollectionId: ''
     },
     itemsInCollectionBox: {
-
+      visibilityState: false,
+      openingCollectionId: ''
     },
     selectedItemsIds: [],
     itemsAddedToCollection: false
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.collections !== this.props.collections && this.state.itemsBox.visibilityState) {
+    if (prevProps.collections !== this.props.collections && this.state.availableItemsBox.visibilityState) {
       this.setState({itemsAddedToCollection: true});
       this.resetState();
     }
@@ -30,24 +31,39 @@ class ListCollections extends Component {
 
   resetState = () => {
     setTimeout(() => {
-      const itemsBoxCopy = {...this.state.itemsBox};
+      const availableItemsBoxCopy = {...this.state.availableItemsBox};
 
-      itemsBoxCopy.state = false;
-      itemsBoxCopy.openingCollectionId = '';
+      availableItemsBoxCopy.state = false;
+      availableItemsBoxCopy.openingCollectionId = '';
 
-      this.setState({itemsBox: itemsBoxCopy, itemsAddedToCollection: false, selectedItemsIds: []});
+      this.setState({availableItemsBox: availableItemsBoxCopy, itemsAddedToCollection: false, selectedItemsIds: []});
     }, 2000);
   }
 
-  switchItemsBox = (id = '') => {
+  switchAvailableItemsBox = (tagName, id = '') => {
+    console.log(tagName, id);
     this.setState(prevState => {
-      const itemsBoxCopy = {...this.state.itemsBox};
+      const availableItemsBoxCopy = {...this.state.availableItemsBox};
 
-      itemsBoxCopy.visibilityState = !prevState.itemsBox.visibilityState;
-      itemsBoxCopy.openingCollectionId = id;
+      availableItemsBoxCopy.visibilityState = !prevState.availableItemsBox.visibilityState;
+      availableItemsBoxCopy.openingCollectionId = id;
 
       return {
-        itemsBox: itemsBoxCopy,
+        availableItemsBox: availableItemsBoxCopy,
+        selectedItemsIds: []
+      };
+    })
+  }
+
+  switchItemsInCollectionBox = (id = '') => {
+    this.setState(prevState => {
+      const availableItemsBoxCopy = {...this.state.availableItemsBox};
+
+      availableItemsBoxCopy.visibilityState = !prevState.availableItemsBox.visibilityState;
+      availableItemsBoxCopy.openingCollectionId = id;
+
+      return {
+        availableItemsBox: availableItemsBoxCopy,
         selectedItemsIds: []
       };
     })
@@ -67,7 +83,7 @@ class ListCollections extends Component {
   onAddItemsToCollectionHandler = () => {
     const selectedItems = this.props.items.filter(el => this.state.selectedItemsIds.includes(el.id) ? el : null);
     const updatedItems = this.props.items.filter(el => !this.state.selectedItemsIds.includes(el.id) ? el : null);
-    const updatedCollection = this.props.collections.filter(el => el.id === this.state.itemsBox.openingCollectionId)[0];
+    const updatedCollection = this.props.collections.filter(el => el.id === this.state.availableItemsBox.openingCollectionId)[0];
     const collectionWithItems = {
       ...updatedCollection,
       items: updatedCollection.items
@@ -76,7 +92,7 @@ class ListCollections extends Component {
         : [...selectedItems]
     };
 
-    this.props.onAddItemsToCollection(this.props.partEmail, this.props.userId, this.props.token, this.state.itemsBox.openingCollectionId, collectionWithItems, updatedItems, this.props.collections);
+    this.props.onAddItemsToCollection(this.props.partEmail, this.props.userId, this.props.token, this.state.availableItemsBox.openingCollectionId, collectionWithItems, updatedItems, this.props.collections);
   }
 
   render() {
@@ -86,7 +102,8 @@ class ListCollections extends Component {
       <ListCollection
         id={el.id}
         key={el.id}
-        handleButtonClick={() => this.switchItemsBox(el.id)}
+        handleButtonClick={tagName => this.switchAvailableItemsBox(tagName, el.id)}
+        handleCollectionClick={() => this.switchItemsInCollectionBox(el.id)}
         // handleDelete={() => this.onDeleteCollectionHandler(el.id)}
         // handleCopy={() => this.onCopyCollectionHandler(el.id)}
         name={el.name}/>
@@ -103,17 +120,18 @@ class ListCollections extends Component {
       <Fragment>
         {collections}
         <Backdrop
-          visible={this.state.itemsBox.visibilityState}
-          handleClick={() => this.switchItemsBox()}>
+          visible={this.state.availableItemsBox.visibilityState}
+          handleClick={() => this.switchAvailableItemsBox()}>
         </Backdrop>
         <ItemsAvailable
-          visible={this.state.itemsBox.visibilityState}
+          visible={this.state.availableItemsBox.visibilityState}
           onCheckedItem={this.getSelectedItems}
           itemsChecked={this.state.selectedItemsIds.length > 0}
           clicked={this.onAddItemsToCollectionHandler}
           itemsAdded={this.state.itemsAddedToCollection}/>
         {/* <ItemsInCollection
-         visible=/> */}
+         visible={this.state.itemsInCollectionBox.visibilityState}
+          /> */}
       </Fragment>
     );
   }
