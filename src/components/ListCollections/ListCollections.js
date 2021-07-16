@@ -40,30 +40,26 @@ class ListCollections extends Component {
     }, 2000);
   }
 
-  switchAvailableItemsBox = (tagName, id = '') => {
+  switchItemsBox = (tagName = null, id = '') => {
+    const boxToOpen = tagName === 'BUTTON' ? 'availableItemsBox' : 'itemsInCollectionBox';
+    const boxToClose = this.state.availableItemsBox.visibilityState ? 'availableItemsBox' : 'itemsInCollectionBox';
+
+    const boxToSwitch = tagName ? boxToOpen : boxToClose;
+
     console.log(tagName, id);
-    this.setState(prevState => {
-      const availableItemsBoxCopy = {...this.state.availableItemsBox};
+    console.log(boxToOpen);
+    console.log(this.state.[boxToOpen]);
+    console.log(this.state);
 
-      availableItemsBoxCopy.visibilityState = !prevState.availableItemsBox.visibilityState;
-      availableItemsBoxCopy.openingCollectionId = id;
+    this.setState(prevState => {
+      const boxCopy = {...this.state.[boxToSwitch]};
+      console.log(boxCopy);
+
+      boxCopy.visibilityState = !prevState.[boxToSwitch].visibilityState;
+      boxCopy.openingCollectionId = id;
 
       return {
-        availableItemsBox: availableItemsBoxCopy,
-        selectedItemsIds: []
-      };
-    })
-  }
-
-  switchItemsInCollectionBox = (id = '') => {
-    this.setState(prevState => {
-      const availableItemsBoxCopy = {...this.state.availableItemsBox};
-
-      availableItemsBoxCopy.visibilityState = !prevState.availableItemsBox.visibilityState;
-      availableItemsBoxCopy.openingCollectionId = id;
-
-      return {
-        availableItemsBox: availableItemsBoxCopy,
+        [boxToSwitch]: boxCopy,
         selectedItemsIds: []
       };
     })
@@ -102,8 +98,8 @@ class ListCollections extends Component {
       <ListCollection
         id={el.id}
         key={el.id}
-        handleButtonClick={tagName => this.switchAvailableItemsBox(tagName, el.id)}
-        handleCollectionClick={() => this.switchItemsInCollectionBox(el.id)}
+        handleButtonClick={tagName => this.switchItemsBox(tagName, el.id)}
+        handleCollectionClick={tagName => this.switchItemsBox(tagName, el.id)}
         // handleDelete={() => this.onDeleteCollectionHandler(el.id)}
         // handleCopy={() => this.onCopyCollectionHandler(el.id)}
         name={el.name}/>
@@ -121,7 +117,7 @@ class ListCollections extends Component {
         {collections}
         <Backdrop
           visible={this.state.availableItemsBox.visibilityState}
-          handleClick={() => this.switchAvailableItemsBox()}>
+          handleClick={() => this.switchItemsBox()}>
         </Backdrop>
         <ItemsAvailable
           visible={this.state.availableItemsBox.visibilityState}

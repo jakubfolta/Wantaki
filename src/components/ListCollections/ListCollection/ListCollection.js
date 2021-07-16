@@ -11,7 +11,7 @@ const ListCollection = props => (
     className="list_collection">
     <h2
       className="list_collection_name"
-      onClick={props.handleCollectionClick}>{props.name}</h2>
+      onClick={e => props.handleCollectionClick(e.target.tagName)}>{props.name}</h2>
     {/* <button
       className="list_collection_button list_collection_button--copy"
       onClick={props.handleCopy}>
@@ -20,7 +20,7 @@ const ListCollection = props => (
     </button> */}
     <button
       className="list_collection_button"
-      onClick={(e) => props.handleButtonClick(e.target.tagName)}
+      onClick={e => props.handleButtonClick(e.target.tagName)}
       disabled={props.items.length === 0}>
       <span className="list_collection_button--icon">
         <AiOutlinePlus />
