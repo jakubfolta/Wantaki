@@ -5,11 +5,11 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import Button from '../UI/Button';
 
 const ItemsAvailable = props => {
-  let glitchButton = props.itemsAdded
+  const glitchButton = props.itemsAdded
     ? <span className="button_glitch"></span>
     : null;
 
-   let buttonDescription = props.loadingAddItemsToCollection
+   const buttonDescription = props.loadingAddItemsToCollection
     ? 'Adding...'
     : props.itemsAdded
       ? 'Items added'
@@ -50,14 +50,14 @@ const ItemsAvailable = props => {
         </div>
       </div>
     : null
-  )
+  );
 }
 
 const mapStateToProps = state => {
   return {
     items: state.items.items,
     loadingAddItemsToCollection: state.items.loadingAddItemsToCollection
-  }
+  };
 }
 
 export default connect(mapStateToProps)(ItemsAvailable);

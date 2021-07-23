@@ -33,7 +33,7 @@ class ListCollections extends Component {
     setTimeout(() => {
       const availableItemsBoxCopy = {...this.state.availableItemsBox};
 
-      availableItemsBoxCopy.state = false;
+      availableItemsBoxCopy.visibilityState = false;
       availableItemsBoxCopy.openingCollectionId = '';
 
       this.setState({availableItemsBox: availableItemsBoxCopy, itemsAddedToCollection: false, selectedItemsIds: []});
@@ -46,14 +46,8 @@ class ListCollections extends Component {
 
     const boxToSwitch = tagName ? boxToOpen : boxToClose;
 
-    console.log(tagName, id);
-    console.log(boxToOpen);
-    console.log(this.state.[boxToOpen]);
-    console.log(this.state);
-
     this.setState(prevState => {
       const boxCopy = {...this.state.[boxToSwitch]};
-      console.log(boxCopy);
 
       boxCopy.visibilityState = !prevState.[boxToSwitch].visibilityState;
       boxCopy.openingCollectionId = id;
@@ -116,7 +110,7 @@ class ListCollections extends Component {
       <Fragment>
         {collections}
         <Backdrop
-          visible={this.state.availableItemsBox.visibilityState}
+          visible={this.state.availableItemsBox.visibilityState || this.state.itemsInCollectionBox.visibilityState}
           handleClick={() => this.switchItemsBox()}>
         </Backdrop>
         <ItemsAvailable
@@ -125,9 +119,9 @@ class ListCollections extends Component {
           itemsChecked={this.state.selectedItemsIds.length > 0}
           clicked={this.onAddItemsToCollectionHandler}
           itemsAdded={this.state.itemsAddedToCollection}/>
-        {/* <ItemsInCollection
-         visible={this.state.itemsInCollectionBox.visibilityState}
-          /> */}
+        <ItemsInCollection
+          visible={this.state.itemsInCollectionBox.visibilityState}
+          collectionId={this.state.itemsInCollectionBox.openingCollectionId}/>
       </Fragment>
     );
   }
