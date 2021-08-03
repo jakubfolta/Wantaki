@@ -24,8 +24,7 @@ const ItemsInCollection = props => {
               id={item.id}
               key={item.id}
               name={item.name}
-              link={item.link}
-              description={item.description}>
+              link={item.link}>
 
               <div className="list_item-group">
                 <Button
