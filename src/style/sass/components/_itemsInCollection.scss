@@ -56,7 +56,7 @@
 
     @include respond(tab-port) { height: auto; }
     @include respond(tab-land) {
-      max-width: 60%; //////////////////////////  white line under available items button
+      max-width: 60%;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -66,6 +66,31 @@
       font-size: $huge-font-size;
       display: flex;
       margin-right: 1rem;
+    }
+  }
+}
+
+[data-theme="cyber"] {
+  .itemsInCollection {
+    border-top: 4px solid darken($color-warning, 35%);
+    border-left: 4px solid darken($color-warning, 35%);
+    color: $color-white;
+
+    &_title {
+      background: linear-gradient(to right, darken($color-warning, 35%) 0%, darken($color-warning, 35%) 30%, $color-black 100%);
+      text-transform: uppercase;
+    }
+
+    &_button {
+      background-color: $color-black;
+      color: var(--color-secondary);
+
+      &:not(:disabled):focus,
+      &:not(:disabled):active,
+      &:not(:disabled):hover {
+        background-color: $color-black;
+        color: var(--color-primary);
+      }
     }
   }
 }
