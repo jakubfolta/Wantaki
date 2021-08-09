@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import * as collectionsActions from '../../store/actions';
 
 import Spinner from '../UI/Spinner';
@@ -19,7 +20,8 @@ class ListCollections extends Component {
       openingCollectionId: ''
     },
     selectedItemsIds: [],
-    itemsAddedToCollection: false
+    itemsAddedToCollection: false,
+    collectionLinkCopied: false
   }
 
   componentDidUpdate(prevProps) {
@@ -85,6 +87,23 @@ class ListCollections extends Component {
     this.props.onAddItemsToCollection(this.props.partEmail, this.props.userId, this.props.token, this.state.availableItemsBox.openingCollectionId, collectionWithItems, updatedItems, this.props.collections);
   }
 
+  copyCollectionLink = () => {
+    const copyButton = document.getElementById('copyCollectionLinkButton');
+    const baseURL = window.location.href.split(this.props.match.url)[0];
+    console.log(baseURL + "/giftideas?collection=" + this.state.itemsInCollectionBox.openingCollectionId);
+    navigator.clipboard.writeText(baseURL + "/giftideas?collection=" + this.state.itemsInCollectionBox.openingCollectionId)
+      .then(() => {
+      this.setState({collectionLinkCopied: true});
+      setTimeout(() => {
+        this.setState({collectionLinkCopied: false});
+        if (copyButton) copyButton.blur();
+      }, 3000)
+    })
+      .catch(error => {
+        alert(error);
+      })
+  }
+
   render() {
     let items = this.props.loadingCollections
     ? <Spinner />
@@ -95,7 +114,6 @@ class ListCollections extends Component {
         handleButtonClick={tagName => this.switchItemsBox(tagName, el.id)}
         handleCollectionClick={tagName => this.switchItemsBox(tagName, el.id)}
         // handleDelete={() => this.onDeleteCollectionHandler(el.id)}
-        // handleCopy={() => this.onCopyCollectionHandler(el.id)}
         name={el.name}/>
       );
 
@@ -121,13 +139,14 @@ class ListCollections extends Component {
           itemsAdded={this.state.itemsAddedToCollection}/>
         <ItemsInCollection
           visible={this.state.itemsInCollectionBox.visibilityState}
-          collectionId={this.state.itemsInCollectionBox.openingCollectionId}/>
+          collectionId={this.state.itemsInCollectionBox.openingCollectionId}
+          handleCopyClick={this.copyCollectionLink}/>
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     items: state.items.items,
     collections: state.items.collections,
@@ -144,4 +163,4 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListCollections);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListCollections));
