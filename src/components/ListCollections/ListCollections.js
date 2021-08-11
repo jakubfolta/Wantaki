@@ -90,8 +90,8 @@ class ListCollections extends Component {
   copyCollectionLink = () => {
     const copyButton = document.getElementById('copyCollectionLinkButton');
     const baseURL = window.location.href.split(this.props.match.url)[0];
-    console.log(baseURL + "/giftideas?collection=" + this.state.itemsInCollectionBox.openingCollectionId);
-    navigator.clipboard.writeText(baseURL + "/giftideas?collection=" + this.state.itemsInCollectionBox.openingCollectionId)
+    // console.log(baseURL + "/giftideas?collection=" + this.state.itemsInCollectionBox.openingCollectionId);
+    navigator.clipboard.writeText(baseURL + `/giftideas?user=${this.props.uuid}&collection=${this.state.itemsInCollectionBox.openingCollectionId}`)
       .then(() => {
       this.setState({collectionLinkCopied: true});
       setTimeout(() => {
@@ -153,6 +153,7 @@ const mapStateToProps = (state, ownProps) => {
     loadingCollections: state.items.loadingCollections,
     token: state.auth.token,
     userId: state.auth.userId,
+    uuid: state.auth.user.uuid,
     partEmail: state.auth.partEmail
   };
 }

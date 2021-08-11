@@ -9,13 +9,18 @@ import ListItem from '../../components/ListItems/ListItem/ListItem';
 
 class GiftIdeas extends Component {
   componentDidMount() {
-    const user = this.props.location.search.split('=')[1];
+    const search = new URLSearchParams(this.props.location.search);
+    const user = search.get('user');
+    const collection = search.get('collection');
 
-    this.props.onFetchData(user);
+    console.log(user);
+    console.log(collection);
+
+    this.props.onFetchData(user, collection);
   }
 
   render() {
-    let items;
+    let items = null;
 
     let fetchingError = this.props.fetchingError
       ? <div className="error">{this.props.fetchingError}</div>
@@ -40,9 +45,7 @@ class GiftIdeas extends Component {
             )}
           </ListItems>
         );
-    } else {
-        items = null;
-    }
+      }
 
     return (
       <Fragment>
@@ -66,7 +69,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchData: userName => dispatch(itemsActions.fetchData(null, userName))
+    onFetchData: (userName, collection) => dispatch(itemsActions.fetchData(null, userName, collection))
   };
 }
 

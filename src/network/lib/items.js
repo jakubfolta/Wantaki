@@ -14,8 +14,8 @@ export const updateUserItem = (partEmail, userId, queryParams, item) => {
 
 export const fetchUserData = (user, partEmail, userId) => {
   const url = user
-    ? '.json?orderBy="uuid"&equalTo="' + user + '"'
-    : partEmail + userId + '.json';
+    ? `.json?orderBy="uuid"&equalTo="${user}"`
+    : `${partEmail}${userId}.json`;
 
     return axiosClient.get(url);
 }

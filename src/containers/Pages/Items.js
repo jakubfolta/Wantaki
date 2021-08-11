@@ -8,6 +8,7 @@ import Input from '../../components/UI/Input';
 import Button from '../../components/UI/Button';
 import Spinner from '../../components/UI/Spinner';
 import ListItems from '../../components/ListItems/ListItems';
+import ListItem from '../../components/ListItems/ListItem/ListItem';
 import ShareSection from '../../components/ShareSection/ShareSection';
 import ListCollections from '../../components/ListCollections/ListCollections';
 
@@ -286,6 +287,44 @@ class Items extends Component {
             <span className="button_label">W24</span></Button>
         </form> )
 
+// CREATE "FETCHED ITEMS" LIST //
+//////////////////////////////////////////////
+
+    let items = null;
+
+    if (this.props.loadingItems) {
+      items = <Spinner />;
+    } else if (this.props.items.length > 0) {
+        items = (
+          <ListItems>
+            {this.props.items.map((el, index) =>
+              <ListItem
+                id={el.id}
+                key={el.id}
+                name={el.name}
+                link={el.link}
+                description={el.description}>
+
+                <div className="list_item-group">
+                  <Button
+                    type="button"
+                    btnType="delete"
+                    clicked={this.onDeleteItemHandler}>Delete</Button>
+
+                  <Button
+                    type="button"
+                    btnType="edit"
+                    clicked={this.props.items[index].editMode
+                      ? (e) => this.onCancelEditHandler(e, el.id)
+                      : (e) => this.onEditItemHandler(e, el.id)}>
+                      {!this.props.items[index].editMode ? 'Edit' : 'Cancel'}</Button>
+                </div>
+              </ListItem>
+            )}
+          </ListItems>
+        );
+      }
+
     return (
       <Fragment>
         <section className="section section--items">
@@ -297,10 +336,7 @@ class Items extends Component {
             switchTheme = {this.switchTheme}/>
           {fetchingError}
           <ListCollections />
-          <ListItems
-            delete={this.onDeleteItemHandler}
-            cancel={this.onCancelEditHandler}
-            edit={this.onEditItemHandler}/>
+          {items}
         </section>
       </Fragment>
     );
@@ -326,7 +362,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onAddNewItem: (item, token) => dispatch(itemsActions.newItem(item, token)),
     onSetInitialState: (error, items) => dispatch(itemsActions.setInitialState(error, items)),
-    onFetchData: (userId, partEmail) => dispatch(itemsActions.fetchData(userId, null, partEmail)),
+    onFetchData: (userId, partEmail) => dispatch(itemsActions.fetchData(userId, null, null, partEmail)),
     onDeleteItem: (id, token, items, partEmail, userId) => dispatch(itemsActions.deleteItem(id, token, items, partEmail, userId)),
     onSetItemEditMode: (id, items) => dispatch(itemsActions.setItemEditMode(id, items)),
     onUpdateItem: (updatedItem, updatedItems, updatedItemId, token, partEmail, userId) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token, partEmail, userId)),

@@ -123,13 +123,16 @@ export const setData = (user, response) => {
       });
       itemsTimestampsArray.push(data.items[el].timestamp);
     }
-    for (let el in data.collections) {
+    if (!user) {
+      for (let el in data.collections) {
       collections.push({
         ...data.collections[el],
         id: el
       });
       collectionsTimestampsArray.push(data.collections[el].timestamp);
+      }
     }
+    
     itemsTimestampsArray.sort().reverse();
     collectionsTimestampsArray.sort().reverse();
 
@@ -144,12 +147,13 @@ export const setData = (user, response) => {
   }
 }
 
-export const fetchData = (userId, user, partEmail) => {
+export const fetchData = (userId, user, collection, partEmail) => {
   return dispatch => {
     dispatch(fetchDataStart());
 
     fetchUserData(user, partEmail, userId)
       .then(response => {
+        console.log(response);
         const { items, collections } = setData(user, response);
 
         dispatch(fetchDataSuccess(items, collections));

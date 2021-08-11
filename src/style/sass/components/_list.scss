@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   list-style: none;
-  margin: 2rem 0 4.5rem;
+  margin-top: 2rem;
   width: 100%;
   padding: 0 2rem;
 
@@ -27,7 +27,6 @@
 
   &--collections {
     margin: unset;
-    padding-bottom: 5rem;
     @include respond(tab-port) { max-width: unset; }
   }
 
@@ -79,7 +78,7 @@
       flex: 1 1 70%;
 
       &:first-child { margin: 0 1rem 0 0; }
-      &:last-child { flex: 0 1 0; }
+      &:last-child { flex: 0 1; }
 
       &-gift:first-child {
         height: 100%;
