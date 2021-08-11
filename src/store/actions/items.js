@@ -100,20 +100,43 @@ export const fetchDataFail = error => {
   };
 }
 
+export const setGiftPageData = (user, response, collectionId) => {
+  let items = [];
+  let itemsTimestampsArray = [];
+  let data = response.data;
+  console.log(data);
+
+  // Get the same directory as when signing in - fetching items list through gift ideas page for not authenticated user
+  for (let el in data) {
+    data = data[el];
+    if (collectionId) {
+      data = data.collections[collectionId];
+    }
+    console.log(data);
+    break
+  }
+
+  for (let el in data.items) {
+    items.push({
+      ...data.items[el]
+    });
+    itemsTimestampsArray.push(data.items[el].timestamp);
+  }
+  console.log(items);
+
+  // Sort items descending due to creation time
+  itemsTimestampsArray.sort().reverse();
+  items = sortItems(itemsTimestampsArray, items);
+
+  return { items };
+}
+
 export const setData = (user, response) => {
   let items = [];
   let collections = [];
   let itemsTimestampsArray = [];
   let collectionsTimestampsArray = [];
   let data = response.data;
-
-  // Get the same directory as when signing in - fetching items list through gift ideas page for not authenticated user
-  if (user) {
-    for (let el in data) {
-      data = data[el];
-      break
-    }
-  }
 
   if (data) {
     for (let el in data.items) {
@@ -123,16 +146,15 @@ export const setData = (user, response) => {
       });
       itemsTimestampsArray.push(data.items[el].timestamp);
     }
-    if (!user) {
-      for (let el in data.collections) {
-      collections.push({
-        ...data.collections[el],
-        id: el
-      });
-      collectionsTimestampsArray.push(data.collections[el].timestamp);
-      }
+
+    for (let el in data.collections) {
+    collections.push({
+      ...data.collections[el],
+      id: el
+    });
+    collectionsTimestampsArray.push(data.collections[el].timestamp);
     }
-    
+
     itemsTimestampsArray.sort().reverse();
     collectionsTimestampsArray.sort().reverse();
 
@@ -154,7 +176,11 @@ export const fetchData = (userId, user, collection, partEmail) => {
     fetchUserData(user, partEmail, userId)
       .then(response => {
         console.log(response);
-        const { items, collections } = setData(user, response);
+        const { items, collections = null } = collection
+          ? setGiftPageData(user, response, collection)
+          : setData(user, response);
+
+        console.log(items, collections);
 
         dispatch(fetchDataSuccess(items, collections));
       })
