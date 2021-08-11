@@ -217,6 +217,7 @@ export const deleteItem = (id, token, items, partEmail, userId) => {
     dispatch(deleteItemStart());
 
     const queryParams = id + '.json?auth=' + token;
+    console.log(id);
 
     deleteUserItem(partEmail, userId, queryParams)
       .then(response => {

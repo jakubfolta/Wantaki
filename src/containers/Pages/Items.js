@@ -88,7 +88,7 @@ class Items extends Component {
     this.resetValues();
   }
 
-  onDeleteItemHandler = id => {
+  onDeleteItemHandler = (e, id) => {
     this.props.onDeleteItem(id, this.props.token, this.props.items, this.props.partEmail, this.props.userId);
   }
 
@@ -309,7 +309,7 @@ class Items extends Component {
                   <Button
                     type="button"
                     btnType="delete"
-                    clicked={this.onDeleteItemHandler}>Delete</Button>
+                    clicked={(e) => this.onDeleteItemHandler(e, el.id)}>Delete</Button>
 
                   <Button
                     type="button"
