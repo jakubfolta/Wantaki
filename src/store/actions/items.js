@@ -176,7 +176,7 @@ export const fetchData = (userId, user, collection, partEmail) => {
     fetchUserData(user, partEmail, userId)
       .then(response => {
         console.log(response);
-        const { items, collections = null } = collection
+        const { items, collections = null } = user
           ? setGiftPageData(user, response, collection)
           : setData(user, response);
 
