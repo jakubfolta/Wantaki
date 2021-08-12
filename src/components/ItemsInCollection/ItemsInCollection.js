@@ -17,7 +17,7 @@ const ItemsInCollection = props => {
   return (
     props.visible
     ? <div className="itemsInCollection">
-        <h3 className="itemsInCollection_title">{`${collection.name}`}</h3>
+        <h3 className="itemsInCollection_title">{collection.name}</h3>
         <div className="itemsInCollection_list">
           {collection.items.map(item => (
             <ListItem
