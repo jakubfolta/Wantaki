@@ -118,7 +118,8 @@ export const setGiftPageData = (response, collectionId) => {
 
   for (let el in data.items) {
     items.push({
-      ...data.items[el]
+      ...data.items[el],
+      id: el
     });
     itemsTimestampsArray.push(data.items[el].timestamp);
   }
