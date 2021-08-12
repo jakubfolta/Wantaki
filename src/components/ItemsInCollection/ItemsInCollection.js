@@ -10,13 +10,9 @@ const ItemsInCollection = props => {
   ? props.collections.filter(collection => collection.id === props.collectionId)[0]
   : null;
 
-  const buttonDescription = props.copied
-    ? 'Copied'
-    : 'Copy link to this collection';
-
-  const glitchButton = props.copied
-    ? <span className="button_glitch"></span>
-    : null;
+  const [buttonDescription, glitchButton] = props.copied
+    ? ['Copied', <span className="button_glitch"></span>]
+    : ['Copy link to this collection', null];
 
   return (
     props.visible
