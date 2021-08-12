@@ -112,7 +112,6 @@ class ShareSection extends Component {
     if (this.checkIfCollectionExists()) return;
 
     const collection = {
-      items: [],
       name: this.state.newCollectionForm.name,
       timestamp: Date.now()
     };

@@ -7,13 +7,13 @@ import ListItem from '../ListItems/ListItem/ListItem';
 
 const ItemsInCollection = props => {
   const collection = props.collectionId
-  ? props.collections.filter(collection => collection.id === props.collectionId)[0]
-  : null;
+    ? props.collections.filter(collection => collection.id === props.collectionId)[0]
+    : null;
 
   const [buttonDescription, glitchButton] = props.copied
     ? ['Copied', <span className="button_glitch"></span>]
     : ['Copy link to this collection', null];
-  console.log(collection);
+
   return (
     props.visible
     ? <div className="itemsInCollection">

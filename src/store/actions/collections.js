@@ -31,7 +31,8 @@ export const newCollection = (token, partEmail, userId, collections, newCollecti
       .then(response => {
         const updatedCollection = {
           ...newCollection,
-          id: response.data.name
+          id: response.data.name,
+          items: []
         };
         const newCollections = [...collections];
         newCollections.unshift(updatedCollection);
