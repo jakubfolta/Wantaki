@@ -104,15 +104,11 @@ export const setGiftPageData = (response, collectionId) => {
   let items = [];
   let itemsTimestampsArray = [];
   let data = response.data;
-  console.log(data);
 
   // Get the same directory as when signing in - fetching items list through gift ideas page for not authenticated user
   for (let el in data) {
     data = data[el];
-    if (collectionId) {
-      data = data.collections[collectionId];
-    }
-    console.log(data);
+    if (collectionId) data = data.collections[collectionId];
     break
   }
 
@@ -123,7 +119,6 @@ export const setGiftPageData = (response, collectionId) => {
     });
     itemsTimestampsArray.push(data.items[el].timestamp);
   }
-  console.log(items);
 
   // Sort items descending due to creation time
   itemsTimestampsArray.sort().reverse();
@@ -176,12 +171,9 @@ export const fetchData = (userId, user, collection, partEmail) => {
 
     fetchUserData(user, partEmail, userId)
       .then(response => {
-        console.log(response);
         const { items, collections = null } = user
           ? setGiftPageData(response, collection)
           : setData(response);
-
-        console.log(items, collections);
 
         dispatch(fetchDataSuccess(items, collections));
       })
