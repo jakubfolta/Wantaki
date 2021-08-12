@@ -120,13 +120,13 @@ class ShareSection extends Component {
   }
 
   render() {
-    let copyButton = this.props.theme === 'cyber'
+    const copyButton = this.props.theme === 'cyber'
     ? 'Your list\'s link_'
     : 'Your list\'s link';
 
-    let copyGlitch = this.state.linkCopied
-    ? <span className="button_glitch"></span>
-    : null;
+    const [copyGlitch, buttonDescription] = this.state.linkCopied
+    ? [<span className="button_glitch"></span>, 'Copied']
+    : [null, 'Copy now'];
 
     const shareSection =
       ( <div className="share-section">
@@ -139,7 +139,7 @@ class ShareSection extends Component {
             <span className="copy_action">
               {copyGlitch}
               <FaArrowRight />
-              {this.state.linkCopied ? 'Copied' : 'Copy now'}
+              {buttonDescription}
               <FaArrowLeft />
             </span>
             <span className="button_label">W25</span></Button>

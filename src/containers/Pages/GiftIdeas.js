@@ -13,9 +13,6 @@ class GiftIdeas extends Component {
     const user = search.get('user');
     const collection = search.get('collection');
 
-    console.log(user);
-    console.log(collection);
-
     this.props.onFetchData(user, collection);
   }
 

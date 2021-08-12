@@ -100,7 +100,7 @@ export const fetchDataFail = error => {
   };
 }
 
-export const setGiftPageData = (user, response, collectionId) => {
+export const setGiftPageData = (response, collectionId) => {
   let items = [];
   let itemsTimestampsArray = [];
   let data = response.data;
@@ -131,7 +131,7 @@ export const setGiftPageData = (user, response, collectionId) => {
   return { items };
 }
 
-export const setData = (user, response) => {
+export const setData = response => {
   let items = [];
   let collections = [];
   let itemsTimestampsArray = [];
@@ -177,8 +177,8 @@ export const fetchData = (userId, user, collection, partEmail) => {
       .then(response => {
         console.log(response);
         const { items, collections = null } = user
-          ? setGiftPageData(user, response, collection)
-          : setData(user, response);
+          ? setGiftPageData(response, collection)
+          : setData(response);
 
         console.log(items, collections);
 
