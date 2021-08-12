@@ -13,7 +13,7 @@ const ItemsInCollection = props => {
   const [buttonDescription, glitchButton] = props.copied
     ? ['Copied', <span className="button_glitch"></span>]
     : ['Copy link to this collection', null];
-
+  console.log(collection);
   return (
     props.visible
     ? <div className="itemsInCollection">
