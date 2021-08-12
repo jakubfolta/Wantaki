@@ -90,7 +90,7 @@ class ListCollections extends Component {
   copyCollectionLink = () => {
     const copyButton = document.getElementById('copyCollectionLinkButton');
     const baseURL = window.location.href.split(this.props.match.url)[0];
-    // console.log(baseURL + "/giftideas?collection=" + this.state.itemsInCollectionBox.openingCollectionId);
+
     navigator.clipboard.writeText(baseURL + `/giftideas?user=${this.props.uuid}&collection=${this.state.itemsInCollectionBox.openingCollectionId}`)
       .then(() => {
       this.setState({collectionLinkCopied: true});
@@ -102,6 +102,10 @@ class ListCollections extends Component {
       .catch(error => {
         alert(error);
       })
+  }
+
+  onDeleteCollectionHandler = id => {
+    this.props.onDeleteCollection(this.props.partEmail, this.props.userId, this.props.token, id, this.props.collections);
   }
 
   render() {
@@ -140,7 +144,8 @@ class ListCollections extends Component {
         <ItemsInCollection
           visible={this.state.itemsInCollectionBox.visibilityState}
           collectionId={this.state.itemsInCollectionBox.openingCollectionId}
-          handleCopyClick={this.copyCollectionLink}/>
+          handleCopyClick={this.copyCollectionLink}
+          copied={this.state.collectionLinkCopied}/>
       </Fragment>
     );
   }

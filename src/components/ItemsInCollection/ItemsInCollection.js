@@ -10,7 +10,13 @@ const ItemsInCollection = props => {
   ? props.collections.filter(collection => collection.id === props.collectionId)[0]
   : null;
 
-  const buttonDescription = 'Copy link to this collection';
+  const buttonDescription = props.copied
+    ? 'Copied'
+    : 'Copy link to this collection';
+
+  const glitchButton = props.copied
+    ? <span className="button_glitch"></span>
+    : null;
 
   return (
     props.visible
@@ -41,7 +47,7 @@ const ItemsInCollection = props => {
             <span className="itemsInCollection_copyButton-icon">
               <AiOutlinePlus />
             </span>
-            {/* {glitchButton} */}
+            {glitchButton}
             {buttonDescription}
           </Button>
         </div>

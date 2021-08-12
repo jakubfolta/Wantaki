@@ -231,10 +231,6 @@ class Items extends Component {
     }
   }
 
-  onDeleteCollectionHandler = id => {
-    this.props.onDeleteCollection(this.props.partEmail, this.props.userId, this.props.token, id, this.props.collections);
-  }
-
   render() {
     const form = this.state.newItemForm;
     const formElements = [];
