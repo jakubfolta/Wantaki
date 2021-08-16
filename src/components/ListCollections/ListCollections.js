@@ -104,9 +104,13 @@ class ListCollections extends Component {
       })
   }
 
-  onDeleteCollectionHandler = id => {
-    this.props.onDeleteCollection(this.props.partEmail, this.props.userId, this.props.token, id, this.props.collections);
+  onRemoveItemFromCollectionHandler = id => {
+    console.log(id);
   }
+
+  // onDeleteCollectionHandler = id => {
+  //   this.props.onDeleteCollection(this.props.partEmail, this.props.userId, this.props.token, id, this.props.collections);
+  // }
 
   render() {
     let items = this.props.loadingCollections
@@ -145,7 +149,8 @@ class ListCollections extends Component {
           visible={this.state.itemsInCollectionBox.visibilityState}
           collectionId={this.state.itemsInCollectionBox.openingCollectionId}
           handleCopyClick={this.copyCollectionLink}
-          copied={this.state.collectionLinkCopied}/>
+          copied={this.state.collectionLinkCopied}
+          onRemoveClick={this.onRemoveItemFromCollectionHandler}/>
       </Fragment>
     );
   }

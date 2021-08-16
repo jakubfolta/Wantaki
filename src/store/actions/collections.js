@@ -134,6 +134,28 @@ export const addItemsToCollection = (partEmail, userId, token, collectionId, col
   }
 }
 
+export const removeItemFromCollectionStart = () => {
+  return {
+    type: actions.REMOVE_ITEM_FROM_COLLECTION_START
+  }
+}
+export const removeItemFromCollectionSuccess = (items, collection) => {
+  return {
+    type: actions.REMOVE_ITEM_FROM_COLLECTION_SUCCESS,
+    items: items,
+    collection: collection
+  }
+}
+export const removeItemFromCollectionFail = error => {
+  return {
+    type: actions.REMOVE_ITEM_FROM_COLLECTION_FAIL,
+    error: error
+  }
+}
+export const removeItemFromCollection = () => {
+
+}
+
 
 
 

@@ -30,7 +30,7 @@ const ItemsInCollection = props => {
                 <Button
                   type="button"
                   btnType="delete"
-                  clicked={() => props.delete(item.id)}>Remove</Button>
+                  clicked={() => props.onRemoveClick(item.id)}>Remove</Button>
               </div>
             </ListItem>
           ))}

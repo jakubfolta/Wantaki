@@ -10,7 +10,9 @@ const initialState = {
   loadingCollections: false,
   collectionError: null,
   loadingItems: false,
-  loadingAddItemsToCollection: false
+  loadingAddItemsToCollection: false,
+  loadingRemoveItemsFromCollection: false,
+  removeItemError: null
 };
 
 // Add new item to firebase
@@ -188,6 +190,28 @@ const addItemsToCollectionFail = (state, action) => {
   });
 }
 
+const removeItemFromCollectionStart = (state, action) => {
+  return updateObject(state, {
+    loadingRemoveItemsFromCollection: true,
+    removeItemError: null
+  });
+}
+
+const removeItemFromCollectionSuccess = (state, action) => {
+  return updateObject(state, {
+    items: action.items,
+    collections: action.collections,
+    loadingRemoveItemsFromCollection: false
+  });
+}
+
+const removeItemFromCollectionFail = (state, action) => {
+  return updateObject(state, {
+    loadingRemoveItemsFromCollection: false,
+    removeItemError: action.error
+  });
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.NEW_ITEM_START: return newItemStart(state, action);
@@ -225,6 +249,10 @@ const reducer = (state = initialState, action) => {
     case actions.ADD_ITEMS_TO_COLLECTION_START: return addItemsToCollectionStart(state, action);
     case actions.ADD_ITEMS_TO_COLLECTION_SUCCESS: return addItemsToCollectionSuccess(state, action);
     case actions.ADD_ITEMS_TO_COLLECTION_FAIL: return addItemsToCollectionFail(state, action);
+
+    case actions.REMOVE_ITEM_FROM_COLLECTION_START: return removeItemFromCollectionStart(state, action);
+    case actions.REMOVE_ITEM_FROM_COLLECTION_SUCCESS: return removeItemFromCollectionSuccess(state, action);
+    case actions.REMOVE_ITEM_FROM_COLLECTION_FAIL: return removeItemFromCollectionFail(state, action);
 
     default: return state;
   }
