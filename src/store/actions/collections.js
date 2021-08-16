@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as actions from './actionTypes';
 import { addCollection, deleteUserCollection, updateUserCollectionAndItems } from '../../network/lib/collections';
+import { setRequestData, sortItems } from '../../shared/utility';
 
 // Add new collection to redux and firebase
 export const newCollectionStart = () => {
@@ -71,7 +72,8 @@ export const deleteCollection = (partEmail, userId, token, id, collections) => {
   return dispatch => {
     dispatch(deleteCollectionStart());
 
-    const queryParams = id +'.json?auth=' + token;
+    // const queryParams = id +'.json?auth=' + token;
+    const {queryParams} = setRequestData(id, token);
 
     deleteUserCollection(partEmail, userId, queryParams)
       .then(response => {
@@ -86,6 +88,8 @@ export const deleteCollection = (partEmail, userId, token, id, collections) => {
       })
   };
 }
+
+
 
 export const addItemsToCollectionStart = () => {
   return {
@@ -112,12 +116,7 @@ export const addItemsToCollection = (partEmail, userId, token, collectionId, col
   return dispatch => {
     dispatch(addItemsToCollectionStart());
 
-    const queryParams = collectionId + '.json?auth=' + token;
-    const databaseUpdatedItems = {};
-
-    for (const item of updatedItems) {
-      databaseUpdatedItems[item.id] = {...item}
-    }
+    const {queryParams, databaseUpdatedItems} = setRequestData(collectionId, token, updatedItems);
 
     updateUserCollectionAndItems(partEmail, userId, token, queryParams, collectionWithItems, databaseUpdatedItems)
       .then(axios.spread((...responses) => {
@@ -155,10 +154,36 @@ export const removeItemFromCollectionFail = error => {
   }
 }
 
-export const removeItemFromCollection = (partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections) => {
+export const removeItemFromCollection = data => {
   return dispatch => {
-    console.log('Action');
+    // console.log('Action');
     dispatch(removeItemFromCollectionStart());
+
+    const {queryParams, databaseUpdatedItems} = setRequestData(data.collectionId, data.token, data.updatedItems);
+
+    updateUserCollectionAndItems(data.partEmail, data.userId, data.token, queryParams, data.collectionWithItems, databaseUpdatedItems)
+      .then(axios.spread((...responses) => {
+        const itemsTimestamps = [];
+
+        for (let item of data.updatedItems) {
+          itemsTimestamps.push(data.updatedItems[item].timestamp)
+        }
+
+        const updatedSortedItems = sortItems(itemsTimestamps, data.updatedItems);
+        console.log(data.updatedItems);
+        console.log(updatedSortedItems);
+
+        dispatch(removeItemFromCollectionSuccess(updatedSortedItems, data.updatedCollections))
+
+      }))
+      .catch(error => {
+        const errorMessage = error.responses.data.error;
+        dispatch(removeItemFromCollectionFail(errorMessage));
+      })
+
+
+
+
   }
 }
 

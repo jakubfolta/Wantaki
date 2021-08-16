@@ -54,3 +54,19 @@ export const setTheme = (theme, init) => {
     localStorage.setItem('data-theme', theme);
   }
 }
+
+export const setRequestData = (id, token, items = null) => {
+  const queryParams = `${id}.json?auth=${token}`;
+  const databaseUpdatedItems = items ? {} : null;
+
+  if (items) {
+    for (const item of items) {
+      databaseUpdatedItems[item.id] = {...item}
+    }
+  }
+
+  return {
+    queryParams,
+    databaseUpdatedItems
+  };
+}
