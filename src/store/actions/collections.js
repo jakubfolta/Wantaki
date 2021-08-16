@@ -143,7 +143,7 @@ export const removeItemFromCollectionSuccess = (items, collections) => {
   return {
     type: actions.REMOVE_ITEM_FROM_COLLECTION_SUCCESS,
     items: items,
-    collection: collections
+    collections: collections
   }
 }
 
@@ -156,17 +156,17 @@ export const removeItemFromCollectionFail = error => {
 
 export const removeItemFromCollection = data => {
   return dispatch => {
-    // console.log('Action');
+    console.log('Action');
     dispatch(removeItemFromCollectionStart());
 
     const {queryParams, databaseUpdatedItems} = setRequestData(data.collectionId, data.token, data.updatedItems);
 
-    updateUserCollectionAndItems(data.partEmail, data.userId, data.token, queryParams, data.collectionWithItems, databaseUpdatedItems)
+    updateUserCollectionAndItems(data.partEmail, data.userId, data.token, queryParams, data.updatedCollection, databaseUpdatedItems)
       .then(axios.spread((...responses) => {
         const itemsTimestamps = [];
 
         for (let item of data.updatedItems) {
-          itemsTimestamps.push(data.updatedItems[item].timestamp)
+          itemsTimestamps.push(item.timestamp)
         }
 
         const updatedSortedItems = sortItems(itemsTimestamps, data.updatedItems);

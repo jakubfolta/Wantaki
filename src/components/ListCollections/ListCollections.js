@@ -122,12 +122,20 @@ class ListCollections extends Component {
     const updatedCollections = collectionsCopy;
     const updatedItems = [...this.props.items, removedItem];
 
-    // console.log(openedCollection);
+    console.log(openedCollection);
     console.log(updatedCollections);
     console.log(updatedItems);
+    const data = {
+      partEmail: this.props.partEmail,
+      userId: this.props.userId,
+      token: this.props.token,
+      collectionId: collectionId,
+      updatedCollection: updatedCollection,
+      updatedItems: updatedItems,
+      updatedCollections: updatedCollections
+    };
 
-
-    this.props.onRemoveItemFromCollection();
+    this.props.onRemoveItemFromCollection(data);
   }
 
   // onDeleteCollectionHandler = id => {
@@ -193,7 +201,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     onAddItemsToCollection: (partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections) => dispatch(collectionsActions.addItemsToCollection(partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections)),
-    onRemoveItemFromCollection: () => dispatch(collectionsActions.removeItemFromCollection())
+    onRemoveItemFromCollection: data => dispatch(collectionsActions.removeItemFromCollection(data))
   };
 }
 

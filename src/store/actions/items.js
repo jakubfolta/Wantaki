@@ -121,7 +121,6 @@ export const setGiftPageData = (response, collectionId) => {
   }
 
   // Sort items descending due to creation time
-  itemsTimestampsArray.sort().reverse();
   items = sortItems(itemsTimestampsArray, items);
 
   return { items };
@@ -146,7 +145,10 @@ export const setData = response => {
     for (let el in data.collections) {
     collections.push({
       ...data.collections[el],
-      id: el
+      id: el,
+      items: data.collections[el].items       
+        ? [...data.collections[el].items]
+        : []
     });
     collectionsTimestampsArray.push(data.collections[el].timestamp);
     }

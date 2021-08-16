@@ -27,6 +27,7 @@ export const checkValidity = (value, rules) => {
 
 export const sortItems = (timestampsArray, items) => {
   const sortedItems = [];
+  timestampsArray.sort().reverse();
 
   for (let number of timestampsArray) {
     let itemIndex = items.findIndex(el => el.timestamp === number);
