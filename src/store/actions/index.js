@@ -17,5 +17,6 @@ export {
 export {
   newCollection,
   deleteCollection,
-  addItemsToCollection
+  addItemsToCollection,
+  removeItemFromCollection
 } from './collections';

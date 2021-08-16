@@ -139,21 +139,27 @@ export const removeItemFromCollectionStart = () => {
     type: actions.REMOVE_ITEM_FROM_COLLECTION_START
   }
 }
-export const removeItemFromCollectionSuccess = (items, collection) => {
+
+export const removeItemFromCollectionSuccess = (items, collections) => {
   return {
     type: actions.REMOVE_ITEM_FROM_COLLECTION_SUCCESS,
     items: items,
-    collection: collection
+    collection: collections
   }
 }
+
 export const removeItemFromCollectionFail = error => {
   return {
     type: actions.REMOVE_ITEM_FROM_COLLECTION_FAIL,
     error: error
   }
 }
-export const removeItemFromCollection = () => {
 
+export const removeItemFromCollection = (partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections) => {
+  return dispatch => {
+    console.log('Action');
+    dispatch(removeItemFromCollectionStart());
+  }
 }
 
 

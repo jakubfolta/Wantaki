@@ -105,7 +105,29 @@ class ListCollections extends Component {
   }
 
   onRemoveItemFromCollectionHandler = id => {
-    console.log(id);
+    const collectionId = this.state.itemsInCollectionBox.openingCollectionId;
+    const openedCollection = this.props.collections.filter(el => el.id === collectionId)[0];
+    const updatedCollectionIndex =  this.props.collections.findIndex(el => el.id === collectionId);
+    const updatedCollectionItems = openedCollection.items.filter(el => el.id !== id);
+    const removedItem = openedCollection.items.filter(el => el.id === id)[0];
+
+    const updatedCollection = {
+      ...openedCollection,
+      items: updatedCollectionItems
+    };
+
+    const collectionsCopy = [...this.props.collections];
+    collectionsCopy[updatedCollectionIndex] = updatedCollection;
+
+    const updatedCollections = collectionsCopy;
+    const updatedItems = [...this.props.items, removedItem];
+
+    // console.log(openedCollection);
+    console.log(updatedCollections);
+    console.log(updatedItems);
+
+
+    this.props.onRemoveItemFromCollection();
   }
 
   // onDeleteCollectionHandler = id => {
@@ -170,7 +192,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddItemsToCollection: (partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections) => dispatch(collectionsActions.addItemsToCollection(partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections))
+    onAddItemsToCollection: (partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections) => dispatch(collectionsActions.addItemsToCollection(partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections)),
+    onRemoveItemFromCollection: () => dispatch(collectionsActions.removeItemFromCollection())
   };
 }
 
