@@ -122,9 +122,6 @@ class ListCollections extends Component {
     const updatedCollections = collectionsCopy;
     const updatedItems = [...this.props.items, removedItem];
 
-    console.log(openedCollection);
-    console.log(updatedCollections);
-    console.log(updatedItems);
     const data = {
       partEmail: this.props.partEmail,
       userId: this.props.userId,
