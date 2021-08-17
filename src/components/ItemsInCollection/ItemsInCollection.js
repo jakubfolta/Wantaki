@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { AiOutlinePlus } from 'react-icons/ai';
+import { BiCopy, BiDotsVertical } from 'react-icons/bi';
 import Button from '../UI/Button';
 import ListItem from '../ListItems/ListItem/ListItem';
 
@@ -12,28 +12,61 @@ const ItemsInCollection = props => {
 
   const [buttonDescription, glitchButton] = props.copied
     ? ['Copied', <span className="button_glitch"></span>]
-    : ['Copy link to this collection', null];
+    : ['Copy link to collection', null];
+
+  const items = props.visible && collection.items.length > 0
+    ? collection.items.map(item => (
+      <ListItem
+        id={item.id}
+        key={item.id}
+        name={item.name}
+        link={item.link}>
+
+        <div className="list_item-group">
+          <Button
+            type="button"
+            btnType="delete"
+            clicked={() => props.onRemoveClick(item.id)}>Remove</Button>
+        </div>
+      </ListItem>
+    ))
+    : <span className="itemsInCollection_emptySpan">Empty</span>
 
   return (
     props.visible
     ? <div className="itemsInCollection">
-        <h3 className="itemsInCollection_title">{collection.name}</h3>
-        <div className="itemsInCollection_list">
-          {collection.items.map(item => (
-            <ListItem
-              id={item.id}
-              key={item.id}
-              name={item.name}
-              link={item.link}>
+        <h3 className="itemsInCollection_title">{collection.name}
+          <span
+            className="itemsInCollection_dots-icon"
+            onClick={props.handleMenuClick}>
+            <BiDotsVertical />
+          </span>
+        </h3>
 
-              <div className="list_item-group">
-                <Button
-                  type="button"
-                  btnType="delete"
-                  clicked={() => props.onRemoveClick(item.id)}>Remove</Button>
-              </div>
-            </ListItem>
-          ))}
+        {props.menuVisible
+          ? <div className="itemsInCollection_backdrop">
+            <div className="itemsInCollection_menu">
+              <Button
+                type="button"
+                btnType="itemsInCollection_menuButton"
+                // id="copyCollectionLinkButton"
+                clicked={props.handleCopyClick} >
+                Rename
+              </Button>
+              <Button
+                type="button"
+                btnType="itemsInCollection_menuButton"
+                // id="copyCollectionLinkButton"
+                clicked={props.handleCopyClick} >
+                Delete collection
+              </Button>
+            </div>
+          </div>
+          : null}
+
+
+        <div className="itemsInCollection_list">
+          {items}
 
           <Button
             type="button"
@@ -41,7 +74,7 @@ const ItemsInCollection = props => {
             id="copyCollectionLinkButton"
             clicked={props.handleCopyClick} >
             <span className="itemsInCollection_copyButton-icon">
-              <AiOutlinePlus />
+              <BiCopy />
             </span>
             {glitchButton}
             {buttonDescription}

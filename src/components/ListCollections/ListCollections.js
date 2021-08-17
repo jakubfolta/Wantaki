@@ -21,7 +21,8 @@ class ListCollections extends Component {
     },
     selectedItemsIds: [],
     itemsAddedToCollection: false,
-    collectionLinkCopied: false
+    collectionLinkCopied: false,
+    collectionMenuVisible: false
   }
 
   componentDidUpdate(prevProps) {
@@ -56,7 +57,8 @@ class ListCollections extends Component {
 
       return {
         [boxToSwitch]: boxCopy,
-        selectedItemsIds: []
+        selectedItemsIds: [],
+        collectionMenuVisible: false
       };
     })
   }
@@ -135,6 +137,12 @@ class ListCollections extends Component {
     this.props.onRemoveItemFromCollection(data);
   }
 
+  switchMenuVisibility = () => {
+    this.setState(prevState => {
+      return {collectionMenuVisible: !prevState.collectionMenuVisible}
+    })
+  }
+
   // onDeleteCollectionHandler = id => {
   //   this.props.onDeleteCollection(this.props.partEmail, this.props.userId, this.props.token, id, this.props.collections);
   // }
@@ -176,6 +184,8 @@ class ListCollections extends Component {
           visible={this.state.itemsInCollectionBox.visibilityState}
           collectionId={this.state.itemsInCollectionBox.openingCollectionId}
           handleCopyClick={this.copyCollectionLink}
+          handleMenuClick={this.switchMenuVisibility}
+          menuVisible={this.state.collectionMenuVisible}
           copied={this.state.collectionLinkCopied}
           onRemoveClick={this.onRemoveItemFromCollectionHandler}/>
       </Fragment>
