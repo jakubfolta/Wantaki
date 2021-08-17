@@ -72,7 +72,6 @@ export const deleteCollection = (partEmail, userId, token, id, collections) => {
   return dispatch => {
     dispatch(deleteCollectionStart());
 
-    // const queryParams = id +'.json?auth=' + token;
     const {queryParams} = setRequestData(id, token);
 
     deleteUserCollection(partEmail, userId, queryParams)

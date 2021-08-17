@@ -1,7 +1,7 @@
 import * as actions from './actionTypes';
 import { addItem, fetchUserData, deleteUserItem, updateUserItem } from '../../network/lib/items';
 
-import { sortItems } from '../../shared/utility';
+import { sortItems, setRequestData } from '../../shared/utility';
 
 // Add new item to firebase
 export const newItemStart = () => {
@@ -146,15 +146,12 @@ export const setData = response => {
     collections.push({
       ...data.collections[el],
       id: el,
-      items: data.collections[el].items       
+      items: data.collections[el].items
         ? [...data.collections[el].items]
         : []
     });
     collectionsTimestampsArray.push(data.collections[el].timestamp);
     }
-
-    itemsTimestampsArray.sort().reverse();
-    collectionsTimestampsArray.sort().reverse();
 
     // Sort items descending due to creation time
     items = sortItems(itemsTimestampsArray, items);
@@ -211,8 +208,7 @@ export const deleteItem = (id, token, items, partEmail, userId) => {
   return dispatch => {
     dispatch(deleteItemStart());
 
-    const queryParams = id + '.json?auth=' + token;
-    console.log(id);
+    const {queryParams} = setRequestData(id, token);
 
     deleteUserItem(partEmail, userId, queryParams)
       .then(response => {
