@@ -129,13 +129,13 @@ export const addItemsToCollection = (partEmail, userId, token, collectionId, col
         const errorMessage = error.responses.data.error;
         dispatch(addItemsToCollectionFail(errorMessage));
       })
-  }
+  };
 }
 
 export const removeItemFromCollectionStart = () => {
   return {
     type: actions.REMOVE_ITEM_FROM_COLLECTION_START
-  }
+  };
 }
 
 export const removeItemFromCollectionSuccess = (items, collections) => {
@@ -143,19 +143,18 @@ export const removeItemFromCollectionSuccess = (items, collections) => {
     type: actions.REMOVE_ITEM_FROM_COLLECTION_SUCCESS,
     items: items,
     collections: collections
-  }
+  };
 }
 
 export const removeItemFromCollectionFail = error => {
   return {
     type: actions.REMOVE_ITEM_FROM_COLLECTION_FAIL,
     error: error
-  }
+  };
 }
 
 export const removeItemFromCollection = data => {
   return dispatch => {
-    console.log('Action');
     dispatch(removeItemFromCollectionStart());
 
     const {queryParams, databaseUpdatedItems} = setRequestData(data.collectionId, data.token, data.updatedItems);
@@ -169,38 +168,13 @@ export const removeItemFromCollection = data => {
         }
 
         const updatedSortedItems = sortItems(itemsTimestamps, data.updatedItems);
-        console.log(data.updatedItems);
-        console.log(updatedSortedItems);
 
         dispatch(removeItemFromCollectionSuccess(updatedSortedItems, data.updatedCollections))
-
       }))
       .catch(error => {
         const errorMessage = error.responses.data.error;
         dispatch(removeItemFromCollectionFail(errorMessage));
       })
-
-
-
-
-  }
+  };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
