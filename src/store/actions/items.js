@@ -268,7 +268,7 @@ export const updateItem = (item, items, updatedItemId, token, partEmail, userId)
   return dispatch => {
     dispatch(updateItemStart());
 
-    const queryParams = updatedItemId + '.json?auth=' + token;
+    const {queryParams} = setRequestData(updatedItemId, token);
 
     updateUserItem(partEmail, userId, queryParams, item)
       .then(response => {
