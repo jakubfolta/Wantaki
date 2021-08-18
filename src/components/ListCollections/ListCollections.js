@@ -104,6 +104,7 @@ class ListCollections extends Component {
       .catch(error => {
         alert(error);
       })
+    console.log(this.state);
   }
 
   onRemoveItemFromCollectionHandler = id => {
@@ -139,7 +140,7 @@ class ListCollections extends Component {
 
   switchMenuVisibility = () => {
     this.setState(prevState => {
-      return {isCollectionMenuVisible: !prevState.isCollectionMenuVisible}
+      return {isCollectionMenuVisible: !prevState.isCollectionMenuVisible};
     })
   }
 
@@ -185,7 +186,7 @@ class ListCollections extends Component {
           collectionId={this.state.itemsInCollectionBox.openingCollectionId}
           handleCopyClick={this.copyCollectionLink}
           handleMenuClick={this.switchMenuVisibility}
-          // handleBackdropClick={this.}
+          handleBackdropClick={this.switchMenuVisibility}
           menuVisible={this.state.isCollectionMenuVisible}
           copied={this.state.isCollectionLinkCopied}
           onRemoveClick={this.onRemoveItemFromCollectionHandler}/>
