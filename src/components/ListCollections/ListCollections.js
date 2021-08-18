@@ -144,6 +144,27 @@ class ListCollections extends Component {
     })
   }
 
+  onRenameCollectionHandler = e => {
+    e.stopPropagation();
+    console.log('Pressed');
+
+
+  }
+
+  onDeleteCollectionHandler = e => {
+    e.stopPropagation();
+  }
+
+  // switchMenuVisibility2 = (e) => {
+  //   // e.stopPropagation();
+  //   e.cancelBubble=true;
+  //   console.log('Pressed');
+  //   console.log(e);
+  //   this.setState(prevState => {
+  //     return {isCollectionMenuVisible: !prevState.isCollectionMenuVisible};
+  //   })
+  // }
+
   // onDeleteCollectionHandler = id => {
   //   this.props.onDeleteCollection(this.props.partEmail, this.props.userId, this.props.token, id, this.props.collections);
   // }
@@ -187,6 +208,8 @@ class ListCollections extends Component {
           handleCopyClick={this.copyCollectionLink}
           handleMenuClick={this.switchMenuVisibility}
           handleBackdropClick={this.switchMenuVisibility}
+          handleRenameClick={this.onRenameCollectionHandler}
+          handleDeleteClick={this.onDeleteCollectionHandler}
           menuVisible={this.state.isCollectionMenuVisible}
           copied={this.state.isCollectionLinkCopied}
           onRemoveClick={this.onRemoveItemFromCollectionHandler}/>

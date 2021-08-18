@@ -52,7 +52,7 @@ const ItemsInCollection = props => {
                 type="button"
                 btnType="itemsInCollection_menuButton"
                 // id="copyCollectionLinkButton"
-                // clicked={props.handleCopyClick}
+                clicked={props.handleRenameClick}
                 >
                 Rename
               </Button>
@@ -60,7 +60,7 @@ const ItemsInCollection = props => {
                 type="button"
                 btnType="itemsInCollection_menuButton"
                 // id="copyCollectionLinkButton"
-                // clicked={props.handleCopyClick}
+                clicked={props.handleDeleteClick}
                 >
                 Delete collection
               </Button>
