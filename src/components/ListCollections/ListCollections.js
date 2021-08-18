@@ -12,21 +12,21 @@ import ListCollection from './ListCollection/ListCollection';
 class ListCollections extends Component {
   state = {
     availableItemsBox: {
-      visibilityState: false,
+      isBoxVisible: false,
       openingCollectionId: ''
     },
     itemsInCollectionBox: {
-      visibilityState: false,
+      isBoxVisible: false,
       openingCollectionId: ''
     },
     selectedItemsIds: [],
     itemsAddedToCollection: false,
-    collectionLinkCopied: false,
-    collectionMenuVisible: false
+    isCollectionLinkCopied: false,
+    isCollectionMenuVisible: false
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.collections !== this.props.collections && this.state.availableItemsBox.visibilityState) {
+    if (prevProps.collections !== this.props.collections && this.state.availableItemsBox.isBoxVisible) {
       this.setState({itemsAddedToCollection: true});
       this.resetState();
     }
@@ -36,7 +36,7 @@ class ListCollections extends Component {
     setTimeout(() => {
       const availableItemsBoxCopy = {...this.state.availableItemsBox};
 
-      availableItemsBoxCopy.visibilityState = false;
+      availableItemsBoxCopy.isBoxVisible = false;
       availableItemsBoxCopy.openingCollectionId = '';
 
       this.setState({availableItemsBox: availableItemsBoxCopy, itemsAddedToCollection: false, selectedItemsIds: []});
@@ -45,20 +45,20 @@ class ListCollections extends Component {
 
   switchItemsBox = (tagName = null, id = '') => {
     const boxToOpen = tagName === 'BUTTON' ? 'availableItemsBox' : 'itemsInCollectionBox';
-    const boxToClose = this.state.availableItemsBox.visibilityState ? 'availableItemsBox' : 'itemsInCollectionBox';
+    const boxToClose = this.state.availableItemsBox.isBoxVisible ? 'availableItemsBox' : 'itemsInCollectionBox';
 
     const boxToSwitch = tagName ? boxToOpen : boxToClose;
 
     this.setState(prevState => {
       const boxCopy = {...this.state.[boxToSwitch]};
 
-      boxCopy.visibilityState = !prevState.[boxToSwitch].visibilityState;
+      boxCopy.isBoxVisible = !prevState.[boxToSwitch].isBoxVisible;
       boxCopy.openingCollectionId = id;
 
       return {
         [boxToSwitch]: boxCopy,
         selectedItemsIds: [],
-        collectionMenuVisible: false
+        isCollectionMenuVisible: false
       };
     })
   }
@@ -95,9 +95,9 @@ class ListCollections extends Component {
 
     navigator.clipboard.writeText(baseURL + `/giftideas?user=${this.props.uuid}&collection=${this.state.itemsInCollectionBox.openingCollectionId}`)
       .then(() => {
-      this.setState({collectionLinkCopied: true});
+      this.setState({isCollectionLinkCopied: true});
       setTimeout(() => {
-        this.setState({collectionLinkCopied: false});
+        this.setState({isCollectionLinkCopied: false});
         if (copyButton) copyButton.blur();
       }, 3000)
     })
@@ -139,7 +139,7 @@ class ListCollections extends Component {
 
   switchMenuVisibility = () => {
     this.setState(prevState => {
-      return {collectionMenuVisible: !prevState.collectionMenuVisible}
+      return {isCollectionMenuVisible: !prevState.isCollectionMenuVisible}
     })
   }
 
@@ -171,22 +171,23 @@ class ListCollections extends Component {
       <Fragment>
         {collections}
         <Backdrop
-          visible={this.state.availableItemsBox.visibilityState || this.state.itemsInCollectionBox.visibilityState}
+          visible={this.state.availableItemsBox.isBoxVisible || this.state.itemsInCollectionBox.isBoxVisible}
           handleClick={() => this.switchItemsBox()}>
         </Backdrop>
         <ItemsAvailable
-          visible={this.state.availableItemsBox.visibilityState}
+          visible={this.state.availableItemsBox.isBoxVisible}
           onCheckedItem={this.getSelectedItems}
           itemsChecked={this.state.selectedItemsIds.length > 0}
           clicked={this.onAddItemsToCollectionHandler}
           itemsAdded={this.state.itemsAddedToCollection}/>
         <ItemsInCollection
-          visible={this.state.itemsInCollectionBox.visibilityState}
+          visible={this.state.itemsInCollectionBox.isBoxVisible}
           collectionId={this.state.itemsInCollectionBox.openingCollectionId}
           handleCopyClick={this.copyCollectionLink}
           handleMenuClick={this.switchMenuVisibility}
-          menuVisible={this.state.collectionMenuVisible}
-          copied={this.state.collectionLinkCopied}
+          // handleBackdropClick={this.}
+          menuVisible={this.state.isCollectionMenuVisible}
+          copied={this.state.isCollectionLinkCopied}
           onRemoveClick={this.onRemoveItemFromCollectionHandler}/>
       </Fragment>
     );

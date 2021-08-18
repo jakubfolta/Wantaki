@@ -44,20 +44,22 @@ const ItemsInCollection = props => {
         </h3>
 
         {props.menuVisible
-          ? <div className="itemsInCollection_backdrop">
+          ? <div
+            className="itemsInCollection_backdrop"
+            onClick={props.handleBackdropClick}>
             <div className="itemsInCollection_menu">
               <Button
                 type="button"
                 btnType="itemsInCollection_menuButton"
                 // id="copyCollectionLinkButton"
-                clicked={props.handleCopyClick} >
+                clicked={props.handleCopyClick}>
                 Rename
               </Button>
               <Button
                 type="button"
                 btnType="itemsInCollection_menuButton"
                 // id="copyCollectionLinkButton"
-                clicked={props.handleCopyClick} >
+                clicked={props.handleCopyClick}>
                 Delete collection
               </Button>
             </div>
@@ -72,7 +74,7 @@ const ItemsInCollection = props => {
             type="button"
             btnType="itemsInCollection_copyButton"
             id="copyCollectionLinkButton"
-            clicked={props.handleCopyClick} >
+            clicked={props.handleCopyClick}>
             <span className="itemsInCollection_copyButton-icon">
               <BiCopy />
             </span>
