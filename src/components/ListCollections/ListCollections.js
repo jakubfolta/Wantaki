@@ -22,7 +22,8 @@ class ListCollections extends Component {
     selectedItemsIds: [],
     itemsAddedToCollection: false,
     isCollectionLinkCopied: false,
-    isCollectionMenuVisible: false
+    isCollectionMenuVisible: false,
+    isDeleteWarningBoxVisible: false
   }
 
   componentDidUpdate(prevProps) {
@@ -148,26 +149,25 @@ class ListCollections extends Component {
     e.stopPropagation();
     console.log('Pressed');
 
-
   }
 
-  onDeleteCollectionHandler = e => {
+  onDeleteCollectionHandler = (e, id) => {
+    console.log(e);
     e.stopPropagation();
+
+    const collectionBoxCopy = {...this.state.itemsInCollectionBox};
+    collectionBoxCopy.isBoxVisible = false;
+    collectionBoxCopy.openingCollectionId = '';
+
+    this.setState({
+      isDeleteWarningBoxVisible: true,
+      isCollectionMenuVisible: false,
+      itemsInCollectionBox: collectionBoxCopy
+    });
+    // this.switchItemsBox();
+    // console.log(this.state);
+    // this.props.onDeleteCollection(this.props.partEmail, this.props.userId, this.props.token, id, this.props.collections);
   }
-
-  // switchMenuVisibility2 = (e) => {
-  //   // e.stopPropagation();
-  //   e.cancelBubble=true;
-  //   console.log('Pressed');
-  //   console.log(e);
-  //   this.setState(prevState => {
-  //     return {isCollectionMenuVisible: !prevState.isCollectionMenuVisible};
-  //   })
-  // }
-
-  // onDeleteCollectionHandler = id => {
-  //   this.props.onDeleteCollection(this.props.partEmail, this.props.userId, this.props.token, id, this.props.collections);
-  // }
 
   render() {
     let items = this.props.loadingCollections
@@ -210,9 +210,10 @@ class ListCollections extends Component {
           handleBackdropClick={this.switchMenuVisibility}
           handleRenameClick={this.onRenameCollectionHandler}
           handleDeleteClick={this.onDeleteCollectionHandler}
+          handleRemoveClick={this.onRemoveItemFromCollectionHandler}
           menuVisible={this.state.isCollectionMenuVisible}
-          copied={this.state.isCollectionLinkCopied}
-          onRemoveClick={this.onRemoveItemFromCollectionHandler}/>
+          warningBoxVisible={this.state.isDeleteWarningBoxVisible}
+          copied={this.state.isCollectionLinkCopied}/>
       </Fragment>
     );
   }

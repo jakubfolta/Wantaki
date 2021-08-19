@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { BiCopy, BiDotsVertical } from 'react-icons/bi';
 import Button from '../UI/Button';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ListItem from '../ListItems/ListItem/ListItem';
 
 const ItemsInCollection = props => {
@@ -26,7 +27,7 @@ const ItemsInCollection = props => {
           <Button
             type="button"
             btnType="delete"
-            clicked={() => props.onRemoveClick(item.id)}>Remove</Button>
+            clicked={() => props.handleRemoveClick(item.id)}>Remove</Button>
         </div>
       </ListItem>
     ))
@@ -45,27 +46,31 @@ const ItemsInCollection = props => {
 
         {props.menuVisible
           ? <div
-            className="itemsInCollection_backdrop"
-            onClick={props.handleBackdropClick}>
-            <div className="itemsInCollection_menu">
-              <Button
-                type="button"
-                btnType="itemsInCollection_menuButton"
-                // id="copyCollectionLinkButton"
-                clicked={props.handleRenameClick}
-                >
-                Rename
-              </Button>
-              <Button
-                type="button"
-                btnType="itemsInCollection_menuButton"
-                // id="copyCollectionLinkButton"
-                clicked={props.handleDeleteClick}
-                >
-                Delete collection
-              </Button>
+              className="itemsInCollection_backdrop"
+              onClick={props.handleBackdropClick}>
+              <div className="itemsInCollection_menu">
+                <Button
+                  type="button"
+                  btnType="itemsInCollection_menuButton"
+                  // id="copyCollectionLinkButton"
+                  clicked={props.handleRenameClick}>
+                  Rename
+                </Button>
+                <Button
+                  type="button"
+                  btnType="itemsInCollection_menuButton"
+                  // id="copyCollectionLinkButton"
+                  clicked={props.handleDeleteClick}>
+                  Delete collection
+                </Button>
+              </div>
             </div>
-          </div>
+          : null}
+
+        {props.warningBoxVisible
+          ? <ConfirmationModal
+              title="Warning"
+              description={`Are you sure you want to delete "${collection.name}" collection with all its items?`}/>
           : null}
 
 

@@ -1,0 +1,20 @@
+.confirmationModal {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: .5rem solid $color-warning;
+  padding: 1rem;
+  background-color: var(--color-primary);
+  z-index: 6;
+
+  &-title {
+
+  }
+
+  &-description {
+
+  }
+
+  &-button {
+
+  }
