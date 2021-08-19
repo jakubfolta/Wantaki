@@ -69,8 +69,10 @@ const ItemsInCollection = props => {
 
         {props.warningBoxVisible
           ? <ConfirmationModal
-              title="Warning"
-              description={`Are you sure you want to delete "${collection.name}" collection with all its items?`}/>
+              title="!!! Warning !!!"
+              description={`Are you sure you want to delete "${collection.name}" collection with all its items?`}
+              onConfirmClick={props.handleConfirmClick}
+              onAbortClick={props.handleAbortClick}/>
           : null}
 
 

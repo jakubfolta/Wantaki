@@ -68,15 +68,15 @@ export const deleteCollectionFail = error => {
   };
 }
 
-export const deleteCollection = (partEmail, userId, token, id, collections) => {
+export const deleteCollection = (data) => {
   return dispatch => {
     dispatch(deleteCollectionStart());
 
-    const {queryParams} = setRequestData(id, token);
+    const {queryParams} = setRequestData(data.id, data.token);
 
-    deleteUserCollection(partEmail, userId, queryParams)
+    deleteUserCollection(data.partEmail, data.userId, queryParams)
       .then(response => {
-        const updatedCollections = collections.filter(el => el.id !== id);
+        const updatedCollections = data.collections.filter(el => el.id !== data.id);
         console.log(updatedCollections);
         dispatch(deleteCollectionSuccess(updatedCollections));
 

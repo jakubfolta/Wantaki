@@ -361,8 +361,7 @@ const mapDispatchToProps = dispatch => {
     onFetchData: (userId, partEmail) => dispatch(itemsActions.fetchData(userId, null, null, partEmail)),
     onDeleteItem: (id, token, items, partEmail, userId) => dispatch(itemsActions.deleteItem(id, token, items, partEmail, userId)),
     onSetItemEditMode: (id, items) => dispatch(itemsActions.setItemEditMode(id, items)),
-    onUpdateItem: (updatedItem, updatedItems, updatedItemId, token, partEmail, userId) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token, partEmail, userId)),
-    onDeleteCollection: (partEmail, userId, token, id, collections) => dispatch(collectionsActions.deleteCollection(partEmail, userId, token, id, collections))
+    onUpdateItem: (updatedItem, updatedItems, updatedItemId, token, partEmail, userId) => dispatch(itemsActions.updateItem(updatedItem, updatedItems, updatedItemId, token, partEmail, userId))
   };
 }
 

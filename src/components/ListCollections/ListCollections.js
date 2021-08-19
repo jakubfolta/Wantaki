@@ -45,6 +45,8 @@ class ListCollections extends Component {
   }
 
   switchItemsBox = (tagName = null, id = '') => {
+    console.log(this.state);
+    // console.log('switch items box pressed');
     const boxToOpen = tagName === 'BUTTON' ? 'availableItemsBox' : 'itemsInCollectionBox';
     const boxToClose = this.state.availableItemsBox.isBoxVisible ? 'availableItemsBox' : 'itemsInCollectionBox';
 
@@ -59,7 +61,8 @@ class ListCollections extends Component {
       return {
         [boxToSwitch]: boxCopy,
         selectedItemsIds: [],
-        isCollectionMenuVisible: false
+        isCollectionMenuVisible: false,
+        isDeleteWarningBoxVisible: false
       };
     })
   }
@@ -140,6 +143,7 @@ class ListCollections extends Component {
   }
 
   switchMenuVisibility = () => {
+    console.log('Switch menu');
     this.setState(prevState => {
       return {isCollectionMenuVisible: !prevState.isCollectionMenuVisible};
     })
@@ -151,22 +155,47 @@ class ListCollections extends Component {
 
   }
 
-  onDeleteCollectionHandler = (e, id) => {
+  onDeleteCollectionHandler = e => {
     console.log(e);
+    // console.log(id);
     e.stopPropagation();
+
+
+
+    this.setState({
+      isDeleteWarningBoxVisible: true,
+      // isCollectionMenuVisible: false,
+      // itemsInCollectionBox: collectionBoxCopy  ///////// box not visible so whole component not displayed together with warning box <--- FIX .... separate warning component??
+    });
+    // this.switchItemsBox();
+    // console.log(this.state);
+  }
+
+  onConfirmDeleteCollectionHandler = () => {
+
+    const data = {
+      partEmail: this.props.partEmail,
+      userId: this.props.userId,
+      token: this.props.token,
+      id: this.state.itemsInCollectionBox.openingCollectionId,
+      collections: this.props.collections
+    }
 
     const collectionBoxCopy = {...this.state.itemsInCollectionBox};
     collectionBoxCopy.isBoxVisible = false;
     collectionBoxCopy.openingCollectionId = '';
+    console.log(data);
+    this.props.onDeleteCollection(data); ///////////// Done ;) Time to bed...
 
     this.setState({
-      isDeleteWarningBoxVisible: true,
+      itemsInCollectionBox: collectionBoxCopy,
       isCollectionMenuVisible: false,
-      itemsInCollectionBox: collectionBoxCopy
-    });
-    // this.switchItemsBox();
-    // console.log(this.state);
-    // this.props.onDeleteCollection(this.props.partEmail, this.props.userId, this.props.token, id, this.props.collections);
+      isDeleteWarningBoxVisible: false
+    })
+  }
+
+  onAbortDeleteCollectionHandler = () => {
+
   }
 
   render() {
@@ -211,6 +240,8 @@ class ListCollections extends Component {
           handleRenameClick={this.onRenameCollectionHandler}
           handleDeleteClick={this.onDeleteCollectionHandler}
           handleRemoveClick={this.onRemoveItemFromCollectionHandler}
+          handleConfirmClick={this.onConfirmDeleteCollectionHandler}
+          handleAbortClick={this.onAbortDeleteCollectionHandler}
           menuVisible={this.state.isCollectionMenuVisible}
           warningBoxVisible={this.state.isDeleteWarningBoxVisible}
           copied={this.state.isCollectionLinkCopied}/>
@@ -234,7 +265,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     onAddItemsToCollection: (partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections) => dispatch(collectionsActions.addItemsToCollection(partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections)),
-    onRemoveItemFromCollection: data => dispatch(collectionsActions.removeItemFromCollection(data))
+    onRemoveItemFromCollection: data => dispatch(collectionsActions.removeItemFromCollection(data)),
+    onDeleteCollection: data => dispatch(collectionsActions.deleteCollection(data))
   };
 }
 
