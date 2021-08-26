@@ -68,7 +68,7 @@ export const deleteCollectionFail = error => {
   };
 }
 
-export const deleteCollection = (data) => {
+export const deleteCollection = data => {
   return dispatch => {
     dispatch(deleteCollectionStart());
 
@@ -78,7 +78,7 @@ export const deleteCollection = (data) => {
       .then(response => {
         const updatedCollections = data.collections.filter(el => el.id !== data.id);
         console.log(updatedCollections);
-        dispatch(deleteCollectionSuccess(updatedCollections));
+        // dispatch(deleteCollectionSuccess(updatedCollections));
 
       })
       .catch(error => {

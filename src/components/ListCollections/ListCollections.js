@@ -8,6 +8,7 @@ import Backdrop from '../Backdrop/Backdrop';
 import ItemsAvailable from '../ItemsAvailable/ItemsAvailable';
 import ItemsInCollection from '../ItemsInCollection/ItemsInCollection';
 import ListCollection from './ListCollection/ListCollection';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 
 class ListCollections extends Component {
   state = {
@@ -156,23 +157,12 @@ class ListCollections extends Component {
   }
 
   onDeleteCollectionHandler = e => {
-    console.log(e);
-    // console.log(id);
     e.stopPropagation();
-
-
-
-    this.setState({
-      isDeleteWarningBoxVisible: true,
-      // isCollectionMenuVisible: false,
-      // itemsInCollectionBox: collectionBoxCopy  ///////// box not visible so whole component not displayed together with warning box <--- FIX .... separate warning component??
-    });
-    // this.switchItemsBox();
-    // console.log(this.state);
+    console.log(this.props.loadingDelete);
+    this.setState({isDeleteWarningBoxVisible: true});
   }
 
   onConfirmDeleteCollectionHandler = () => {
-
     const data = {
       partEmail: this.props.partEmail,
       userId: this.props.userId,
@@ -184,14 +174,21 @@ class ListCollections extends Component {
     const collectionBoxCopy = {...this.state.itemsInCollectionBox};
     collectionBoxCopy.isBoxVisible = false;
     collectionBoxCopy.openingCollectionId = '';
-    console.log(data);
-    this.props.onDeleteCollection(data); ///////////// Done ;) Time to bed...
-
+    this.props.onDeleteCollection(data);
     this.setState({
       itemsInCollectionBox: collectionBoxCopy,
       isCollectionMenuVisible: false,
-      isDeleteWarningBoxVisible: false
+      // isDeleteWarningBoxVisible: false
     })
+
+    setTimeout(() => {
+      this.setState({
+        // itemsInCollectionBox: collectionBoxCopy,
+        // isCollectionMenuVisible: false,
+        isDeleteWarningBoxVisible: false
+      })
+
+    }, 2000)
   }
 
   onAbortDeleteCollectionHandler = () => {
@@ -218,6 +215,12 @@ class ListCollections extends Component {
         </ul> )
     : null;
 
+    const openedCollection = this.props.collections.filter(collection => collection.id === this.state.itemsInCollectionBox.openingCollectionId)[0];
+    const confirmationModalDescription = this.props.collections.some(collection => collection.id === this.state.itemsInCollectionBox.openingCollectionId)
+    ? `Are you sure you want to delete "${openedCollection.name}" collection with all its items?`
+    : 'Deleted'
+      // ? collection.items.length > 0
+
     return (
       <Fragment>
         {collections}
@@ -240,11 +243,20 @@ class ListCollections extends Component {
           handleRenameClick={this.onRenameCollectionHandler}
           handleDeleteClick={this.onDeleteCollectionHandler}
           handleRemoveClick={this.onRemoveItemFromCollectionHandler}
-          handleConfirmClick={this.onConfirmDeleteCollectionHandler}
-          handleAbortClick={this.onAbortDeleteCollectionHandler}
+          // handleConfirmClick={this.onConfirmDeleteCollectionHandler}
+          // handleAbortClick={this.onAbortDeleteCollectionHandler}
           menuVisible={this.state.isCollectionMenuVisible}
-          warningBoxVisible={this.state.isDeleteWarningBoxVisible}
+          // warningBoxVisible={this.state.isDeleteWarningBoxVisible}
           copied={this.state.isCollectionLinkCopied}/>
+        <ConfirmationModal
+          warningBoxVisible={this.state.isDeleteWarningBoxVisible}
+          title="!!! Warning !!!"
+          description={confirmationModalDescription}
+          onConfirmClick={this.onConfirmDeleteCollectionHandler}
+          onAbortClick={this.onAbortDeleteCollectionHandler}>
+          {/* <Spinner/> */}
+          {true ? <Spinner/> : null}
+        </ConfirmationModal>
       </Fragment>
     );
   }
@@ -255,6 +267,7 @@ const mapStateToProps = (state, ownProps) => {
     items: state.items.items,
     collections: state.items.collections,
     loadingCollections: state.items.loadingCollections,
+    loadingDelete: state.items.isLoadingDeleteCollection,
     token: state.auth.token,
     userId: state.auth.userId,
     uuid: state.auth.user.uuid,

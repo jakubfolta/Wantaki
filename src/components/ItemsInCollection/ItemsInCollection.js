@@ -3,17 +3,24 @@ import { connect } from 'react-redux';
 
 import { BiCopy, BiDotsVertical } from 'react-icons/bi';
 import Button from '../UI/Button';
-import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
+// import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ListItem from '../ListItems/ListItem/ListItem';
+// import Spinner from '../UI/Spinner';
 
 const ItemsInCollection = props => {
   const collection = props.collectionId
     ? props.collections.filter(collection => collection.id === props.collectionId)[0]
     : null;
+  console.log(collection);
 
   const [buttonDescription, glitchButton] = props.copied
     ? ['Copied', <span className="button_glitch"></span>]
     : ['Copy link to collection', null];
+
+  // const confirmationModalDescription = props.collections.some(collection => collection.id === props.collectionId)
+  // ? `Are you sure you want to delete "${collection.name}" collection with all its items?`
+  // : 'Deleted'
+  //   ? collection.items.length > 0
 
   const items = props.visible && collection.items.length > 0
     ? collection.items.map(item => (
@@ -32,6 +39,8 @@ const ItemsInCollection = props => {
       </ListItem>
     ))
     : <span className="itemsInCollection_emptySpan">Empty</span>
+
+    console.log(items);
 
   return (
     props.visible
@@ -67,13 +76,15 @@ const ItemsInCollection = props => {
             </div>
           : null}
 
-        {props.warningBoxVisible
+        {/* {props.warningBoxVisible
           ? <ConfirmationModal
               title="!!! Warning !!!"
-              description={`Are you sure you want to delete "${collection.name}" collection with all its items?`}
+              description={confirmationModalDescription}
               onConfirmClick={props.handleConfirmClick}
-              onAbortClick={props.handleAbortClick}/>
-          : null}
+              onAbortClick={props.handleAbortClick}>
+              {props.loadingDelete ? <Spinner/> : null}
+            </ConfirmationModal>
+          : null} */}
 
 
         <div className="itemsInCollection_list">
@@ -98,7 +109,8 @@ const ItemsInCollection = props => {
 
 const mapStateToProps = state => {
   return {
-    collections: state.items.collections
+    collections: state.items.collections,
+    // loadingDelete: state.items.isloadingDeleteCollection
   };
 }
 

@@ -8,6 +8,7 @@ const initialState = {
   fetchingError: null,
   loading: false,
   loadingCollections: false,
+  isLoadingDeleteCollection: false,
   collectionError: null,
   loadingItems: false,
   loadingAddItemsToCollection: false,
@@ -149,21 +150,21 @@ const newCollectionFail = (state, action) => {
 
 const deleteCollectionStart = (state, action) => {
   return updateObject(state, {
-    loadingCollections: true,
+    isLoadingDeleteCollection: true,
     collectionError: null
   });
 }
 
 const deleteCollectionSuccess = (state, action) => {
   return updateObject(state, {
-    loadingCollections: false,
+    isLoadingDeleteCollection: false,
     collections: action.collections
   });
 }
 
 const deleteCollectionFail = (state, action) => {
   return updateObject(state, {
-    loadingCollections: false,
+    isLoadingDeleteCollection: false,
     collectionError: action.error
   });
 }
