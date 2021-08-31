@@ -61,6 +61,11 @@
     padding: 1rem;
     text-align: left;
 
+    hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+
     @include respond(tab-port) {
       flex: 0 0 50%;
     }
@@ -81,13 +86,14 @@
   }
 
   &_button {
-    text-align: center;
     position: fixed;
     bottom: 0;
     left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    max-width: unset;
     background-color: var(--color-primary);
     margin: 0;
     padding: .8rem 1.7rem;
@@ -107,6 +113,7 @@
     @include respond(tab-port) {
       left: 50%;
       transform: translateX(-50%);
+      max-width: 25rem;
     }
 
     &-icon {

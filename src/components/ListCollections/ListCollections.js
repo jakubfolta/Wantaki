@@ -24,24 +24,44 @@ class ListCollections extends Component {
     itemsAddedToCollection: false,
     isCollectionLinkCopied: false,
     isCollectionMenuVisible: false,
+    isCollectionDeleted: false,
     isDeleteWarningBoxVisible: false
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.collections !== this.props.collections && this.state.availableItemsBox.isBoxVisible) {
-      this.setState({itemsAddedToCollection: true});
+    if (prevProps.collections !== this.props.collections && (this.state.availableItemsBox.isBoxVisible || this.state.isDeleteWarningBoxVisible)) {
+      const propertyToChange = this.state.isDeleteWarningBoxVisible
+        ? 'isCollectionDeleted'
+        : 'itemsAddedToCollection';
+
+      this.setState({
+        [propertyToChange]: true
+      });
       this.resetState();
     }
   }
 
+  setPropertiesToReset = () => {
+    if (this.state.isCollectionDeleted) return {isCollectionDeleted: false};
+
+    const availableItemsBoxCopy = {...this.state.availableItemsBox};
+
+    availableItemsBoxCopy.isBoxVisible = false;
+    availableItemsBoxCopy.openingCollectionId = '';
+
+    const propertiesToReset = {
+      availableItemsBox: availableItemsBoxCopy,
+      itemsAddedToCollection: false,
+      selectedItemsIds: []
+    }
+    return propertiesToReset;
+  }
+
   resetState = () => {
+    const propertiesToReset = this.setPropertiesToReset();
+
     setTimeout(() => {
-      const availableItemsBoxCopy = {...this.state.availableItemsBox};
-
-      availableItemsBoxCopy.isBoxVisible = false;
-      availableItemsBoxCopy.openingCollectionId = '';
-
-      this.setState({availableItemsBox: availableItemsBoxCopy, itemsAddedToCollection: false, selectedItemsIds: []});
+      this.setState(propertiesToReset);
     }, 2000);
   }
 
@@ -216,10 +236,11 @@ class ListCollections extends Component {
     : null;
 
     const openedCollection = this.props.collections.filter(collection => collection.id === this.state.itemsInCollectionBox.openingCollectionId)[0];
-    const confirmationModalDescription = this.props.collections.some(collection => collection.id === this.state.itemsInCollectionBox.openingCollectionId)
-    ? `Are you sure you want to delete "${openedCollection.name}" collection with all its items?`
-    : 'Deleted'
-      // ? collection.items.length > 0
+    const confirmationModalDescription = !this.state.isCollectionDeleted && openedCollection
+      ? `Are you sure you want to delete "${openedCollection.name}" collection ${openedCollection.items.length > 0
+        ? 'with all its items'
+        : ''}?`
+      : 'Deleted'
 
     return (
       <Fragment>
@@ -250,13 +271,11 @@ class ListCollections extends Component {
           copied={this.state.isCollectionLinkCopied}/>
         <ConfirmationModal
           warningBoxVisible={this.state.isDeleteWarningBoxVisible}
+          loadingDelete={this.props.loadingDelete}
           title="!!! Warning !!!"
           description={confirmationModalDescription}
           onConfirmClick={this.onConfirmDeleteCollectionHandler}
-          onAbortClick={this.onAbortDeleteCollectionHandler}>
-          {/* <Spinner/> */}
-          {true ? <Spinner/> : null}
-        </ConfirmationModal>
+          onAbortClick={this.onAbortDeleteCollectionHandler}/>
       </Fragment>
     );
   }

@@ -77,9 +77,7 @@ export const deleteCollection = data => {
     deleteUserCollection(data.partEmail, data.userId, queryParams)
       .then(response => {
         const updatedCollections = data.collections.filter(el => el.id !== data.id);
-        console.log(updatedCollections);
-        // dispatch(deleteCollectionSuccess(updatedCollections));
-
+        dispatch(deleteCollectionSuccess(updatedCollections));
       })
       .catch(error => {
         const errorMessage = error.response.data.error;
@@ -87,8 +85,6 @@ export const deleteCollection = data => {
       })
   };
 }
-
-
 
 export const addItemsToCollectionStart = () => {
   return {
