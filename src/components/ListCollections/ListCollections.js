@@ -33,8 +33,6 @@ class ListCollections extends Component {
       const propertyToChange = this.state.isDeleteWarningBoxVisible
         ? 'isCollectionDeleted'
         : 'itemsAddedToCollection';
-      console.log(propertyToChange);
-      // console.log(prevState);
 
       this.setState({
         [propertyToChange]: true
@@ -44,8 +42,7 @@ class ListCollections extends Component {
   }
 
   setPropertiesToReset = changedProperty => {
-    console.log(changedProperty);
-    if (changedProperty === 'isCollectionDeleted') return {isCollectionDeleted: false, isDeleteWarningBoxVisible: false};
+    if (changedProperty === 'isCollectionDeleted') return {[changedProperty]: false, isDeleteWarningBoxVisible: false};
 
     const availableItemsBoxCopy = {...this.state.availableItemsBox};
 
@@ -63,7 +60,6 @@ class ListCollections extends Component {
   resetState = changedProperty => {
     const propertiesToReset = this.setPropertiesToReset(changedProperty);
 
-    console.log(propertiesToReset);
     setTimeout(() => {
       this.setState(propertiesToReset);
     }, 2000);
