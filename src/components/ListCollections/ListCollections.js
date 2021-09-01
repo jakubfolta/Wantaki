@@ -189,15 +189,12 @@ class ListCollections extends Component {
     const collectionBoxCopy = {...this.state.itemsInCollectionBox};
     collectionBoxCopy.isBoxVisible = false;
     collectionBoxCopy.openingCollectionId = '';
+
     this.props.onDeleteCollection(data);
     this.setState({
       itemsInCollectionBox: collectionBoxCopy,
       isCollectionMenuVisible: false
     })
-
-    // setTimeout(() => {
-    //   this.setState({isDeleteWarningBoxVisible: false})
-    // }, 2000)
   }
 
   onAbortDeleteCollectionHandler = () => {
@@ -213,7 +210,6 @@ class ListCollections extends Component {
         key={el.id}
         handleButtonClick={tagName => this.switchItemsBox(tagName, el.id)}
         handleCollectionClick={tagName => this.switchItemsBox(tagName, el.id)}
-        // handleDelete={() => this.onDeleteCollectionHandler(el.id)}
         name={el.name}/>
       );
 
@@ -253,10 +249,7 @@ class ListCollections extends Component {
           handleRenameClick={this.onRenameCollectionHandler}
           handleDeleteClick={this.onDeleteCollectionHandler}
           handleRemoveClick={this.onRemoveItemFromCollectionHandler}
-          // handleConfirmClick={this.onConfirmDeleteCollectionHandler}
-          // handleAbortClick={this.onAbortDeleteCollectionHandler}
           menuVisible={this.state.isCollectionMenuVisible}
-          // warningBoxVisible={this.state.isDeleteWarningBoxVisible}
           copied={this.state.isCollectionLinkCopied}/>
         <ConfirmationModal
           warningBoxVisible={this.state.isDeleteWarningBoxVisible}

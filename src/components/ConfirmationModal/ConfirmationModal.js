@@ -31,13 +31,3 @@ const ConfirmationModal = props => {
 }
 
 export default ConfirmationModal;
-
-// {props.warningBoxVisible
-//   ? <ConfirmationModal
-//       title="!!! Warning !!!"
-//       description={confirmationModalDescription}
-//       onConfirmClick={props.handleConfirmClick}
-//       onAbortClick={props.handleAbortClick}>
-//       {props.loadingDelete ? <Spinner/> : null}
-//     </ConfirmationModal>
-//   : null}

@@ -119,10 +119,7 @@ export const addItemsToCollection = (partEmail, userId, token, collectionId, col
         const updatedCollectionIndex = collections.findIndex(el => el.id === collectionId);
         collectionsCopy[updatedCollectionIndex] = collectionWithItems;
 
-        setTimeout(() => {
-          dispatch(addItemsToCollectionSuccess(collectionsCopy, updatedItems));
-
-        },4000)
+        dispatch(addItemsToCollectionSuccess(collectionsCopy, updatedItems));
       }))
       .catch(error => {
         const errorMessage = error.responses.data.error;
