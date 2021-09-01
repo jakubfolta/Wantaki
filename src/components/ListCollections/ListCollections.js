@@ -198,7 +198,7 @@ class ListCollections extends Component {
   }
 
   onAbortDeleteCollectionHandler = () => {
-
+    this.setState({isDeleteWarningBoxVisible: false});
   }
 
   render() {

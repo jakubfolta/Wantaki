@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 
 import { BiCopy, BiDotsVertical } from 'react-icons/bi';
 import Button from '../UI/Button';
-// import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import ListItem from '../ListItems/ListItem/ListItem';
-// import Spinner from '../UI/Spinner';
 
 const ItemsInCollection = props => {
   const collection = props.collectionId
@@ -16,11 +14,6 @@ const ItemsInCollection = props => {
   const [buttonDescription, glitchButton] = props.copied
     ? ['Copied', <span className="button_glitch"></span>]
     : ['Copy link to collection', null];
-
-  // const confirmationModalDescription = props.collections.some(collection => collection.id === props.collectionId)
-  // ? `Are you sure you want to delete "${collection.name}" collection with all its items?`
-  // : 'Deleted'
-  //   ? collection.items.length > 0
 
   const items = props.visible && collection.items.length > 0
     ? collection.items.map(item => (
@@ -61,31 +54,18 @@ const ItemsInCollection = props => {
                 <Button
                   type="button"
                   btnType="itemsInCollection_menuButton"
-                  // id="copyCollectionLinkButton"
                   clicked={props.handleRenameClick}>
                   Rename
                 </Button>
                 <Button
                   type="button"
                   btnType="itemsInCollection_menuButton"
-                  // id="copyCollectionLinkButton"
                   clicked={props.handleDeleteClick}>
                   Delete collection
                 </Button>
               </div>
             </div>
           : null}
-
-        {/* {props.warningBoxVisible
-          ? <ConfirmationModal
-              title="!!! Warning !!!"
-              description={confirmationModalDescription}
-              onConfirmClick={props.handleConfirmClick}
-              onAbortClick={props.handleAbortClick}>
-              {props.loadingDelete ? <Spinner/> : null}
-            </ConfirmationModal>
-          : null} */}
-
 
         <div className="itemsInCollection_list">
           {items}
@@ -109,8 +89,7 @@ const ItemsInCollection = props => {
 
 const mapStateToProps = state => {
   return {
-    collections: state.items.collections,
-    // loadingDelete: state.items.isloadingDeleteCollection
+    collections: state.items.collections
   };
 }
 
