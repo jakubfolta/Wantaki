@@ -29,11 +29,12 @@ class ListCollections extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.collections !== this.props.collections && (this.state.availableItemsBox.isBoxVisible || this.state.isDeleteWarningBoxVisible)) {
+    if (prevProps.collections !== this.props.collections && (this.state.availableItemsBox.isBoxVisible || prevProps.loadingDelete)) {
       const propertyToChange = this.state.isDeleteWarningBoxVisible
         ? 'isCollectionDeleted'
         : 'itemsAddedToCollection';
       console.log(propertyToChange);
+      // console.log(prevState);
 
       this.setState({
         [propertyToChange]: true
@@ -44,7 +45,7 @@ class ListCollections extends Component {
 
   setPropertiesToReset = changedProperty => {
     console.log(changedProperty);
-    if (changedProperty === 'isCollectionDeleted') return {isCollectionDeleted: false};
+    if (changedProperty === 'isCollectionDeleted') return {isCollectionDeleted: false, isDeleteWarningBoxVisible: false};
 
     const availableItemsBoxCopy = {...this.state.availableItemsBox};
 
@@ -69,8 +70,6 @@ class ListCollections extends Component {
   }
 
   switchItemsBox = (tagName = null, id = '') => {
-    console.log(this.state);
-    // console.log('switch items box pressed');
     const boxToOpen = tagName === 'BUTTON' ? 'availableItemsBox' : 'itemsInCollectionBox';
     const boxToClose = this.state.availableItemsBox.isBoxVisible ? 'availableItemsBox' : 'itemsInCollectionBox';
 
@@ -132,7 +131,6 @@ class ListCollections extends Component {
       .catch(error => {
         alert(error);
       })
-    console.log(this.state);
   }
 
   onRemoveItemFromCollectionHandler = id => {
@@ -167,7 +165,6 @@ class ListCollections extends Component {
   }
 
   switchMenuVisibility = () => {
-    console.log('Switch menu');
     this.setState(prevState => {
       return {isCollectionMenuVisible: !prevState.isCollectionMenuVisible};
     })
@@ -181,7 +178,6 @@ class ListCollections extends Component {
 
   onDeleteCollectionHandler = e => {
     e.stopPropagation();
-    console.log(this.props.loadingDelete);
     this.setState({isDeleteWarningBoxVisible: true});
   }
 
@@ -200,18 +196,12 @@ class ListCollections extends Component {
     this.props.onDeleteCollection(data);
     this.setState({
       itemsInCollectionBox: collectionBoxCopy,
-      isCollectionMenuVisible: false,
-      // isDeleteWarningBoxVisible: false
+      isCollectionMenuVisible: false
     })
 
-    setTimeout(() => {
-      this.setState({
-        // itemsInCollectionBox: collectionBoxCopy,
-        // isCollectionMenuVisible: false,
-        isDeleteWarningBoxVisible: false
-      })
-
-    }, 2000)
+    // setTimeout(() => {
+    //   this.setState({isDeleteWarningBoxVisible: false})
+    // }, 2000)
   }
 
   onAbortDeleteCollectionHandler = () => {
@@ -243,7 +233,7 @@ class ListCollections extends Component {
       ? `Are you sure you want to delete "${openedCollection.name}" collection${openedCollection.items.length > 0
         ? ' with all its items?'
         : '?'}`
-      : `${this.state.isCollectionDeleted ? 'Deleted' : 'Deleting...'}`
+      : `${this.state.isCollectionDeleted ? 'Deleted' : 'Deleting...'}`;
 
     return (
       <Fragment>
