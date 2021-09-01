@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import Button from '../UI/Button';
-import Spinner from '../UI/Spinner';
 
 const ConfirmationModal = props => {
   const confirmationModal = props.warningBoxVisible
@@ -8,8 +7,8 @@ const ConfirmationModal = props => {
       <div className="confirmationModal-box">
         <h3 className="confirmationModal-title">{props.title}</h3>
         <p className="confirmationModal-description">{props.description}</p>
-        {props.loadingDelete
-          ? <Spinner/>
+        {props.loading
+          ? null
           : <Fragment>
               <Button
                 type="button"

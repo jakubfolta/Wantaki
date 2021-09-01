@@ -33,16 +33,18 @@ class ListCollections extends Component {
       const propertyToChange = this.state.isDeleteWarningBoxVisible
         ? 'isCollectionDeleted'
         : 'itemsAddedToCollection';
+      console.log(propertyToChange);
 
       this.setState({
         [propertyToChange]: true
       });
-      this.resetState();
+      this.resetState(propertyToChange);
     }
   }
 
-  setPropertiesToReset = () => {
-    if (this.state.isCollectionDeleted) return {isCollectionDeleted: false};
+  setPropertiesToReset = changedProperty => {
+    console.log(changedProperty);
+    if (changedProperty === 'isCollectionDeleted') return {isCollectionDeleted: false};
 
     const availableItemsBoxCopy = {...this.state.availableItemsBox};
 
@@ -57,9 +59,10 @@ class ListCollections extends Component {
     return propertiesToReset;
   }
 
-  resetState = () => {
-    const propertiesToReset = this.setPropertiesToReset();
+  resetState = changedProperty => {
+    const propertiesToReset = this.setPropertiesToReset(changedProperty);
 
+    console.log(propertiesToReset);
     setTimeout(() => {
       this.setState(propertiesToReset);
     }, 2000);
@@ -236,11 +239,11 @@ class ListCollections extends Component {
     : null;
 
     const openedCollection = this.props.collections.filter(collection => collection.id === this.state.itemsInCollectionBox.openingCollectionId)[0];
-    const confirmationModalDescription = !this.state.isCollectionDeleted && openedCollection
-      ? `Are you sure you want to delete "${openedCollection.name}" collection ${openedCollection.items.length > 0
-        ? 'with all its items'
-        : ''}?`
-      : 'Deleted'
+    const confirmationModalDescription = openedCollection
+      ? `Are you sure you want to delete "${openedCollection.name}" collection${openedCollection.items.length > 0
+        ? ' with all its items?'
+        : '?'}`
+      : `${this.state.isCollectionDeleted ? 'Deleted' : 'Deleting...'}`
 
     return (
       <Fragment>
@@ -271,7 +274,7 @@ class ListCollections extends Component {
           copied={this.state.isCollectionLinkCopied}/>
         <ConfirmationModal
           warningBoxVisible={this.state.isDeleteWarningBoxVisible}
-          loadingDelete={this.props.loadingDelete}
+          loading={this.props.loadingDelete || !this.state.itemsInCollectionBox.isBoxVisible}
           title="!!! Warning !!!"
           description={confirmationModalDescription}
           onConfirmClick={this.onConfirmDeleteCollectionHandler}
