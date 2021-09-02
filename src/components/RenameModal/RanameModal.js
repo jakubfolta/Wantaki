@@ -1,24 +1,24 @@
 import React, { Fragment } from 'react';
 import Button from '../UI/Button';
 
-const ConfirmationModal = props => {
-  const confirmationModal = props.warningBoxVisible
-    ? <div className="confirmationModal">
-        <div className="confirmationModal-box">
-          <h3 className="confirmationModal-title">{props.title}</h3>
-          <p className="confirmationModal-description">{props.description}</p>
+const RenameModal = props => {
+  const renameModal = props.renameModalVisible
+    ? <div className="renameModal">
+        <div className="renameModal-box">
+          <h3 className="renameModal-title">{props.title}</h3>
+          <p className="renameModal-description">{props.description}</p>
           {props.loading
             ? null
             : <Fragment>
                 <Button
                   type="button"
-                  btnType="confirmationModal-button"
+                  btnType="renameModal-button"
                   clicked={props.onConfirmClick}>
                   Yes
                 </Button>
                 <Button
                   type="button"
-                  btnType="confirmationModal-button"
+                  btnType="renameModal-button"
                   clicked={props.onAbortClick}>
                   No
                 </Button>
@@ -27,7 +27,7 @@ const ConfirmationModal = props => {
       </div>
     : null
 
-  return confirmationModal;
+  return renameModal;
 }
 
-export default ConfirmationModal;
+export default RenameModal;
