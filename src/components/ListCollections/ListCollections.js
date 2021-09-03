@@ -26,7 +26,7 @@ class ListCollections extends Component {
     },
     updatedCollection: {
       name: '',
-      valid: false,
+      valid: true,
       rules: {
         required: true,
         minLength: 3
@@ -213,17 +213,27 @@ class ListCollections extends Component {
       updatedCollection: updatedCollectionCopy,
       isRenameBoxVisible: true
     });
+
+    setTimeout(() => {
+      document.getElementById('renameModal').focus();
+    }, 500)
+  }
+
+  onSubmitCollectionNewNameHandler = e => {
+    if (e.key === 'Enter') {
+      this.onConfirmRenameCollectionHandler();
+    }
   }
 
   onConfirmRenameCollectionHandler = () => {
     if (this.checkIfCollectionExists()) return;
-    // const data = {
-    //   partEmail: this.props.partEmail,
-    //   userId: this.props.userId,
-    //   token: this.props.token,
-    //   id: this.state.itemsInCollectionBox.openingCollectionId,
-    //   collections: this.props.collections
-    // }
+    const data = {
+      partEmail: this.props.partEmail,
+      userId: this.props.userId,
+      token: this.props.token,
+      id: this.state.itemsInCollectionBox.openingCollectionId,
+      collections: this.props.collections
+    }
     //
     // const collectionBoxCopy = {...this.state.itemsInCollectionBox};
     // collectionBoxCopy.isBoxVisible = false;
@@ -239,13 +249,12 @@ class ListCollections extends Component {
   onAbortRenameCollectionHandler = () => {
     const updatedCollectionCopy = updateObject(this.state.updatedCollection, {
       name: '',
-      valid: false
+      valid: true
     });
 
     this.setState({
       updatedCollection: updatedCollectionCopy,
-      isRenameBoxVisible: false,
-      isCollectionNameTaken: false
+      isRenameBoxVisible: false
     });
   }
 
@@ -337,14 +346,11 @@ class ListCollections extends Component {
           onAbortClick={this.onAbortDeleteCollectionHandler}/>
         <RenameModal
           renameBoxVisible={this.state.isRenameBoxVisible}
-          // loading={this.props.loadingDelete || !this.state.itemsInCollectionBox.isBoxVisible}
-          title="New name"
-          // description={confirmationModalDescription}
           value={this.state.updatedCollection.name}
           isValueValid={this.state.updatedCollection.valid}
           isNewNameTaken={this.state.isCollectionNameTaken}
           handleInputChange={this.onChangeHandler}
-          // handleKeyPress={this.}
+          handleKeyPress={this.onSubmitCollectionNewNameHandler}
           onConfirmClick={this.onConfirmRenameCollectionHandler}
           onAbortClick={this.onAbortRenameCollectionHandler}/>
       </Fragment>

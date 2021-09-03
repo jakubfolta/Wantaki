@@ -5,9 +5,10 @@ const RenameModal = props => {
   const renameModal = props.renameBoxVisible
     ? <div className="renameModal">
         <div className="renameModal-box">
-          <h3 className="renameModal-title">{props.title}</h3>
+          <h3 className="renameModal-title">New name</h3>
           <input
             className="renameModal-input"
+            id="renameModal"
             type="text"
             name="name"
             onChange={props.handleInputChange}
