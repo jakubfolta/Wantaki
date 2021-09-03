@@ -10,11 +10,14 @@
   animation: appear 1s linear .5s;
   animation-fill-mode: backwards;
 
-  &:last-child { margin-bottom: 5rem; }
+  // &:last-child { margin-bottom: 5rem; }
 
   &--auth { justify-content: flex-start; }
   &--items,
-  &--gifts { height: auto; }
+  &--gifts {
+    height: auto;
+    margin-bottom: 5rem;
+  }
 
   &--gifts {
     @include respond(tab-land) { max-width: 600px; }

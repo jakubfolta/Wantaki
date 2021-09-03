@@ -9,6 +9,7 @@ import ItemsAvailable from '../ItemsAvailable/ItemsAvailable';
 import ItemsInCollection from '../ItemsInCollection/ItemsInCollection';
 import ListCollection from './ListCollection/ListCollection';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
+import RenameModal from '../RenameModal/RenameModal';
 
 class ListCollections extends Component {
   state = {
@@ -25,7 +26,8 @@ class ListCollections extends Component {
     isCollectionLinkCopied: false,
     isCollectionMenuVisible: false,
     isCollectionDeleted: false,
-    isDeleteWarningBoxVisible: false
+    isDeleteWarningBoxVisible: false,
+    isRenameBoxVisible: false
   }
 
   componentDidUpdate(prevProps) {
@@ -169,12 +171,37 @@ class ListCollections extends Component {
   onRenameCollectionHandler = e => {
     e.stopPropagation();
     console.log('Pressed');
+    this.setState({isRenameBoxVisible: true});
 
   }
 
   onDeleteCollectionHandler = e => {
     e.stopPropagation();
     this.setState({isDeleteWarningBoxVisible: true});
+  }
+
+  onConfirmRenameCollectionHandler = () => {
+    // const data = {
+    //   partEmail: this.props.partEmail,
+    //   userId: this.props.userId,
+    //   token: this.props.token,
+    //   id: this.state.itemsInCollectionBox.openingCollectionId,
+    //   collections: this.props.collections
+    // }
+    //
+    // const collectionBoxCopy = {...this.state.itemsInCollectionBox};
+    // collectionBoxCopy.isBoxVisible = false;
+    // collectionBoxCopy.openingCollectionId = '';
+    //
+    // this.props.onDeleteCollection(data);
+    // this.setState({
+    //   itemsInCollectionBox: collectionBoxCopy,
+    //   isCollectionMenuVisible: false
+    // })
+  }
+
+  onAbortRenameCollectionHandler = () => {
+    this.setState({isRenameBoxVisible: false});
   }
 
   onConfirmDeleteCollectionHandler = () => {
@@ -256,6 +283,13 @@ class ListCollections extends Component {
           loading={this.props.loadingDelete || !this.state.itemsInCollectionBox.isBoxVisible}
           title="!!! Warning !!!"
           description={confirmationModalDescription}
+          onConfirmClick={this.onConfirmDeleteCollectionHandler}
+          onAbortClick={this.onAbortDeleteCollectionHandler}/>
+        <RenameModal
+          renameBoxVisible={this.state.isRenameBoxVisible}
+          // loading={this.props.loadingDelete || !this.state.itemsInCollectionBox.isBoxVisible}
+          title="New name"
+          // description={confirmationModalDescription}
           onConfirmClick={this.onConfirmDeleteCollectionHandler}
           onAbortClick={this.onAbortDeleteCollectionHandler}/>
       </Fragment>
