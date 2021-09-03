@@ -19,7 +19,7 @@ const RenameModal = props => {
             type="button"
             btnType="renameModal-button"
             clicked={props.onConfirmClick}
-            disabled={props.isValueValid}>
+            disabled={!props.isValueValid}>
             {props.isNewNameTaken
               ? 'Exists'
               : 'Update'}

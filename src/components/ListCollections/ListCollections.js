@@ -184,7 +184,7 @@ class ListCollections extends Component {
   onChangeHandler = e => {
     const updatedCollectionName = updateObject(this.state.updatedCollection, {
       name: e.target.value,
-      valid: checkValidity(e.target.value, this.state.newCollectionForm.rules)
+      valid: checkValidity(e.target.value, this.state.updatedCollection.rules)
     });
 
     this.setState({updatedCollection: updatedCollectionName});
