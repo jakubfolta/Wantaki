@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { updateObject, checkValidity } from '../../shared/utility';
 import * as collectionsActions from '../../store/actions';
 
 import Spinner from '../UI/Spinner';
@@ -15,11 +16,21 @@ class ListCollections extends Component {
   state = {
     availableItemsBox: {
       isBoxVisible: false,
-      openingCollectionId: ''
+      openingCollectionId: '',
+      openingCollectionName: ''
     },
     itemsInCollectionBox: {
       isBoxVisible: false,
-      openingCollectionId: ''
+      openingCollectionId: '',
+      openingCollectionName: ''
+    },
+    updatedCollection: {
+      name: '',
+      valid: false,
+      rules: {
+        required: true,
+        minLength: 3
+      }
     },
     selectedItemsIds: [],
     itemsAddedToCollection: false,
@@ -27,7 +38,8 @@ class ListCollections extends Component {
     isCollectionMenuVisible: false,
     isCollectionDeleted: false,
     isDeleteWarningBoxVisible: false,
-    isRenameBoxVisible: false
+    isRenameBoxVisible: false,
+    isCollectionNameTaken: false
   }
 
   componentDidUpdate(prevProps) {
@@ -67,7 +79,7 @@ class ListCollections extends Component {
     }, 2000);
   }
 
-  switchItemsBox = (tagName = null, id = '') => {
+  switchItemsBox = (tagName = null, id = '', collectionName = '') => {
     const boxToOpen = tagName === 'BUTTON' ? 'availableItemsBox' : 'itemsInCollectionBox';
     const boxToClose = this.state.availableItemsBox.isBoxVisible ? 'availableItemsBox' : 'itemsInCollectionBox';
 
@@ -78,6 +90,7 @@ class ListCollections extends Component {
 
       boxCopy.isBoxVisible = !prevState.[boxToSwitch].isBoxVisible;
       boxCopy.openingCollectionId = id;
+      boxCopy.openingCollectionName = collectionName;
 
       return {
         [boxToSwitch]: boxCopy,
@@ -168,19 +181,42 @@ class ListCollections extends Component {
     })
   }
 
-  onRenameCollectionHandler = e => {
-    e.stopPropagation();
-    console.log('Pressed');
-    this.setState({isRenameBoxVisible: true});
+  onChangeHandler = e => {
+    const updatedCollectionName = updateObject(this.state.updatedCollection, {
+      name: e.target.value,
+      valid: checkValidity(e.target.value, this.state.newCollectionForm.rules)
+    });
 
+    this.setState({updatedCollection: updatedCollectionName});
   }
 
-  onDeleteCollectionHandler = e => {
+  checkIfCollectionExists = () => {
+    let exists = this.props.collections.some(el => el.name === this.state.updatedCollection.name);
+
+    if (exists) {
+      this.setState({isCollectionNameTaken: true});
+      setTimeout(() => {
+        this.setState({isCollectionNameTaken: false});
+      }, 1000)
+    }
+
+    return exists;
+  }
+
+  onRenameCollectionHandler = e => {
     e.stopPropagation();
-    this.setState({isDeleteWarningBoxVisible: true});
+    const collectionName = this.state.itemsInCollectionBox.openingCollectionName;
+    const updatedCollectionCopy = updateObject(this.state.updatedCollection, {name: collectionName});
+    console.log('Pressed');
+
+    this.setState({
+      updatedCollection: updatedCollectionCopy,
+      isRenameBoxVisible: true
+    });
   }
 
   onConfirmRenameCollectionHandler = () => {
+    if (this.checkIfCollectionExists()) return;
     // const data = {
     //   partEmail: this.props.partEmail,
     //   userId: this.props.userId,
@@ -201,7 +237,21 @@ class ListCollections extends Component {
   }
 
   onAbortRenameCollectionHandler = () => {
-    this.setState({isRenameBoxVisible: false});
+    const updatedCollectionCopy = updateObject(this.state.updatedCollection, {
+      name: '',
+      valid: false
+    });
+
+    this.setState({
+      updatedCollection: updatedCollectionCopy,
+      isRenameBoxVisible: false,
+      isCollectionNameTaken: false
+    });
+  }
+
+  onDeleteCollectionHandler = e => {
+    e.stopPropagation();
+    this.setState({isDeleteWarningBoxVisible: true});
   }
 
   onConfirmDeleteCollectionHandler = () => {
@@ -235,8 +285,8 @@ class ListCollections extends Component {
       <ListCollection
         id={el.id}
         key={el.id}
-        handleButtonClick={tagName => this.switchItemsBox(tagName, el.id)}
-        handleCollectionClick={tagName => this.switchItemsBox(tagName, el.id)}
+        handleButtonClick={tagName => this.switchItemsBox(tagName, el.id, el.name)}
+        handleCollectionClick={tagName => this.switchItemsBox(tagName, el.id, el.name)}
         name={el.name}/>
       );
 
@@ -290,8 +340,13 @@ class ListCollections extends Component {
           // loading={this.props.loadingDelete || !this.state.itemsInCollectionBox.isBoxVisible}
           title="New name"
           // description={confirmationModalDescription}
-          onConfirmClick={this.onConfirmDeleteCollectionHandler}
-          onAbortClick={this.onAbortDeleteCollectionHandler}/>
+          value={this.state.updatedCollection.name}
+          isValueValid={this.state.updatedCollection.valid}
+          isNewNameTaken={this.state.isCollectionNameTaken}
+          handleInputChange={this.onChangeHandler}
+          // handleKeyPress={this.}
+          onConfirmClick={this.onConfirmRenameCollectionHandler}
+          onAbortClick={this.onAbortRenameCollectionHandler}/>
       </Fragment>
     );
   }
