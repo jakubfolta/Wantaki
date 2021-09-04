@@ -166,7 +166,7 @@ export const auth = (email, password, type) => {
 
       dispatch(setUserData(type, token, userId, email));
       dispatch(authSuccess(token, userId, partEmail));
-      // dispatch(checkAuthExpire(response.data.expiresIn));
+      dispatch(checkAuthExpire(response.data.expiresIn));
     })
     .catch( err => {
       const errMessage = err.response.data.error.message;
@@ -191,7 +191,7 @@ export const checkAuthState = () => {
         const expireTime = (expireDate.getTime() - new Date().getTime()) / 1000;
 
         dispatch(authSuccess(token, userId, partEmail));
-        // dispatch(checkAuthExpire(expireTime));
+        dispatch(checkAuthExpire(expireTime));
         dispatch(setUserDataSuccess(JSON.parse(user)));
       }
       else {

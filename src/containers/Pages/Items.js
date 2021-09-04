@@ -1,6 +1,5 @@
 import React, { Fragment, Component } from 'react';
 import * as itemsActions from '../../store/actions';
-import * as collectionsActions from '../../store/actions';
 import { updateObject, checkValidity, setTheme } from '../../shared/utility';
 import { connect } from 'react-redux';
 

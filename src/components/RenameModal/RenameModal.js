@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Button from '../UI/Button';
 
 const RenameModal = props => {
@@ -15,7 +15,6 @@ const RenameModal = props => {
             onKeyPress={props.handleKeyPress}
             placeholder="My collection"
             value={props.value} />
-          {/* <Fragment> */}
           <Button
             type="button"
             btnType="renameModal-button"
@@ -31,7 +30,6 @@ const RenameModal = props => {
             clicked={props.onAbortClick}>
             Cancel
           </Button>
-          {/* </Fragment>} */}
         </div>
       </div>
     : null
