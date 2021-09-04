@@ -249,15 +249,15 @@ class ListCollections extends Component {
       name: updatedName
     };
 
-    const collectionsCopy = {...this.props.collections};
+    const collectionsCopy = [...this.props.collections];
+    console.log(collectionsCopy);
     collectionsCopy[collectionIndex] = renamedCollection;
     const updatedCollections = collectionsCopy;
+    console.log(updatedCollections);
 
 
     // console.log(collectionIndex);
     // console.log(collectionCopy);
-    // console.log(renamedCollection);
-    // console.log(updatedCollections);
 
     const data = {
       partEmail: this.props.partEmail,

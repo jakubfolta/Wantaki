@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as actions from './actionTypes';
-import { addCollection, deleteUserCollection, updateUserCollectionAndItems } from '../../network/lib/collections';
+import { addCollection, deleteUserCollection, updateUserCollectionAndItems, changeCollectionName } from '../../network/lib/collections';
 import { setRequestData, sortItems } from '../../shared/utility';
 
 // Add new collection to redux and firebase
@@ -200,7 +200,7 @@ export const renameCollection = data => {
 
     const {queryParams} = setRequestData(data.updatedCollectionId, data.token);
 
-    renameCollection(data.partEmail, data.userId, queryParams, data.collection)
+    changeCollectionName(data.partEmail, data.userId, queryParams, data.collection)
       .then(response => {
         dispatch(renameCollectionSuccess(data.collections));
       })
