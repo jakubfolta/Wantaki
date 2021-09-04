@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { FaShareAlt, FaEdit } from 'react-icons/fa';
-// import { IconContext } from "react-icons";
 import { AiOutlinePlus } from 'react-icons/ai';
 
 const ListCollection = props => (
@@ -12,12 +10,6 @@ const ListCollection = props => (
     <h2
       className="list_collection_name"
       onClick={e => props.handleCollectionClick(e.target.tagName)}>{props.name}</h2>
-    {/* <button
-      className="list_collection_button list_collection_button--copy"
-      onClick={props.handleCopy}>
-      <IoCopySharp />
-      Copy link
-    </button> */}
     <button
       className="list_collection_button"
       onClick={e => props.handleButtonClick(e.target.tagName)}

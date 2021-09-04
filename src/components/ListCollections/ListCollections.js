@@ -225,6 +225,18 @@ class ListCollections extends Component {
     }
   }
 
+  closeRenameBox = () => {
+    const updatedCollectionCopy = updateObject(this.state.updatedCollection, {
+      name: '',
+      valid: true
+    });
+
+    this.setState({
+      updatedCollection: updatedCollectionCopy,
+      isRenameBoxVisible: false
+    });
+  }
+
   onConfirmRenameCollectionHandler = () => {
     if (this.checkIfCollectionExists()) return;
     const data = {
@@ -244,18 +256,11 @@ class ListCollections extends Component {
     //   itemsInCollectionBox: collectionBoxCopy,
     //   isCollectionMenuVisible: false
     // })
+    this.closeRenameBox();
   }
 
   onAbortRenameCollectionHandler = () => {
-    const updatedCollectionCopy = updateObject(this.state.updatedCollection, {
-      name: '',
-      valid: true
-    });
-
-    this.setState({
-      updatedCollection: updatedCollectionCopy,
-      isRenameBoxVisible: false
-    });
+    this.closeRenameBox();
   }
 
   onDeleteCollectionHandler = e => {

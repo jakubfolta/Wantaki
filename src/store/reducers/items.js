@@ -13,7 +13,9 @@ const initialState = {
   loadingItems: false,
   loadingAddItemsToCollection: false,
   loadingRemoveItemsFromCollection: false,
-  removeItemError: null
+  loadingRenameCollection: false,
+  removeItemError: null,
+  renameCollectionError: null
 };
 
 // Add new item to firebase
@@ -213,6 +215,27 @@ const removeItemFromCollectionFail = (state, action) => {
   });
 }
 
+const renameCollectionStart = (state, action) => {
+  return updateObject(state, {
+    loadingRenameCollection: true,
+    renameCollectionError: null
+  });
+}
+
+const renameCollectionSuccess = (state, action) => {
+  return updateObject(state, {
+    collections: action.collections,
+    loadingRenameCollection: false
+  });
+}
+
+const renameCollectionFail = (state, action) => {
+  return updateObject(state, {
+    loadingRenameCollection: false,
+    renameCollectionError: action.error
+  });
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actions.NEW_ITEM_START: return newItemStart(state, action);
@@ -254,6 +277,10 @@ const reducer = (state = initialState, action) => {
     case actions.REMOVE_ITEM_FROM_COLLECTION_START: return removeItemFromCollectionStart(state, action);
     case actions.REMOVE_ITEM_FROM_COLLECTION_SUCCESS: return removeItemFromCollectionSuccess(state, action);
     case actions.REMOVE_ITEM_FROM_COLLECTION_FAIL: return removeItemFromCollectionFail(state, action);
+
+    case actions.RENAME_COLLECTION_START: return renameCollectionStart(state, action);
+    case actions.RENAME_COLLECTION_SUCCESS: return renameCollectionSuccess(state, action);
+    case actions.RENAME_COLLECTION_FAIL: return renameCollectionFail(state, action);
 
     default: return state;
   }

@@ -174,3 +174,40 @@ export const removeItemFromCollection = data => {
   };
 }
 
+export const renameCollectionStart = () => {
+  return {
+    type: actions.RENAME_COLLECTION_START
+  };
+}
+
+export const renameCollectionSuccess = collections => {
+  return {
+    type: actions.RENAME_COLLECTION_SUCCESS,
+    collections: collections
+  };
+}
+
+export const renameCollectionFail = error => {
+  return {
+    type: actions.RENAME_COLLECTION_FAIL,
+    error: error
+  };
+}
+
+export const renameCollection = data => {
+  return dispatch => {
+    dispatch(renameCollectionStart());
+
+    const {queryParams} = setRequestData(data.updatedCollectionId, data.token);
+
+    renameCollection(data.partEmail, data.userId, queryParams, data.collection)
+      .then(response => {
+        dispatch(renameCollectionSuccess(data.collections));
+      })
+      .catch(error => {
+        const errorMessage = error.response.data.error;
+        dispatch(renameCollectionFail(errorMessage));
+      })
+  };
+}
+
