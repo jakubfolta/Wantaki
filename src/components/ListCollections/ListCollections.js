@@ -239,23 +239,26 @@ class ListCollections extends Component {
 
   onConfirmRenameCollectionHandler = () => {
     if (this.checkIfCollectionExists()) return;
+    const collectionId = this.state.itemsInCollectionBox.openingCollectionId;
+    const updatedName = this.state.updatedCollection.name;
+
+    const collectionCopy = this.props.collections.filter(collection => collection.id === collectionId)[0];
+    const renamedCollection = {
+      ...collectionCopy,
+      name: updatedName
+    }
+
     const data = {
       partEmail: this.props.partEmail,
       userId: this.props.userId,
       token: this.props.token,
-      id: this.state.itemsInCollectionBox.openingCollectionId,
+      updatedCollectionId: collectionId,
+      collection: renamedCollection,
       collections: this.props.collections
     }
-    //
-    // const collectionBoxCopy = {...this.state.itemsInCollectionBox};
-    // collectionBoxCopy.isBoxVisible = false;
-    // collectionBoxCopy.openingCollectionId = '';
-    //
-    // this.props.onDeleteCollection(data);
-    // this.setState({
-    //   itemsInCollectionBox: collectionBoxCopy,
-    //   isCollectionMenuVisible: false
-    // })
+
+
+
     this.closeRenameBox();
   }
 
@@ -380,7 +383,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onAddItemsToCollection: (partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections) => dispatch(collectionsActions.addItemsToCollection(partEmail, userId, token, collectionId, collectionWithItems, updatedItems, collections)),
     onRemoveItemFromCollection: data => dispatch(collectionsActions.removeItemFromCollection(data)),
-    onDeleteCollection: data => dispatch(collectionsActions.deleteCollection(data))
+    onDeleteCollection: data => dispatch(collectionsActions.deleteCollection(data)),
+    onRenameCollection: data => dispatch(collectionsActions.renameCollection(data))
   };
 }
 
