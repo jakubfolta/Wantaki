@@ -16,6 +16,6 @@ export const updateUserCollectionAndItems = (partEmail, userId, token, queryPara
   return axios.all([updateCollection, updateItems]);
 }
 
-export const renameCollection = (partEmail, userId, token, queryParams, collection) => {
+export const renameCollection = (partEmail, userId, queryParams, collection) => {
   return axiosClient.put(`${partEmail}${userId}/collections/${queryParams}`, collection);
 }

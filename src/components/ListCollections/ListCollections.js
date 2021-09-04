@@ -241,12 +241,23 @@ class ListCollections extends Component {
     if (this.checkIfCollectionExists()) return;
     const collectionId = this.state.itemsInCollectionBox.openingCollectionId;
     const updatedName = this.state.updatedCollection.name;
+    const collectionIndex = this.props.collections.findIndex(collection => collection.id === collectionId);
 
     const collectionCopy = this.props.collections.filter(collection => collection.id === collectionId)[0];
     const renamedCollection = {
       ...collectionCopy,
       name: updatedName
-    }
+    };
+
+    const collectionsCopy = {...this.props.collections};
+    collectionsCopy[collectionIndex] = renamedCollection;
+    const updatedCollections = collectionsCopy;
+
+
+    // console.log(collectionIndex);
+    // console.log(collectionCopy);
+    // console.log(renamedCollection);
+    // console.log(updatedCollections);
 
     const data = {
       partEmail: this.props.partEmail,
@@ -254,11 +265,11 @@ class ListCollections extends Component {
       token: this.props.token,
       updatedCollectionId: collectionId,
       collection: renamedCollection,
-      collections: this.props.collections
+      collections: updatedCollections
     }
 
 
-
+    this.props.onRenameCollection(data);
     this.closeRenameBox();
   }
 
