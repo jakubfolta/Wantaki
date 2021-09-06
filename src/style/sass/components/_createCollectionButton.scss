@@ -19,27 +19,22 @@
   padding: 0;
   cursor: pointer;
 
-  &:disabled {
-    opacity: .3;
-    cursor: not-allowed;
-  }
-
-  &:not(:disabled):focus,
-  &:not(:disabled):active,
-  &:not(:disabled):hover {
+  &:focus,
+  &:active,
+  &:hover {
     outline: none;
     background-color: var(--color-primary);
     color: #000;
     transition: all .3s;
   }
 
-  &:not(:disabled):focus .button_label,
-  &:not(:disabled):active .button_label,
-  &:not(:disabled):hover .button_label { color: var(--color-primary); }
+  &:focus .button_label,
+  &:active .button_label,
+  &:hover .button_label { color: var(--color-primary); }
 
-  &:focus &_action,
-  &:active &_action,
-  &:hover &_action { color: $color-white; }
+  &:focus &_action:not(:disabled),
+  &:active &_action:not(:disabled),
+  &:hover &_action:not(:disabled) { color: $color-white; }
 
   &_description,
   &_action,
@@ -60,10 +55,11 @@
     font-size: inherit;
     text-transform: inherit;
     letter-spacing: .2rem;
-    color: var(--color-secondary);
-    cursor: inherit;
     background-color: var(--color-primary);
+    cursor: inherit;
     transition: all .3s;
+
+    &:disabled { cursor: not-allowed; }
   }
 
   &_description,
@@ -73,9 +69,6 @@
     padding: 0 .5rem;
     background-color: $color-white;
   }
-
-  &:disabled &_action { color: inherit; }
-  &:disabled { opacity: 1; }
 
   &_input {
     border: none;

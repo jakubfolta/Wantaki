@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-// import Button from '../UI/Button';
 import { AiFillFolderAdd } from 'react-icons/ai';
 
 class CreateCollectionButton extends Component {
@@ -35,8 +34,6 @@ class CreateCollectionButton extends Component {
 
     return (
       <Fragment>
-
-
         <div
           className="createCollectionButton"
           id="create"
@@ -46,8 +43,8 @@ class CreateCollectionButton extends Component {
           {createBtnTop}
           <button
             className="createCollectionButton_action"
-            onClick={this.props.onClick}
-            // disabled={this.props.disabled}
+            onClick={this.props.handleCreateButtonClick}
+            disabled={this.props.disabled}
             >
             {collectionGlitch}
             <AiFillFolderAdd />

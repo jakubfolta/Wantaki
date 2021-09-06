@@ -57,7 +57,7 @@ class ShareSection extends Component {
       name: e.target.value,
       valid: checkValidity(e.target.value, this.state.newCollectionForm.rules)
     });
-    console.log(this.state);
+    console.log(this.state.newCollectionFormIsValid);
 
     this.setState({newCollectionForm: updatedCollectionForm, newCollectionFormIsValid: updatedCollectionForm.valid});
   }
@@ -154,7 +154,7 @@ class ShareSection extends Component {
             collectionCreated={this.state.collectionCreated}
             disabled={!this.state.newCollectionFormIsValid}
             switchCollectionForm={this.switchCollectionForm}
-            onClick={this.state.collectionFormVisible && this.state.newCollectionFormIsValid ? this.onCreateNewCollectionHandler : null}
+            handleCreateButtonClick={this.state.collectionFormVisible && this.state.newCollectionFormIsValid ? this.onCreateNewCollectionHandler : null}
             collectionExists={this.state.collectionExists}
             theme={this.props.theme}/>
 
