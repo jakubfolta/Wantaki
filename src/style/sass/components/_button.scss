@@ -58,8 +58,7 @@
   &:hover { background-color: $color-warning; }
 }
 
-.copy,
-.create {
+.copy {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -76,8 +75,7 @@
     &:hover &_action { color: $color-white; }
 
   &_description,
-  &_action,
-  .create_input {
+  &_action {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -94,29 +92,11 @@
     transition: all .3s;
   }
 
-  &_description,
-  .create_input {
+  &_description {
     height: 100%;
     flex: 0 0 60%;
     padding: 0 .5rem;
     background-color: $color-white;
-  }
-}
-
-.create {
-  &:disabled &_action { color: inherit;; }
-  &.button:disabled { opacity: 1; }
-
-  &_input {
-    border: none;
-    font-family: var(--font-default);
-    font-size: $medium-font-size;
-    text-align: center;
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 1rem 5px var(--color-primary) inset;
-    }
   }
 }
 
@@ -158,7 +138,6 @@
   &.createCollectionButton:disabled .createCollectionButton_label { color: $color-warning; }
 
   & .createCollectionButton_input:focus { box-shadow: 0 0 1.5rem 1px var(--color-secondary) inset; }
-  // & span[class$="_action"],
   & [class$="_action"] { background-color: $color-secondary; }
 
   &:focus [class$="_action"],

@@ -14,7 +14,7 @@ class CreateCollectionButton extends Component {
   }
 
   render() {
-    let createButton = document.documentElement.getAttribute('data-theme') === 'cyber'
+    let createButton = this.props.theme === 'cyber'
     ? 'New collection_'
     : 'New collection';
 

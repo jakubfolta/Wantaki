@@ -147,15 +147,16 @@ class ShareSection extends Component {
             <span className="button_label">W25</span></Button>
 
           <CreateCollectionButton
-           collectionFormVisible={this.state.collectionFormVisible}
-           onChange={this.onChangeHandler}
-           onKeyPressed={this.state.newCollectionFormIsValid ? this.submitCollectionInput : null}
-           value={this.state.newCollectionForm.name}
-           collectionCreated={this.state.collectionCreated}
-           disabled={!this.state.newCollectionFormIsValid}
-           switchCollectionForm={this.switchCollectionForm}
-           onClick={this.state.collectionFormVisible && this.state.newCollectionFormIsValid ? this.onCreateNewCollectionHandler : null}
-           collectionExists={this.state.collectionExists}/>
+            collectionFormVisible={this.state.collectionFormVisible}
+            onChange={this.onChangeHandler}
+            onKeyPressed={this.state.newCollectionFormIsValid ? this.submitCollectionInput : null}
+            value={this.state.newCollectionForm.name}
+            collectionCreated={this.state.collectionCreated}
+            disabled={!this.state.newCollectionFormIsValid}
+            switchCollectionForm={this.switchCollectionForm}
+            onClick={this.state.collectionFormVisible && this.state.newCollectionFormIsValid ? this.onCreateNewCollectionHandler : null}
+            collectionExists={this.state.collectionExists}
+            theme={this.props.theme}/>
 
           <Button
             dataTheme="default"
