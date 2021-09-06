@@ -94,7 +94,8 @@ export const setUserDataFail = error => {
   };
 }
 
-export const setUserData = (type, token, userId, email) => {
+// export const setUserData = (type, token, userId, email) => {
+export const setUserData = (type, token, userId, email, partEmail) => {
   return dispatch => {
     const emailUserId = email.split('@')[0] + userId;
     let user = {};
@@ -110,6 +111,7 @@ export const setUserData = (type, token, userId, email) => {
           localStorage.setItem('user', JSON.stringify(user));
 
           dispatch(setUserDataSuccess(user));
+          dispatch(authSuccess(token, userId, partEmail));
         })
         .catch(error => {
           const errMessage = error.response.data.error;
@@ -128,6 +130,7 @@ export const setUserData = (type, token, userId, email) => {
           localStorage.setItem('user', JSON.stringify(user));
 
           dispatch(setUserDataSuccess(user));
+          dispatch(authSuccess(token, userId, partEmail));
         })
         .catch(error => {
           const errMessage = error.response.data.error;
@@ -164,8 +167,9 @@ export const auth = (email, password, type) => {
       localStorage.setItem('partEmail', partEmail);
       localStorage.setItem('expireDate', expireDate);
 
-      dispatch(setUserData(type, token, userId, email));
-      dispatch(authSuccess(token, userId, partEmail));
+      dispatch(setUserData(type, token, userId, email, partEmail));
+      // dispatch(setUserData(type, token, userId, email));
+      // dispatch(authSuccess(token, userId, partEmail));
       dispatch(checkAuthExpire(response.data.expiresIn));
     })
     .catch( err => {

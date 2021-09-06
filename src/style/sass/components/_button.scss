@@ -141,6 +141,13 @@
   & [class$="_action"] {
     color: var(--color-secondary);
     background-color: $color-secondary;
+
+    &:focus,
+    &:focus + .button_label,
+    &:active,
+    &:active + .button_label,
+    &:hover,
+    &:hover + .button_label { color: var(--color-primary); }
   }
 
   &:focus [class$="_action"]:not(:disabled),

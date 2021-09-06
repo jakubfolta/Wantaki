@@ -60,6 +60,10 @@
     transition: all .3s;
 
     &:disabled { cursor: not-allowed; }
+
+    &:focus,
+    &:active,
+    &:hover { color: $color-white; }
   }
 
   &_description,

@@ -84,6 +84,7 @@ class ListCollections extends Component {
     const boxToClose = this.state.availableItemsBox.isBoxVisible ? 'availableItemsBox' : 'itemsInCollectionBox';
 
     const boxToSwitch = tagName ? boxToOpen : boxToClose;
+    console.log(this.state.updatedCollection);
 
     this.setState(prevState => {
       const boxCopy = {...this.state.[boxToSwitch]};
@@ -92,8 +93,11 @@ class ListCollections extends Component {
       boxCopy.openingCollectionId = id;
       boxCopy.openingCollectionName = collectionName;
 
+      const updatedCollectionCopy = updateObject(this.state.updatedCollection, {name: ''});
+
       return {
         [boxToSwitch]: boxCopy,
+        updatedCollection: updatedCollectionCopy,
         selectedItemsIds: [],
         isCollectionMenuVisible: false,
         isDeleteWarningBoxVisible: false
@@ -206,8 +210,12 @@ class ListCollections extends Component {
   onRenameCollectionHandler = e => {
     e.stopPropagation();
     const collectionName = this.state.itemsInCollectionBox.openingCollectionName;
-    const updatedCollectionCopy = updateObject(this.state.updatedCollection, {name: collectionName});
-    console.log('Pressed');
+    const updatedName = this.state.updatedCollection.name;
+
+    const updatedCollectionCopy = updateObject(this.state.updatedCollection, {
+      name: updatedName !== '' ? updatedName : collectionName
+    });
+    console.log(this.state);
 
     this.setState({
       updatedCollection: updatedCollectionCopy,
@@ -226,10 +234,7 @@ class ListCollections extends Component {
   }
 
   closeRenameBox = () => {
-    const updatedCollectionCopy = updateObject(this.state.updatedCollection, {
-      name: '',
-      valid: true
-    });
+    const updatedCollectionCopy = updateObject(this.state.updatedCollection, {valid: true});
 
     this.setState({
       updatedCollection: updatedCollectionCopy,
