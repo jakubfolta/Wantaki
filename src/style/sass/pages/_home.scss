@@ -10,8 +10,6 @@
   animation: appear 1s linear .5s;
   animation-fill-mode: backwards;
 
-  // &:last-child { margin-bottom: 5rem; }
-
   &--auth { justify-content: flex-start; }
   &--items,
   &--gifts {

@@ -125,7 +125,7 @@
   &::after,
   &[type="submit"]::before,
   &.copy::before,
-  &.create::before {
+  &.createCollectionButton::before {
     position: absolute;
     content: '';
     width: 2.4rem;
@@ -135,9 +135,9 @@
   }
 
   &.copy::before,
-  &.create::before,
+  &.createCollectionButton::before,
   &.copy::after,
-  &.create::after { background-color: var(--color-primary); }
+  &.createCollectionButton::after { background-color: var(--color-primary); }
 
   &::after {
     top: 0;
@@ -147,26 +147,30 @@
 
   &[type="submit"]::before,
   &.copy::before,
-  &.create::before {
+  &.createCollectionButton::before {
     bottom: 0;
     left: 0;
     transform: rotate(40deg) translate(-.3rem, 1rem);
     z-index: 1;
   }
 
-  &.create:disabled .create_action,
-  &.create:disabled .button_label { color: $color-warning; }
+  &.createCollectionButton:disabled .createCollectionButton_action,
+  &.createCollectionButton:disabled .createCollectionButton_label { color: $color-warning; }
 
-  & .create_input:focus { box-shadow: 0 0 1.5rem 1px var(--color-secondary) inset; }
-  & span[class$="_action"] { background-color: $color-secondary; }
+  & .createCollectionButton_input:focus { box-shadow: 0 0 1.5rem 1px var(--color-secondary) inset; }
+  // & span[class$="_action"],
+  & [class$="_action"] { background-color: $color-secondary; }
 
-  &:focus span[class$="_action"],
-  &:active span[class$="_action"],
-  &:hover span[class$="_action"] { color: var(--color-primary); }
+  &:focus [class$="_action"],
+  &.createCollectionButton:focus [class$="_action"],
+  &:active [class$="_action"],
+  &.createCollectionButton:active [class$="_action"],
+  &:hover [class$="_action"],
+  &.createCollectionButton:hover [class$="_action"] { color: var(--color-primary); }
 
   &[type="submit"],
   &.copy,
-  &.create { text-transform: uppercase; }
+  &.createCollectionButton { text-transform: uppercase; }
 
   &[type="submit"] { background-color: var(--color-primary); }
 
@@ -195,11 +199,11 @@
   }
 
   &.copy .button_glitch,
-  &.create .button_glitch { background-color: $color-secondary; }
+  &.createCollectionButton .button_glitch { background-color: $color-secondary; }
 
   &:not(:disabled):hover .button_glitch,
   &:not(:disabled):focus .button_glitch,
-  &:not(:disabled).create .button_glitch {
+  &:not(:disabled).createCollectionButton .button_glitch {
     display: block;
     animation: glitch-effect 2s infinite;
   }
@@ -211,3 +215,95 @@
     }
   }
 }
+
+// Theme "cyber" style
+// .cyber {
+//   &::after,
+//   &[type="submit"]::before,
+//   &.copy::before,
+//   &.create::before {
+//     position: absolute;
+//     content: '';
+//     width: 2.4rem;
+//     height: 1.5rem;
+//     background-color: $color-secondary;
+//     transform-origin: center;
+//   }
+//
+//   &.copy::before,
+//   &.create::before,
+//   &.copy::after,
+//   &.create::after { background-color: var(--color-primary); }
+//
+//   &::after {
+//     top: 0;
+//     right: 0;
+//     transform: rotate(40deg) translate(.3rem, -1rem);
+//   }
+//
+//   &[type="submit"]::before,
+//   &.copy::before,
+//   &.create::before {
+//     bottom: 0;
+//     left: 0;
+//     transform: rotate(40deg) translate(-.3rem, 1rem);
+//     z-index: 1;
+//   }
+//
+//   &.create:disabled .create_action,
+//   &.create:disabled .button_label { color: $color-warning; }
+//
+//   & .create_input:focus { box-shadow: 0 0 1.5rem 1px var(--color-secondary) inset; }
+//   & span[class$="_action"] { background-color: $color-secondary; }
+//
+//   &:focus span[class$="_action"],
+//   &:active span[class$="_action"],
+//   &:hover span[class$="_action"] { color: var(--color-primary); }
+//
+//   &[type="submit"],
+//   &.copy,
+//   &.create { text-transform: uppercase; }
+//
+//   &[type="submit"] { background-color: var(--color-primary); }
+//
+//   & .button_label,
+//   & .button_glitch { position: absolute; }
+//
+//   & .button_label {
+//     display: block;
+//     bottom: -6px;
+//     right: 5%;
+//     font-size: .6rem;
+//     padding: 1px .5rem;
+//     background-color: $color-secondary;
+//     color: var(--color-secondary);
+//     transition: all .3s;
+//   }
+//
+//   & .button_glitch {
+//     position: absolute;
+//     width: 100%;
+//     height: 100%;
+//     background-color: var(--color-primary);
+//     bottom: 0;
+//     left: 0;
+//     z-index: 10;
+//   }
+//
+//   &.copy .button_glitch,
+//   &.create .button_glitch { background-color: $color-secondary; }
+//
+//   &:not(:disabled):hover .button_glitch,
+//   &:not(:disabled):focus .button_glitch,
+//   &:not(:disabled).create .button_glitch {
+//     display: block;
+//     animation: glitch-effect 2s infinite;
+//   }
+//
+//   @media only screen and (hover:none) {
+//     &[type="submit"]:not(:disabled) .button_glitch {
+//       display: block;
+//       animation: glitch-effect 2s infinite;
+//     }
+//   }
+// }

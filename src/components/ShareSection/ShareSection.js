@@ -57,6 +57,7 @@ class ShareSection extends Component {
       name: e.target.value,
       valid: checkValidity(e.target.value, this.state.newCollectionForm.rules)
     });
+    console.log(this.state);
 
     this.setState({newCollectionForm: updatedCollectionForm, newCollectionFormIsValid: updatedCollectionForm.valid});
   }
@@ -84,12 +85,13 @@ class ShareSection extends Component {
       })
 
       setTimeout(() => {
-        document.querySelector('.create_input').focus();
+        document.querySelector('.createCollectionButton_input').focus();
       }, 500)
     }
   }
 
   submitCollectionInput = e => {
+    console.log('gfdd');
     if (e.key === 'Enter') {
       this.onCreateNewCollectionHandler();
     }

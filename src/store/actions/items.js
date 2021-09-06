@@ -167,6 +167,8 @@ export const setData = response => {
 export const fetchData = (userId, user, collection, partEmail) => {
   return dispatch => {
     dispatch(fetchDataStart());
+    console.log(userId);
+    console.log(user);
 
     fetchUserData(user, partEmail, userId)
       .then(response => {

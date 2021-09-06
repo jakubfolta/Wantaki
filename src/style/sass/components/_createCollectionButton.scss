@@ -1,0 +1,192 @@
+.createCollectionButton {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  font-family: inherit;
+  font-size: $medium-font-size;
+  letter-spacing: .2rem;
+  // width: 100%;
+  width: 22rem;
+  min-width: 184px;
+  max-width: 80%;
+  // max-width: 25rem;
+  margin: 1rem 0;
+  // padding: 1.2rem 2rem;
+  height: 10rem;
+  color: #000;
+  background-color: $color-white;
+  border: none;
+
+  text-transform: capitalize;
+  padding: 0;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: .3;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled):focus,
+  &:not(:disabled):active,
+  &:not(:disabled):hover {
+    outline: none;
+    background-color: var(--color-primary);
+    color: #000;
+    transition: all .3s;
+  }
+
+  &:not(:disabled):focus .button_label,
+  &:not(:disabled):active .button_label,
+  &:not(:disabled):hover .button_label { color: var(--color-primary); }
+
+  &:focus &_action,
+  &:active &_action,
+  &:hover &_action { color: $color-white; }
+
+  &_description,
+  &_action,
+  &_input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  &_action {
+    position: relative;
+    flex: 0 0 40%;
+    justify-content: space-around;
+    padding: 0 1.5rem;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    text-transform: inherit;
+    letter-spacing: .2rem;
+    color: var(--color-secondary);
+    cursor: inherit;
+    background-color: var(--color-primary);
+    transition: all .3s;
+  }
+
+  &_description,
+  &_input {
+    height: 100%;
+    flex: 0 0 60%;
+    padding: 0 .5rem;
+    background-color: $color-white;
+  }
+
+  &:disabled &_action { color: inherit; }
+  &:disabled { opacity: 1; }
+
+  &_input {
+    border: none;
+    font-family: var(--font-default);
+    font-size: $medium-font-size;
+    text-align: center;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 1rem 5px var(--color-primary) inset;
+    }
+  }
+
+}
+
+.button_label,
+.button_glitch { display: none; }
+
+// Theme "cyber" style
+// .cyber {
+//   &::after,
+//   &[type="submit"]::before,
+//   &.copy::before,
+//   &.createCollectionButton::before {
+//     position: absolute;
+//     content: '';
+//     width: 2.4rem;
+//     height: 1.5rem;
+//     background-color: $color-secondary;
+//     transform-origin: center;
+//   }
+//
+//   &.copy::before,
+//   &.createCollectionButton::before,
+//   &.copy::after,
+//   &.createCollectionButton::after { background-color: var(--color-primary); }
+//
+//   &::after {
+//     top: 0;
+//     right: 0;
+//     transform: rotate(40deg) translate(.3rem, -1rem);
+//   }
+//
+//   &[type="submit"]::before,
+//   &.copy::before,
+//   &.createCollectionButton::before {
+//     bottom: 0;
+//     left: 0;
+//     transform: rotate(40deg) translate(-.3rem, 1rem);
+//     z-index: 1;
+//   }
+//
+//   &.createCollectionButton:disabled .createCollectionButton_action,
+//   &.createCollectionButton:disabled .createCollectionButton_label { color: $color-warning; }
+//
+//   & .createCollectionButton_input:focus { box-shadow: 0 0 1.5rem 1px var(--color-secondary) inset; }
+//   & span[class$="_action"] { background-color: $color-secondary; }
+//
+//   &:focus span[class$="_action"],
+//   &:active span[class$="_action"],
+//   &:hover span[class$="_action"] { color: var(--color-primary); }
+//
+//   &[type="submit"],
+//   &.copy,
+//   &.createCollectionButton { text-transform: uppercase; }
+//
+//   &[type="submit"] { background-color: var(--color-primary); }
+//
+//   & .button_label,
+//   & .button_glitch { position: absolute; }
+//
+//   & .button_label {
+//     display: block;
+//     bottom: -6px;
+//     right: 5%;
+//     font-size: .6rem;
+//     padding: 1px .5rem;
+//     background-color: $color-secondary;
+//     color: var(--color-secondary);
+//     transition: all .3s;
+//   }
+//
+//   & .button_glitch {
+//     position: absolute;
+//     width: 100%;
+//     height: 100%;
+//     background-color: var(--color-primary);
+//     bottom: 0;
+//     left: 0;
+//     z-index: 10;
+//   }
+//
+//   &.copy .button_glitch,
+//   &.create .button_glitch { background-color: $color-secondary; }
+//
+//   &:not(:disabled):hover .button_glitch,
+//   &:not(:disabled):focus .button_glitch,
+//   &:not(:disabled).create .button_glitch {
+//     display: block;
+//     animation: glitch-effect 2s infinite;
+//   }
+//
+//   @media only screen and (hover:none) {
+//     &[type="submit"]:not(:disabled) .button_glitch {
+//       display: block;
+//       animation: glitch-effect 2s infinite;
+//     }
+//   }
+// }

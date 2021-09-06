@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import Button from '../UI/Button';
+// import Button from '../UI/Button';
 import { AiFillFolderAdd } from 'react-icons/ai';
 
 class CreateCollectionButton extends Component {
@@ -20,39 +20,43 @@ class CreateCollectionButton extends Component {
 
     let createBtnTop = this.props.collectionFormVisible
     ? <input
-      className="create_input"
+      className="createCollectionButton_input"
       type="text"
       name="name"
       onChange={this.props.onChange}
       onKeyPress={this.props.onKeyPressed}
       placeholder="My collection"
       value={this.props.value} />
-    : <span className="create_description">{createButton}</span>;
+    : <span className="createCollectionButton_description">{createButton}</span>;
 
     let collectionGlitch = this.props.collectionCreated
     ? <span className="button_glitch"></span>
     : null;
 
     return (
-      <Button
-        type="button"
-        id="create"
-        disabled={this.props.disabled}
-        clicked={this.props.collectionFormVisible
-          ? null
-          : this.props.switchCollectionForm}
-        btnType="create">
+      <Fragment>
+
+
+        <div
+          className="createCollectionButton"
+          id="create"
+          onClick={this.props.collectionFormVisible
+            ? null
+            : this.props.switchCollectionForm}>
           {createBtnTop}
-          <span
-            className="create_action"
+          <button
+            className="createCollectionButton_action"
             onClick={this.props.onClick}
+            // disabled={this.props.disabled}
             >
             {collectionGlitch}
             <AiFillFolderAdd />
             {this.setCollectionButtonDescription()}
             <AiFillFolderAdd />
-          </span>
-          <span className="button_label">W26</span></Button>
+          </button>
+          <span className="button_label">W26</span>
+        </div>
+      </Fragment>
     );
   }
 }
