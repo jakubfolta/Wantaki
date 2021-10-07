@@ -3,7 +3,8 @@ import Button from '../UI/Button';
 
 const RenameModal = props => {
   const renameModal = props.renameBoxVisible
-    ? <div className="renameModal">
+    ? <div className="renameModal"
+           onClick={props.onAbortClick}>
         <div className="renameModal-box">
           <h3 className="renameModal-title">New name</h3>
           <input
