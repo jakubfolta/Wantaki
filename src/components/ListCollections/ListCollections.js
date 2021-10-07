@@ -234,6 +234,7 @@ class ListCollections extends Component {
   }
 
   closeRenameBox = () => {
+    console.log('pressed');
     const updatedCollectionCopy = updateObject(this.state.updatedCollection, {valid: true});
 
     this.setState({

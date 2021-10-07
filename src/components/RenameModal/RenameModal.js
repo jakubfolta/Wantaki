@@ -5,7 +5,7 @@ const RenameModal = props => {
   const renameModal = props.renameBoxVisible
     ? <div className="renameModal"
            onClick={props.onAbortClick}>
-        <div className="renameModal-box">
+        <div className="renameModal-box" onClick={e => e.stopPropagation()}>
           <h3 className="renameModal-title">New name</h3>
           <input
             className="renameModal-input"
