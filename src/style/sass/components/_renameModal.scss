@@ -47,3 +47,13 @@
     width: auto;
   }
 }
+
+[data-theme="cyber"] {
+  .renameModal {
+
+    &_box {
+      border-top: 4px solid darken($color-warning, 35%);
+      border-left: 4px solid darken($color-warning, 35%);
+    }
+  }
+}
