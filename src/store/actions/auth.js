@@ -95,9 +95,9 @@ export const setUserDataFail = error => {
 }
 
 // export const setUserData = (type, token, userId, email) => {
-export const setUserData = (type, token, userId, email, partEmail) => {
+export const setUserData = (type, token, userId, partEmail) => {
   return dispatch => {
-    const emailUserId = email.split('@')[0] + userId;
+    const emailUserId = partEmail + userId;
     let user = {};
 
     // Set and save uuid (used for creating url to user's list of items) when signing up
@@ -158,8 +158,9 @@ export const auth = (email, password, type) => {
     axios.post(url, authData)
     .then( response => {
       const token = response.data.idToken;
+      console.log(token);
       const userId = response.data.localId;
-      const partEmail = email.split('@')[0];
+      const partEmail = email.split('@')[0].replace(/[-_.]/g, '');
       const expireDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
 
       localStorage.setItem('token', token);
@@ -167,9 +168,7 @@ export const auth = (email, password, type) => {
       localStorage.setItem('partEmail', partEmail);
       localStorage.setItem('expireDate', expireDate);
 
-      dispatch(setUserData(type, token, userId, email, partEmail));
-      // dispatch(setUserData(type, token, userId, email));
-      // dispatch(authSuccess(token, userId, partEmail));
+      dispatch(setUserData(type, token, userId, partEmail));
       dispatch(checkAuthExpire(response.data.expiresIn));
     })
     .catch( err => {
