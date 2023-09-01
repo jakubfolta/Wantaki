@@ -87,9 +87,9 @@ class ListCollections extends Component {
     console.log(this.state.updatedCollection);
 
     this.setState(prevState => {
-      const boxCopy = {...this.state.boxToSwitch};
+      const boxCopy = {...this.state[boxToSwitch]};
 
-      boxCopy.isBoxVisible = !prevState.boxToSwitch.isBoxVisible;
+      boxCopy.isBoxVisible = !prevState[boxToSwitch].isBoxVisible;
       boxCopy.openingCollectionId = id;
       boxCopy.openingCollectionName = collectionName;
 
