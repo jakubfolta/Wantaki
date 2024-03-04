@@ -19,4 +19,4 @@ The basic idea is simple, you have to create your account then a list of items y
 * React, Redux, Firebase
 
 ## Contact
-Created by Jakub Folta [@betterlifewisdom](https://www.betterlifewisdom.com/) - feel free to contact me!<br/>
+Created by Jakub Folta [@folta.me](https://www.folta.me/) - feel free to contact me!<br/>
