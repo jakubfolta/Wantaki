@@ -10,7 +10,7 @@ The basic idea is simple, you have to create your account then a list of items y
 - google login
 - possibiity to add images to our items
 
-## Check Here ==> https://wantaki.app/
+## Check Here ==> https://whatuwant.netlify.app/
 
 ## Wantaki
 ![Wantaki](./images/wantaki.png)
